@@ -14,6 +14,7 @@ require.config( {
     text: '../../sherpa/text',
 
     // plugins
+    image: '../../chipper/requirejs-plugins/image',
     string: '../../chipper/requirejs-plugins/string',
 
     // common directories, uppercase names to identify them in require imports

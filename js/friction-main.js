@@ -6,14 +6,12 @@
  * @author John Blanco
  */
 require( [
-  'SCENERY/nodes/Text',
-  'SCENERY/nodes/Rectangle',
-  'FRICTION/Strings',
   'JOIST/Sim',
+  'string!FRICTION/simTitle',
   'FRICTION/model/FrictionModel',
   'FRICTION/view/FrictionView',
   'JOIST/SimLauncher'
-], function( Text, Rectangle, Strings, Sim, FrictionModel, FrictionView, SimLauncher ) {
+], function( Sim, simTitle, FrictionModel, FrictionView, SimLauncher ) {
   'use strict';
 
   SimLauncher.launch( function() {
@@ -23,13 +21,12 @@ require( [
     };
 
     //Create and start the sim
-    new Sim( Strings['friction.name'], [
+    new Sim( simTitle, [
       {
-        name: Strings['friction.name'],
-        icon: new Rectangle( 0, 0, 50, 50, {fill: 'blue'} ),
+        name: simTitle,
         createModel: function() {return new FrictionModel( 768, 504 );},
         createView: function( model ) {return new FrictionView( model );},
-        backgroundColor: "#9ddcf8"
+        backgroundColor: "#fff"
       }
     ], simOptions ).start();
   } );
