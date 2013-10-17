@@ -1,5 +1,5 @@
 {
-    "rubYellowAtoms": "Rub yellow atoms \nagainst green.",
+    "rubAtoms": "Rub Atoms",
     "physics": "Physics",
     "reset": "Reset",
     "simTitle": "Friction",
