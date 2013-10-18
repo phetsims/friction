@@ -11,6 +11,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   var atoms = {
     top: {
@@ -67,14 +68,25 @@ define( function( require ) {
     this.atoms = atoms;
 
     PropertySet.call( this, {
-      temperature: 300 // kelvin
+      temperature: 300, // kelvin
+      position: new Vector2( 0, 0 ), // position
+      contact: false // are books in contact
     } );
+
+    this.dndScale = 0.1; // drag and drop coordinate conversion factor
   }
 
   inherit( PropertySet, GravityAndOrbitsModel, {
     step: function() {},
-    reset: function() {},
-    clear: function() {}
+    reset: function() {
+      this.temperatureProperty.reset();
+      this.positionProperty.reset();
+      this.contactProperty.reset();
+    },
+    clear: function() {},
+    move: function( v ) {
+      this.position = this.position.plus( v );
+    }
   } );
 
   return GravityAndOrbitsModel;
