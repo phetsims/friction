@@ -44,14 +44,15 @@ define( function( require ) {
     text.y = (height + text.getHeight() / 2) / 2;
     this.addChild( text );
 
-    // add pages
-    this.addChild( new Path( new Shape() // white background
+    // add white background for pages
+    this.addChild( new Path( new Shape()
       .moveTo( width, 0 )
       .lineTo( width + Math.cos( angle ) * length, -Math.sin( angle ) * length )
       .lineTo( width + Math.cos( angle ) * length, height - Math.sin( angle ) * length - 2 )
       .lineTo( width, height - 2 ),
       {fill: 'white'} ) );
 
+    // add pages
     for ( var i = 0, dy = (height - round) / pages, dl = length / 5, offset = 5; i < pages; i++ ) {
       this.addChild( new Path( new Shape()
         .moveTo( width + round / 2, round / 2 + dy * i )
