@@ -15,10 +15,15 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   var atoms = {
-    radius: 7,
-    dx: 20,
-    dy: 20,
-    distance: 25,
+    radius: 7, // radius of single atom
+    dx: 20, // distance-x between neighbors
+    dy: 20, // distance-y between neighbors
+    distance: 25, // distance between top and bottom atoms
+    amplitude: { // atoms min/max amplitude
+      min: 1,
+      max: 10
+    },
+    evaporationLimit: 6,
     top: {
       color: 'yellow',
       layers: [
@@ -26,24 +31,24 @@ define( function( require ) {
           {num: 30}
         ],
         [
-          {offset: 0.5, num: 29}
+          {offset: 0.5, num: 29, evaporate: true}
         ],
         [
-          {num: 29}
+          {num: 29, evaporate: true}
         ],
         [
-          {offset: 0.5, num: 5},
-          {offset: 6.5, num: 8},
-          {offset: 15.5, num: 5},
-          {offset: 21.5, num: 5},
-          {offset: 27.5, num: 1}
+          {offset: 0.5, num: 5, evaporate: true},
+          {offset: 6.5, num: 8, evaporate: true},
+          {offset: 15.5, num: 5, evaporate: true},
+          {offset: 21.5, num: 5, evaporate: true},
+          {offset: 27.5, num: 1, evaporate: true}
         ],
         [
-          {offset: 3, num: 2},
-          {offset: 8, num: 1},
-          {offset: 12, num: 2},
-          {offset: 17, num: 2},
-          {offset: 24, num: 2}
+          {offset: 3, num: 2, evaporate: true},
+          {offset: 8, num: 1, evaporate: true},
+          {offset: 12, num: 2, evaporate: true},
+          {offset: 17, num: 2, evaporate: true},
+          {offset: 24, num: 2, evaporate: true}
         ]
       ]
     },
@@ -64,7 +69,7 @@ define( function( require ) {
   };
 
   function GravityAndOrbitsModel( width, height ) {
-    var self = this;
+    var model = this;
 
     // dimensions of the model's space
     this.width = width;
@@ -73,24 +78,44 @@ define( function( require ) {
     this.atoms = atoms;
 
     PropertySet.call( this, {
-      temperature: 300, // kelvin
+      amplitude: this.atoms.amplitude.min, // atoms amplitude
       position: new Vector2( 0, 0 ), // position
-      distance: self.atoms.distance, // distance between books
+      distance: model.atoms.distance, // distance between books
       contact: false, // are books in contact
-      hint: true // show hint text
+      hint: true, // show hint text
+      newStep: false
     } );
 
     this.dndScale = 0.1; // drag and drop coordinate conversion factor
 
-    self.distanceProperty.link( function( distance ) {
-      self.contact = !distance;
+    // check atom's contact
+    model.distanceProperty.link( function( distance ) {
+      model.contact = !distance;
+    } );
+
+    // add amplitude in contact
+    model.positionProperty.link( function( newPosition, oldPosition ) {
+      if ( model.contact ) {
+        var dx = Math.abs( newPosition.x - oldPosition.x );
+        model.amplitude = Math.min( model.amplitude + dx * 0.01, model.atoms.amplitude.max );
+      }
+    } );
+
+    // evaporation check
+    model.amplitudeProperty.link( function( amplitude ) {
+      if ( amplitude > model.atoms.evaporationLimit ) {
+        model.evaporate();
+      }
     } );
   }
 
   inherit( PropertySet, GravityAndOrbitsModel, {
-    step: function() {},
+    step: function() {
+      this.newStep = !this.newStep;
+      this.amplitude = Math.max( this.atoms.amplitude.min, this.amplitude * 0.995 );
+    },
     reset: function() {
-      this.temperatureProperty.reset();
+      this.amplitudeProperty.reset();
       this.positionProperty.reset();
       this.distanceProperty.reset();
       this.contactProperty.reset();
@@ -113,6 +138,10 @@ define( function( require ) {
         self.move( {x: e.delta.x, y: e.delta.y} );
       }
     } ) );
+  };
+
+  GravityAndOrbitsModel.prototype.evaporate = function() {
+
   };
 
   return GravityAndOrbitsModel;

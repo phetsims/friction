@@ -105,7 +105,6 @@ define( function( require ) {
 
   Magnifier.prototype.addAtoms = function( model ) {
     var self = this,
-      radius = model.atoms.radius,
       topAtoms = this.param.topAtoms,
       bottomAtoms = this.param.bottomAtoms,
       dx = model.atoms.dx,
@@ -113,12 +112,12 @@ define( function( require ) {
       color, y0, x0, target;
 
     // add one layer of atoms
-    var addLayer = function( target, layer, y, x, color, radius ) {
+    var addLayer = function( target, layer, y, x, color ) {
       var i, n, offset;
       for ( i = 0; i < layer.length; i++ ) {
         offset = layer[i].offset || 0;
         for ( n = 0; n < layer[i].num; n++ ) {
-          target.addChild( new Atom( model, {y: y, x: x + (offset + n) * dx, radius: radius, color: color} ) );
+          target.addChild( new Atom( model, {y: y, x: x + (offset + n) * dx, color: color} ) );
         }
       }
     };
@@ -129,7 +128,7 @@ define( function( require ) {
     x0 = topAtoms.x;
     target = topAtoms.target;
     topAtoms.atoms.layers.forEach( function( layer, i ) {
-      addLayer( target, layer, y0 + dy * i, x0, color, radius );
+      addLayer( target, layer, y0 + dy * i, x0, color );
     } );
 
     // add bottom atoms
@@ -138,7 +137,7 @@ define( function( require ) {
     x0 = self.param.bottomAtoms.x;
     target = bottomAtoms.target;
     bottomAtoms.atoms.layers.forEach( function( layer, i ) {
-      addLayer( target, layer, y0 + dy * i, x0, color, radius );
+      addLayer( target, layer, y0 + dy * i, x0, color );
     } );
   };
 
