@@ -12,8 +12,13 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Vector2 = require( 'DOT/Vector2' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   var atoms = {
+    radius: 7,
+    dx: 20,
+    dy: 20,
+    distance: 25,
     top: {
       color: 'yellow',
       layers: [
@@ -70,10 +75,16 @@ define( function( require ) {
     PropertySet.call( this, {
       temperature: 300, // kelvin
       position: new Vector2( 0, 0 ), // position
-      contact: false // are books in contact
+      distance: self.atoms.distance, // distance between books
+      contact: false, // are books in contact
+      hint: true // show hint text
     } );
 
     this.dndScale = 0.1; // drag and drop coordinate conversion factor
+
+    self.distanceProperty.link( function( distance ) {
+      self.contact = !distance;
+    } );
   }
 
   inherit( PropertySet, GravityAndOrbitsModel, {
@@ -81,13 +92,28 @@ define( function( require ) {
     reset: function() {
       this.temperatureProperty.reset();
       this.positionProperty.reset();
+      this.distanceProperty.reset();
       this.contactProperty.reset();
+      this.hintProperty.reset();
     },
     clear: function() {},
     move: function( v ) {
+      this.hint = false;
+      v.y = (v.y > this.distance ? this.distance : v.y );
       this.position = this.position.plus( v );
+      this.distance = this.atoms.distance - this.position.y;
     }
   } );
+
+  GravityAndOrbitsModel.prototype.initDrag = function( view ) {
+    var self = this;
+    view.cursor = 'pointer';
+    view.addInputListener( new SimpleDragHandler( {
+      translate: function( e ) {
+        self.move( {x: e.delta.x, y: e.delta.y} );
+      }
+    } ) );
+  };
 
   return GravityAndOrbitsModel;
 } );

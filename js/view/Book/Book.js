@@ -11,7 +11,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Cover = require( 'view/Book/Cover' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   function Book( model, options ) {
     var self = this;
@@ -22,26 +21,17 @@ define( function( require ) {
 
     // init drag
     if ( options.drag ) {
-      initDrag( this, model );
+      model.initDrag( this );
 
+      // add observer
       model.positionProperty.link( function( v ) {
-        self.setX( options.x + v.x );
-        self.setY( options.y + v.y );
+        self.setX( options.x + v.x * model.dndScale );
+        self.setY( options.y + v.y * model.dndScale );
       } );
     }
   }
 
   inherit( Node, Book );
-
-  var initDrag = function( book, model ) {
-    var coeff = model.dndScale;
-    book.cursor = 'pointer';
-    book.addInputListener( new SimpleDragHandler( {
-      translate: function( e ) {
-        model.move( {x: e.delta.x * coeff, y: e.delta.y * coeff} );
-      }
-    } ) );
-  };
 
   return Book;
 } );

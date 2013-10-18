@@ -16,7 +16,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
 
   function MagnifierTarget( model, options ) {
-    Node.call( this, {x: options.x, y: options.y} );
+    Node.call( this );
     this.param = options;
 
     this.magRect = new Rectangle( 0, 0, options.width, options.height, options.round, options.round, {stroke: 'red', lineWidth: 1} );
@@ -25,6 +25,7 @@ define( function( require ) {
     this.addChild( this.pathLeft );
     this.pathRight = new Path( new Shape(), {stroke: 'red', lineDash: [ 10, 10 ]} );
     this.addChild( this.pathRight );
+    this.set( options.x, options.y );
   }
 
   inherit( Node, MagnifierTarget );
