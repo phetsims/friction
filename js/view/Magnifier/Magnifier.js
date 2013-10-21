@@ -113,11 +113,16 @@ define( function( require ) {
 
     // add one layer of atoms
     var addLayer = function( target, layer, y, x, color ) {
-      var i, n, offset;
+      var i, n, offset, evaporate, atom;
       for ( i = 0; i < layer.length; i++ ) {
         offset = layer[i].offset || 0;
+        evaporate = layer[i].evaporate || false;
         for ( n = 0; n < layer[i].num; n++ ) {
-          target.addChild( new Atom( model, {y: y, x: x + (offset + n) * dx, color: color} ) );
+          atom = new Atom( model, {y: y, x: x + (offset + n) * dx, color: color} );
+          if ( evaporate ) {
+            model.toEvaporate.push( atom );
+          }
+          target.addChild( atom );
         }
       }
     };

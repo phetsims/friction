@@ -15,8 +15,10 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
 
   function Atom( model, options ) {
-    var self = this, radius = model.atoms.radius, x0 = options.x, y0 = options.y;
-    Node.call( this, {x: x0, y: y0} );
+    var self = this, radius = model.atoms.radius;
+    this.x0 = options.x;
+    this.y0 = options.y;
+    Node.call( this, {x: this.x0, y: this.y0} );
 
     // add view
     this.view = new Circle( radius, {
@@ -30,12 +32,16 @@ define( function( require ) {
     this.addChild( this.view );
 
     model.newStepProperty.link( function() {
-      self.x = x0 + model.amplitude * (Math.random() - 0.5);
-      self.y = y0 + model.amplitude * (Math.random() - 0.5);
+      self.x = self.x0 + model.amplitude * (Math.random() - 0.5);
+      self.y = self.y0 + model.amplitude * (Math.random() - 0.5);
     } );
   }
 
   inherit( Node, Atom );
+
+  Atom.prototype.evaporate = function() {
+
+  };
 
   return Atom;
 } );

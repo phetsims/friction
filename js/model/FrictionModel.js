@@ -19,11 +19,11 @@ define( function( require ) {
     dx: 20, // distance-x between neighbors
     dy: 20, // distance-y between neighbors
     distance: 25, // distance between top and bottom atoms
-    amplitude: { // atoms min/max amplitude
+    amplitude: { // atom's min/max amplitude
       min: 1,
       max: 10
     },
-    evaporationLimit: 6,
+    evaporationLimit: 6, // atom's evaporation amplitude
     top: {
       color: 'yellow',
       layers: [
@@ -68,7 +68,7 @@ define( function( require ) {
     }
   };
 
-  function GravityAndOrbitsModel( width, height ) {
+  function FrictionModel( width, height ) {
     var model = this;
 
     // dimensions of the model's space
@@ -76,6 +76,7 @@ define( function( require ) {
     this.height = height;
 
     this.atoms = atoms;
+    this.toEvaporate = [];
 
     PropertySet.call( this, {
       amplitude: this.atoms.amplitude.min, // atoms amplitude
@@ -109,7 +110,7 @@ define( function( require ) {
     } );
   }
 
-  inherit( PropertySet, GravityAndOrbitsModel, {
+  inherit( PropertySet, FrictionModel, {
     step: function() {
       this.newStep = !this.newStep;
       this.amplitude = Math.max( this.atoms.amplitude.min, this.amplitude * 0.995 );
@@ -130,7 +131,7 @@ define( function( require ) {
     }
   } );
 
-  GravityAndOrbitsModel.prototype.initDrag = function( view ) {
+  FrictionModel.prototype.initDrag = function( view ) {
     var self = this;
     view.cursor = 'pointer';
     view.addInputListener( new SimpleDragHandler( {
@@ -140,9 +141,12 @@ define( function( require ) {
     } ) );
   };
 
-  GravityAndOrbitsModel.prototype.evaporate = function() {
-
+  FrictionModel.prototype.evaporate = function() {
+    var atom = this.toEvaporate.shift();
+    if ( atom ) {
+      atom.evaporate();
+    }
   };
 
-  return GravityAndOrbitsModel;
+  return FrictionModel;
 } );
