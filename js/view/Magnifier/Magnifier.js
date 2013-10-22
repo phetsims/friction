@@ -13,7 +13,7 @@ define( function( require ) {
 
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
-  var Path = require( 'SCENERY/nodes/Path' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
 
   var rubAtomsString = require( 'string!FRICTION/rubAtoms' );
 
@@ -54,12 +54,14 @@ define( function( require ) {
     this.addChild( new Rectangle( 0, 0, this.param.width, this.param.height, this.param.round, this.param.round, {stroke: 'red', lineWidth: 5} ) );
 
     // add container for clipping
-    this.container = new Node();
+    this.addChild( this.container = new Node() );
+    this.container.setClipArea( new Shape().roundRect( 2.5, 2.5, this.param.width - 5, this.param.height - 5, this.param.round, this.param.round ) );
 
     // add top book
     this.topBook = new Node( {children: [
       new Rectangle( -1.125 * this.param.width, -this.param.height, 3.25 * this.param.width, 4 * this.param.height / 3 - model.atoms.distance, this.param.round, this.param.round, {fill: 'yellow'} )
     ]} );
+    this.addRowCircles( model, this.topBook, {color: 'yellow', x: -this.param.width, y: this.param.height / 3 - model.atoms.distance, width: 3 * this.param.width} );
     this.param.topAtoms.target = this.topBook;
     this.container.addChild( this.topBook );
 
@@ -68,6 +70,7 @@ define( function( require ) {
       new Rectangle( 3, 2 * this.param.height / 3 - 2, this.param.width - 6, this.param.height / 3, 0, this.param.round - 3, {fill: 'rgb(187,255,187)'} ),
       new Rectangle( 3, 2 * this.param.height / 3 - 2, this.param.width - 6, this.param.round, {fill: 'rgb(187,255,187)'} )
     ]} );
+    this.addRowCircles( model, this.bottomBook, {color: 'rgb(187,255,187)', x: -model.atoms.dx / 2, y: 2 * this.param.height / 3 - 2, width: this.param.width} );
     this.param.bottomAtoms.target = this.bottomBook;
     this.container.addChild( this.bottomBook );
 
@@ -83,16 +86,13 @@ define( function( require ) {
     } );
     this.addChild( this.target );
 
-    // add atoms
-    this.addAtoms( model );
-
     // header text
     var text = new Text( rubAtomsString, { font: FONT, fill: 'red', pickable: false, y: this.param.height / 7} );
     text.x = (this.param.width - text.getWidth()) / 2;
     this.container.addChild( text );
 
-    this.addChild( this.container );
-    this.container.setClipArea( new Shape().roundRect( 2, 2, this.param.width - 4, this.param.height - 4, this.param.round, this.param.round ) );
+    // add atoms
+    this.addAtoms( model );
 
     // init drag
     model.initDrag( this.topBook );
@@ -154,6 +154,17 @@ define( function( require ) {
     bottomAtoms.atoms.layers.forEach( function( layer, i ) {
       addLayer( target, layer, y0 + dy * i, x0, color );
     } );
+  };
+
+  Magnifier.prototype.addRowCircles = function( model, target, options ) {
+    var num = options.width / model.atoms.dx;
+    for ( var i = 0; i < num; i++ ) {
+      target.addChild( new Circle( model.atoms.radius, {
+        fill: options.color,
+        y: options.y,
+        x: options.x + model.atoms.dx * i
+      } ) );
+    }
   };
 
   return Magnifier;
