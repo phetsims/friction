@@ -53,13 +53,15 @@ define( function( require ) {
     // add border
     this.addChild( new Rectangle( 0, 0, this.param.width, this.param.height, this.param.round, this.param.round, {stroke: 'red', lineWidth: 5} ) );
 
+    // add container for clipping
+    this.container = new Node();
+
     // add top book
     this.topBook = new Node( {children: [
-      new Rectangle( 3, 2, this.param.width - 6, this.param.height / 3 - model.atoms.distance, 0, this.param.round - 3, {fill: 'yellow'} ),
-      new Rectangle( 3, 2 + this.param.height / 3 - model.atoms.distance - this.param.round, this.param.width - 6, this.param.round, {fill: 'yellow'} )
+      new Rectangle( -1.125 * this.param.width, -this.param.height, 3.25 * this.param.width, 4 * this.param.height / 3 - model.atoms.distance, this.param.round, this.param.round, {fill: 'yellow'} )
     ]} );
     this.param.topAtoms.target = this.topBook;
-    this.addChild( this.topBook );
+    this.container.addChild( this.topBook );
 
     // add bottom book
     this.bottomBook = new Node( {children: [
@@ -67,7 +69,7 @@ define( function( require ) {
       new Rectangle( 3, 2 * this.param.height / 3 - 2, this.param.width - 6, this.param.round, {fill: 'rgb(187,255,187)'} )
     ]} );
     this.param.bottomAtoms.target = this.bottomBook;
-    this.addChild( this.bottomBook );
+    this.container.addChild( this.bottomBook );
 
     // add magnifier's target
     this.target = new MagnifierTarget( model, {
@@ -87,7 +89,10 @@ define( function( require ) {
     // header text
     var text = new Text( rubAtomsString, { font: FONT, fill: 'red', pickable: false, y: this.param.height / 7} );
     text.x = (this.param.width - text.getWidth()) / 2;
-    this.addChild( text );
+    this.container.addChild( text );
+
+    this.addChild( this.container );
+    this.container.setClipArea( new Shape().roundRect( 2, 2, this.param.width - 4, this.param.height - 4, this.param.round, this.param.round ) );
 
     // init drag
     model.initDrag( this.topBook );
