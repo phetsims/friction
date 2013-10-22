@@ -18,6 +18,8 @@ define( function( require ) {
     var self = this, radius = model.atoms.radius;
     this.x0 = options.x;
     this.y0 = options.y;
+    this.model = model;
+    this.options = options;
     Node.call( this, {x: this.x0, y: this.y0} );
 
     // add view
@@ -40,7 +42,23 @@ define( function( require ) {
   inherit( Node, Atom );
 
   Atom.prototype.evaporate = function() {
+    var self = this, steps = 100, dx, dy, handler = function() {
+      self.x0 += dx;
+      if ( self.x0 > 10 * self.model.width ) {
+        self.model.newStepProperty.unlink( handler );
+      }
+    };
 
+    this.x1 = this.x0 + 4 * this.model.width * (Math.round( Math.random() ) - 0.5);
+    dx = (this.x1 - this.x0) / steps;
+    this.handler = handler;
+    this.model.newStepProperty.link( handler );
+  };
+
+  Atom.prototype.reset = function() {
+    this.x0 = this.options.x;
+    this.y0 = this.options.y;
+    this.model.newStepProperty.unlink( this.handler );
   };
 
   return Atom;

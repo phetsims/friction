@@ -32,6 +32,8 @@ define( function( require ) {
 
     // add reset button
     this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: model.width * 0.94, y: model.height * 0.9} ) );
+
+    model.init();
   }
 
   inherit( ScreenView, GravityAndOrbitsView );

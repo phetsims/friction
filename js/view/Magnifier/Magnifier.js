@@ -47,6 +47,8 @@ define( function( require ) {
         target: null
       }
     };
+    this.param.topAtoms.y = this.param.height / 3 - model.atoms.distance;
+    this.param.bottomAtoms.y = 2 * this.param.height / 3;
 
     // add border
     this.addChild( new Rectangle( 0, 0, this.param.width, this.param.height, this.param.round, this.param.round, {stroke: 'red', lineWidth: 5} ) );
@@ -113,17 +115,20 @@ define( function( require ) {
 
     // add one layer of atoms
     var addLayer = function( target, layer, y, x, color ) {
-      var i, n, offset, evaporate, atom;
+      var i, n, offset, evaporate, atom, row = [];
       for ( i = 0; i < layer.length; i++ ) {
         offset = layer[i].offset || 0;
         evaporate = layer[i].evaporate || false;
         for ( n = 0; n < layer[i].num; n++ ) {
           atom = new Atom( model, {y: y, x: x + (offset + n) * dx, color: color} );
           if ( evaporate ) {
-            model.toEvaporate.push( atom );
+            row.push( atom );
           }
           target.addChild( atom );
         }
+      }
+      if ( evaporate ) {
+        model.toEvaporateSample.push( row );
       }
     };
 

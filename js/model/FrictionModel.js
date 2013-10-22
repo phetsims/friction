@@ -76,6 +76,7 @@ define( function( require ) {
     this.height = height;
 
     this.atoms = atoms;
+    this.toEvaporateSample = [];
     this.toEvaporate = [];
 
     PropertySet.call( this, {
@@ -84,7 +85,7 @@ define( function( require ) {
       distance: model.atoms.distance, // distance between books
       contact: false, // are books in contact
       hint: true, // show hint text
-      newStep: false
+      newStep: false // update every step
     } );
 
     this.dndScale = 0.1; // drag and drop coordinate conversion factor
@@ -121,13 +122,25 @@ define( function( require ) {
       this.distanceProperty.reset();
       this.contactProperty.reset();
       this.hintProperty.reset();
+      this.init();
     },
-    clear: function() {},
+    init: function() {
+      var i, j;
+      for ( i = 0; i < this.toEvaporateSample.length; i++ ) {
+        this.toEvaporate[i] = this.toEvaporateSample[i].slice( 0 );
+      }
+
+      for ( i = 0; i < this.toEvaporate.length; i++ ) {
+        for ( j = 0; j < this.toEvaporate[i].length; j++ ) {
+          this.toEvaporate[i][j].reset();
+        }
+      }
+    },
     move: function( v ) {
       this.hint = false;
       v.y = (v.y > this.distance ? this.distance : v.y );
       this.position = this.position.plus( v );
-      this.distance = this.atoms.distance - this.position.y;
+      this.distance -= v.y;
     }
   } );
 
@@ -142,9 +155,17 @@ define( function( require ) {
   };
 
   FrictionModel.prototype.evaporate = function() {
-    var atom = this.toEvaporate.shift();
-    if ( atom ) {
-      atom.evaporate();
+    if ( this.toEvaporate[this.toEvaporate.length - 1] && !this.toEvaporate[this.toEvaporate.length - 1].length ) {
+      this.toEvaporate.pop();
+      this.distance += this.atoms.dy;
+      this.amplitude -= 0.25;
+    }
+
+    if ( this.toEvaporate[this.toEvaporate.length - 1] ) {
+      var atom = this.toEvaporate[this.toEvaporate.length - 1].pop();
+      if ( atom ) {
+        atom.evaporate();
+      }
     }
   };
 
