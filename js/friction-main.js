@@ -10,8 +10,9 @@ require( [
   'string!FRICTION/simTitle',
   'FRICTION/model/FrictionModel',
   'FRICTION/view/FrictionView',
-  'JOIST/SimLauncher'
-], function( Sim, simTitle, FrictionModel, FrictionView, SimLauncher ) {
+  'JOIST/SimLauncher',
+  'JOIST/Screen'
+], function( Sim, simTitle, FrictionModel, FrictionView, SimLauncher, Screen ) {
   'use strict';
 
   SimLauncher.launch( function() {
@@ -22,12 +23,11 @@ require( [
 
     //Create and start the sim
     new Sim( simTitle, [
-      {
-        name: simTitle,
-        createModel: function() {return new FrictionModel( 768, 504 );},
-        createView: function( model ) {return new FrictionView( model );},
-        backgroundColor: "#fff"
-      }
+      new Screen( simTitle, null,
+        function() {return new FrictionModel( 768, 504 );},
+        function( model ) {return new FrictionView( model );},
+        { backgroundColor: '#fff' }
+      )
     ], simOptions ).start();
   } );
 } );
