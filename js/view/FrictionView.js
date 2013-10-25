@@ -14,6 +14,7 @@ define( function( require ) {
 
   var Book = require( 'view/Book/Book' );
   var Magnifier = require( 'view/Magnifier/Magnifier' );
+  var Thermometer = require( 'view/Thermometer/Thermometer' );
 
   var chemistryString = require( 'string!FRICTION/chemistry' );
   var physicsString = require( 'string!FRICTION/physics' );
@@ -29,6 +30,9 @@ define( function( require ) {
 
     // add magnifier
     this.addChild( new Magnifier( model, {x: 40, y: 25, targetX: 185, targetY: 425} ) );
+
+    // add thermometer
+    this.addChild( new Thermometer( model.amplitudeProperty, {min: model.atoms.amplitude.min, max: model.atoms.amplitude.max - 2}, {x: 690, y: 250, height: 175, dTick: 6} ) );
 
     // add reset button
     this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: model.width * 0.94, y: model.height * 0.9} ) );
