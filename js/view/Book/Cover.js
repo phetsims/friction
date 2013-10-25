@@ -39,10 +39,7 @@ define( function( require ) {
 
     // add binding
     this.addChild( new Rectangle( 0, 0, width, height, round, round, {fill: options.color, stroke: 'black'} ) );
-    var text = new Text( options.title, { font: FONT, fill: 'black', pickable: false} );
-    text.x = (width - text.getWidth()) / 2;
-    text.y = (height + text.getHeight() / 2) / 2;
-    this.addChild( text );
+    this.addChild( new Text( options.title, { centerY: height / 2, centerX: width / 2, font: FONT, fill: 'black', pickable: false} ) );
 
     // add white background for pages
     this.addChild( new Path( new Shape()

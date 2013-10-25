@@ -25,7 +25,7 @@ define( function( require ) {
   var MagnifierTarget = require( 'view/Magnifier/MagnifierTarget' );
 
   function Magnifier( model, options ) {
-    var self = this;
+    var self = this, header;
     Node.call( this, {x: options.x, y: options.y} );
 
     // main params
@@ -87,9 +87,7 @@ define( function( require ) {
     this.addChild( this.target );
 
     // header text
-    var text = new Text( rubAtomsString, { font: FONT, fill: 'red', pickable: false, y: this.param.height / 7} );
-    text.x = (this.param.width - text.getWidth()) / 2;
-    this.container.addChild( text );
+    this.container.addChild( header = new Text( rubAtomsString, { centerX: this.param.width / 2, font: FONT, fill: 'red', pickable: false, y: this.param.height / 7} ) );
 
     // add atoms
     this.addAtoms( model );
@@ -99,7 +97,7 @@ define( function( require ) {
 
     // add observers
     model.hintProperty.link( function( flag ) {
-      text.setVisible( flag );
+      header.setVisible( flag );
     } );
 
     model.positionProperty.link( function( v ) {
