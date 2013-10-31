@@ -11,7 +11,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
 
-  var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Circle = require( 'SCENERY/nodes/Circle' );
 
   function Atom( model, options ) {
@@ -20,16 +19,15 @@ define( function( require ) {
     this.y0 = options.y;
     this.model = model;
     this.options = options;
+    this.gradients = {};
     Node.call( this, {x: this.x0, y: this.y0} );
 
     // add view
-    this.view = new Circle( radius, {
-      fill: new RadialGradient( radius * 0.3, -radius * 0.3, 1, radius * 0.3, -radius * 0.3, radius / 1.5 )
-        .addColorStop( 0, '#fff' )
-        .addColorStop( 1, options.color ),
+    this.view = new Node( {children: [new Circle( radius, {
+      fill: options.color,
       stroke: 'black',
       lineWidth: 1
-    } );
+    } ), new Circle( radius * 0.3, {fill: 'white', x: radius * 0.3, y: -radius * 0.3} )]} );
 
     this.addChild( this.view );
 
