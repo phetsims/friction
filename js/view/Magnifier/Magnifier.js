@@ -57,14 +57,6 @@ define( function( require ) {
     this.addChild( this.container = new Node() );
     this.container.setClipArea( new Shape().roundRect( 2.5, 2.5, this.param.width - 5, this.param.height - 5, this.param.round, this.param.round ) );
 
-    // add top book
-    this.topBook = new Node( {children: [
-      new Rectangle( -1.125 * this.param.width, -this.param.height, 3.25 * this.param.width, 4 * this.param.height / 3 - model.atoms.distance, this.param.round, this.param.round, {fill: 'yellow'} )
-    ]} );
-    this.addRowCircles( model, this.topBook, {color: 'yellow', x: -this.param.width, y: this.param.height / 3 - model.atoms.distance, width: 3 * this.param.width} );
-    this.param.topAtoms.target = this.topBook;
-    this.container.addChild( this.topBook );
-
     // add bottom book
     this.bottomBook = new Node( {children: [
       new Rectangle( 3, 2 * this.param.height / 3 - 2, this.param.width - 6, this.param.height / 3, 0, this.param.round - 3, {fill: 'rgb(187,255,187)'} ),
@@ -73,6 +65,14 @@ define( function( require ) {
     this.addRowCircles( model, this.bottomBook, {color: 'rgb(187,255,187)', x: -model.atoms.dx / 2, y: 2 * this.param.height / 3 - 2, width: this.param.width} );
     this.param.bottomAtoms.target = this.bottomBook;
     this.container.addChild( this.bottomBook );
+
+    // add top book
+    this.topBook = new Node( {children: [
+      new Rectangle( -1.125 * this.param.width, -this.param.height, 3.25 * this.param.width, 4 * this.param.height / 3 - model.atoms.distance, this.param.round, this.param.round, {fill: 'yellow'} )
+    ]} );
+    this.addRowCircles( model, this.topBook, {color: 'yellow', x: -this.param.width, y: this.param.height / 3 - model.atoms.distance, width: 3 * this.param.width} );
+    this.param.topAtoms.target = this.topBook;
+    this.container.addChild( this.topBook );
 
     // add magnifier's target
     this.target = new MagnifierTarget( model, {
