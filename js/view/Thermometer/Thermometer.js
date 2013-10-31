@@ -47,7 +47,7 @@ define( function( require ) {
     } ) );
 
     // add ticks
-    for ( h = 0; h > -height + radius / 2; h -= dTick ) {
+    for ( h = -2 * dTick; h > -height + radius / 2; h -= dTick ) {
       this.addChild( new Path( new Shape()
         .moveTo( -radius / 2, h )
         .lineTo( -radius / 6, h ), {stroke: 'black', lineWidth: 1} )
@@ -60,6 +60,7 @@ define( function( require ) {
         .addColorStop( 0, '#fff' )
         .addColorStop( 1, color ),
       stroke: 'black',
+      lineDash: [50, 13],
       lineWidth: 1
     } ) );
 

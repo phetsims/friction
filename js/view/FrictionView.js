@@ -32,7 +32,7 @@ define( function( require ) {
     this.addChild( new Magnifier( model, {x: 40, y: 25, targetX: 185, targetY: 425} ) );
 
     // add thermometer
-    this.addChild( new Thermometer( model.amplitudeProperty, {min: model.atoms.amplitude.min, max: model.atoms.evaporationLimit - 1}, {x: 690, y: 250, height: 175, dTick: 6} ) );
+    this.addChild( new Thermometer( model.amplitudeProperty, {min: model.atoms.amplitude.min, max: model.atoms.evaporationLimit - 1}, {x: 690, y: 250, height: 175, dTick: 9} ) );
 
     // add reset button
     this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: model.width * 0.94, y: model.height * 0.9} ) );
