@@ -1,35 +1,38 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Main entry point for the sim.
+ * Main entry point for the 'Friction' sim.
  *
- * @author John Blanco
+ * @author Andrey Zelenkov (Mlearner)
  */
-require( [
-  'JOIST/Sim',
-  'string!FRICTION/simTitle',
-  'FRICTION/model/FrictionModel',
-  'FRICTION/view/FrictionView',
-  'JOIST/SimLauncher',
-  'JOIST/Screen'
-], function( Sim, simTitle, FrictionModel, FrictionView, SimLauncher, Screen ) {
-  'use strict';
+define(
+  function( require ) {
+    'use strict';
 
-  SimLauncher.launch( function() {
+    var
+      Sim = require( 'JOIST/Sim' ),
+      simTitle = require( 'string!FRICTION/simTitle' ),
+      FrictionModel = require( 'FRICTION/model/FrictionModel' ),
+      FrictionView = require( 'FRICTION/view/FrictionView' ),
+      SimLauncher = require( 'JOIST/SimLauncher' ),
+      Screen = require( 'JOIST/Screen' ),
+      ScreenView = require( 'JOIST/ScreenView' );
 
-    var simOptions = {
-      credits: {
-        //TODO
-      }
-    };
+    SimLauncher.launch( function() {
 
-    //Create and start the sim
-    new Sim( simTitle, [
-      new Screen( simTitle, null,
-        function() {return new FrictionModel( 768, 504 );},
-        function( model ) {return new FrictionView( model );},
-        { backgroundColor: '#fff' }
-      )
-    ], simOptions ).start();
+      var simOptions = {
+        credits: {
+          //TODO
+        }
+      };
+
+      //Create and start the sim
+      new Sim( simTitle, [
+        new Screen( simTitle, null,
+          function() {return new FrictionModel( ScreenView.LAYOUT_BOUNDS.width, ScreenView.LAYOUT_BOUNDS.height );},
+          function( model ) {return new FrictionView( model );},
+          { backgroundColor: '#fff' }
+        )
+      ], simOptions ).start();
+    } );
   } );
-} );
