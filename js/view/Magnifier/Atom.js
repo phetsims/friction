@@ -54,7 +54,7 @@ define( function( require ) {
     this.x1 = this.x0 + 4 * this.model.width * (Math.round( Math.random() ) - 0.5);
     dx = (this.x1 - this.x0) / steps;
     this.y1 = this.y0 - Math.random() * 15 * this.getYrange();
-    dy = (this.y1 - this.y0) / 100;
+    dy = (this.y1 - this.y0) / steps;
     this.model.newStepProperty.link( self.handler );
   };
 
