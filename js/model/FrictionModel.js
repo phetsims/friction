@@ -92,7 +92,7 @@ define( function( require ) {
 
     // check atom's contact
     model.distanceProperty.link( function( distance ) {
-      model.contact = !distance;
+      model.contact = (distance <= 0);
     } );
 
     // add amplitude in contact
@@ -103,8 +103,15 @@ define( function( require ) {
       }
     } );
 
-    // evaporation check
+    var oldValue = 0;
     model.amplitudeProperty.link( function( amplitude ) {
+      var val = 1 - (model.atoms.amplitude.max - amplitude) / (model.atoms.amplitude.max - model.atoms.amplitude.min);
+
+      model.distance -= oldValue;
+      oldValue = model.toEvaporate.length * model.atoms.dy * val;
+      model.distance += oldValue;
+
+      // evaporation check
       if ( amplitude > model.atoms.evaporationLimit ) {
         model.evaporate();
       }
