@@ -22,11 +22,11 @@ define( function( require ) {
   function GravityAndOrbitsView( model ) {
     ScreenView.call( this, { renderer: 'svg' } );
 
-    // add chemistry book
-    this.addChild( new Book( model, {x: 50, y: 225, title: chemistryString, color: 'rgb(0,255,51)', drag: false} ) );
-
     // add physics book
-    this.addChild( new Book( model, {x: 65, y: 210, title: physicsString, color: 'rgb(255,240,0)', drag: true} ) );
+    this.addChild( new Book( model, {x: 50, y: 225, title: physicsString, color: 'rgb(0,255,51)', drag: false} ) );
+
+    // add chemistry book
+    this.addChild( new Book( model, {x: 65, y: 210, title: chemistryString, color: 'rgb(255,240,0)', drag: true} ) );
 
     // add magnifier
     this.addChild( new Magnifier( model, {x: 40, y: 25, targetX: 185, targetY: 425} ) );
