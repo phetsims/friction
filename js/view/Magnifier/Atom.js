@@ -32,7 +32,7 @@ define( function( require ) {
     this.addChild( this.view );
 
     model.newStepProperty.link( function() {
-      self.setTranslation( self.x0 + model.amplitude * (Math.random() - 0.5), self.y0 + model.amplitude * (Math.random() - 0.5) )
+      self.setTranslation( self.x0 + model.amplitude * (Math.random() - 0.5), self.y0 + model.amplitude * (Math.random() - 0.5) );
     } );
   }
 
