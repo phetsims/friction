@@ -92,11 +92,14 @@ define( function( require ) {
 
     // check atom's contact
     model.distanceProperty.link( function( distance ) {
-      model.contact = !distance;
+      model.contact = (Math.floor(distance) <= 0);
     } );
 
-    // add amplitude in contact
     model.positionProperty.link( function( newPosition, oldPosition ) {
+      // set distance between atoms
+      model.distance -= (newPosition.minus( oldPosition || new Vector2( 0, 0 ) )).y;
+
+      // add amplitude in contact
       if ( model.contact ) {
         var dx = Math.abs( newPosition.x - oldPosition.x );
         model.amplitude = Math.min( model.amplitude + dx * 0.01, model.atoms.amplitude.max );
@@ -135,12 +138,20 @@ define( function( require ) {
           this.toEvaporate[i][j].reset();
         }
       }
+
+      // set max distance (initial distance + yellow atoms height + top yellow empty space)
+      this.distanceMax = this.atoms.distance + this.toEvaporate.length * this.atoms.dy + 65;
     },
     move: function( v ) {
       this.hint = false;
       v.y = (v.y > this.distance ? this.distance : v.y );
       this.position = this.position.plus( v );
-      this.distance -= v.y;
+
+      // check max distance
+      var dy = this.distanceMax - this.distance;
+      if ( dy < 0 ) {
+        this.position = this.position.minus( new Vector2( 0, dy ) );
+      }
     }
   } );
 
