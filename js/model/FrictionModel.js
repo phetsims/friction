@@ -83,6 +83,7 @@ define( function( require ) {
       amplitude: this.atoms.amplitude.min, // atoms amplitude
       position: new Vector2( 0, 0 ), // position
       distance: model.atoms.distance, // distance between books
+      bottomOffset: 0,
       contact: false, // are books in contact
       hint: true, // show hint text
       newStep: false // update every step
@@ -125,6 +126,7 @@ define( function( require ) {
       this.distanceProperty.reset();
       this.contactProperty.reset();
       this.hintProperty.reset();
+      this.bottomOffsetProperty.reset();
       this.init();
     },
     init: function() {
@@ -144,8 +146,22 @@ define( function( require ) {
     },
     move: function( v ) {
       this.hint = false;
-      v.y = (v.y > this.distance ? this.distance : v.y );
-      this.position = this.position.plus( v );
+
+      // check bottom offset
+      if ( this.bottomOffset > 0 && v.y < 0) {
+        this.bottomOffset += v.y;
+        v.y = 0;
+      }
+
+      // set position
+      if ( v.y > this.distance ) {
+        this.bottomOffset += (v.y - this.distance);
+        v.y = this.distance;
+        this.position = this.position.plus( v );
+      }
+      else {
+        this.position = this.position.plus( v );
+      }
 
       // check max distance
       var dy = this.distanceMax - this.distance;
@@ -161,6 +177,9 @@ define( function( require ) {
     view.addInputListener( new SimpleDragHandler( {
       translate: function( e ) {
         self.move( {x: e.delta.x, y: e.delta.y} );
+      },
+      end: function() {
+        self.bottomOffset = 0;
       }
     } ) );
   };
