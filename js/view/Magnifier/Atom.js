@@ -20,7 +20,6 @@ define( function( require ) {
     this.y0 = options.y;
     this.model = model;
     this.options = options;
-    this.gradients = {};
     Node.call( this, {x: this.x0, y: this.y0} );
 
     // add view
@@ -33,8 +32,7 @@ define( function( require ) {
     this.addChild( this.view );
 
     model.newStepProperty.link( function() {
-      self.x = self.x0 + model.amplitude * (Math.random() - 0.5);
-      self.y = self.y0 + model.amplitude * (Math.random() - 0.5);
+      self.setTranslation( self.x0 + model.amplitude * (Math.random() - 0.5), self.y0 + model.amplitude * (Math.random() - 0.5) )
     } );
   }
 
@@ -46,7 +44,7 @@ define( function( require ) {
     this.handler = function() {
       self.x0 += dx;
       self.y0 -= dy;
-      if ( self.x0 > 10 * self.model.width ) {
+      if ( self.x0 > 4 * self.model.width ) {
         self.model.newStepProperty.unlink( self.handler );
         self.setVisible( false );
       }

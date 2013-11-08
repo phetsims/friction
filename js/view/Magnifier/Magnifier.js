@@ -102,8 +102,7 @@ define( function( require ) {
     } );
 
     model.positionProperty.link( function( v ) {
-      self.topBook.setX( v.x );
-      self.topBook.setY( v.y );
+      self.topBook.setTranslation( v );
     } );
   }
 

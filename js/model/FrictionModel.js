@@ -92,7 +92,7 @@ define( function( require ) {
 
     // check atom's contact
     model.distanceProperty.link( function( distance ) {
-      model.contact = (Math.floor(distance) <= 0);
+      model.contact = (Math.floor( distance ) <= 0);
     } );
 
     model.positionProperty.link( function( newPosition, oldPosition ) {

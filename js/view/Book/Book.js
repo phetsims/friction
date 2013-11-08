@@ -1,7 +1,7 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * Container for book
+ * Container for single book.
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -14,7 +14,7 @@ define( function( require ) {
   var Cover = require( 'view/Book/Cover' );
 
   function Book( model, options ) {
-    var self = this;
+    var self = this, dndScale = model.dndScale;
     Node.call( this, {x: options.x, y: options.y} );
 
     // add cover
@@ -26,8 +26,7 @@ define( function( require ) {
 
       // add observer
       model.positionProperty.link( function( v ) {
-        self.setX( options.x + v.x * model.dndScale );
-        self.setY( options.y + v.y * model.dndScale );
+        self.setTranslation( options.x + v.x * dndScale, options.y + v.y * dndScale );
       } );
     }
   }

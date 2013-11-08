@@ -40,8 +40,7 @@ define( function( require ) {
       .moveTo( this.param.rightAnchor.x, this.param.rightAnchor.y )
       .lineTo( x + this.param.width / 2, y ) );
 
-    this.magRect.setX( x - this.param.width / 2 );
-    this.magRect.setY( y - this.param.height / 2 );
+    this.magRect.setTranslation( x - this.param.width / 2, y - this.param.height / 2 );
   };
 
   return MagnifierTarget;
