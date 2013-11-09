@@ -148,7 +148,7 @@ define( function( require ) {
       this.hint = false;
 
       // check bottom offset
-      if ( this.bottomOffset > 0 && v.y < 0) {
+      if ( this.bottomOffset > 0 && v.y < 0 ) {
         this.bottomOffset += v.y;
         v.y = 0;
       }
@@ -171,6 +171,7 @@ define( function( require ) {
     }
   } );
 
+  //REVIEW - Why not use the inherit call above to add these functions to the prototype?
   FrictionModel.prototype.initDrag = function( view ) {
     var self = this;
     view.cursor = 'pointer';
