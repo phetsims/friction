@@ -5,8 +5,6 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-
-
 define( function( require ) {
   'use strict';
   var Node = require( 'SCENERY/nodes/Node' );

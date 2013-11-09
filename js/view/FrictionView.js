@@ -5,7 +5,6 @@
  *
  * @author Andrey Zelenkov (Mlearner)
  */
-
 define( function( require ) {
   'use strict';
   var ScreenView = require( 'JOIST/ScreenView' );
