@@ -22,7 +22,11 @@ define(
 
       var simOptions = {
         credits: {
-          //TODO
+          leadDesign: 'Michael Dubson, Noah Podolefsky',
+          softwareDevelopment: 'Michael Dubson, John Blanco',
+          designTeam: 'Bryce Gruneich, Ariel Paul, Katherine Perkins',
+          interviews: 'Wendy Adams, Mindy Gratny',
+          thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team\nto convert this simulation to HTML5.'
         }
       };
 
