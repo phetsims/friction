@@ -89,7 +89,7 @@ define( function( require ) {
       newStep: false // update every step
     } );
 
-    this.dndScale = 0.1; // drag and drop coordinate conversion factor
+    this.dndScale = 0.025; // drag and drop book coordinates conversion coefficient
 
     // check atom's contact
     model.distanceProperty.link( function( distance ) {
@@ -157,11 +157,8 @@ define( function( require ) {
       if ( v.y > this.distance ) {
         this.bottomOffset += (v.y - this.distance);
         v.y = this.distance;
-        this.position = this.position.plus( v );
       }
-      else {
-        this.position = this.position.plus( v );
-      }
+      this.position = this.position.plus( v );
 
       // check max distance
       var dy = this.distanceMax - this.distance;
