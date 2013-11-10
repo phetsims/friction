@@ -12,8 +12,8 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
 
   var Book = require( 'view/Book/Book' );
-  var Magnifier = require( 'view/Magnifier/Magnifier' );
-  var Thermometer = require( 'view/Thermometer/Thermometer' );
+  var Magnifier = require( 'view/magnifier/Magnifier' );
+  var Thermometer = require( 'view/thermometer/Thermometer' );
 
   var chemistryString = require( 'string!FRICTION/chemistry' );
   var physicsString = require( 'string!FRICTION/physics' );
