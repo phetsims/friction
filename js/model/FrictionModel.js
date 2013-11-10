@@ -168,37 +168,34 @@ define( function( require ) {
       if ( dy < 0 ) {
         this.position = this.position.minus( new Vector2( 0, dy ) );
       }
+    },
+    initDrag: function( view ) {
+      var self = this;
+      view.cursor = 'pointer';
+      view.addInputListener( new SimpleDragHandler( {
+        translate: function( e ) {
+          self.move( {x: e.delta.x, y: e.delta.y} );
+        },
+        end: function() {
+          self.bottomOffset = 0;
+        }
+      } ) );
+    },
+    evaporate: function() {
+      if ( this.toEvaporate[this.toEvaporate.length - 1] && !this.toEvaporate[this.toEvaporate.length - 1].length ) {
+        this.toEvaporate.pop();
+        this.distance += this.atoms.dy;
+        this.amplitude -= 0.25;
+      }
+
+      if ( this.toEvaporate[this.toEvaporate.length - 1] ) {
+        var atom = this.toEvaporate[this.toEvaporate.length - 1].pop();
+        if ( atom ) {
+          atom.evaporate();
+        }
+      }
     }
   } );
-
-  //REVIEW - Why not use the inherit call above to add these functions to the prototype?
-  FrictionModel.prototype.initDrag = function( view ) {
-    var self = this;
-    view.cursor = 'pointer';
-    view.addInputListener( new SimpleDragHandler( {
-      translate: function( e ) {
-        self.move( {x: e.delta.x, y: e.delta.y} );
-      },
-      end: function() {
-        self.bottomOffset = 0;
-      }
-    } ) );
-  };
-
-  FrictionModel.prototype.evaporate = function() {
-    if ( this.toEvaporate[this.toEvaporate.length - 1] && !this.toEvaporate[this.toEvaporate.length - 1].length ) {
-      this.toEvaporate.pop();
-      this.distance += this.atoms.dy;
-      this.amplitude -= 0.25;
-    }
-
-    if ( this.toEvaporate[this.toEvaporate.length - 1] ) {
-      var atom = this.toEvaporate[this.toEvaporate.length - 1].pop();
-      if ( atom ) {
-        atom.evaporate();
-      }
-    }
-  };
 
   return FrictionModel;
 } );
