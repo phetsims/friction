@@ -24,7 +24,7 @@ define( function( require ) {
   var MagnifierTarget = require( 'view/magnifier/MagnifierTarget' );
 
   function Magnifier( model, options ) {
-    var self = this, header;
+    var self = this, header, dragArea, background;
     Node.call( this, {x: options.x, y: options.y} );
 
     // main params
@@ -66,9 +66,18 @@ define( function( require ) {
     this.container.addChild( this.bottomBook );
 
     // add top book
-    this.topBook = new Node( {children: [
-      new Rectangle( -1.125 * this.param.width, -this.param.height, 3.25 * this.param.width, 4 * this.param.height / 3 - model.atoms.distance, this.param.round, this.param.round, {fill: 'yellow'} )
-    ]} );
+    this.topBook = new Node();
+
+    // init drag for background
+    background = new Rectangle( -1.125 * this.param.width, -this.param.height, 3.25 * this.param.width, 4 * this.param.height / 3 - model.atoms.distance, this.param.round, this.param.round, {fill: 'yellow'} );
+    model.initDrag( background );
+    this.topBook.addChild( background );
+
+    // init drag for drag area
+    dragArea = new Rectangle( 0.055 * this.param.width, 0.175 * this.param.height, 0.875 * this.param.width, model.atoms.dy * 6, {fill: 'rgba(0,0,0,0)'} );
+    model.initDrag( dragArea );
+    this.topBook.addChild( dragArea );
+
     this.addRowCircles( model, this.topBook, {color: 'yellow', x: -this.param.width, y: this.param.height / 3 - model.atoms.distance, width: 3 * this.param.width} );
     this.param.topAtoms.target = this.topBook;
     this.container.addChild( this.topBook );
@@ -91,9 +100,6 @@ define( function( require ) {
     // add atoms
     this.addAtoms( model );
 
-    // init drag
-    model.initDrag( this.topBook );
-
     // add observers
     model.hintProperty.link( function( flag ) {
       header.setVisible( flag );
@@ -101,6 +107,10 @@ define( function( require ) {
 
     model.positionProperty.link( function( v ) {
       self.topBook.setTranslation( v );
+    } );
+
+    model.atomRowsToEvaporateProperty.link( function( number ) {
+      dragArea.setRectHeight( (number + 2) * model.atoms.dy );
     } );
   }
 

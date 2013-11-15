@@ -83,7 +83,8 @@ define( function( require ) {
       amplitude: this.atoms.amplitude.min, // atoms amplitude
       position: new Vector2( 0, 0 ), // position
       distance: model.atoms.distance, // distance between books
-      bottomOffset: 0,
+      bottomOffset: 0, // additional offset, results from drag
+      atomRowsToEvaporate: 0, // top atoms number of rows to evaporate
       contact: false, // are books in contact
       hint: true, // show hint text
       newStep: false // update every step
@@ -141,6 +142,8 @@ define( function( require ) {
         }
       }
 
+      this.atomRowsToEvaporate = this.toEvaporate.length;
+
       // set max distance (initial distance + yellow atoms height + top yellow empty space)
       this.distanceMax = this.atoms.distance + this.toEvaporate.length * this.atoms.dy + 65;
     },
@@ -182,13 +185,14 @@ define( function( require ) {
       if ( this.toEvaporate[this.toEvaporate.length - 1] && !this.toEvaporate[this.toEvaporate.length - 1].length ) {
         this.toEvaporate.pop();
         this.distance += this.atoms.dy;
-        this.amplitude -= 0.25;
+        this.atomRowsToEvaporate = this.toEvaporate.length;
       }
 
       if ( this.toEvaporate[this.toEvaporate.length - 1] ) {
         var atom = this.toEvaporate[this.toEvaporate.length - 1].pop();
         if ( atom ) {
           atom.evaporate();
+          this.amplitude -= 0.125;
         }
       }
     }
