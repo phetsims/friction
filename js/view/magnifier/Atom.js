@@ -13,6 +13,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
 
   function Atom( model, options ) {
+    //REVIEW: Variable declarations should be on separate lines.
     var self = this, radius = model.atoms.radius;
     this.x0 = options.x;
     this.y0 = options.y;
@@ -36,6 +37,8 @@ define( function( require ) {
 
   inherit( Node, Atom );
 
+  //REVIEW: For consistency, please use the style where prototype functions
+  // are added in the inherit statement, as was done in, say, FrictionModel.js.
   Atom.prototype.evaporate = function() {
     var self = this, steps = 100, dx, dy;
 

@@ -116,6 +116,8 @@ define( function( require ) {
 
   inherit( Node, Magnifier );
 
+  //REVIEW: For consistency, please use the style where prototype functions
+  // are added in the inherit statement, as was done in, say, FrictionModel.js.
   Magnifier.prototype.addAtoms = function( model ) {
     var self = this,
       topAtoms = this.param.topAtoms,

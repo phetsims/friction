@@ -18,6 +18,7 @@ define( function( require ) {
   var chemistryString = require( 'string!FRICTION/chemistry' );
   var physicsString = require( 'string!FRICTION/physics' );
 
+  //REVIEW: Looks like some cut an paste errors below - should be FrictionView.
   function GravityAndOrbitsView( model ) {
     ScreenView.call( this, { renderer: 'svg' } );
 

@@ -19,6 +19,7 @@ define( function( require ) {
   var FONT = new PhetFont( 22 );
 
   function Cover( options ) {
+    //REVIEW: Variable declarations should be on separate lines.
     var width = 200, height = 30, round = 5, pages = 8, length = 75, angle = Math.PI / 12;
     Node.call( this, {x: options.x, y: options.y} );
 

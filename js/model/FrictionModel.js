@@ -14,6 +14,14 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
+  //REVIEW: This is quite a complex data structure with nested objects and
+  // arrays.  It is harder to decipher this than, say, breaking out the
+  // constants (like radius and neighbor distances and amplitude range),
+  // having a class for 'AtomsLayer' and having an array for just the upper
+  // and lower layers.  Why was it done this way?  Was it like this in the
+  // original code (the original developer of this sim was a Physics professor
+  // who was inexperienced at software development)?  If not, this should be
+  // modularized.
   var atoms = {
     radius: 7, // radius of single atom
     dx: 20, // distance-x between neighbors
@@ -76,12 +84,14 @@ define( function( require ) {
     this.height = height;
 
     this.atoms = atoms;
+
+    //REVIEW: Please add some documentation about what these two are for.
     this.toEvaporateSample = [];
     this.toEvaporate = [];
 
     PropertySet.call( this, {
       amplitude: this.atoms.amplitude.min, // atoms amplitude
-      position: new Vector2( 0, 0 ), // position
+      position: new Vector2( 0, 0 ), // position //REVIEW - What is this the position of? Suggest clearer name.
       distance: model.atoms.distance, // distance between books
       bottomOffset: 0, // additional offset, results from drag
       atomRowsToEvaporate: 0, // top atoms number of rows to evaporate
@@ -116,9 +126,14 @@ define( function( require ) {
     } );
   }
 
+  //REVIEW: Can just return this, don't need separate return statement at end, i.e. return inherit...
   inherit( PropertySet, FrictionModel, {
     step: function() {
       this.newStep = !this.newStep;
+      //REVIEW: The amplitude reduction should be a function of time rather than
+      //only the number of steps.  As it is now, it will cool at different rates
+      //on systems where the frame rate doesn't keep up (which currently happens
+      //on iPad.
       this.amplitude = Math.max( this.atoms.amplitude.min, this.amplitude * 0.995 );
     },
     reset: function() {

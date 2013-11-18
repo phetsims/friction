@@ -12,6 +12,7 @@ define( function( require ) {
   var Cover = require( 'view/book/Cover' );
 
   function Book( model, options ) {
+    //REVIEW: Variable declarations on separate lines.
     var self = this, dndScale = model.dndScale;
     Node.call( this, {x: options.x, y: options.y} );
 
