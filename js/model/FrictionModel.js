@@ -118,6 +118,8 @@ define( function( require ) {
     ]
   ];
 
+  var lastDt = 0;
+
   function FrictionModel( width, height ) {
     var model = this;
 
@@ -203,6 +205,16 @@ define( function( require ) {
       //only the number of steps.  As it is now, it will cool at different rates
       //on systems where the frame rate doesn't keep up (which currently happens
       //on iPad.
+      if ( !lastDt ) {lastDt = dt;} // init lastDt value
+
+      // prevent error: "Maximum call stack size exceeded" for model.timeProperty observer
+      if ( Math.abs( lastDt - dt ) > lastDt * 0.3 ) {
+        dt = lastDt;
+      }
+      else {
+        lastDt = dt;
+      }
+
       this.time += dt;
     },
     reset: function() {
