@@ -14,7 +14,9 @@ define( function( require ) {
 
   function Atom( model, options ) {
     //REVIEW: Variable declarations should be on separate lines.
-    var self = this, radius = model.atoms.radius;
+    var self = this,
+      radius = model.atoms.radius;
+
     this.x0 = options.x;
     this.y0 = options.y;
     this.model = model;
@@ -35,40 +37,39 @@ define( function( require ) {
     } );
   }
 
-  inherit( Node, Atom );
-
   //REVIEW: For consistency, please use the style where prototype functions
   // are added in the inherit statement, as was done in, say, FrictionModel.js.
-  Atom.prototype.evaporate = function() {
-    var self = this, steps = 100, dx, dy;
+  return inherit( Node, Atom, {
+    evaporate: function() {
+      var self = this,
+        steps = 100,
+        dx,
+        dy;
 
-    this.handler = function() {
-      self.x0 += dx;
-      self.y0 -= dy;
-      if ( self.x0 > 4 * self.model.width ) {
-        self.model.newStepProperty.unlink( self.handler );
-        self.setVisible( false );
-      }
-    };
+      this.handler = function() {
+        self.x0 += dx;
+        self.y0 -= dy;
+        if ( self.x0 > 4 * self.model.width ) {
+          self.model.newStepProperty.unlink( self.handler );
+          self.setVisible( false );
+        }
+      };
 
-    this.x1 = this.x0 + 4 * this.model.width * (Math.round( Math.random() ) - 0.5);
-    dx = (this.x1 - this.x0) / steps;
-    this.y1 = this.y0 + Math.random() * 1.5 * this.getYrange();
-    dy = (this.y1 - this.y0) / steps;
-    this.model.newStepProperty.link( self.handler );
-  };
-
-  Atom.prototype.reset = function() {
-    this.x0 = this.options.x;
-    this.y0 = this.options.y;
-    this.model.newStepProperty.unlink( this.handler );
-    this.setVisible( true );
-  };
-
-  Atom.prototype.getYrange = function() {
-    var model = this.model;
-    return model.distance + model.atoms.dy * model.toEvaporate.length;
-  };
-
-  return Atom;
+      this.x1 = this.x0 + 4 * this.model.width * (Math.round( Math.random() ) - 0.5);
+      dx = (this.x1 - this.x0) / steps;
+      this.y1 = this.y0 + Math.random() * 1.5 * this.getYrange();
+      dy = (this.y1 - this.y0) / steps;
+      this.model.newStepProperty.link( self.handler );
+    },
+    getYrange: function() {
+      var model = this.model;
+      return model.distance + model.atoms.dy * model.toEvaporate.length;
+    },
+    reset: function() {
+      this.x0 = this.options.x;
+      this.y0 = this.options.y;
+      this.model.newStepProperty.unlink( this.handler );
+      this.setVisible( true );
+    }
+  } );
 } );

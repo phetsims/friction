@@ -20,7 +20,13 @@ define( function( require ) {
 
   function Cover( options ) {
     //REVIEW: Variable declarations should be on separate lines.
-    var width = 200, height = 30, round = 5, pages = 8, length = 75, angle = Math.PI / 12;
+    var width = 200,
+      height = 30,
+      round = 5,
+      pages = 8,
+      length = 75,
+      angle = Math.PI / 12;
+
     Node.call( this, {x: options.x, y: options.y} );
 
     // add last page
@@ -59,7 +65,5 @@ define( function( require ) {
     }
   }
 
-  inherit( Node, Cover );
-
-  return Cover;
+  return inherit( Node, Cover );
 } );

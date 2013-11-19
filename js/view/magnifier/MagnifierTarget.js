@@ -14,7 +14,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
 
-  function MagnifierTarget( model, options ) {
+  function MagnifierTarget( options ) {
     Node.call( this );
     this.param = options;
 
@@ -29,19 +29,17 @@ define( function( require ) {
 
   //REVIEW: For consistency, please use the style where prototype functions
   // are added in the inherit statement, as was done in, say, FrictionModel.js.
-  inherit( Node, MagnifierTarget );
+  return inherit( Node, MagnifierTarget, {
+    set: function( x, y ) {
+      this.pathLeft.setShape( new Shape()
+        .moveTo( this.param.leftAnchor.x, this.param.leftAnchor.y )
+        .lineTo( x - this.param.width / 2, y ) );
 
-  MagnifierTarget.prototype.set = function( x, y ) {
-    this.pathLeft.setShape( new Shape()
-      .moveTo( this.param.leftAnchor.x, this.param.leftAnchor.y )
-      .lineTo( x - this.param.width / 2, y ) );
+      this.pathRight.setShape( new Shape()
+        .moveTo( this.param.rightAnchor.x, this.param.rightAnchor.y )
+        .lineTo( x + this.param.width / 2, y ) );
 
-    this.pathRight.setShape( new Shape()
-      .moveTo( this.param.rightAnchor.x, this.param.rightAnchor.y )
-      .lineTo( x + this.param.width / 2, y ) );
-
-    this.magRect.setTranslation( x - this.param.width / 2, y - this.param.height / 2 );
-  };
-
-  return MagnifierTarget;
+      this.magRect.setTranslation( x - this.param.width / 2, y - this.param.height / 2 );
+    }
+  } );
 } );

@@ -24,7 +24,10 @@ define( function( require ) {
   var MagnifierTarget = require( 'view/magnifier/MagnifierTarget' );
 
   function Magnifier( model, options ) {
-    var self = this, header, dragArea, background;
+    var self = this,
+      header,
+      dragArea,
+      background;
     Node.call( this, {x: options.x, y: options.y} );
 
     // main params
@@ -83,7 +86,7 @@ define( function( require ) {
     this.container.addChild( this.topBook );
 
     // add magnifier's target
-    this.target = new MagnifierTarget( model, {
+    this.target = new MagnifierTarget( {
       x: options.targetX,
       y: options.targetY,
       width: this.param.width * this.param.scale,
@@ -114,66 +117,72 @@ define( function( require ) {
     } );
   }
 
-  inherit( Node, Magnifier );
-
   //REVIEW: For consistency, please use the style where prototype functions
   // are added in the inherit statement, as was done in, say, FrictionModel.js.
-  Magnifier.prototype.addAtoms = function( model ) {
-    var self = this,
-      topAtoms = this.param.topAtoms,
-      bottomAtoms = this.param.bottomAtoms,
-      dx = model.atoms.dx,
-      dy = model.atoms.dy,
-      color, y0, x0, target;
+  return inherit( Node, Magnifier, {
+    addAtoms: function( model ) {
+      var self = this,
+        topAtoms = this.param.topAtoms,
+        bottomAtoms = this.param.bottomAtoms,
+        dx = model.atoms.dx,
+        dy = model.atoms.dy,
+        color,
+        y0,
+        x0,
+        target;
 
-    // add one layer of atoms
-    var addLayer = function( target, layer, y, x, color ) {
-      var i, n, offset, evaporate, atom, row = [];
-      for ( i = 0; i < layer.length; i++ ) {
-        offset = layer[i].offset || 0;
-        evaporate = layer[i].evaporate || false;
-        for ( n = 0; n < layer[i].num; n++ ) {
-          atom = new Atom( model, {y: y, x: x + (offset + n) * dx, color: color} );
-          if ( evaporate ) {
-            row.push( atom );
+      // add one layer of atoms
+      var addLayer = function( target, layer, y, x, color ) {
+        var i,
+          n,
+          offset,
+          evaporate,
+          atom,
+          row = [];
+
+        for ( i = 0; i < layer.length; i++ ) {
+          offset = layer[i].offset || 0;
+          evaporate = layer[i].evaporate || false;
+          for ( n = 0; n < layer[i].num; n++ ) {
+            atom = new Atom( model, {y: y, x: x + (offset + n) * dx, color: color} );
+            if ( evaporate ) {
+              row.push( atom );
+            }
+            target.addChild( atom );
           }
-          target.addChild( atom );
         }
+        if ( evaporate ) {
+          model.toEvaporateSample.push( row );
+        }
+      };
+
+      // add top atoms
+      color = topAtoms.atoms.color;
+      y0 = topAtoms.y;
+      x0 = topAtoms.x;
+      target = topAtoms.target;
+      topAtoms.atoms.layers.forEach( function( layer, i ) {
+        addLayer( target, layer, y0 + dy * i, x0, color );
+      } );
+
+      // add bottom atoms
+      color = bottomAtoms.atoms.color;
+      y0 = self.param.bottomAtoms.y;
+      x0 = self.param.bottomAtoms.x;
+      target = bottomAtoms.target;
+      bottomAtoms.atoms.layers.forEach( function( layer, i ) {
+        addLayer( target, layer, y0 + dy * i, x0, color );
+      } );
+    },
+    addRowCircles: function( model, target, options ) {
+      var num = options.width / model.atoms.dx;
+      for ( var i = 0; i < num; i++ ) {
+        target.addChild( new Circle( model.atoms.radius, {
+          fill: options.color,
+          y: options.y,
+          x: options.x + model.atoms.dx * i
+        } ) );
       }
-      if ( evaporate ) {
-        model.toEvaporateSample.push( row );
-      }
-    };
-
-    // add top atoms
-    color = topAtoms.atoms.color;
-    y0 = topAtoms.y;
-    x0 = topAtoms.x;
-    target = topAtoms.target;
-    topAtoms.atoms.layers.forEach( function( layer, i ) {
-      addLayer( target, layer, y0 + dy * i, x0, color );
-    } );
-
-    // add bottom atoms
-    color = bottomAtoms.atoms.color;
-    y0 = self.param.bottomAtoms.y;
-    x0 = self.param.bottomAtoms.x;
-    target = bottomAtoms.target;
-    bottomAtoms.atoms.layers.forEach( function( layer, i ) {
-      addLayer( target, layer, y0 + dy * i, x0, color );
-    } );
-  };
-
-  Magnifier.prototype.addRowCircles = function( model, target, options ) {
-    var num = options.width / model.atoms.dx;
-    for ( var i = 0; i < num; i++ ) {
-      target.addChild( new Circle( model.atoms.radius, {
-        fill: options.color,
-        y: options.y,
-        x: options.x + model.atoms.dx * i
-      } ) );
     }
-  };
-
-  return Magnifier;
+  } );
 } );
