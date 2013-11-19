@@ -33,7 +33,7 @@ define( function( require ) {
     this.addChild( new Path( new Shape()
       .moveTo( width - round / 2, height )
       .lineTo( (width - round / 2) + Math.cos( angle ) * length, height - Math.sin( angle ) * length ),
-      {stroke: 'black', lineWidth: 1} ) );
+      {stroke: 'black', lineWidth: 1, pickable: false} ) );
 
     // add first page
     this.addChild( new Path( new Shape()
@@ -41,7 +41,7 @@ define( function( require ) {
       .lineTo( round / 2 + Math.cos( angle ) * length, -Math.sin( angle ) * length )
       .lineTo( width - round / 2 + Math.cos( angle ) * length, -Math.sin( angle ) * length )
       .lineTo( width - round / 2, 0 ),
-      {stroke: 'black', lineWidth: 1, fill: options.color} ) );
+      {stroke: 'black', lineWidth: 1, fill: options.color, pickable: false} ) );
 
     // add binding
     this.addChild( new Rectangle( 0, 0, width, height, round, round, {fill: options.color, stroke: 'black'} ) );
@@ -53,14 +53,14 @@ define( function( require ) {
       .lineTo( width + Math.cos( angle ) * length, -Math.sin( angle ) * length )
       .lineTo( width + Math.cos( angle ) * length, height - Math.sin( angle ) * length - 2 )
       .lineTo( width, height - 2 ),
-      {fill: 'white'} ) );
+      {fill: 'white' } ) );
 
-    // add pages
+    // add remaining pages
     for ( var i = 0, dy = (height - round) / pages, dl = length / 5, offset = 5; i < pages; i++ ) {
       this.addChild( new Path( new Shape()
         .moveTo( width + round / 2, round / 2 + dy * i )
         .lineTo( width + round / 2 + Math.cos( angle ) * (length - offset + dl * (Math.pow( 1 / 2 - i / pages, 2 ) - 1 / 4)), round / 2 + dy * i - Math.sin( angle ) * (length - offset + dl * (Math.pow( 1 / 2 - i / pages, 2 ) - 1 / 4)) ),
-        {stroke: 'gray'}
+        {stroke: 'gray', pickable: false}
       ) );
     }
   }

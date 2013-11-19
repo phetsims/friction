@@ -28,7 +28,7 @@ define( function( require ) {
       header,
       dragArea,
       background;
-    Node.call( this, {x: options.x, y: options.y} );
+    Node.call( this, options );
 
     // main params
     this.param = {

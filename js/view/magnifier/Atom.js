@@ -23,22 +23,19 @@ define( function( require ) {
     this.options = options;
     Node.call( this, {x: this.x0, y: this.y0} );
 
-    // add view
-    this.view = new Node( {children: [new Circle( radius, {
-      fill: options.color,
-      stroke: 'black',
-      lineWidth: 1
-    } ), new Circle( radius * 0.3, {fill: 'white', x: radius * 0.3, y: -radius * 0.3} )]} );
+    // add circle that represent the atom
+    this.addChild( new Circle( radius, { fill: options.color, stroke: 'black', lineWidth: 1 } ) );
 
-    this.addChild( this.view );
+    // add highlight
+    this.addChild( new Circle( radius * 0.3, {fill: 'white', x: radius * 0.3, y: -radius * 0.3} ) );
 
     model.newStepProperty.link( function() {
       self.setTranslation( self.x0 + model.amplitude * (Math.random() - 0.5), self.y0 + model.amplitude * (Math.random() - 0.5) );
     } );
   }
 
-  //REVIEW: For consistency, please use the style where prototype functions
-  // are added in the inherit statement, as was done in, say, FrictionModel.js.
+//REVIEW: For consistency, please use the style where prototype functions
+// are added in the inherit statement, as was done in, say, FrictionModel.js.
   return inherit( Node, Atom, {
     evaporate: function() {
       var self = this,
@@ -72,4 +69,5 @@ define( function( require ) {
       this.setVisible( true );
     }
   } );
-} );
+} )
+;
