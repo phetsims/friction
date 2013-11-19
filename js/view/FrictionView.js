@@ -19,7 +19,7 @@ define( function( require ) {
   var physicsString = require( 'string!FRICTION/physics' );
 
   //REVIEW: Looks like some cut an paste errors below - should be FrictionView.
-  function GravityAndOrbitsView( model ) {
+  function FrictionView( model ) {
     ScreenView.call( this, { renderer: 'svg' } );
 
     // add physics book
@@ -40,7 +40,5 @@ define( function( require ) {
     model.init();
   }
 
-  inherit( ScreenView, GravityAndOrbitsView );
-
-  return GravityAndOrbitsView;
+  return inherit( ScreenView, FrictionView );
 } );

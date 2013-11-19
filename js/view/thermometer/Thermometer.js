@@ -18,9 +18,16 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
 
   //REVIEW: targetProperty seems like an odd name.  Why not temperatureProperty?
-  function Thermometer( targetProperty, range, options ) {
+  function Thermometer( temperatureProperty, range, options ) {
     //REVIEW please have variables declared on a separate line, see idiomatic JS 2.B.1.1
-    var self = this, node = new Node(), height = options.height, color = 'rgb(237,28,36)', radius = 12, dTick = options.dTick, h;
+    var self = this,
+      node = new Node(),
+      height = options.height,
+      color = 'rgb(237,28,36)',
+      radius = 12,
+      dTick = options.dTick,
+      h;
+
     Node.call( this, {x: options.x, y: options.y} );
 
     // add background
@@ -66,12 +73,10 @@ define( function( require ) {
     } ) );
 
     // add observer
-    targetProperty.link( function( amplitude ) {
+    temperatureProperty.link( function( amplitude ) {
       self.rect.setRectHeight( height * ((amplitude - range.min) / range.max) );
     } );
   }
 
-  inherit( Node, Thermometer );
-
-  return Thermometer;
+  return inherit( Node, Thermometer );
 } );

@@ -13,7 +13,9 @@ define( function( require ) {
 
   function Book( model, options ) {
     //REVIEW: Variable declarations on separate lines.
-    var self = this, dndScale = model.dndScale;
+    var self = this,
+      dndScale = model.dndScale;
+
     Node.call( this, {x: options.x, y: options.y} );
 
     // add cover
@@ -30,7 +32,5 @@ define( function( require ) {
     }
   }
 
-  inherit( Node, Book );
-
-  return Book;
+  return inherit( Node, Book );
 } );
