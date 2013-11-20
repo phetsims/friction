@@ -19,7 +19,6 @@ define( function( require ) {
   var FONT = new PhetFont( 22 );
 
   function Cover( options ) {
-    //REVIEW: Variable declarations should be on separate lines.
     var width = 200,
       height = 30,
       round = 5,

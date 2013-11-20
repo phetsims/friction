@@ -17,9 +17,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
 
-  //REVIEW: targetProperty seems like an odd name.  Why not temperatureProperty?
   function Thermometer( temperatureProperty, range, options ) {
-    //REVIEW please have variables declared on a separate line, see idiomatic JS 2.B.1.1
     var self = this,
       node = new Node(),
       height = options.height,
