@@ -168,7 +168,7 @@ define( function( require ) {
       // add amplitude in contact
       if ( model.contact ) {
         var dx = Math.abs( newPosition.x - oldPosition.x );
-        model.amplitude = Math.min( model.amplitude + dx * 0.01, model.atoms.amplitude.max );
+        model.amplitude = Math.min( model.amplitude + dx * 0.003, model.atoms.amplitude.max );
       }
     } );
 
@@ -181,7 +181,7 @@ define( function( require ) {
 
     model.timeProperty.link( function( time ) {
       if ( time >= 0.033 ) {
-        model.amplitude = Math.max( model.atoms.amplitude.min, model.amplitude * 0.995 );
+        model.amplitude = Math.max( model.atoms.amplitude.min, model.amplitude * 0.992 );
         model.time -= 0.033;
       }
     } );
