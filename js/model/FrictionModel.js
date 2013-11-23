@@ -203,13 +203,7 @@ define( function( require ) {
       this.time += dt;
     },
     reset: function() {
-      this.amplitudeProperty.reset();
-      this.positionProperty.reset();
-      this.distanceProperty.reset();
-      this.timeProperty.reset();
-      this.contactProperty.reset();
-      this.hintProperty.reset();
-      this.bottomOffsetProperty.reset();
+      PropertySet.prototype.reset.call( this );
       this.init();
     },
     init: function() {
