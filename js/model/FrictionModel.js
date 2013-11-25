@@ -20,10 +20,11 @@ define( function( require ) {
     DISTANCE_Y: 20, // y-distance between neighbors (atoms)
     DISTANCE_INITIAL: 25, // initial distance between top and bottom atoms
     AMPLITUDE_MIN: 1, // atom's min amplitude
-    AMPLITUDE_EVAPORATE: 6, // atom's evaporation amplitude
+    AMPLITUDE_EVAPORATE: 5, // atom's evaporation amplitude
     AMPLITUDE_MAX: 10, // atom's max amplitude
     BOOK_TOP_COLOR: 'rgb(255,255,0)', // color of top book and atoms
-    BOOK_BOTTOM_COLOR: 'rgb(0,251,50)' // color of bottom book and atoms
+    BOOK_BOTTOM_COLOR: 'rgb(0,251,50)', // color of bottom book and atoms
+    COOLING_RATE: 0.2 // proportion per second, adjust in order to change the cooling rate
   };
 
   // atoms of top book (contains 5 rows: 4 of them can evaporate, 1 - can not)
@@ -109,8 +110,6 @@ define( function( require ) {
     ]
   ];
 
-  var lastDt = 0;
-
   function FrictionModel( width, height ) {
     var model = this;
 
@@ -148,7 +147,6 @@ define( function( require ) {
       distance: model.atoms.distance, // distance between books
       bottomOffset: 0, // additional offset, results from drag
       atomRowsToEvaporate: 0, // top atoms number of rows to evaporate
-      time: 0, // passed time (relative value), need for decreasing the temperature of atoms
       contact: false, // are books in contact
       hint: true, // show hint text
       newStep: false // update every step
@@ -168,7 +166,7 @@ define( function( require ) {
       // add amplitude in contact
       if ( model.contact ) {
         var dx = Math.abs( newPosition.x - oldPosition.x );
-        model.amplitude = Math.min( model.amplitude + dx * 0.003, model.atoms.amplitude.max );
+        model.amplitude = Math.min( model.amplitude + dx * 0.0025, model.atoms.amplitude.max );
       }
     } );
 
@@ -178,29 +176,14 @@ define( function( require ) {
         model.evaporate();
       }
     } );
-
-    model.timeProperty.link( function( time ) {
-      if ( time >= 0.033 ) {
-        model.amplitude = Math.max( model.atoms.amplitude.min, model.amplitude * 0.992 );
-        model.time -= 0.033;
-      }
-    } );
   }
 
   return inherit( PropertySet, FrictionModel, {
     step: function( dt ) {
       this.newStep = !this.newStep;
-      if ( !lastDt ) {lastDt = dt;} // init lastDt value
 
-      // prevent error: "Maximum call stack size exceeded" for model.timeProperty observer
-      if ( Math.abs( lastDt - dt ) > lastDt * 0.3 ) {
-        dt = lastDt;
-      }
-      else {
-        lastDt = dt;
-      }
-
-      this.time += dt;
+      // Cool the atoms.
+      this.amplitude = Math.max( this.atoms.amplitude.min, this.amplitude * ( 1 - dt * CONSTANTS.COOLING_RATE ) );
     },
     reset: function() {
       PropertySet.prototype.reset.call( this );
