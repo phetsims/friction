@@ -24,7 +24,8 @@ define( function( require ) {
     AMPLITUDE_MAX: 10, // atom's max amplitude
     BOOK_TOP_COLOR: 'rgb(255,255,0)', // color of top book and atoms
     BOOK_BOTTOM_COLOR: 'rgb(0,251,50)', // color of bottom book and atoms
-    COOLING_RATE: 0.2 // proportion per second, adjust in order to change the cooling rate
+    COOLING_RATE: 0.2, // proportion per second, adjust in order to change the cooling rate
+    MAX_X_DISPLACEMENT: 600 // max allowed distance from center x
   };
 
   // atoms of top book (contains 5 rows: 4 of them can evaporate, 1 - can not)
@@ -203,8 +204,9 @@ define( function( require ) {
 
       this.atomRowsToEvaporate = this.toEvaporate.length;
 
-      // set max distance (initial distance + yellow atoms height + top yellow empty space)
+      // set max inter-book vertical distance (initial distance + yellow atoms height + top yellow empty space)
       this.distanceMax = this.atoms.distance + this.toEvaporate.length * this.atoms.dy + 65;
+      this.minYPos = this.position.y - ( this.toEvaporate.length * this.atoms.dy + 65 );
     },
     move: function( v ) {
       this.hint = false;
@@ -215,18 +217,23 @@ define( function( require ) {
         v.y = 0;
       }
 
-      // set position
+      // Check if the motion vector would put the book in an invalid location and limit it if so.
       if ( v.y > this.distance ) {
         this.bottomOffset += (v.y - this.distance);
         v.y = this.distance;
       }
-      this.position = this.position.plus( v );
-
-      // check max distance
-      var dy = this.distanceMax - this.distance;
-      if ( dy < 0 ) {
-        this.position = this.position.minus( new Vector2( 0, dy ) );
+      else if ( this.position.y + v.y < this.minYPos ) {
+        v.y = this.minYPos - this.position.y; // Limit book from going out of magnifier window.
       }
+      if ( this.position.x + v.x > CONSTANTS.MAX_X_DISPLACEMENT ) {
+        v.x = CONSTANTS.MAX_X_DISPLACEMENT - this.position.x;
+      }
+      else if ( this.position.x + v.x < -CONSTANTS.MAX_X_DISPLACEMENT ) {
+        v.x = -CONSTANTS.MAX_X_DISPLACEMENT - this.position.x;
+      }
+
+      // set the new position
+      this.position = this.position.plus( v );
     },
     initDrag: function( view ) {
       var self = this;
