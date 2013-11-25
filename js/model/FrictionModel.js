@@ -204,8 +204,7 @@ define( function( require ) {
 
       this.atomRowsToEvaporate = this.toEvaporate.length;
 
-      // set max inter-book vertical distance (initial distance + yellow atoms height + top yellow empty space)
-      this.distanceMax = this.atoms.distance + this.toEvaporate.length * this.atoms.dy + 65;
+      // set min vertical position (initial distance + yellow atoms height + top yellow empty space, y values decrease in up direction)
       this.minYPos = this.position.y - ( this.toEvaporate.length * this.atoms.dy + 65 );
     },
     move: function( v ) {
