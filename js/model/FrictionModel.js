@@ -181,6 +181,11 @@ define( function( require ) {
 
   return inherit( PropertySet, FrictionModel, {
     step: function( dt ) {
+      if ( dt > 0.5 ) {
+        // Workaround for the case when user minimize window or switches to
+        // another tab and then back, where big dt values can result.
+        return;
+      }
       this.newStep = !this.newStep;
 
       // Cool the atoms.
