@@ -19,12 +19,14 @@ define( function( require ) {
     DISTANCE_X: 20, // x-distance between neighbors (atoms)
     DISTANCE_Y: 20, // y-distance between neighbors (atoms)
     DISTANCE_INITIAL: 25, // initial distance between top and bottom atoms
-    AMPLITUDE_MIN: 1, // atom's min amplitude
-    AMPLITUDE_EVAPORATE: 5, // atom's evaporation amplitude
+    AMPLITUDE_MIN: 1, // min amplitude for an atom
+    AMPLITUDE_EVAPORATE: 3, // evaporation amplitude for an atom
     AMPLITUDE_MAX: 10, // atom's max amplitude
     BOOK_TOP_COLOR: 'rgb(255,255,0)', // color of top book and atoms
     BOOK_BOTTOM_COLOR: 'rgb(0,251,50)', // color of bottom book and atoms
     COOLING_RATE: 0.2, // proportion per second, adjust in order to change the cooling rate
+    HEATING_MULTIPLIER: 0.0025, // multiplied by distance moved while in contact to control heating rate
+    EVAPORATION_AMPLITUDE_REDUCTION: 0.125, // decrease in amplitude (a.k.a. temperature) when an atom evaporates
     MAX_X_DISPLACEMENT: 600 // max allowed distance from center x
   };
 
@@ -167,7 +169,7 @@ define( function( require ) {
       // add amplitude in contact
       if ( model.contact ) {
         var dx = Math.abs( newPosition.x - oldPosition.x );
-        model.amplitude = Math.min( model.amplitude + dx * 0.0025, model.atoms.amplitude.max );
+        model.amplitude = Math.min( model.amplitude + dx * CONSTANTS.HEATING_MULTIPLIER, model.atoms.amplitude.max );
       }
     } );
 
@@ -262,7 +264,7 @@ define( function( require ) {
         var atom = this.toEvaporate[this.toEvaporate.length - 1].pop();
         if ( atom ) {
           atom.evaporate();
-          this.amplitude -= 0.125;
+          this.amplitude -= CONSTANTS.EVAPORATION_AMPLITUDE_REDUCTION;
         }
       }
     }
