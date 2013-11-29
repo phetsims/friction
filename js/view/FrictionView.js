@@ -31,7 +31,7 @@ define( function( require ) {
     this.addChild( new Magnifier( model, {x: 40, y: 25, targetX: 185, targetY: 425, layerSplit: true } ) );
 
     // add thermometer
-    this.addChild( new Thermometer( model.amplitudeProperty, {min: model.atoms.amplitude.min - 0.66, max: model.atoms.evaporationLimit * 0.95 }, {x: 690, y: 250, height: 175, dTick: 9} ) );
+    this.addChild( new Thermometer( model.amplitudeProperty, {min: model.atoms.amplitude.min - 0.37, max: model.atoms.evaporationLimit * 0.90 }, {x: 690, y: 250, height: 175, dTick: 9} ) );
 
     // add reset button
     this.addChild( new ResetAllButton( function() { model.reset(); }, { scale: 0.5, x: model.width * 0.94, y: model.height * 0.9} ) );
