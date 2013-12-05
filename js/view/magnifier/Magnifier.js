@@ -104,13 +104,8 @@ define( function( require ) {
     this.addAtoms( model );
 
     // add observers
-    model.hintProperty.link( function( flag ) {
-      header.setVisible( flag );
-    } );
-
-    model.positionProperty.link( function( v ) {
-      self.topBook.setTranslation( v );
-    } );
+    model.hintProperty.linkAttribute( header, 'visible' );
+    model.positionProperty.linkAttribute( self.topBook, 'translation' );
 
     model.atomRowsToEvaporateProperty.link( function( number ) {
       dragArea.setRectHeight( (number + 2) * model.atoms.dy );
