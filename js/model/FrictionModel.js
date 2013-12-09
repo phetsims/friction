@@ -20,13 +20,13 @@ define( function( require ) {
     DISTANCE_Y: 20, // y-distance between neighbors (atoms)
     DISTANCE_INITIAL: 25, // initial distance between top and bottom atoms
     AMPLITUDE_MIN: 1, // min amplitude for an atom
-    AMPLITUDE_EVAPORATE: 3, // evaporation amplitude for an atom
-    AMPLITUDE_MAX: 10, // atom's max amplitude
+    AMPLITUDE_EVAPORATE: 12, // evaporation amplitude for an atom
+    AMPLITUDE_MAX: 20, // atom's max amplitude
     BOOK_TOP_COLOR: 'rgb( 255, 255, 0 )', // color of top book and atoms
     BOOK_BOTTOM_COLOR: 'rgb( 0, 251, 50 )', // color of bottom book and atoms
     COOLING_RATE: 0.2, // proportion per second, adjust in order to change the cooling rate
-    HEATING_MULTIPLIER: 0.0025, // multiplied by distance moved while in contact to control heating rate
-    EVAPORATION_AMPLITUDE_REDUCTION: 0.125, // decrease in amplitude (a.k.a. temperature) when an atom evaporates
+    HEATING_MULTIPLIER: 0.0075, // multiplied by distance moved while in contact to control heating rate
+    EVAPORATION_AMPLITUDE_REDUCTION: 0.01, // decrease in amplitude (a.k.a. temperature) when an atom evaporates
     MAX_X_DISPLACEMENT: 600 // max allowed distance from center x
   };
 
