@@ -13,6 +13,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var Path = require( 'SCENERY/nodes/Path' );
 
   var rubAtomsString = require( 'string!FRICTION/rubAtoms' );
 
@@ -52,12 +53,9 @@ define( function( require ) {
     this.param.topAtoms.y = this.param.height / 3 - model.atoms.distance;
     this.param.bottomAtoms.y = 2 * this.param.height / 3;
 
-    // add border
-    this.addChild( new Rectangle( 0, 0, this.param.width, this.param.height, this.param.round, this.param.round, {stroke: 'red', lineWidth: 5} ) );
-
     // add container for clipping
     this.addChild( this.container = new Node() );
-    this.container.setClipArea( new Shape().roundRect( 2.5, 2.5, this.param.width - 5, this.param.height - 5, this.param.round, this.param.round ) );
+    // this.container.setClipArea( new Shape().roundRect( 2.5, 2.5, this.param.width - 5, this.param.height - 5, this.param.round, this.param.round ) );
 
     // add container where the individual atoms will be placed
     this.bottomAtomsLayer = new Node();
@@ -90,6 +88,35 @@ define( function( require ) {
     this.param.topAtoms.target = this.topAtomsLayer;
     this.container.addChild( this.topBookBackground );
 
+    /*---------------------------------------------------------------------------*
+    * Add the red border around the magnified area, and add a white shape below it to block out the clipped area.
+    *----------------------------------------------------------------------------*/
+    var topPadding = 500;
+    var sidePadding = 800;
+    var bottomPadding = 60;
+    var rightX = this.param.width + sidePadding;
+    var leftX = -sidePadding;
+    var topY = -topPadding;
+    var bottomY = this.param.height + bottomPadding;
+    var innerLowX = this.param.round;
+    var innerHighX = this.param.width - this.param.round;
+    var innerLowY = this.param.round;
+    var innerHighY = this.param.height - this.param.round;
+    this.addChild( new Path( new Shape().moveTo( rightX, topY )
+                                        .lineTo( leftX, topY )
+                                        .lineTo( leftX, bottomY )
+                                        .lineTo( rightX, bottomY )
+                                        .lineTo( rightX, topY )
+                                        .lineTo( innerHighX, innerLowY - this.param.round )
+                                        .arc( innerHighX, innerLowY, this.param.round, -Math.PI / 2, 0, false )
+                                        .arc( innerHighX, innerHighY, this.param.round, 0, Math.PI / 2, false )
+                                        .arc( innerLowX, innerHighY, this.param.round, Math.PI / 2, Math.PI, false )
+                                        .arc( innerLowX, innerLowY, this.param.round, Math.PI, Math.PI * 3 / 2, false )
+                                        .lineTo( innerHighX, innerLowY - this.param.round )
+                                        .close(),
+                   { fill: 'white' } ) );
+    this.addChild( new Rectangle( 0, 0, this.param.width, this.param.height, this.param.round, this.param.round, { stroke: 'red', lineWidth: 5 } ) );
+
     // add magnifier's target
     this.target = new MagnifierTarget( {
       x: options.targetX,
@@ -108,6 +135,8 @@ define( function( require ) {
     // add atoms (on a separate layer for better performance).
     this.addAtoms( model );
     this.container.addChild( this.atomsLayer );
+    
+    
 
     // add observers
     model.hintProperty.linkAttribute( header, 'visible' );
