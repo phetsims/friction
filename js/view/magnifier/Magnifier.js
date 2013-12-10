@@ -73,7 +73,8 @@ define( function( require ) {
     this.container.addChild( this.bottomBookBackground );
 
     // add top book
-    this.topBookBackground = new Node( { renderer: 'svg', rendererOptions: { cssTransforms: true } } );
+    // this.topBookBackground = new Node( { renderer: 'svg', rendererOptions: { cssTransform: true } } );
+    this.topBookBackground = new Node( { renderer: 'svg' });
 
     // init drag for background
     background = new Rectangle( -1.125 * this.param.width, -this.param.height, 3.25 * this.param.width, 4 * this.param.height / 3 - model.atoms.distance, this.param.round, this.param.round, {fill: 'yellow'} );
