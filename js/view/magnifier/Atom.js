@@ -7,11 +7,20 @@
  */
 define( function( require ) {
   'use strict';
-  var Node = require( 'SCENERY/nodes/Node' );
-  var inherit = require( 'PHET_CORE/inherit' );
 
+  // Imports
+  var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Circle = require( 'SCENERY/nodes/Circle' );
 
+  var atomGraphics = {};
+
+  /**
+   * @param model
+   * @param options
+   * @constructor
+   */
   function Atom( model, options ) {
     var self = this,
       radius = model.atoms.radius;
@@ -20,13 +29,21 @@ define( function( require ) {
     this.y0 = options.y;
     this.model = model;
     this.options = options;
-    Node.call( this, {x: this.x0, y: this.y0} );
+    Node.call( this, { x: this.x0, y: this.y0 } );
 
-    // add circle that represent the atom
-    this.addChild( new Circle( radius, { fill: options.color, stroke: 'black', lineWidth: 1 } ) );
-
-    // add highlight
-    this.addChild( new Circle( radius * 0.3, {fill: 'white', x: radius * 0.3, y: -radius * 0.3} ) );
+    // function for creating or obtaining atom graphic for a given color
+    if ( !atomGraphics[options.color] ) {
+      //Scale up before rasterization so it won't be too pixellated/fuzzy
+      var scale = 2;
+      var container = new Node( { scale: 1 / scale } );
+      var atomNode = new Circle( radius, { fill: options.color, stroke: 'black', lineWidth: 1, scale: scale } );
+      atomNode.addChild( new Circle( radius * 0.3, {fill: 'white', x: radius * 0.3, y: -radius * 0.3} ) );
+      atomNode.toImageNodeAsynchronous( function( imageNode ) {
+        container.addChild( imageNode );
+      } );
+      atomGraphics[options.color] = container;
+    }
+    this.addChild( atomGraphics[options.color] );
 
     model.newStepProperty.link( function() {
       self.setTranslation( self.x0 + model.amplitude * (Math.random() - 0.5), self.y0 + model.amplitude * (Math.random() - 0.5) );

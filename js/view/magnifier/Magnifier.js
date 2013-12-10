@@ -28,7 +28,7 @@ define( function( require ) {
       header,
       dragArea,
       background;
-    Node.call( this, options );
+    Node.call( this, _.extend( { renderer: 'canvas', rendererOptions: { fullResolution: true } }, options ) );
 
     // main params
     this.param = {
