@@ -28,7 +28,7 @@ define( function( require ) {
       header,
       dragArea,
       background;
-    Node.call( this, _.extend( { renderer: 'canvas', rendererOptions: { fullResolution: true } }, options ) );
+    Node.call( this, options );
 
     // main params
     this.param = {
@@ -59,31 +59,33 @@ define( function( require ) {
     this.addChild( this.container = new Node() );
     this.container.setClipArea( new Shape().roundRect( 2.5, 2.5, this.param.width - 5, this.param.height - 5, this.param.round, this.param.round ) );
 
+    // add container where the individual atoms will be placed
+    this.atomsLayer = new Node( { renderer: 'canvas', rendererOptions: { fullResolution: true } } );
+
     // add bottom book
-    this.bottomBook = new Node( {children: [
-      new Rectangle( 3, 2 * this.param.height / 3 - 2, this.param.width - 6, this.param.height / 3, 0, this.param.round - 3, {fill: 'rgb(187,255,187)'} ),
-      new Rectangle( 3, 2 * this.param.height / 3 - 2, this.param.width - 6, this.param.round, {fill: 'rgb(187,255,187)'} )
+    this.bottomBookBackground = new Node( {children: [
+      new Rectangle( 3, 2 * this.param.height / 3 - 2, this.param.width - 6, this.param.height / 3, 0, this.param.round - 3, {fill: 'rgb( 187, 255, 187 )'} )
     ]} );
-    this.addRowCircles( model, this.bottomBook, {color: 'rgb(187,255,187)', x: -model.atoms.dx / 2, y: 2 * this.param.height / 3 - 2, width: this.param.width} );
-    this.param.bottomAtoms.target = this.bottomBook;
-    this.container.addChild( this.bottomBook );
+    this.addRowCircles( model, this.bottomBookBackground, {color: 'rgb(187,255,187)', x: -model.atoms.dx / 2, y: 2 * this.param.height / 3 - 2, width: this.param.width} );
+    this.param.bottomAtoms.target = this.atomsLayer;
+    this.container.addChild( this.bottomBookBackground );
 
     // add top book
-    this.topBook = new Node();
+    this.topBookBackground = new Node( { renderer: 'svg', rendererOptions: { cssTransforms: true } } );
 
     // init drag for background
     background = new Rectangle( -1.125 * this.param.width, -this.param.height, 3.25 * this.param.width, 4 * this.param.height / 3 - model.atoms.distance, this.param.round, this.param.round, {fill: 'yellow'} );
     model.initDrag( background );
-    this.topBook.addChild( background );
+    this.topBookBackground.addChild( background );
 
     // init drag for drag area
-    dragArea = new Rectangle( 0.055 * this.param.width, 0.175 * this.param.height, 0.875 * this.param.width, model.atoms.dy * 6, {fill: 'rgba(0,0,0,0)'} );
+    dragArea = new Rectangle( 0.055 * this.param.width, 0.175 * this.param.height, 0.875 * this.param.width, model.atoms.dy * 6, {fill: null} );
     model.initDrag( dragArea );
-    this.topBook.addChild( dragArea );
+    this.topBookBackground.addChild( dragArea );
 
-    this.addRowCircles( model, this.topBook, {color: 'yellow', x: -this.param.width, y: this.param.height / 3 - model.atoms.distance, width: 3 * this.param.width} );
-    this.param.topAtoms.target = this.topBook;
-    this.container.addChild( this.topBook );
+    this.addRowCircles( model, this.topBookBackground, {color: 'yellow', x: -this.param.width, y: this.param.height / 3 - model.atoms.distance, width: 3 * this.param.width} );
+    this.param.topAtoms.target = this.atomsLayer;
+    this.container.addChild( this.topBookBackground );
 
     // add magnifier's target
     this.target = new MagnifierTarget( {
@@ -100,12 +102,13 @@ define( function( require ) {
     // header text
     this.container.addChild( header = new Text( rubAtomsString, { centerX: this.param.width / 2, font: FONT, fill: 'red', pickable: false, y: this.param.height / 7} ) );
 
-    // add atoms
+    // add atoms (on a separate layer for better performance).
     this.addAtoms( model );
+    this.container.addChild( this.atomsLayer );
 
     // add observers
     model.hintProperty.linkAttribute( header, 'visible' );
-    model.positionProperty.linkAttribute( self.topBook, 'translation' );
+    model.positionProperty.linkAttribute( self.topBookBackground, 'translation' );
 
     model.atomRowsToEvaporateProperty.link( function( number ) {
       dragArea.setRectHeight( (number + 2) * model.atoms.dy );
