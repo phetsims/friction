@@ -33,8 +33,7 @@ define( function( require ) {
 
     // function for creating or obtaining atom graphic for a given color
     if ( !atomGraphics[options.color] ) {
-      //Scale up before rasterization so it won't be too pixellated/fuzzy
-      var scale = 2;
+      var scale = 3; // Scale up before rasterization so it won't be too pixellated/fuzzy, value empirically determined.
       var container = new Node( { scale: 1 / scale } );
       var atomNode = new Circle( radius, { fill: options.color, stroke: 'black', lineWidth: 1, scale: scale } );
       atomNode.addChild( new Circle( radius * 0.3, {fill: 'white', x: radius * 0.3, y: -radius * 0.3} ) );
