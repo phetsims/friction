@@ -60,14 +60,16 @@ define( function( require ) {
     this.container.setClipArea( new Shape().roundRect( 2.5, 2.5, this.param.width - 5, this.param.height - 5, this.param.round, this.param.round ) );
 
     // add container where the individual atoms will be placed
-    this.atomsLayer = new Node( { renderer: 'canvas', rendererOptions: { fullResolution: true } } );
+    this.bottomAtomsLayer = new Node();
+    this.topAtomsLayer = new Node();
+    this.atomsLayer = new Node( { renderer: 'canvas', rendererOptions: { fullResolution: true }, children: [this.bottomAtomsLayer, this.topAtomsLayer] } );
 
     // add bottom book
     this.bottomBookBackground = new Node( {children: [
       new Rectangle( 3, 2 * this.param.height / 3 - 2, this.param.width - 6, this.param.height / 3, 0, this.param.round - 3, {fill: 'rgb( 187, 255, 187 )'} )
     ]} );
     this.addRowCircles( model, this.bottomBookBackground, {color: 'rgb(187,255,187)', x: -model.atoms.dx / 2, y: 2 * this.param.height / 3 - 2, width: this.param.width} );
-    this.param.bottomAtoms.target = this.atomsLayer;
+    this.param.bottomAtoms.target = this.bottomAtomsLayer;
     this.container.addChild( this.bottomBookBackground );
 
     // add top book
@@ -84,7 +86,7 @@ define( function( require ) {
     this.topBookBackground.addChild( dragArea );
 
     this.addRowCircles( model, this.topBookBackground, {color: 'yellow', x: -this.param.width, y: this.param.height / 3 - model.atoms.distance, width: 3 * this.param.width} );
-    this.param.topAtoms.target = this.atomsLayer;
+    this.param.topAtoms.target = this.topAtomsLayer;
     this.container.addChild( this.topBookBackground );
 
     // add magnifier's target
@@ -109,6 +111,7 @@ define( function( require ) {
     // add observers
     model.hintProperty.linkAttribute( header, 'visible' );
     model.positionProperty.linkAttribute( self.topBookBackground, 'translation' );
+    model.positionProperty.linkAttribute( self.topAtomsLayer, 'translation' );
 
     model.atomRowsToEvaporateProperty.link( function( number ) {
       dragArea.setRectHeight( (number + 2) * model.atoms.dy );
