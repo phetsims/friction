@@ -14,8 +14,9 @@ define( function( require ) {
   function Book( model, options ) {
     var self = this,
       dndScale = model.dndScale;
-
-    Node.call( this, {x: options.x, y: options.y} );
+      
+    var baseOptions = {x: options.x, y: options.y};
+    Node.call( this, options.cssTransform ? _.extend( { renderer: 'svg', rendererOptions: { cssTransform: true } }, baseOptions ) : baseOptions );
 
     // add cover
     this.addChild( new Cover( options ) );

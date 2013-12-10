@@ -22,10 +22,10 @@ define( function( require ) {
     ScreenView.call( this, { renderer: 'svg' } );
 
     // add physics book
-    this.addChild( new Book( model, {x: 50, y: 225, title: physicsString, color: 'rgb(0,255,51)', drag: false} ) );
+    this.addChild( new Book( model, {x: 50, y: 225, title: physicsString, color: 'rgb(0,255,51)', drag: false, cssTransform: false } ) );
 
     // add chemistry book
-    this.addChild( new Book( model, {x: 65, y: 209, title: chemistryString, color: 'rgb(255,240,0)', drag: true} ) );
+    this.addChild( new Book( model, {x: 65, y: 209, title: chemistryString, color: 'rgb(255,240,0)', drag: true, cssTransform: true } ) );
 
     // add magnifier
     this.addChild( new Magnifier( model, {x: 40, y: 25, targetX: 185, targetY: 425, layerSplit: true } ) );
