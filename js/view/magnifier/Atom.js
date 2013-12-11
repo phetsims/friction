@@ -48,7 +48,7 @@ define( function( require ) {
         
         // add a node with that image to our container (part of atomGraphics)
         container.addChild( new Node( { children: [
-          new Image( image, { x: -x, y: -y } )
+          new Image( img, { x: -x, y: -y } )
         ] } ) );
       } );
       Atom.atomGraphics[options.color] = container;
