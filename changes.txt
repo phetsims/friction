@@ -1,14 +1,15 @@
+12/11/2013 Made the atom vibration amount at high temperatures a bit smaller
 # 0.0.0-dev.7
-12/10/2013 Implemented a number of performance improvements.
-11/29/2013 Made some adjustments to the way the temperature reading shown in the thermometer relates to the model.
-11/29/2013 Made it a little easier to evaporate a particle.
-11/29/2013 Created a bit of initial space between the books.
-11/26/2013 Added motion limits to x direction.
-11/25/2013 Cleaned up time stepping to no longer use a property.
-11/24/2013 Adjusted heating and cooling rates.
+12/10/2013 Implemented a number of performance improvements
+11/29/2013 Made some adjustments to the way the temperature reading shown in the thermometer relates to the model
+11/29/2013 Made it a little easier to evaporate a particle
+11/29/2013 Created a bit of initial space between the books
+11/26/2013 Added motion limits to x direction
+11/25/2013 Cleaned up time stepping to no longer use a property
+11/24/2013 Adjusted heating and cooling rates
 # 0.0.0-dev.4
 # 0.0.0-dev.3
 # 0.0.0-dev.2
 # 0.0.0-dev.1
-10/2/2013 Added basic project structure.
-10/2/2013 Repository created.
+10/2/2013 Added basic project structure
+10/2/2013 Repository created
