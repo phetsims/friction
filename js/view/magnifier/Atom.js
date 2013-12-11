@@ -14,7 +14,6 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Vector2 = require( 'DOT/Vector2' );
-  // var FrictionModel = require( 'model/FrictionModel' );
 
   /**
    * @param model
@@ -45,7 +44,7 @@ define( function( require ) {
         // add our actual HTMLImageElement to atomImages
         Atom.atomImages[self.isTopAtom] = img;
         Atom.atomOffset = new Vector2( -x, -y );
-        
+
         // add a node with that image to our container (part of atomGraphics)
         container.addChild( new Node( { children: [
           new Image( img, { x: -x, y: -y } )
@@ -61,7 +60,7 @@ define( function( require ) {
       // self.setTranslation( self.x0 + model.amplitude * (Math.random() - 0.5), self.y0 + model.amplitude * (Math.random() - 0.5) );
     } );
   }
-  
+
   // export information needed to directly render the images
   Atom.imageScale = 3;
   Atom.atomGraphics = {};

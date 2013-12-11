@@ -21,9 +21,9 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var FONT = new PhetFont( 30 );
 
-  var Atom = require( 'view/magnifier/Atom' );
-  var MagnifierTarget = require( 'view/magnifier/MagnifierTarget' );
-  var AtomCanvas = require( 'view/magnifier/AtomCanvas' );
+  var Atom = require( 'FRICTION/view/magnifier/Atom' );
+  var MagnifierTarget = require( 'FRICTION/view/magnifier/MagnifierTarget' );
+  var AtomCanvas = require( 'FRICTION/view/magnifier/AtomCanvas' );
 
   function Magnifier( model, options ) {
     var self = this,

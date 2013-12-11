@@ -14,8 +14,8 @@ define( function( require ) {
   var Util = require( 'SCENERY/util/Util' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Atom = require( 'view/magnifier/Atom' );
-  
+  var Atom = require( 'FRICTION/view/magnifier/Atom' );
+
   var useHighRes = true;
   
   function AtomCanvas( layerWidth, layerHeight, topPositionProperty ) {

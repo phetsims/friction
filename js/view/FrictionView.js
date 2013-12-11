@@ -11,9 +11,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
 
-  var Book = require( 'view/Book/Book' );
-  var Magnifier = require( 'view/magnifier/Magnifier' );
-  var Thermometer = require( 'view/thermometer/Thermometer' );
+  var Book = require( 'FRICTION/view/Book/Book' );
+  var Magnifier = require( 'FRICTION/view/magnifier/Magnifier' );
+  var Thermometer = require( 'FRICTION/view/thermometer/Thermometer' );
 
   var chemistryString = require( 'string!FRICTION/chemistry' );
   var physicsString = require( 'string!FRICTION/physics' );
