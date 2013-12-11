@@ -23,6 +23,7 @@ define( function( require ) {
 
   var Atom = require( 'view/magnifier/Atom' );
   var MagnifierTarget = require( 'view/magnifier/MagnifierTarget' );
+  var AtomCanvas = require( 'view/magnifier/AtomCanvas' );
 
   function Magnifier( model, options ) {
     var self = this,
@@ -133,10 +134,11 @@ define( function( require ) {
     this.container.addChild( header = new Text( rubAtomsString, { centerX: this.param.width / 2, font: FONT, fill: 'red', pickable: false, y: this.param.height / 7} ) );
 
     // add atoms (on a separate layer for better performance).
+    this.atomCanvasLayer = new AtomCanvas( this.param.width, this.param.height, model.positionProperty );
     this.addAtoms( model );
-    this.container.addChild( this.atomsLayer );
-    
-    
+    // NOTE: for now, we are using the AtomCanvas instead of an atom layer. All atoms are displayed there, even though we still create Atom view instances
+    // this.container.addChild( this.atomsLayer );
+    this.container.addChild( this.atomCanvasLayer );
 
     // add observers
     model.hintProperty.linkAttribute( header, 'visible' );
@@ -149,6 +151,14 @@ define( function( require ) {
   }
 
   return inherit( Node, Magnifier, {
+    step: function( timeElapsed ) {
+      this.atomCanvasLayer.step( timeElapsed );
+    },
+    
+    layout: function() {
+      this.atomCanvasLayer.layout();
+    },
+    
     addAtoms: function( model ) {
       var self = this,
         topAtoms = this.param.topAtoms,
@@ -177,7 +187,8 @@ define( function( require ) {
             if ( evaporate ) {
               row.push( atom );
             }
-            target.addChild( atom );
+            self.atomCanvasLayer.registerAtom( atom );
+            // target.addChild( atom );
           }
         }
         if ( evaporate ) {
