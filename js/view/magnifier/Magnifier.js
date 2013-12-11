@@ -21,6 +21,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var FONT = new PhetFont( 30 );
 
+  var FrictionSharedConstants = require( 'FRICTION/common/FrictionSharedConstants' );
   var Atom = require( 'FRICTION/view/magnifier/Atom' );
   var MagnifierTarget = require( 'FRICTION/view/magnifier/MagnifierTarget' );
   var AtomCanvas = require( 'FRICTION/view/magnifier/AtomCanvas' );
@@ -65,18 +66,17 @@ define( function( require ) {
 
     // add bottom book
     this.bottomBookBackground = new Node( {children: [
-      new Rectangle( 3, 2 * this.param.height / 3 - 2, this.param.width - 6, this.param.height / 3, 0, this.param.round - 3, {fill: 'rgb( 187, 255, 187 )'} )
+      new Rectangle( 3, 2 * this.param.height / 3 - 2, this.param.width - 6, this.param.height / 3, 0, this.param.round - 3, {fill: FrictionSharedConstants.BOTTOM_BOOK_ATOMS_COLOR} )
     ]} );
-    this.addRowCircles( model, this.bottomBookBackground, {color: 'rgb(187,255,187)', x: -model.atoms.dx / 2, y: 2 * this.param.height / 3 - 2, width: this.param.width} );
+    this.addRowCircles( model, this.bottomBookBackground, {color: FrictionSharedConstants.BOTTOM_BOOK_ATOMS_COLOR, x: -model.atoms.dx / 2, y: 2 * this.param.height / 3 - 2, width: this.param.width} );
     this.param.bottomAtoms.target = this.bottomAtomsLayer;
     this.container.addChild( this.bottomBookBackground );
 
     // add top book
-    // this.topBookBackground = new Node( { renderer: 'svg', rendererOptions: { cssTransform: true } } );
-    this.topBookBackground = new Node( { renderer: 'svg' });
+    this.topBookBackground = new Node( { renderer: 'svg' } );
 
     // init drag for background
-    background = new Rectangle( -1.125 * this.param.width, -this.param.height, 3.25 * this.param.width, 4 * this.param.height / 3 - model.atoms.distance, this.param.round, this.param.round, {fill: 'yellow'} );
+    background = new Rectangle( -1.125 * this.param.width, -this.param.height, 3.25 * this.param.width, 4 * this.param.height / 3 - model.atoms.distance, this.param.round, this.param.round, {fill: FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR} );
     model.initDrag( background );
     this.topBookBackground.addChild( background );
 
@@ -85,13 +85,12 @@ define( function( require ) {
     model.initDrag( dragArea );
     this.topBookBackground.addChild( dragArea );
 
-    this.addRowCircles( model, this.topBookBackground, {color: 'yellow', x: -this.param.width, y: this.param.height / 3 - model.atoms.distance, width: 3 * this.param.width} );
+    this.addRowCircles( model, this.topBookBackground, {color: FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR, x: -this.param.width, y: this.param.height / 3 - model.atoms.distance, width: 3 * this.param.width} );
     this.param.topAtoms.target = this.topAtomsLayer;
     this.container.addChild( this.topBookBackground );
 
-    /*---------------------------------------------------------------------------*
-    * Add the red border around the magnified area, and add a white shape below it to block out the clipped area.
-    *----------------------------------------------------------------------------*/
+    // Add the red border around the magnified area, and add a white shape
+    // below it to block out the clipped area.
     var topPadding = 500;
     var sidePadding = 800;
     var bottomPadding = 60;
@@ -136,8 +135,9 @@ define( function( require ) {
     // add atoms (on a separate layer for better performance).
     this.atomCanvasLayer = new AtomCanvas( this.param.width, this.param.height, model.positionProperty );
     this.addAtoms( model );
-    // NOTE: for now, we are using the AtomCanvas instead of an atom layer. All atoms are displayed there, even though we still create Atom view instances
-    // this.container.addChild( this.atomsLayer );
+    // NOTE: For better performance (particularly on iPad), we are using the
+    // AtomCanvas instead of an atom layer. All atoms are displayed there,
+    // even though we still create Atom view instances.
     this.container.addChild( this.atomCanvasLayer );
 
     // add observers

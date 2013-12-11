@@ -271,5 +271,5 @@ define( function( require ) {
         }
       }
     }
-  }, { CONSTANTS: CONSTANTS } );
+  } );
 } );

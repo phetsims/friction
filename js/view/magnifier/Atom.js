@@ -14,6 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Vector2 = require( 'DOT/Vector2' );
+  var FrictionSharedConstants = require( 'FRICTION/common/FrictionSharedConstants' );
 
   /**
    * @param model
@@ -24,8 +25,8 @@ define( function( require ) {
     var self = this,
       radius = model.atoms.radius;
 
-    // flag records whether we are on the top (yellow) book
-    this.isTopAtom = options.color === 'rgb( 255, 255, 0 )';
+    // flag records whether we are on the top book
+    this.isTopAtom = options.color === FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR;
     this.currentX = 0;
     this.currentY = 0;
     this.x0 = options.x;
