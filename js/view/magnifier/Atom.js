@@ -71,7 +71,7 @@ define( function( require ) {
   return inherit( Node, Atom, {
     evaporate: function() {
       var self = this,
-        steps = 100,
+        steps = 250, // steps until atom has completed evaporation movement
         dx,
         dy;
 
