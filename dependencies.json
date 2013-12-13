@@ -1,0 +1,50 @@
+{
+  "chipper": {
+    "sha": "1a61b7f11fbd7a29e37b068cd09cb1b79a132d4f",
+    "branch": "master"
+  },
+  "sherpa": {
+    "sha": "71d59ca730a951e5faee5d10144b99da954bd8d2",
+    "branch": "master"
+  },
+  "sun": {
+    "sha": "c60237de6a4c8c639edaf789b929a682c19d9301",
+    "branch": "master"
+  },
+  "scenery-phet": {
+    "sha": "c3e04dfcb8731afadb85131b7efe560070cfb281",
+    "branch": "master"
+  },
+  "scenery": {
+    "sha": "af1d50a922fedc8f1758ee708c7fa030d79828c6",
+    "branch": "master"
+  },
+  "phetcommon": {
+    "sha": "f5b48ba0c115ba9a1a7efb5b211047cb93893783",
+    "branch": "master"
+  },
+  "phet-core": {
+    "sha": "31549be40abeda91d44ef9446361d0b611121949",
+    "branch": "master"
+  },
+  "kite": {
+    "sha": "b8e6d658327a10974c92516baf5764a406744c24",
+    "branch": "master"
+  },
+  "joist": {
+    "sha": "b20b7da4e9b3f4ec7c1fd98d65372131221f2a5a",
+    "branch": "master"
+  },
+  "axon": {
+    "sha": "3f4faa48effb4b187fe8a940b4e40fcb66e04484",
+    "branch": "master"
+  },
+  "dot": {
+    "sha": "8753bf309e8ba6cf1a93d6edadde0116f7762f41",
+    "branch": "master"
+  },
+  "assert": {
+    "sha": "ce8013d3c65c140de3ec4c6f8ab508f8098793db",
+    "branch": "master"
+  }
+}
