@@ -1,3 +1,5 @@
+12/16/2013 Updated credits
+12/12/2013 Slowed down motion of evaporating atoms
 12/11/2013 Made the atom vibration amount at high temperatures a bit smaller
 # 0.0.0-dev.7
 12/10/2013 Implemented a number of performance improvements
