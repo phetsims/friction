@@ -103,18 +103,18 @@ define( function( require ) {
     var innerLowY = this.param.round;
     var innerHighY = this.param.height - this.param.round;
     this.addChild( new Path( new Shape().moveTo( rightX, topY )
-                                        .lineTo( leftX, topY )
-                                        .lineTo( leftX, bottomY )
-                                        .lineTo( rightX, bottomY )
-                                        .lineTo( rightX, topY )
-                                        .lineTo( innerHighX, innerLowY - this.param.round )
-                                        .arc( innerHighX, innerLowY, this.param.round, -Math.PI / 2, 0, false )
-                                        .arc( innerHighX, innerHighY, this.param.round, 0, Math.PI / 2, false )
-                                        .arc( innerLowX, innerHighY, this.param.round, Math.PI / 2, Math.PI, false )
-                                        .arc( innerLowX, innerLowY, this.param.round, Math.PI, Math.PI * 3 / 2, false )
-                                        .lineTo( innerHighX, innerLowY - this.param.round )
-                                        .close(),
-                   { fill: 'white' } ) );
+      .lineTo( leftX, topY )
+      .lineTo( leftX, bottomY )
+      .lineTo( rightX, bottomY )
+      .lineTo( rightX, topY )
+      .lineTo( innerHighX, innerLowY - this.param.round )
+      .arc( innerHighX, innerLowY, this.param.round, -Math.PI / 2, 0, false )
+      .arc( innerHighX, innerHighY, this.param.round, 0, Math.PI / 2, false )
+      .arc( innerLowX, innerHighY, this.param.round, Math.PI / 2, Math.PI, false )
+      .arc( innerLowX, innerLowY, this.param.round, Math.PI, Math.PI * 3 / 2, false )
+      .lineTo( innerHighX, innerLowY - this.param.round )
+      .close(),
+      { fill: 'white' } ) );
     this.addChild( new Rectangle( 0, 0, this.param.width, this.param.height, this.param.round, this.param.round, { stroke: 'red', lineWidth: 5 } ) );
 
     // add magnifier's target
@@ -154,11 +154,11 @@ define( function( require ) {
     step: function( timeElapsed ) {
       this.atomCanvasLayer.step( timeElapsed );
     },
-    
+
     layout: function() {
       this.atomCanvasLayer.layout();
     },
-    
+
     addAtoms: function( model ) {
       var self = this,
         topAtoms = this.param.topAtoms,
@@ -188,7 +188,6 @@ define( function( require ) {
               row.push( atom );
             }
             self.atomCanvasLayer.registerAtom( atom );
-            // target.addChild( atom );
           }
         }
         if ( evaporate ) {
