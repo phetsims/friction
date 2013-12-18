@@ -21,7 +21,7 @@ define( function( require ) {
     var self = this,
       node = new Node(),
       height = options.height,
-      color = 'rgb(237,28,36)',
+      liquidColor = 'rgb(237,28,36)',
       radius = 12,
       dTick = options.dTick,
       h;
@@ -37,7 +37,7 @@ define( function( require ) {
 
     // add level rectangle
     this.rect = new Rectangle( -radius / 2 + 1, radius / 2, radius - 2, height, {
-      fill: color
+      fill: liquidColor
     } );
     this.rect.rotate( Math.PI );
     node.addChild( this.rect );
@@ -64,7 +64,7 @@ define( function( require ) {
     this.addChild( new Circle( radius, {
       fill: new RadialGradient( radius * 0.3, -radius * 0.3, 1, radius * 0.3, -radius * 0.3, radius / 1.5 )
         .addColorStop( 0, '#fff' )
-        .addColorStop( 1, color ),
+        .addColorStop( 1, liquidColor ),
       stroke: 'black',
       lineDash: [50, 13],
       lineWidth: 1
