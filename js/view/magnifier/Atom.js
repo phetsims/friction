@@ -56,9 +56,11 @@ define( function( require ) {
     this.addChild( Atom.atomGraphics[options.color] );
 
     // move the atom as the top book moves if it is part of that book
+    var motionVector = new Vector2(); // Optimization to minimize garbage collection.
     model.positionProperty.lazyLink( function( newPosition, oldPosition ) {
       if ( self.isTopAtom && !self.isEvaporated ) {
-        var motionVector = newPosition.minus( oldPosition );
+        motionVector.set( newPosition );
+        motionVector.subtract( oldPosition );
         self.x0 = self.x0 + motionVector.x;
         self.y0 = self.y0 + motionVector.y;
       }
