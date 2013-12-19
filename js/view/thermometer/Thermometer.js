@@ -60,13 +60,17 @@ define( function( require ) {
       );
     }
 
-    // add red circle
+    // add red circle for liquid inside the bulb
     this.addChild( new Circle( radius, {
       fill: new RadialGradient( radius * 0.3, -radius * 0.3, 1, radius * 0.3, -radius * 0.3, radius / 1.5 )
         .addColorStop( 0, '#fff' )
-        .addColorStop( 1, liquidColor ),
+        .addColorStop( 1, liquidColor )
+    } ) );
+
+    // Add outline for the bulb
+    var bulbShape = Shape.arc( 0, 0, radius, -1.05, Math.PI + 1.05, false );
+    this.addChild( new Path( bulbShape, {
       stroke: 'black',
-      lineDash: [50, 13],
       lineWidth: 1
     } ) );
 
