@@ -25,8 +25,8 @@ define( function( require ) {
     var self = this,
       radius = model.atoms.radius;
 
-    // flag records whether we are on the top book
-    this.isTopAtom = options.color === FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR;
+    this.isTopAtom = options.color === FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR; // flag records whether we are on the top book
+    this.isEvaporated = false;
     this.currentX = 0;
     this.currentY = 0;
     this.x0 = options.x;
@@ -55,10 +55,21 @@ define( function( require ) {
     }
     this.addChild( Atom.atomGraphics[options.color] );
 
+    // move the atom as the top book moves if it is part of that book
+    var motionVector = new Vector2(); // Optimization to minimize garbage collection.
+    model.positionProperty.lazyLink( function( newPosition, oldPosition ) {
+      if ( self.isTopAtom && !self.isEvaporated ) {
+        motionVector.set( newPosition );
+        motionVector.subtract( oldPosition );
+        self.x0 = self.x0 + motionVector.x;
+        self.y0 = self.y0 + motionVector.y;
+      }
+    } );
+
+    // update atom's position based on vibration and center position
     model.newStepProperty.link( function() {
       self.currentX = self.x0 + model.amplitude * (Math.random() - 0.5);
       self.currentY = self.y0 + model.amplitude * (Math.random() - 0.5);
-      // self.setTranslation( self.x0 + model.amplitude * (Math.random() - 0.5), self.y0 + model.amplitude * (Math.random() - 0.5) );
     } );
   }
 
@@ -75,6 +86,14 @@ define( function( require ) {
         dx,
         dy;
 
+      this.isEvaporated = true;
+
+      var evaporationDestinationX = this.x0 + 4 * this.model.width * (Math.round( Math.random() ) - 0.5);
+      dx = (evaporationDestinationX - this.x0) / steps;
+      var evaporationDestinationY = this.y0 + Math.random() * 1.5 * this.getYrange();
+      dy = (evaporationDestinationY - this.y0) / steps;
+
+      // create and attach the evaporation motion handler
       this.handler = function() {
         self.x0 += dx;
         self.y0 -= dy;
@@ -83,11 +102,6 @@ define( function( require ) {
           self.setVisible( false );
         }
       };
-
-      this.x1 = this.x0 + 4 * this.model.width * (Math.round( Math.random() ) - 0.5);
-      dx = (this.x1 - this.x0) / steps;
-      this.y1 = this.y0 + Math.random() * 1.5 * this.getYrange();
-      dy = (this.y1 - this.y0) / steps;
       this.model.newStepProperty.link( self.handler );
     },
     getYrange: function() {
@@ -99,6 +113,7 @@ define( function( require ) {
       this.y0 = this.options.y;
       this.model.newStepProperty.unlink( this.handler );
       this.setVisible( true );
+      this.isEvaporated = false;
     }
   } );
 } )

@@ -1,7 +1,8 @@
 // Copyright 2002-2013, University of Colorado Boulder
 
 /**
- * This is an optimization that uses a single Canvas to draw the atoms. It draws atoms on a single Canvas fitted to the area we need
+ * This is an optimization that uses a single HTML Canvas to draw the atoms.
+ * It draws atoms on a single Canvas fitted to the area we need.
  *
  * @author Jonathan Olson / John Blanco
  */
@@ -17,17 +18,18 @@ define( function( require ) {
   var Atom = require( 'FRICTION/view/magnifier/Atom' );
 
   var useHighRes = true;
-  
+
   function AtomCanvas( layerWidth, layerHeight, topPositionProperty ) {
+
     // the local-space coordinates of the area we will be rendering into
     this.layoutBounds = new Bounds2( 0, 0, layerWidth, layerHeight );
-    
+
     // Property[Vector2] that holds the translation of the top book
     this.topPositionProperty = topPositionProperty;
-    
+
     // Array[Atom] that holds the Atom views (we get their translation and isTop information from there)
     this.atoms = [];
-    
+
     // prepare the canvas
     this.canvas = document.createElement( 'canvas' );
     this.context = this.canvas.getContext( '2d' );
@@ -35,10 +37,10 @@ define( function( require ) {
     this.canvas.style.position = 'absolute';
     this.canvas.style.left = '0';
     this.canvas.style.top = '0';
-    
+
     // construct ourself with the canvas (now properly initially sized)
     DOM.call( this, this.canvas );
-    
+
     // on the first step() we want to size our canvas
     this.sizeDirty = true;
   }
@@ -48,75 +50,73 @@ define( function( require ) {
     registerAtom: function( atom ) {
       this.atoms.push( atom );
     },
-    
+
     // called in the view step after the model has been updated
     step: function( timeElapsed ) {
       // if the images have not been loaded yet, bail out (offset is null then, we need a Vector2)
       if ( Atom.atomOffset === null ) {
         return;
       }
-      
+
       // update the size and position of the Canvas if it is dirty
       if ( this.sizeDirty ) {
         this.sizeDirty = false;
-        
+
         // we want to position it in the global space
         var globalBounds = this.getUniqueTrail().localToGlobalBounds( this.layoutBounds.copy() ).roundedOut();
-        
+
         // transform from magnifier to global coordinates
         this.modelViewMatrix = this.getUniqueTrail().getMatrix();
-        
+
         this.setCanvasLayerBounds( globalBounds );
       }
-      
+
       // our context needs the backing transform scaling applied, so that if it is high-resolution (on the iPad), we double the area we render to
       this.context.setTransform( this.backingScale, 0, 0, this.backingScale, 0, 0 );
-      
+
       // coordinates isolated so our inner loop is faster
       var topPosition = this.topPositionProperty.value;
       var topX = topPosition.x;
       var topY = topPosition.y;
-      
+
       // our dictionary of images based on whether the atoms are on the top or bottom
       var images = Atom.atomImages;
-      
+
       // extracted here for faster inner loop
       var imageScale = Atom.imageScale;
       var imageOffsetX = Atom.atomOffset.x / imageScale;
       var imageOffsetY = Atom.atomOffset.y / imageScale;
-      
+
       // our MVT scale from local to global coordiantes
       var atomScale = this.modelViewMatrix.getScaleVector().x; // symmetric, x and y should be the same
-      
+
       // combined scale that is applied to our atom images
       var totalScale = atomScale / imageScale;
-      
-      // clear the entire Canvas each frame (applies backing scale as needed)
+
+      // clear the entire canvas each frame (applies backing scale as needed)
       this.context.clearRect( 0, 0, this.canvas.width * this.backingScale, this.canvas.height * this.backingScale );
-      var len = this.atoms.length;
-      for ( var i = 0; i < len; i++ ) {
+      for ( var i = 0; i < this.atoms.length; i++ ) {
         var atom = this.atoms[i];
-        var isTop = atom.isTopAtom;
-        
+
         // grab the image to use
-        var image = images[isTop];
-        
-        // draw the image into the correct place
+        var image = images[atom.isTopAtom];
+
+        // draw the image into the correct place on the canvas
         this.context.drawImage( image,
-                                // source x, y, width, height
-                                0, 0, image.width, image.height,
-                                ( imageOffsetX + ( isTop ? atom.currentX + topX : atom.currentX ) ) * atomScale, // destination X
-                                ( imageOffsetY + ( isTop ? atom.currentY + topY : atom.currentY ) ) * atomScale, // destination Y
-                                image.width * totalScale, // destination width
-                                image.height * totalScale ); // destination height
+          // source x, y, width, height
+          0, 0, image.width, image.height,
+          ( imageOffsetX + atom.currentX ) * atomScale, // destination X
+          ( imageOffsetY + atom.currentY ) * atomScale, // destination Y
+          image.width * totalScale, // destination width
+          image.height * totalScale ); // destination height
       }
     },
-    
+
     // called whenever the scene is resized so that we can reposition on the next step
     layout: function() {
       this.sizeDirty = true;
     },
-    
+
     // size and position our Canvas to match the global bounds
     setCanvasLayerBounds: function( globalBounds ) {
       // standard way to do high-resolution canvases
@@ -127,7 +127,7 @@ define( function( require ) {
       this.canvas.style.left = globalBounds.x + 'px';
       this.canvas.style.top = globalBounds.y + 'px';
     },
-    
+
     updateCSSTransform: function( transform, element ) {
       // NOTE: don't let Scenery apply its normal DOM element transform here - we do it ourselves
     }

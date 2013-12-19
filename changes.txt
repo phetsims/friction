@@ -1,8 +1,3 @@
-# 1.0.0-rc.1
-12/12/2013 Branched in order to start producing release candidates
-12/12/2013 Updated credits
-12/12/2013 Slowed down motion of evaporating atoms
-# 0.0.0-dev.8
 12/11/2013 Made the atom vibration amount at high temperatures a bit smaller
 # 0.0.0-dev.7
 12/10/2013 Implemented a number of performance improvements
