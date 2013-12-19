@@ -1,3 +1,10 @@
+12/19/2013 Fixed an issue where the bottom of the thermometer would look cut off on some browsers.
+12/18/2013 Increased the size of the Reset All button.
+12/18/2013 Fixed an issue where particles from the top book continue to move with book after they evaporate.
+# 1.0.0-rc.1
+# 0.0.0-dev.8
+12/16/2013 Updated credits
+12/12/2013 Slowed down motion of evaporating atoms
 12/11/2013 Made the atom vibration amount at high temperatures a bit smaller
 # 0.0.0-dev.7
 12/10/2013 Implemented a number of performance improvements
