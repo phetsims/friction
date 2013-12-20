@@ -33,7 +33,7 @@ define(
       //Create and start the sim
       new Sim( simTitle, [
         new Screen( simTitle, null,
-          function() {return new FrictionModel( ScreenView.LAYOUT_BOUNDS.width, ScreenView.LAYOUT_BOUNDS.height );},
+          function() {return new FrictionModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height );},
           function( model ) {return new FrictionView( model );},
           { backgroundColor: '#fff' }
         )
