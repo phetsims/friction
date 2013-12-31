@@ -93,7 +93,7 @@ define( function( require ) {
       // clear the entire canvas each frame (applies backing scale as needed)
       this.context.setTransform( 1, 0, 0, 1, 0, 0 ); // clear the Canvas in the global coordinate frame
       this.context.clearRect( 0, 0, this.canvas.width, this.canvas.height );
-      
+
       // our context needs the backing transform scaling applied, so that if it is high-resolution (on the iPad), we double the area we render to
       this.context.setTransform( this.backingScale, 0, 0, this.backingScale, 0, 0 );
       for ( var i = 0; i < this.atoms.length; i++ ) {
