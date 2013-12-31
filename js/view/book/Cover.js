@@ -34,13 +34,13 @@ define( function( require ) {
       .lineTo( (width - round / 2) + Math.cos( angle ) * length, height - Math.sin( angle ) * length ),
       {stroke: 'black', lineWidth: 1, pickable: false} ) );
 
-    // add first page
+    // add front cover
     this.addChild( new Path( new Shape()
       .moveTo( round / 2, 0 )
       .lineTo( round / 2 + Math.cos( angle ) * length, -Math.sin( angle ) * length )
       .lineTo( width - round / 2 + Math.cos( angle ) * length, -Math.sin( angle ) * length )
       .lineTo( width - round / 2, 0 ),
-      {stroke: 'black', lineWidth: 1, fill: options.color, pickable: false} ) );
+      {stroke: 'black', lineWidth: 1, fill: options.color} ) );
 
     // add binding
     this.addChild( new Rectangle( 0, 0, width, height, round, round, {fill: options.color, stroke: 'black'} ) );
