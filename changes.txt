@@ -1,3 +1,5 @@
+12/30/2013 Made the top cover of the physics book grabbable.
+12/30/2013 Fixed an issue where particles could appear to build up on the right side in some browsers.
 12/19/2013 Fixed an issue where the bottom of the thermometer would look cut off on some browsers.
 12/18/2013 Increased the size of the Reset All button.
 12/18/2013 Fixed an issue where particles from the top book continue to move with book after they evaporate.
