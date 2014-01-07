@@ -41,7 +41,7 @@ define( function( require ) {
       var container = new Node( { scale: 1 / scale } );
       var atomNode = new Circle( radius, { fill: options.color, stroke: 'black', lineWidth: 1, scale: scale } );
       atomNode.addChild( new Circle( radius * 0.3, {fill: 'white', x: radius * 0.3, y: -radius * 0.3} ) );
-      var image = atomNode.toImage( function( img, x, y ) {
+      atomNode.toImage( function( img, x, y ) {
         // add our actual HTMLImageElement to atomImages
         Atom.atomImages[self.isTopAtom] = img;
         Atom.atomOffset = new Vector2( -x, -y );

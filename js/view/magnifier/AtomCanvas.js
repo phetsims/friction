@@ -10,11 +10,9 @@ define( function( require ) {
   'use strict';
 
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var DOM = require( 'SCENERY/nodes/DOM' );
   var Util = require( 'SCENERY/util/Util' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Atom = require( 'FRICTION/view/magnifier/Atom' );
 
   var useHighRes = true;
@@ -70,11 +68,6 @@ define( function( require ) {
 
         this.setCanvasLayerBounds( globalBounds );
       }
-
-      // coordinates isolated so our inner loop is faster
-      var topPosition = this.topPositionProperty.value;
-      var topX = topPosition.x;
-      var topY = topPosition.y;
 
       // our dictionary of images based on whether the atoms are on the top or bottom
       var images = Atom.atomImages;
