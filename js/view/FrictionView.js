@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
   var ScreenView = require( 'JOIST/ScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var ResetAllButtonDeprecated = require( 'SCENERY_PHET/ResetAllButtonDeprecated' );
+  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
 
   var Book = require( 'FRICTION/view/Book/Book' );
   var Magnifier = require( 'FRICTION/view/magnifier/Magnifier' );
@@ -34,7 +34,7 @@ define( function( require ) {
     this.addChild( new Thermometer( model.amplitudeProperty, {min: model.atoms.amplitude.min - 1.05, max: model.atoms.evaporationLimit * 1.1 }, {x: 690, y: 250, height: 175, dTick: 9} ) );
 
     // add reset button
-    this.addChild( new ResetAllButtonDeprecated( function() { model.reset(); }, { radius: 22, x: model.width * 0.94, y: model.height * 0.9} ) );
+    this.addChild( new ResetAllButton( { listener: function() { model.reset(); }, radius: 22, x: model.width * 0.94, y: model.height * 0.9} ) );
 
     model.init();
   }
