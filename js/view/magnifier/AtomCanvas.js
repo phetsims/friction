@@ -37,7 +37,9 @@ define( function( require ) {
     this.canvas.style.top = '0';
 
     // construct ourself with the canvas (now properly initially sized)
-    DOM.call( this, this.canvas );
+    DOM.call( this, this.canvas, {
+      preventTransform: true // we manually position it ourselves (Scenery 0.2). Can consider converting this to CanvasNode
+    } );
 
     // on the first step() we want to size our canvas
     this.sizeDirty = true;
