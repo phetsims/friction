@@ -7,19 +7,26 @@
  */
 define( function( require ) {
   'use strict';
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
 
+  // modules
   var Book = require( 'FRICTION/view/Book/Book' );
+  var Bounds2 = require( 'DOT/Bounds2' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var Magnifier = require( 'FRICTION/view/magnifier/Magnifier' );
+  var ResetAllButton = require( 'SCENERY_PHET/ResetAllButton' );
+  var ScreenView = require( 'JOIST/ScreenView' );
   var Thermometer = require( 'FRICTION/view/thermometer/Thermometer' );
 
+  // strings
   var chemistryString = require( 'string!FRICTION/chemistry' );
   var physicsString = require( 'string!FRICTION/physics' );
 
+  /**
+   * @param {FrictionModel} model
+   * @constructor
+   */
   function FrictionView( model ) {
-    ScreenView.call( this, { renderer: 'svg' } );
+    ScreenView.call( this, { renderer: 'svg', layoutBounds: new Bounds2( 0, 0, model.width, model.height ) } );
 
     // add physics book
     this.addChild( new Book( model, {x: 50, y: 225, title: physicsString, color: 'rgb(0,255,51)', drag: false, cssTransform: false } ) );
