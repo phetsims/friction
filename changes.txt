@@ -1,3 +1,5 @@
+1.1.0-rc.1 Integrated latest libraries in order to address several issues with published sim.
+8/21/2014 Moved the magnifier box so that it doesn't include the dot in the 'i', see #24.
 12/30/2013 Made the top cover of the physics book grabbable.
 12/30/2013 Fixed an issue where particles could appear to build up on the right side in some browsers.
 12/19/2013 Fixed an issue where the bottom of the thermometer would look cut off on some browsers.
