@@ -28,7 +28,7 @@ define( function( require ) {
     this.addChild( new Book( model, {x: 65, y: 209, title: chemistryString, color: 'rgb(255,240,0)', drag: true, cssTransform: true } ) );
 
     // add magnifier
-    this.addChild( this.magnifier = new Magnifier( model, {x: 40, y: 25, targetX: 185, targetY: 425, layerSplit: true } ) );
+    this.addChild( this.magnifier = new Magnifier( model, {x: 40, y: 25, targetX: 200, targetY: 425, layerSplit: true } ) );
 
     // add thermometer
     this.addChild( new Thermometer( model.amplitudeProperty, {min: model.atoms.amplitude.min - 1.05, max: model.atoms.evaporationLimit * 1.1 }, {x: 690, y: 250, height: 175, dTick: 9} ) );
