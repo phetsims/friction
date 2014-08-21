@@ -1,0 +1,55 @@
+{
+  "chipper": {
+    "sha": "fd52d92b647f93bb2478e71b5de75587ed2aa21c",
+    "branch": "master"
+  },
+  "sherpa": {
+    "sha": "2ee466c320f754de1e75969a89ddcfddc5b27810",
+    "branch": "master"
+  },
+  "sun": {
+    "sha": "f53662b5c041c3d2eb4ae5a36ddb76c1167fdbbe",
+    "branch": "master"
+  },
+  "scenery-phet": {
+    "sha": "2a8a74c12f74dfad07201efdeb7c252b82a1b746",
+    "branch": "master"
+  },
+  "scenery": {
+    "sha": "8bda55c75f6b86f243f5d7bff77542ed54a9e4df",
+    "branch": "master"
+  },
+  "phetcommon": {
+    "sha": "92b3576b73d060239d52cb60cb3d64c36bb7a3a3",
+    "branch": "master"
+  },
+  "phet-core": {
+    "sha": "9ce862130e848a817d1f1c9fd749af5d97a376ef",
+    "branch": "master"
+  },
+  "kite": {
+    "sha": "4500a24ddc452c624ad1f47c749ec38d500d779e",
+    "branch": "master"
+  },
+  "joist": {
+    "sha": "9934ae8e6ded6292bf61e5847b77e3d3c8af34e5",
+    "branch": "master"
+  },
+  "dot": {
+    "sha": "8e761cfab5ea4455ff4445adbe6c9286dc299201",
+    "branch": "master"
+  },
+  "brand": {
+    "sha": "8be52066aa533f58f118abd34d73f2609c844d48",
+    "branch": "master"
+  },
+  "axon": {
+    "sha": "bd88cd7e2d2be78665ad1d28eff77ddd97784f27",
+    "branch": "master"
+  },
+  "assert": {
+    "sha": "e4595f5eae375c15fa9aaba9511c52dbc1b0f2c6",
+    "branch": "master"
+  },
+  "comment": "# friction 1.1.0-rc.1 Thu Aug 21 2014 17:30:41 GMT-0600 (Mountain Daylight Time)"
+}
