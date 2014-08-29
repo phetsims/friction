@@ -19,7 +19,6 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var MagnifierTarget = require( 'FRICTION/view/magnifier/MagnifierTarget' );
 
   // constants
