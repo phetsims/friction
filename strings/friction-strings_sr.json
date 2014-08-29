@@ -1,7 +1,6 @@
 {
-    "rubYellowAtoms": "Трљај жуте атоме \nо зелене",
-    "physics": "ФИЗИКА",
-    "reset": "ОТПОЧЕТКА",
-    "simTitle": "Трење (концепт)",
-    "chemistry": "ХЕМИЈА"
+  "physics": "ФИЗИКА",
+  "reset": "ОТПОЧЕТКА",
+  "simTitle": "Трење (концепт)",
+  "chemistry": "ХЕМИЈА"
 }

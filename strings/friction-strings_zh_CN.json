@@ -1,8 +1,7 @@
 {
-    "rubYellowAtoms": "黄色原子摩擦\n绿色原子",
-    "physics": "物理",
-    "reset": "重置",
-    "simTitle": "摩擦力",
-    "translation.credits": "<html>\n<p><strong>张大红</strong></p>\n<p><strong>天铁第二中学</strong></p>\n</html>",
-    "chemistry": "化学"
+  "physics": "物理",
+  "reset": "重置",
+  "simTitle": "摩擦力",
+  "translation.credits": "<html>\n<p><strong>张大红</strong></p>\n<p><strong>天铁第二中学</strong></p>\n</html>",
+  "chemistry": "化学"
 }

@@ -7,28 +7,42 @@
  */
 define( function( require ) {
   'use strict';
-  var Node = require( 'SCENERY/nodes/Node' );
-  var inherit = require( 'PHET_CORE/inherit' );
 
+  // modules
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var Atom = require( 'FRICTION/view/magnifier/Atom' );
+  var AtomCanvas = require( 'FRICTION/view/magnifier/AtomCanvas' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
+  var FrictionSharedConstants = require( 'FRICTION/common/FrictionSharedConstants' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
   var Path = require( 'SCENERY/nodes/Path' );
-
-  var rubAtomsString = require( 'string!FRICTION/rubAtoms' );
-
   var Text = require( 'SCENERY/nodes/Text' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var FONT = new PhetFont( 30 );
-
-  var FrictionSharedConstants = require( 'FRICTION/common/FrictionSharedConstants' );
-  var Atom = require( 'FRICTION/view/magnifier/Atom' );
   var MagnifierTarget = require( 'FRICTION/view/magnifier/MagnifierTarget' );
-  var AtomCanvas = require( 'FRICTION/view/magnifier/AtomCanvas' );
 
+  // constants
+  var ARROW_LENGTH = 70;
+  var INTER_ARROW_SPACING = 20;
+  var ARROW_OPTIONS = {
+    // These values were empirically determined based on visual appearance.
+    headHeight: 32,
+    headWidth: 30,
+    tailWidth: 15,
+    fill: 'white',
+    stroke: 'black',
+    lineWidth: 2
+  };
+
+  /**
+   * @param model
+   * @param options
+   * @constructor
+   */
   function Magnifier( model, options ) {
     var self = this,
-      header,
+      arrowIcon,
       dragArea,
       background;
     Node.call( this, options );
@@ -129,8 +143,12 @@ define( function( require ) {
     } );
     this.addChild( this.target );
 
-    // header text
-    this.container.addChild( header = new Text( rubAtomsString, { centerX: this.param.width / 2, font: FONT, fill: 'red', pickable: false, y: this.param.height / 7} ) );
+    // arrow icon
+    arrowIcon = new Node();
+    arrowIcon.addChild( new ArrowNode( INTER_ARROW_SPACING / 2, 0, ARROW_LENGTH, 0, ARROW_OPTIONS ) );
+    arrowIcon.addChild( new ArrowNode( -INTER_ARROW_SPACING / 2, 0, -ARROW_LENGTH, 0, ARROW_OPTIONS ) );
+    arrowIcon.mutate( { centerX: this.param.width / 2, centerY: this.param.topAtoms.y / 2 } );
+    this.container.addChild( arrowIcon );
 
     // add atoms (on a separate layer for better performance).
     this.atomCanvasLayer = new AtomCanvas( this.param.width, this.param.height, model.positionProperty );
@@ -141,7 +159,7 @@ define( function( require ) {
     this.container.addChild( this.atomCanvasLayer );
 
     // add observers
-    model.hintProperty.linkAttribute( header, 'visible' );
+    model.hintProperty.linkAttribute( arrowIcon, 'visible' );
     model.positionProperty.linkAttribute( self.topBookBackground, 'translation' );
     model.positionProperty.linkAttribute( self.topAtomsLayer, 'translation' );
 

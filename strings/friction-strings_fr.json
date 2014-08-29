@@ -1,7 +1,6 @@
 {
-    "rubYellowAtoms": "Frotter les atomes jaunes \ncontre les verts",
-    "physics": "Physique",
-    "reset": "R.a.z.",
-    "simTitle": "Friction",
-    "chemistry": "Chimie"
+  "physics": "Physique",
+  "reset": "R.a.z.",
+  "simTitle": "Friction",
+  "chemistry": "Chimie"
 }

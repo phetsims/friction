@@ -1,8 +1,7 @@
 {
-    "rubYellowAtoms": "노란색 원자를 녹색 원자에 \n 문질러 보세요!",
-    "physics": "물리",
-    "reset": "초기화",
-    "simTitle": "마찰",
-    "translation.credits": "이화국 전북대 명에교수(www.whakuk.com)",
-    "chemistry": "화학"
+  "physics": "물리",
+  "reset": "초기화",
+  "simTitle": "마찰",
+  "translation.credits": "이화국 전북대 명에교수(www.whakuk.com)",
+  "chemistry": "화학"
 }

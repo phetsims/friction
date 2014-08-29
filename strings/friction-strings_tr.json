@@ -1,8 +1,7 @@
 {
-    "rubYellowAtoms": "Sarı atomları yeşil atomlara sürt.",
-    "simDescription": "Sürtünme ile cisimlerin sıcaklılarının nasıl arttığını öğren.İki nesneyi birbirine sürt ve sıcaklığın nasıl arttığını gör.",
-    "physics": "Fizik",
-    "reset": "Sıfırla",
-    "simTitle": "Sürtünme",
-    "chemistry": "Kimya"
+  "simDescription": "Sürtünme ile cisimlerin sıcaklılarının nasıl arttığını öğren.İki nesneyi birbirine sürt ve sıcaklığın nasıl arttığını gör.",
+  "physics": "Fizik",
+  "reset": "Sıfırla",
+  "simTitle": "Sürtünme",
+  "chemistry": "Kimya"
 }

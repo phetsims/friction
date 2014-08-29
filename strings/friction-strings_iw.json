@@ -1,7 +1,6 @@
 {
-    "rubYellowAtoms": "שפשוף אטומים צהובים \nבאטומים ירוקים",
-    "physics": "פיזיקה",
-    "reset": "איפוס",
-    "simTitle": "חיכוך",
-    "chemistry": "כימיה"
+  "physics": "פיזיקה",
+  "reset": "איפוס",
+  "simTitle": "חיכוך",
+  "chemistry": "כימיה"
 }

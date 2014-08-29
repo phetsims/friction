@@ -1,8 +1,7 @@
 {
-    "rubYellowAtoms": "Frote los átomos amarillos \ncontra los verdes.",
-    "physics": "Física",
-    "reset": "Reiniciar",
-    "simTitle": "Fricción",
-    "translation.credits": "Por Héctor R. MALLMA ALVARADO (UNFV)(LIMA-PERÚ) hecmall@hotmail.com; hecmall@outlook.com",
-    "chemistry": "Química"
+  "physics": "Física",
+  "reset": "Reiniciar",
+  "simTitle": "Fricción",
+  "translation.credits": "Por Héctor R. MALLMA ALVARADO (UNFV)(LIMA-PERÚ) hecmall@hotmail.com; hecmall@outlook.com",
+  "chemistry": "Química"
 }

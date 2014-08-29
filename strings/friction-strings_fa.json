@@ -1,7 +1,6 @@
 {
-    "rubYellowAtoms": "ساييدن اتم زرد به سبز",
-    "physics": "فيزيک",
-    "reset": "شروع دوباره",
-    "simTitle": "اصطکاک  ميان اتم ها",
-    "chemistry": "شيمی"
+  "physics": "فيزيک",
+  "reset": "شروع دوباره",
+  "simTitle": "اصطکاک  ميان اتم ها",
+  "chemistry": "شيمی"
 }

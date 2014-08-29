@@ -1,7 +1,6 @@
 {
-    "rubAtoms": "Rub Atoms",
-    "physics": "Physics",
-    "reset": "Reset",
-    "simTitle": "Friction",
-    "chemistry": "Chemistry"
+  "physics": "Physics",
+  "reset": "Reset",
+  "simTitle": "Friction",
+  "chemistry": "Chemistry"
 }

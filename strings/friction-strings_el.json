@@ -1,7 +1,6 @@
 {
-    "rubYellowAtoms": "Να ολισθήσετε το πάνω βιβλίο στο κάτω βιβλίο",
-    "physics": "Φυσική",
-    "reset": "Επαναφορά",
-    "simTitle": "Τριβή",
-    "chemistry": "Χημεία"
+  "physics": "Φυσική",
+  "reset": "Επαναφορά",
+  "simTitle": "Τριβή",
+  "chemistry": "Χημεία"
 }

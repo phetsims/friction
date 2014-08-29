@@ -150,7 +150,7 @@ define( function( require ) {
       bottomOffset: 0, // additional offset, results from drag
       atomRowsToEvaporate: 0, // top atoms number of rows to evaporate
       contact: false, // are books in contact
-      hint: true, // show hint text
+      hint: true, // show hint icon
       newStep: false // update every step
     } );
 

@@ -1,8 +1,7 @@
 {
-    "rubYellowAtoms": "Gnid gula atomer \n mot gröna.",
-    "physics": "Fysik",
-    "reset": "Återställ",
-    "simTitle": "Friktion",
-    "translation.credits": "Anders Gölstam",
-    "chemistry": "Kemi"
+  "physics": "Fysik",
+  "reset": "Återställ",
+  "simTitle": "Friktion",
+  "translation.credits": "Anders Gölstam",
+  "chemistry": "Kemi"
 }

@@ -1,7 +1,6 @@
 {
-    "rubYellowAtoms": "Gnid gule atomer \nmod de grønne.",
-    "physics": "Fysik",
-    "reset": "Nulstil",
-    "simTitle": "Friktion",
-    "chemistry": "Kemi"
+  "physics": "Fysik",
+  "reset": "Nulstil",
+  "simTitle": "Friktion",
+  "chemistry": "Kemi"
 }
