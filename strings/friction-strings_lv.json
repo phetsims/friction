@@ -1,8 +1,7 @@
 {
-    "rubYellowAtoms": "Berzējiet dzeltenos atomus\npret zaļajiem.",
-    "physics": "Fizika",
-    "reset": "Atiestatīt",
-    "simTitle": "Berze",
-    "translation.credits": "Arvis Lācis (@arvislacis)",
-    "chemistry": "Ķīmija"
+  "physics": "Fizika",
+  "reset": "Atiestatīt",
+  "simTitle": "Berze",
+  "translation.credits": "Arvis Lācis (@arvislacis)",
+  "chemistry": "Ķīmija"
 }

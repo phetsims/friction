@@ -1,8 +1,7 @@
 {
-    "rubYellowAtoms": "Gosok  atom kuning ke hijau",
-    "physics": "Fisika",
-    "reset": "Set Ulang",
-    "simTitle": "Gesekan",
-    "translation.credits": "STKIP Surya",
-    "chemistry": "Kimia"
+  "physics": "Fisika",
+  "reset": "Set Ulang",
+  "simTitle": "Gesekan",
+  "translation.credits": "STKIP Surya",
+  "chemistry": "Kimia"
 }

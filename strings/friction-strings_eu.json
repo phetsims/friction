@@ -1,7 +1,6 @@
 {
-    "rubYellowAtoms": "Mugi atomo horiak \nberdeen gainean",
-    "physics": "Fisika",
-    "reset": "Berrabiatu",
-    "simTitle": "Marruskadura",
-    "chemistry": "Kimika"
+  "physics": "Fisika",
+  "reset": "Berrabiatu",
+  "simTitle": "Marruskadura",
+  "chemistry": "Kimika"
 }

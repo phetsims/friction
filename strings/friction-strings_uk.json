@@ -1,7 +1,6 @@
 {
-    "rubYellowAtoms": "Тертя жовтих атомів \ проти зелених.",
-    "physics": "Фізика",
-    "reset": "Скидання",
-    "simTitle": "Тертя",
-    "chemistry": "Хімія"
+  "physics": "Фізика",
+  "reset": "Скидання",
+  "simTitle": "Тертя",
+  "chemistry": "Хімія"
 }

@@ -1,7 +1,6 @@
 {
-    "rubYellowAtoms": "potrzyj zółte atomy o zielone atomy",
-    "physics": "Fizyka",
-    "reset": "Zresetuj",
-    "simTitle": "Tarcie",
-    "chemistry": "Chemia"
+  "physics": "Fizyka",
+  "reset": "Zresetuj",
+  "simTitle": "Tarcie",
+  "chemistry": "Chemia"
 }

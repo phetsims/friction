@@ -1,8 +1,7 @@
 {
-    "rubYellowAtoms": "Reibe die gelben Atome gegen die grünen.",
-    "physics": "Physik",
-    "reset": "Reset",
-    "simTitle": "Reibung",
-    "translation.credits": "Robert Jung, Jena",
-    "chemistry": "Chemie"
+  "physics": "Physik",
+  "reset": "Reset",
+  "simTitle": "Reibung",
+  "translation.credits": "Robert Jung, Jena",
+  "chemistry": "Chemie"
 }
