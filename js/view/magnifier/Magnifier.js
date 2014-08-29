@@ -41,11 +41,13 @@ define( function( require ) {
    * @constructor
    */
   function Magnifier( model, options ) {
-    var self = this,
-      arrowIcon,
-      dragArea,
-      background;
+
     Node.call( this, options );
+
+    var self = this;
+    var arrowIcon;
+    var dragArea;
+    var background;
 
     // main params
     this.param = {
@@ -71,18 +73,21 @@ define( function( require ) {
 
     // add container for clipping
     this.addChild( this.container = new Node() );
-    // this.container.setClipArea( new Shape().roundRect( 2.5, 2.5, this.param.width - 5, this.param.height - 5, this.param.round, this.param.round ) );
 
     // add container where the individual atoms will be placed
     this.bottomAtomsLayer = new Node();
     this.topAtomsLayer = new Node();
-    this.atomsLayer = new Node( { renderer: 'canvas', rendererOptions: { fullResolution: true }, children: [this.bottomAtomsLayer, this.topAtomsLayer] } );
 
     // add bottom book
     this.bottomBookBackground = new Node( {children: [
       new Rectangle( 3, 2 * this.param.height / 3 - 2, this.param.width - 6, this.param.height / 3, 0, this.param.round - 3, {fill: FrictionSharedConstants.BOTTOM_BOOK_ATOMS_COLOR} )
     ]} );
-    this.addRowCircles( model, this.bottomBookBackground, {color: FrictionSharedConstants.BOTTOM_BOOK_ATOMS_COLOR, x: -model.atoms.dx / 2, y: 2 * this.param.height / 3 - 2, width: this.param.width} );
+    this.addRowCircles( model, this.bottomBookBackground, {
+      color: FrictionSharedConstants.BOTTOM_BOOK_ATOMS_COLOR,
+      x: -model.atoms.dx / 2,
+      y: 2 * this.param.height / 3 - 2,
+      width: this.param.width
+    } );
     this.param.bottomAtoms.target = this.bottomAtomsLayer;
     this.container.addChild( this.bottomBookBackground );
 
@@ -103,8 +108,7 @@ define( function( require ) {
     this.param.topAtoms.target = this.topAtomsLayer;
     this.container.addChild( this.topBookBackground );
 
-    // Add the red border around the magnified area, and add a white shape
-    // below it to block out the clipped area.
+    // Add the red border around the magnified area, and add a white shape below it to block out the clipped area.
     var topPadding = 500;
     var sidePadding = 800;
     var bottomPadding = 60;
@@ -117,17 +121,17 @@ define( function( require ) {
     var innerLowY = this.param.round;
     var innerHighY = this.param.height - this.param.round;
     this.addChild( new Path( new Shape().moveTo( rightX, topY )
-      .lineTo( leftX, topY )
-      .lineTo( leftX, bottomY )
-      .lineTo( rightX, bottomY )
-      .lineTo( rightX, topY )
-      .lineTo( innerHighX, innerLowY - this.param.round )
-      .arc( innerHighX, innerLowY, this.param.round, -Math.PI / 2, 0, false )
-      .arc( innerHighX, innerHighY, this.param.round, 0, Math.PI / 2, false )
-      .arc( innerLowX, innerHighY, this.param.round, Math.PI / 2, Math.PI, false )
-      .arc( innerLowX, innerLowY, this.param.round, Math.PI, Math.PI * 3 / 2, false )
-      .lineTo( innerHighX, innerLowY - this.param.round )
-      .close(),
+        .lineTo( leftX, topY )
+        .lineTo( leftX, bottomY )
+        .lineTo( rightX, bottomY )
+        .lineTo( rightX, topY )
+        .lineTo( innerHighX, innerLowY - this.param.round )
+        .arc( innerHighX, innerLowY, this.param.round, -Math.PI / 2, 0, false )
+        .arc( innerHighX, innerHighY, this.param.round, 0, Math.PI / 2, false )
+        .arc( innerLowX, innerHighY, this.param.round, Math.PI / 2, Math.PI, false )
+        .arc( innerLowX, innerLowY, this.param.round, Math.PI, Math.PI * 3 / 2, false )
+        .lineTo( innerHighX, innerLowY - this.param.round )
+        .close(),
       { fill: 'white' } ) );
     this.addChild( new Rectangle( 0, 0, this.param.width, this.param.height, this.param.round, this.param.round, { stroke: 'red', lineWidth: 5 } ) );
 
@@ -231,6 +235,7 @@ define( function( require ) {
         addLayer( target, layer, y0 + dy * i, x0, color );
       } );
     },
+
     addRowCircles: function( model, target, options ) {
       var num = options.width / model.atoms.dx;
       for ( var i = 0; i < num; i++ ) {
