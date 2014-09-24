@@ -24,8 +24,7 @@ define(
         credits: {
           leadDesign: 'Michael Dubson, Noah Podolefsky',
           softwareDevelopment: 'Michael Dubson, John Blanco, Jonathan Olson',
-          designTeam: 'Bryce Gruneich, Ariel Paul, Katherine Perkins, Carl Wieman',
-          interviews: 'Wendy Adams, Mindy Gratny, Emily Moore',
+          team: 'Wendy Adams, Mindy Gratny, Bryce Gruneich, Emily B. Moore, Ariel Paul,\nKatherine Perkins, Carl Wieman',
           thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team\nto convert this simulation to HTML5.'
         }
       };
