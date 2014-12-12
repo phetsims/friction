@@ -15,7 +15,7 @@ define( function( require ) {
   var Magnifier = require( 'FRICTION/view/magnifier/Magnifier' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var Thermometer = require( 'FRICTION/view/thermometer/Thermometer' );
+  var ThermometerNode = require( 'SCENERY_PHET/ThermometerNode' );
 
   // strings
   var chemistryString = require( 'string!FRICTION/chemistry' );
@@ -38,7 +38,25 @@ define( function( require ) {
     this.addChild( this.magnifier = new Magnifier( model, {x: 40, y: 25, targetX: 195, targetY: 425, layerSplit: true } ) );
 
     // add thermometer
-    this.addChild( new Thermometer( model.amplitudeProperty, {min: model.atoms.amplitude.min - 1.05, max: model.atoms.evaporationLimit * 1.1 }, {x: 690, y: 250, height: 175, dTick: 9} ) );
+    this.addChild( new ThermometerNode( model.atoms.amplitude.min - 1.05, model.atoms.evaporationLimit * 1.1, model.amplitudeProperty,
+      {
+        x: 690,
+        y: 250,
+        tubeHeight: 160,
+        tickSpacing: 9,
+        lineWidth: 1,
+        lineSpacing: 0,
+        fluidSphereSpacing: 0,
+        fluidRectSpacing: 0.5,
+        tubeWidth: 12,
+        bulbDiameter: 24,
+        majorTickLength: 4,
+        minorTickLength: 4,
+        fluidMainColor: 'rgb(237,28,36)',
+        fluidHighlightColor: 'rgb(240,240,240)',
+        fluidRightSideColor: 'rgb(237,28,36)',
+        backgroundColor: 'white'
+      } ) );
 
     // add reset button
     this.addChild( new ResetAllButton( { listener: function() { model.reset(); }, radius: 22, x: model.width * 0.94, y: model.height * 0.9} ) );
