@@ -53,7 +53,7 @@ define( function( require ) {
         majorTickLength: 4,
         minorTickLength: 4,
         fluidMainColor: 'rgb(237,28,36)',
-        fluidHighlightColor: 'rgb(240,240,240)',
+        fluidHighlightColor: 'rgb(240,150,150)',
         fluidRightSideColor: 'rgb(237,28,36)',
         backgroundColor: 'white'
       } ) );
