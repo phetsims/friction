@@ -47,7 +47,7 @@ define( function( require ) {
         lineWidth: 1,
         lineSpacing: 0,
         fluidSphereSpacing: 0,
-        fluidRectSpacing: 0.5,
+        fluidRectSpacing: 1,
         tubeWidth: 12,
         bulbDiameter: 24,
         majorTickLength: 4,
