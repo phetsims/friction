@@ -9,14 +9,19 @@ define(
   function( require ) {
     'use strict';
 
-    var
-      Sim = require( 'JOIST/Sim' ),
-      simTitle = require( 'string!FRICTION/simTitle' ),
-      FrictionModel = require( 'FRICTION/model/FrictionModel' ),
-      FrictionView = require( 'FRICTION/view/FrictionView' ),
-      SimLauncher = require( 'JOIST/SimLauncher' ),
-      Screen = require( 'JOIST/Screen' ),
-      ScreenView = require( 'JOIST/ScreenView' );
+    // modules
+    var Bounds2 = require( 'DOT/Bounds2' );
+    var Sim = require( 'JOIST/Sim' );
+    var FrictionModel = require( 'FRICTION/model/FrictionModel' );
+    var FrictionView = require( 'FRICTION/view/FrictionView' );
+    var SimLauncher = require( 'JOIST/SimLauncher' );
+    var Screen = require( 'JOIST/Screen' );
+
+    // strings
+    var simTitle = require( 'string!FRICTION/simTitle' );
+
+    // constants
+    var LAYOUT_BOUNDS = new Bounds2( 0, 0, 768, 504 );
 
     SimLauncher.launch( function() {
 
@@ -32,7 +37,7 @@ define(
       //Create and start the sim
       new Sim( simTitle, [
         new Screen( simTitle, null,
-          function() {return new FrictionModel( ScreenView.DEFAULT_LAYOUT_BOUNDS.width, ScreenView.DEFAULT_LAYOUT_BOUNDS.height );},
+          function() {return new FrictionModel( LAYOUT_BOUNDS.width, LAYOUT_BOUNDS.height );},
           function( model ) {return new FrictionView( model );},
           { backgroundColor: '#fff' }
         )
