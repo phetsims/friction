@@ -88,14 +88,14 @@ define( function( require ) {
       // clear the entire canvas each frame (applies backing scale as needed)
       this.context.setTransform( 1, 0, 0, 1, 0, 0 ); // clear the Canvas in the global coordinate frame
       this.context.clearRect( 0, 0, this.canvas.width, this.canvas.height );
-      
+
       // our context needs the backing transform scaling applied, so that if it is high-resolution (on the iPad), we double the area we render to
       this.context.setTransform( this.backingScale, 0, 0, this.backingScale, 0, 0 );
       for ( var i = 0; i < this.atoms.length; i++ ) {
-        var atom = this.atoms[i];
+        var atom = this.atoms[ i ];
 
         // grab the image to use
-        var image = images[atom.isTopAtom];
+        var image = images[ atom.isTopAtom ];
 
         // draw the image into the correct place on the canvas
         this.context.drawImage( image,

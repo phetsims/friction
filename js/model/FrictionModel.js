@@ -37,7 +37,7 @@ define( function( require ) {
    *
    * */
     [
-      {num: 30}
+      { num: 30 }
     ],
   /**
    * Second row:
@@ -46,7 +46,7 @@ define( function( require ) {
    *
    * */
     [
-      {offset: 0.5, num: 29, evaporate: true}
+      { offset: 0.5, num: 29, evaporate: true }
     ],
   /**
    * Third row:
@@ -54,7 +54,7 @@ define( function( require ) {
    *
    * */
     [
-      {num: 29, evaporate: true}
+      { num: 29, evaporate: true }
     ],
   /**
    * Fourth row:
@@ -63,11 +63,11 @@ define( function( require ) {
    *
    * */
     [
-      {offset: 0.5, num: 5, evaporate: true},
-      {offset: 6.5, num: 8, evaporate: true},
-      {offset: 15.5, num: 5, evaporate: true},
-      {offset: 21.5, num: 5, evaporate: true},
-      {offset: 27.5, num: 1, evaporate: true}
+      { offset: 0.5, num: 5, evaporate: true },
+      { offset: 6.5, num: 8, evaporate: true },
+      { offset: 15.5, num: 5, evaporate: true },
+      { offset: 21.5, num: 5, evaporate: true },
+      { offset: 27.5, num: 1, evaporate: true }
     ],
   /**
    * Fifth row:
@@ -75,11 +75,11 @@ define( function( require ) {
    *
    * */
     [
-      {offset: 3, num: 2, evaporate: true},
-      {offset: 8, num: 1, evaporate: true},
-      {offset: 12, num: 2, evaporate: true},
-      {offset: 17, num: 2, evaporate: true},
-      {offset: 24, num: 2, evaporate: true}
+      { offset: 3, num: 2, evaporate: true },
+      { offset: 8, num: 1, evaporate: true },
+      { offset: 12, num: 2, evaporate: true },
+      { offset: 17, num: 2, evaporate: true },
+      { offset: 24, num: 2, evaporate: true }
     ]
   ];
 
@@ -91,7 +91,7 @@ define( function( require ) {
    *
    * */
     [
-      {num: 29}
+      { num: 29 }
     ],
   /**
    * Second row:
@@ -100,7 +100,7 @@ define( function( require ) {
    *
    * */
     [
-      {offset: 0.5, num: 28}
+      { offset: 0.5, num: 28 }
     ],
   /**
    * Third row:
@@ -108,7 +108,7 @@ define( function( require ) {
    *
    * */
     [
-      {num: 29}
+      { num: 29 }
     ]
   ];
 
@@ -199,12 +199,12 @@ define( function( require ) {
     init: function() {
       var i, j;
       for ( i = 0; i < this.toEvaporateSample.length; i++ ) {
-        this.toEvaporate[i] = this.toEvaporateSample[i].slice( 0 );
+        this.toEvaporate[ i ] = this.toEvaporateSample[ i ].slice( 0 );
       }
 
       for ( i = 0; i < this.toEvaporate.length; i++ ) {
-        for ( j = 0; j < this.toEvaporate[i].length; j++ ) {
-          this.toEvaporate[i][j].reset();
+        for ( j = 0; j < this.toEvaporate[ i ].length; j++ ) {
+          this.toEvaporate[ i ][ j ].reset();
         }
       }
 
@@ -245,7 +245,7 @@ define( function( require ) {
       view.cursor = 'pointer';
       view.addInputListener( new SimpleDragHandler( {
         translate: function( e ) {
-          self.move( {x: e.delta.x, y: e.delta.y} );
+          self.move( { x: e.delta.x, y: e.delta.y } );
         },
         end: function() {
           self.bottomOffset = 0;
@@ -253,17 +253,17 @@ define( function( require ) {
       } ) );
     },
     evaporate: function() {
-      if ( this.toEvaporate[this.toEvaporate.length - 1] && !this.toEvaporate[this.toEvaporate.length - 1].length ) {
+      if ( this.toEvaporate[ this.toEvaporate.length - 1 ] && !this.toEvaporate[ this.toEvaporate.length - 1 ].length ) {
         // move to the next row of atoms to evaporate
         this.toEvaporate.pop();
         this.distance += this.atoms.dy;
         this.atomRowsToEvaporate = this.toEvaporate.length;
       }
 
-      if ( this.toEvaporate[this.toEvaporate.length - 1] ) {
+      if ( this.toEvaporate[ this.toEvaporate.length - 1 ] ) {
         // choose a random atom from the current row and evaporate it
-        var currentEvaporationRow = this.toEvaporate[this.toEvaporate.length - 1];
-        var atom = currentEvaporationRow.splice( Math.floor( Math.random() * currentEvaporationRow.length ), 1 )[0];
+        var currentEvaporationRow = this.toEvaporate[ this.toEvaporate.length - 1 ];
+        var atom = currentEvaporationRow.splice( Math.floor( Math.random() * currentEvaporationRow.length ), 1 )[ 0 ];
         if ( atom ) {
           atom.evaporate();
           this.amplitude -= CONSTANTS.EVAPORATION_AMPLITUDE_REDUCTION; // cooling due to evaporation

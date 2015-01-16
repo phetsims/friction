@@ -6,7 +6,7 @@
  */
 require.config( {
 
-  deps: ['friction-main'],
+  deps: [ 'friction-main' ],
 
   paths: {
 

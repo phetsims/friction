@@ -36,24 +36,26 @@ define( function( require ) {
     Node.call( this, { x: this.x0, y: this.y0 } );
 
     // function for creating or obtaining atom graphic for a given color
-    if ( !Atom.atomGraphics[options.color] ) {
+    if ( !Atom.atomGraphics[ options.color ] ) {
       var scale = Atom.imageScale; // Scale up before rasterization so it won't be too pixellated/fuzzy, value empirically determined.
       var container = new Node( { scale: 1 / scale } );
       var atomNode = new Circle( radius, { fill: options.color, stroke: 'black', lineWidth: 1, scale: scale } );
-      atomNode.addChild( new Circle( radius * 0.3, {fill: 'white', x: radius * 0.3, y: -radius * 0.3} ) );
+      atomNode.addChild( new Circle( radius * 0.3, { fill: 'white', x: radius * 0.3, y: -radius * 0.3 } ) );
       atomNode.toImage( function( img, x, y ) {
         // add our actual HTMLImageElement to atomImages
-        Atom.atomImages[self.isTopAtom] = img;
+        Atom.atomImages[ self.isTopAtom ] = img;
         Atom.atomOffset = new Vector2( -x, -y );
 
         // add a node with that image to our container (part of atomGraphics)
-        container.addChild( new Node( { children: [
-          new Image( img, { x: -x, y: -y } )
-        ] } ) );
+        container.addChild( new Node( {
+          children: [
+            new Image( img, { x: -x, y: -y } )
+          ]
+        } ) );
       } );
-      Atom.atomGraphics[options.color] = container;
+      Atom.atomGraphics[ options.color ] = container;
     }
-    this.addChild( Atom.atomGraphics[options.color] );
+    this.addChild( Atom.atomGraphics[ options.color ] );
 
     // move the atom as the top book moves if it is part of that book
     var motionVector = new Vector2(); // Optimization to minimize garbage collection.

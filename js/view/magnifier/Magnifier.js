@@ -78,9 +78,11 @@ define( function( require ) {
     this.topAtomsLayer = new Node();
 
     // add bottom book
-    this.bottomBookBackground = new Node( {children: [
-      new Rectangle( 3, 2 * this.param.height / 3 - 2, this.param.width - 6, this.param.height / 3, 0, this.param.round - 3, {fill: FrictionSharedConstants.BOTTOM_BOOK_ATOMS_COLOR} )
-    ]} );
+    this.bottomBookBackground = new Node( {
+      children: [
+        new Rectangle( 3, 2 * this.param.height / 3 - 2, this.param.width - 6, this.param.height / 3, 0, this.param.round - 3, { fill: FrictionSharedConstants.BOTTOM_BOOK_ATOMS_COLOR } )
+      ]
+    } );
     this.addRowCircles( model, this.bottomBookBackground, {
       color: FrictionSharedConstants.BOTTOM_BOOK_ATOMS_COLOR,
       x: -model.atoms.dx / 2,
@@ -94,16 +96,21 @@ define( function( require ) {
     this.topBookBackground = new Node( { renderer: 'svg' } );
 
     // init drag for background
-    background = new Rectangle( -1.125 * this.param.width, -this.param.height, 3.25 * this.param.width, 4 * this.param.height / 3 - model.atoms.distance, this.param.round, this.param.round, {fill: FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR} );
+    background = new Rectangle( -1.125 * this.param.width, -this.param.height, 3.25 * this.param.width, 4 * this.param.height / 3 - model.atoms.distance, this.param.round, this.param.round, { fill: FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR } );
     model.initDrag( background );
     this.topBookBackground.addChild( background );
 
     // init drag for drag area
-    dragArea = new Rectangle( 0.055 * this.param.width, 0.175 * this.param.height, 0.875 * this.param.width, model.atoms.dy * 6, {fill: null} );
+    dragArea = new Rectangle( 0.055 * this.param.width, 0.175 * this.param.height, 0.875 * this.param.width, model.atoms.dy * 6, { fill: null } );
     model.initDrag( dragArea );
     this.topBookBackground.addChild( dragArea );
 
-    this.addRowCircles( model, this.topBookBackground, {color: FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR, x: -this.param.width, y: this.param.height / 3 - model.atoms.distance, width: 3 * this.param.width} );
+    this.addRowCircles( model, this.topBookBackground, {
+      color: FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR,
+      x: -this.param.width,
+      y:     this.param.height / 3 - model.atoms.distance,
+      width: 3 * this.param.width
+    } );
     this.param.topAtoms.target = this.topAtomsLayer;
     this.container.addChild( this.topBookBackground );
 
@@ -141,8 +148,8 @@ define( function( require ) {
       width: this.param.width * this.param.scale,
       height: this.param.height * this.param.scale,
       round: this.param.round * this.param.scale,
-      leftAnchor: {x: this.param.round, y: this.param.height},
-      rightAnchor: {x: this.param.width - this.param.round, y: this.param.height}
+      leftAnchor: { x: this.param.round, y: this.param.height },
+      rightAnchor: { x: this.param.width - this.param.round, y: this.param.height }
     } );
     this.addChild( this.target );
 
@@ -201,10 +208,10 @@ define( function( require ) {
           row = [];
 
         for ( i = 0; i < layer.length; i++ ) {
-          offset = layer[i].offset || 0;
-          evaporate = layer[i].evaporate || false;
-          for ( n = 0; n < layer[i].num; n++ ) {
-            atom = new Atom( model, {y: y, x: x + (offset + n) * dx, color: color} );
+          offset = layer[ i ].offset || 0;
+          evaporate = layer[ i ].evaporate || false;
+          for ( n = 0; n < layer[ i ].num; n++ ) {
+            atom = new Atom( model, { y: y, x: x + (offset + n) * dx, color: color } );
             if ( evaporate ) {
               row.push( atom );
             }
