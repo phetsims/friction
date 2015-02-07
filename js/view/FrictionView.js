@@ -55,7 +55,7 @@ define( function( require ) {
         fluidMainColor: 'rgb(237,28,36)',
         fluidHighlightColor: 'rgb(240,150,150)',
         fluidRightSideColor: 'rgb(237,28,36)',
-        backgroundColor: 'white'
+        backgroundFill: 'white'
       } ) );
 
     // add reset button
