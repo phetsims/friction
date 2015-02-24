@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Book = require( 'FRICTION/view/Book/Book' );
+  var Book = require( 'FRICTION/view/book/Book' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Magnifier = require( 'FRICTION/view/magnifier/Magnifier' );
