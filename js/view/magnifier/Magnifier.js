@@ -36,7 +36,7 @@ define( function( require ) {
 
   /**
    * @param model
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   function Magnifier( model, options ) {
