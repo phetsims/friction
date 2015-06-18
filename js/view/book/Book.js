@@ -12,11 +12,10 @@ define( function( require ) {
   var Cover = require( 'FRICTION/view/book/Cover' );
 
   function Book( model, options ) {
-    var self = this,
-      dndScale = model.dndScale;
+    var self = this;
+    var dndScale = model.dndScale;
 
-    var baseOptions = { x: options.x, y: options.y };
-    Node.call( this, options.cssTransform ? _.extend( { renderer: 'svg', rendererOptions: { cssTransform: true } }, baseOptions ) : baseOptions );
+    Node.call( this, options );
 
     // add cover
     this.addChild( new Cover( options ) );

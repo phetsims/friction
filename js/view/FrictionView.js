@@ -29,10 +29,10 @@ define( function( require ) {
     ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, model.width, model.height ) } );
 
     // add physics book
-    this.addChild( new Book( model, { x: 50, y: 225, title: physicsString, color: 'rgb(0,255,51)', drag: false, cssTransform: false } ) );
+    this.addChild( new Book( model, { x: 50, y: 225, title: physicsString, color: 'rgb(0,255,51)', drag: false } ) );
 
     // add chemistry book
-    this.addChild( new Book( model, { x: 65, y: 209, title: chemistryString, color: 'rgb(255,240,0)', drag: true, cssTransform: true } ) );
+    this.addChild( new Book( model, { x: 65, y: 209, title: chemistryString, color: 'rgb(255,240,0)', drag: true } ) );
 
     // add magnifier
     this.addChild( this.magnifier = new Magnifier( model, { x: 40, y: 25, targetX: 195, targetY: 425, layerSplit: true } ) );
