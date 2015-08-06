@@ -10,16 +10,16 @@ define( function( require ) {
 
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var Atom = require( 'FRICTION/view/magnifier/Atom' );
-  var AtomCanvas = require( 'FRICTION/view/magnifier/AtomCanvas' );
+  var Atom = require( 'FRICTION/friction/view/magnifier/Atom' );
+  var AtomCanvas = require( 'FRICTION/friction/view/magnifier/AtomCanvas' );
   var Circle = require( 'SCENERY/nodes/Circle' );
-  var FrictionSharedConstants = require( 'FRICTION/common/FrictionSharedConstants' );
+  var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var MagnifierTarget = require( 'FRICTION/view/magnifier/MagnifierTarget' );
+  var MagnifierTarget = require( 'FRICTION/friction/view/magnifier/MagnifierTarget' );
 
   // constants
   var ARROW_LENGTH = 70;

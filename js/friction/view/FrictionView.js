@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Book = require( 'FRICTION/view/book/Book' );
+  var Book = require( 'FRICTION/friction/view/book/Book' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Magnifier = require( 'FRICTION/view/magnifier/Magnifier' );
+  var Magnifier = require( 'FRICTION/friction/view/magnifier/Magnifier' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var ThermometerNode = require( 'SCENERY_PHET/ThermometerNode' );

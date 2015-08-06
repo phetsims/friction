@@ -13,7 +13,7 @@ define( function( require ) {
   var DOM = require( 'SCENERY/nodes/DOM' );
   var Util = require( 'SCENERY/util/Util' );
   var Bounds2 = require( 'DOT/Bounds2' );
-  var Atom = require( 'FRICTION/view/magnifier/Atom' );
+  var Atom = require( 'FRICTION/friction/view/magnifier/Atom' );
 
   var useHighRes = true;
 

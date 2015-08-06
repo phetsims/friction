@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
   var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Cover = require( 'FRICTION/view/book/Cover' );
+  var Cover = require( 'FRICTION/friction/view/book/Cover' );
 
   function Book( model, options ) {
     var self = this;

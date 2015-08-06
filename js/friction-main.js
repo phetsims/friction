@@ -12,8 +12,8 @@ define(
     // modules
     var Bounds2 = require( 'DOT/Bounds2' );
     var Sim = require( 'JOIST/Sim' );
-    var FrictionModel = require( 'FRICTION/model/FrictionModel' );
-    var FrictionView = require( 'FRICTION/view/FrictionView' );
+    var FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
+    var FrictionView = require( 'FRICTION/friction/view/FrictionView' );
     var SimLauncher = require( 'JOIST/SimLauncher' );
     var Screen = require( 'JOIST/Screen' );
 
