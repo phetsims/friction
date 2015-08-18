@@ -15,9 +15,6 @@
   },
   "phet": {
     "requirejsNamespace": "FRICTION",
-    "simTitleStringKey": "FRICTION/simTitle",
-    "phetLibs": [
-      "friction"
-    ]
+    "simTitleStringKey": "FRICTION/simTitle"
   }
 }
