@@ -14,7 +14,6 @@
     "requirejs": "~2.1.8"
   },
   "phet": {
-    "requirejsNamespace": "FRICTION",
-    "simTitleStringKey": "FRICTION/simTitle"
+    "requirejsNamespace": "FRICTION"
   }
 }

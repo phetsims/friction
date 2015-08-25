@@ -1,12 +1,12 @@
 {
+  "friction.name": {
+    "value": "Friction"
+  },
   "physics": {
     "value": "Physics"
   },
   "reset": {
     "value": "Reset"
-  },
-  "simTitle": {
-    "value": "Friction"
   },
   "chemistry": {
     "value": "Chemistry"
