@@ -18,7 +18,7 @@ define(
     var Screen = require( 'JOIST/Screen' );
 
     // strings
-    var simTitle = require( 'string!FRICTION/friction.name' );
+    var simTitle = require( 'string!FRICTION/friction.title' );
 
     // constants
     var LAYOUT_BOUNDS = new Bounds2( 0, 0, 768, 504 );
