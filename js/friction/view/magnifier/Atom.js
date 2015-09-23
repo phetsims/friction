@@ -8,7 +8,7 @@
 define( function( require ) {
   'use strict';
 
-  // Imports
+  // modules
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
