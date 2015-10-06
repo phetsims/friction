@@ -47,9 +47,9 @@ define( function( require ) {
     // add flare
     this.addChild( new Rectangle( -radius / 2, -height, radius, height, radius / 2, radius / 2, {
       fill: new LinearGradient( -2, 0, 5, 0 )
-        .addColorStop( 0, "rgba(255,255,255,0)" )
-        .addColorStop( 0.5, "rgba(255,255,255,0.6)" )
-        .addColorStop( 1, "rgba(255,255,255,0)" )
+        .addColorStop( 0, 'rgba(255,255,255,0)' )
+        .addColorStop( 0.5, 'rgba(255,255,255,0.6)' )
+        .addColorStop( 1, 'rgba(255,255,255,0)' )
     } ) );
 
     // add ticks

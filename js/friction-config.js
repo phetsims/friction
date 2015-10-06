@@ -32,7 +32,7 @@ require.config( {
     SUN: '../../sun/js',
 
     // this sim
-    FRICTION: "."
+    FRICTION: '.'
   },
 
   // optional cache buster to make browser refresh load all included scripts, can be disabled with ?cacheBuster=false
