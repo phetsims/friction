@@ -210,8 +210,8 @@ define( function( require ) {
 
       this.atomRowsToEvaporate = this.toEvaporate.length;
 
-      // set min vertical position (initial distance + yellow atoms height + top yellow empty space, y values decrease in up direction)
-      this.minYPos = this.position.y - ( this.toEvaporate.length * this.atoms.dy + 65 );
+      // set min vertical position
+      this.minYPos = -70; // empirically determined such that top book can't be completely dragged out of frame
     },
     move: function( v ) {
       this.hint = false;
