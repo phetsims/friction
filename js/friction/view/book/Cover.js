@@ -42,9 +42,17 @@ define( function( require ) {
         .lineTo( width - round / 2, 0 ),
       { stroke: 'black', lineWidth: 1, fill: options.color } ) );
 
-    // add binding
+    // add binding, scaling the title to fit if necessary
     this.addChild( new Rectangle( 0, 0, width, height, round, round, { fill: options.color, stroke: 'black' } ) );
-    this.addChild( new Text( options.title, { centerY: height / 2, centerX: width / 2, font: FONT, fill: 'black', pickable: false } ) );
+    var titleNode = new Text( options.title, {
+      font: FONT,
+      fill: 'black',
+      pickable: false
+    } );
+    titleNode.scale( Math.min( ( width * 0.9 ) / titleNode.width, 1 ) );
+    titleNode.centerY = height / 2;
+    titleNode.centerX = width / 2;
+    this.addChild( titleNode );
 
     // add white background for pages
     this.addChild( new Path( new Shape()
