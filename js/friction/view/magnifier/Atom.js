@@ -22,8 +22,8 @@ define( function( require ) {
    * @constructor
    */
   function Atom( model, options ) {
-    var self = this,
-      radius = model.atoms.radius;
+    var self = this;
+    var radius = model.atoms.radius;
 
     this.isTopAtom = options.color === FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR; // flag records whether we are on the top book
     this.isEvaporated = false;
@@ -83,10 +83,10 @@ define( function( require ) {
 
   return inherit( Node, Atom, {
     evaporate: function() {
-      var self = this,
-        steps = 250, // steps until atom has completed evaporation movement
-        dx,
-        dy;
+      var self = this;
+      var steps = 250; // steps until atom has completed evaporation movement
+      var dx;
+      var dy;
 
       this.isEvaporated = true;
 

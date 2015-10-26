@@ -108,7 +108,7 @@ define( function( require ) {
     this.addRowCircles( model, this.topBookBackground, {
       color: FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR,
       x: -this.param.width,
-      y:     this.param.height / 3 - model.atoms.distance,
+      y: this.param.height / 3 - model.atoms.distance,
       width: 3 * this.param.width
     } );
     this.param.topAtoms.target = this.topAtomsLayer;
@@ -127,17 +127,17 @@ define( function( require ) {
     var innerLowY = this.param.round;
     var innerHighY = this.param.height - this.param.round;
     this.addChild( new Path( new Shape().moveTo( rightX, topY )
-        .lineTo( leftX, topY )
-        .lineTo( leftX, bottomY )
-        .lineTo( rightX, bottomY )
-        .lineTo( rightX, topY )
-        .lineTo( innerHighX, innerLowY - this.param.round )
-        .arc( innerHighX, innerLowY, this.param.round, -Math.PI / 2, 0, false )
-        .arc( innerHighX, innerHighY, this.param.round, 0, Math.PI / 2, false )
-        .arc( innerLowX, innerHighY, this.param.round, Math.PI / 2, Math.PI, false )
-        .arc( innerLowX, innerLowY, this.param.round, Math.PI, Math.PI * 3 / 2, false )
-        .lineTo( innerHighX, innerLowY - this.param.round )
-        .close(),
+      .lineTo( leftX, topY )
+      .lineTo( leftX, bottomY )
+      .lineTo( rightX, bottomY )
+      .lineTo( rightX, topY )
+      .lineTo( innerHighX, innerLowY - this.param.round )
+      .arc( innerHighX, innerLowY, this.param.round, -Math.PI / 2, 0, false )
+      .arc( innerHighX, innerHighY, this.param.round, 0, Math.PI / 2, false )
+      .arc( innerLowX, innerHighY, this.param.round, Math.PI / 2, Math.PI, false )
+      .arc( innerLowX, innerLowY, this.param.round, Math.PI, Math.PI * 3 / 2, false )
+      .lineTo( innerHighX, innerLowY - this.param.round )
+      .close(),
       { fill: 'white' } ) );
     this.addChild( new Rectangle( 0, 0, this.param.width, this.param.height, this.param.round, this.param.round, { stroke: 'red', lineWidth: 5 } ) );
 
@@ -188,15 +188,15 @@ define( function( require ) {
     },
 
     addAtoms: function( model ) {
-      var self = this,
-        topAtoms = this.param.topAtoms,
-        bottomAtoms = this.param.bottomAtoms,
-        dx = model.atoms.dx,
-        dy = model.atoms.dy,
-        color,
-        y0,
-        x0,
-        target;
+      var self = this;
+      var topAtoms = this.param.topAtoms;
+      var bottomAtoms = this.param.bottomAtoms;
+      var dx = model.atoms.dx;
+      var dy = model.atoms.dy;
+      var color;
+      var y0;
+      var x0;
+      var target;
 
       // add one layer of atoms
       var addLayer = function( target, layer, y, x, color ) {
