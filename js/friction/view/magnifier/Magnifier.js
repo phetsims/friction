@@ -200,12 +200,12 @@ define( function( require ) {
 
       // add one layer of atoms
       var addLayer = function( target, layer, y, x, color ) {
-        var i,
-          n,
-          offset,
-          evaporate,
-          atom,
-          row = [];
+        var i;
+        var n;
+        var offset;
+        var evaporate;
+        var atom;
+        var row = [];
 
         for ( i = 0; i < layer.length; i++ ) {
           offset = layer[ i ].offset || 0;
