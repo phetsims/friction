@@ -197,7 +197,8 @@ define( function( require ) {
       this.init();
     },
     init: function() {
-      var i, j;
+      var i;
+      var j;
       for ( i = 0; i < this.toEvaporateSample.length; i++ ) {
         this.toEvaporate[ i ] = this.toEvaporateSample[ i ].slice( 0 );
       }
