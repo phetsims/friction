@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var friction = require( 'FRICTION/friction' );
 
   var CONSTANTS = {
     ATOM_RADIUS: 7, // radius of single atom
@@ -180,6 +181,8 @@ define( function( require ) {
     } );
   }
 
+  friction.register( 'FrictionModel', FrictionModel );
+  
   return inherit( PropertySet, FrictionModel, {
     step: function( dt ) {
       if ( dt > 0.5 ) {

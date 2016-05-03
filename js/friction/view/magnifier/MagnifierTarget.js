@@ -13,6 +13,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var friction = require( 'FRICTION/friction' );
 
   function MagnifierTarget( options ) {
     Node.call( this );
@@ -27,6 +28,8 @@ define( function( require ) {
     this.set( options.x, options.y );
   }
 
+  friction.register( 'MagnifierTarget', MagnifierTarget );
+  
   return inherit( Node, MagnifierTarget, {
     set: function( x, y ) {
       this.pathLeft.setShape( new Shape()

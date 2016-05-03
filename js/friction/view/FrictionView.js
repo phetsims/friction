@@ -16,6 +16,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var ThermometerNode = require( 'SCENERY_PHET/ThermometerNode' );
+  var friction = require( 'FRICTION/friction' );
 
   // strings
   var chemistryString = require( 'string!FRICTION/chemistry' );
@@ -61,6 +62,8 @@ define( function( require ) {
     model.init();
   }
 
+  friction.register( 'FrictionView', FrictionView );
+  
   return inherit( ScreenView, FrictionView, {
     step: function( timeElapsed ) {
       this.magnifier.step( timeElapsed );

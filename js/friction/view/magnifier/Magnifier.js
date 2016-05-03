@@ -20,6 +20,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var MagnifierTarget = require( 'FRICTION/friction/view/magnifier/MagnifierTarget' );
+  var friction = require( 'FRICTION/friction' );
 
   // constants
   var ARROW_LENGTH = 70;
@@ -178,6 +179,8 @@ define( function( require ) {
     } );
   }
 
+  friction.register( 'Magnifier', Magnifier );
+  
   return inherit( Node, Magnifier, {
     step: function( timeElapsed ) {
       this.atomCanvasLayer.step( timeElapsed );

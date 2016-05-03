@@ -14,6 +14,7 @@ define( function( require ) {
   var Util = require( 'SCENERY/util/Util' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Atom = require( 'FRICTION/friction/view/magnifier/Atom' );
+  var friction = require( 'FRICTION/friction' );
 
   var useHighRes = true;
 
@@ -45,6 +46,8 @@ define( function( require ) {
     this.sizeDirty = true;
   }
 
+  friction.register( 'AtomCanvas', AtomCanvas );
+  
   return inherit( DOM, AtomCanvas, {
     // when an Atom view is created, we want a reference so we can quickly scan a list of atoms
     registerAtom: function( atom ) {

@@ -17,6 +17,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var FONT = new PhetFont( 22 );
+  var friction = require( 'FRICTION/friction' );
 
   function Cover( options ) {
     var width = 200;
@@ -71,6 +72,8 @@ define( function( require ) {
       ) );
     }
   }
+
+  friction.register( 'Cover', Cover );
 
   return inherit( Node, Cover );
 } );

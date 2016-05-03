@@ -15,6 +15,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Vector2 = require( 'DOT/Vector2' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
+  var friction = require( 'FRICTION/friction' );
 
   /**
    * @param model
@@ -81,6 +82,8 @@ define( function( require ) {
   Atom.atomImages = {};
   Atom.atomOffset = null; // NOTE: this is OK for now because the atoms are the same size, and the toImage'd images should have the exact same offsets
 
+  friction.register( 'Atom', Atom );
+  
   return inherit( Node, Atom, {
     evaporate: function() {
       var self = this;
