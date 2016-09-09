@@ -36,7 +36,7 @@ define( function( require ) {
 
     //Create and start the sim
     new Sim( frictionTitleString, [
-      new Screen( frictionTitleString, null,
+      new Screen(
         function() {return new FrictionModel( LAYOUT_BOUNDS.width, LAYOUT_BOUNDS.height );},
         function( model ) {return new FrictionView( model );},
         { backgroundColor: '#fff' }
