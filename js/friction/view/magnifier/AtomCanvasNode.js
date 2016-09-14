@@ -9,7 +9,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Atom = require( 'FRICTION/friction/view/magnifier/Atom' );
   var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
   var friction = require( 'FRICTION/friction' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
