@@ -67,12 +67,6 @@ define( function( require ) {
   return inherit( ScreenView, FrictionView, {
     step: function( timeElapsed ) {
       this.magnifier.step( timeElapsed );
-    },
-
-    layout: function( width, height ) {
-      ScreenView.prototype.layout.call( this, width, height );
-
-      this.magnifier.layout();
     }
   } );
 } );
