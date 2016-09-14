@@ -8,22 +8,24 @@
 define( function( require ) {
   'use strict';
 
-  var PropertySet = require( 'AXON/PropertySet' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  // modules
   var friction = require( 'FRICTION/friction' );
+  var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var PropertySet = require( 'AXON/PropertySet' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   var CONSTANTS = {
-    ATOM_RADIUS: 7, // radius of single atom
+    ATOM_RADIUS: FrictionSharedConstants.ATOM_RADIUS, // radius of single atom
     DISTANCE_X: 20, // x-distance between neighbors (atoms)
     DISTANCE_Y: 20, // y-distance between neighbors (atoms)
     DISTANCE_INITIAL: 25, // initial distance between top and bottom atoms
     AMPLITUDE_MIN: 1, // min amplitude for an atom
     AMPLITUDE_EVAPORATE: 7, // evaporation amplitude for an atom
     AMPLITUDE_MAX: 12, // atom's max amplitude
-    BOOK_TOP_COLOR: 'rgb( 255, 255, 0 )', // color of top book and atoms
-    BOOK_BOTTOM_COLOR: 'rgb( 0, 251, 50 )', // color of bottom book and atoms
+    BOOK_TOP_ATOMS_COLOR: FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR, // color of top book
+    BOOK_BOTTOM_ATOMS_COLOR: FrictionSharedConstants.BOTTOM_BOOK_ATOMS_COLOR, // color of bottom
     COOLING_RATE: 0.2, // proportion per second, adjust in order to change the cooling rate
     HEATING_MULTIPLIER: 0.0075, // multiplied by distance moved while in contact to control heating rate
     EVAPORATION_AMPLITUDE_REDUCTION: 0.01, // decrease in amplitude (a.k.a. temperature) when an atom evaporates
@@ -132,11 +134,11 @@ define( function( require ) {
       },
       evaporationLimit: CONSTANTS.AMPLITUDE_EVAPORATE,
       top: {
-        color: CONSTANTS.BOOK_TOP_COLOR,
+        color: CONSTANTS.BOOK_TOP_ATOMS_COLOR,
         layers: topAtomsStructure
       },
       bottom: {
-        color: CONSTANTS.BOOK_BOTTOM_COLOR,
+        color: CONSTANTS.BOOK_BOTTOM_ATOMS_COLOR,
         layers: bottomAtomsStructure
       }
     };

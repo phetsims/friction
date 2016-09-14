@@ -11,16 +11,17 @@ define( function( require ) {
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Atom = require( 'FRICTION/friction/view/magnifier/Atom' );
-  var AtomCanvas = require( 'FRICTION/friction/view/magnifier/AtomCanvas' );
+  var AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var friction = require( 'FRICTION/friction' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MagnifierTarget = require( 'FRICTION/friction/view/magnifier/MagnifierTarget' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var MagnifierTarget = require( 'FRICTION/friction/view/magnifier/MagnifierTarget' );
-  var friction = require( 'FRICTION/friction' );
 
   // constants
   var ARROW_LENGTH = 70;
@@ -81,11 +82,19 @@ define( function( require ) {
     // add bottom book
     this.bottomBookBackground = new Node( {
       children: [
-        new Rectangle( 3, 2 * this.param.height / 3 - 2, this.param.width - 6, this.param.height / 3, 0, this.param.round - 3, { fill: FrictionSharedConstants.BOTTOM_BOOK_ATOMS_COLOR } )
+        new Rectangle(
+          3,
+          2 * this.param.height / 3 - 2,
+          this.param.width - 6,
+          this.param.height / 3,
+          0,
+          this.param.round - 3,
+          { fill: FrictionSharedConstants.BOTTOM_BOOK_COLOR }
+        )
       ]
     } );
     this.addRowCircles( model, this.bottomBookBackground, {
-      color: FrictionSharedConstants.BOTTOM_BOOK_ATOMS_COLOR,
+      color: FrictionSharedConstants.BOTTOM_BOOK_COLOR,
       x: -model.atoms.dx / 2,
       y: 2 * this.param.height / 3 - 2,
       width: this.param.width
@@ -161,13 +170,16 @@ define( function( require ) {
     arrowIcon.mutate( { centerX: this.param.width / 2, centerY: this.param.topAtoms.y / 2 } );
     this.container.addChild( arrowIcon );
 
-    // add atoms (on a separate layer for better performance).
-    this.atomCanvasLayer = new AtomCanvas( this.param.width, this.param.height, model.positionProperty );
+    // Add the canvas where the atoms will be rendered. NOTE: For better performance (particularly on iPad), we are
+    // using CanvasNode to render the atoms instead of individual nodes. All atoms are displayed there, even though we
+    // still create Atom view instances.
+    this.atomCanvasNode = new AtomCanvasNode( model.positionProperty, {
+      canvasBounds: new Bounds2( 0, 0, this.param.width, this.param.height )
+    } );
+    this.container.addChild( this.atomCanvasNode );
+
+    // add the atoms
     this.addAtoms( model );
-    // NOTE: For better performance (particularly on iPad), we are using the
-    // AtomCanvas instead of an atom layer. All atoms are displayed there,
-    // even though we still create Atom view instances.
-    this.container.addChild( this.atomCanvasLayer );
 
     // add observers
     model.hintProperty.linkAttribute( arrowIcon, 'visible' );
@@ -182,12 +194,9 @@ define( function( require ) {
   friction.register( 'Magnifier', Magnifier );
   
   return inherit( Node, Magnifier, {
-    step: function( timeElapsed ) {
-      this.atomCanvasLayer.step( timeElapsed );
-    },
 
-    layout: function() {
-      this.atomCanvasLayer.layout();
+    step: function() {
+      this.atomCanvasNode.invalidatePaint(); // tell the atom canvas to redraw itself
     },
 
     addAtoms: function( model ) {
@@ -218,7 +227,7 @@ define( function( require ) {
             if ( evaporate ) {
               row.push( atom );
             }
-            self.atomCanvasLayer.registerAtom( atom );
+            self.atomCanvasNode.registerAtom( atom );
           }
         }
         if ( evaporate ) {
