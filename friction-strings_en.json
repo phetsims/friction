@@ -5,9 +5,6 @@
   "physics": {
     "value": "Physics"
   },
-  "reset": {
-    "value": "Reset"
-  },
   "chemistry": {
     "value": "Chemistry"
   }
