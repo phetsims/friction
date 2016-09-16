@@ -116,7 +116,7 @@ define( function( require ) {
   ];
 
   function FrictionModel( width, height ) {
-    var model = this;
+    var self = this;
 
     // dimensions of the model's space
     this.width = width;
@@ -149,7 +149,7 @@ define( function( require ) {
     PropertySet.call( this, {
       amplitude: this.atoms.amplitude.min, // atoms amplitude
       position: new Vector2( 0, 0 ), // position of top book, changes when dragging
-      distance: model.atoms.distance, // distance between books
+      distance: self.atoms.distance, // distance between books
       bottomOffset: 0, // additional offset, results from drag
       atomRowsToEvaporate: 0, // top atoms number of rows to evaporate
       contact: false, // are books in contact
@@ -160,25 +160,25 @@ define( function( require ) {
     this.dndScale = 0.025; // drag and drop book coordinates conversion coefficient
 
     // check atom's contact
-    model.distanceProperty.link( function( distance ) {
-      model.contact = (Math.floor( distance ) <= 0);
+    self.distanceProperty.link( function( distance ) {
+      self.contact = (Math.floor( distance ) <= 0);
     } );
 
-    model.positionProperty.link( function( newPosition, oldPosition ) {
+    self.positionProperty.link( function( newPosition, oldPosition ) {
       // set distance between atoms
-      model.distance -= (newPosition.minus( oldPosition || new Vector2( 0, 0 ) )).y;
+      self.distance -= (newPosition.minus( oldPosition || new Vector2( 0, 0 ) )).y;
 
       // add amplitude in contact
-      if ( model.contact ) {
+      if ( self.contact ) {
         var dx = Math.abs( newPosition.x - oldPosition.x );
-        model.amplitude = Math.min( model.amplitude + dx * CONSTANTS.HEATING_MULTIPLIER, model.atoms.amplitude.max );
+        self.amplitude = Math.min( self.amplitude + dx * CONSTANTS.HEATING_MULTIPLIER, self.atoms.amplitude.max );
       }
     } );
 
-    model.amplitudeProperty.link( function( amplitude ) {
+    self.amplitudeProperty.link( function( amplitude ) {
       // evaporation check
-      if ( amplitude > model.atoms.evaporationLimit ) {
-        model.evaporate();
+      if ( amplitude > self.atoms.evaporationLimit ) {
+        self.evaporate();
       }
     } );
   }
