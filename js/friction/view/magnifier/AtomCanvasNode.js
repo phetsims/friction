@@ -20,7 +20,7 @@ define( function( require ) {
 
   /**
    * @param {Property.<Vector2>} topPositionProperty
-   * @param {object} options
+   * @param {Object} options
    * @constructor
    */
   function AtomCanvasNode( topPositionProperty, options ) {
@@ -96,7 +96,7 @@ define( function( require ) {
   }
 
   friction.register( 'AtomCanvasNode', AtomCanvasNode );
-  
+
   return inherit( CanvasNode, AtomCanvasNode, {
 
     /**
