@@ -15,6 +15,8 @@ define( function( require ) {
   var FrictionView = require( 'FRICTION/friction/view/FrictionView' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
   var Screen = require( 'JOIST/Screen' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var frictionTitleString = require( 'string!FRICTION/friction.title' );
@@ -39,7 +41,7 @@ define( function( require ) {
       new Screen(
         function() {return new FrictionModel( LAYOUT_BOUNDS.width, LAYOUT_BOUNDS.height );},
         function( model ) {return new FrictionView( model );},
-        { backgroundColor: '#fff' }
+        { backgroundColorProperty: new Property( Color.toColor( '#fff' ) ) }
       )
     ], simOptions ).start();
   } );
