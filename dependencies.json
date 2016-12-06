@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.3.0 Thu Oct 20 2016 15:43:12 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# friction 1.3.0 Tue Dec 06 2016 12:44:09 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "d1606348951ab459b067435536432a1c3cb495ef",
+    "sha": "0d64f943b773fdf7891c04bd3a32ac516c66678e",
     "branch": "1.3"
   },
   "joist": {
@@ -37,8 +37,8 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "83ea84c8d9fc089e8d8ad139874366c868404152",
-    "branch": "HEAD"
+    "sha": "e77d2353abefa38498cc971d856620f3679fb3ba",
+    "branch": "friction-1.3"
   },
   "query-string-machine": {
     "sha": "05231e54a60c79502166d7bba26301fe8b668772",
