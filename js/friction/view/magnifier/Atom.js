@@ -71,8 +71,8 @@ define( function( require ) {
 
     // update atom's position based on vibration and center position
     model.newStepProperty.link( function() {
-      self.currentX = self.x0 + model.amplitude * (Math.random() - 0.5);
-      self.currentY = self.y0 + model.amplitude * (Math.random() - 0.5);
+      self.currentX = self.x0 + model.amplitudeProperty.get() * (Math.random() - 0.5);
+      self.currentY = self.y0 + model.amplitudeProperty.get() * (Math.random() - 0.5);
     } );
   }
 
@@ -111,7 +111,7 @@ define( function( require ) {
     },
     getYrange: function() {
       var model = this.model;
-      return model.distance + model.atoms.dy * model.toEvaporate.length;
+      return model.distanceProperty.get() + model.atoms.dy * model.toEvaporate.length;
     },
     reset: function() {
       this.x0 = this.options.x;

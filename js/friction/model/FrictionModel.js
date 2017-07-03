@@ -12,7 +12,9 @@ define( function( require ) {
   var friction = require( 'FRICTION/friction' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -34,37 +36,37 @@ define( function( require ) {
 
   // atoms of top book (contains 5 rows: 4 of them can evaporate, 1 - can not)
   var topAtomsStructure = [
-  /**
-   * First row:
-   * contains 30 atoms that can not evaporate.
-   *
-   * */
+    /**
+     * First row:
+     * contains 30 atoms that can not evaporate.
+     *
+     * */
     [
       { num: 30 }
     ],
-  /**
-   * Second row:
-   * contains 29 atoms that can evaporate.
-   * Have additional offset 0.5 of x-distance between atoms (to make the lattice of atoms).
-   *
-   * */
+    /**
+     * Second row:
+     * contains 29 atoms that can evaporate.
+     * Have additional offset 0.5 of x-distance between atoms (to make the lattice of atoms).
+     *
+     * */
     [
       { offset: 0.5, num: 29, evaporate: true }
     ],
-  /**
-   * Third row:
-   * contains 29 atoms that can evaporate.
-   *
-   * */
+    /**
+     * Third row:
+     * contains 29 atoms that can evaporate.
+     *
+     * */
     [
       { num: 29, evaporate: true }
     ],
-  /**
-   * Fourth row:
-   * contains 24 atoms, separated into 5 groups that can evaporate.
-   * Have additional offset 0.5 of x-distance between atoms (to make the lattice of atoms).
-   *
-   * */
+    /**
+     * Fourth row:
+     * contains 24 atoms, separated into 5 groups that can evaporate.
+     * Have additional offset 0.5 of x-distance between atoms (to make the lattice of atoms).
+     *
+     * */
     [
       { offset: 0.5, num: 5, evaporate: true },
       { offset: 6.5, num: 8, evaporate: true },
@@ -72,11 +74,11 @@ define( function( require ) {
       { offset: 21.5, num: 5, evaporate: true },
       { offset: 27.5, num: 1, evaporate: true }
     ],
-  /**
-   * Fifth row:
-   * contains 9 atoms, separated into 5 groups that can evaporate.
-   *
-   * */
+    /**
+     * Fifth row:
+     * contains 9 atoms, separated into 5 groups that can evaporate.
+     *
+     * */
     [
       { offset: 3, num: 2, evaporate: true },
       { offset: 8, num: 1, evaporate: true },
@@ -88,28 +90,28 @@ define( function( require ) {
 
   // atoms of bottom book (contains 3 rows that can not evaporate)
   var bottomAtomsStructure = [
-  /**
-   * First row:
-   * contains 29 atoms that can not evaporate.
-   *
-   * */
+    /**
+     * First row:
+     * contains 29 atoms that can not evaporate.
+     *
+     * */
     [
       { num: 29 }
     ],
-  /**
-   * Second row:
-   * contains 28 atoms that can not evaporate.
-   * Have additional offset 0.5 of x-distance between atoms (to make the lattice of atoms).
-   *
-   * */
+    /**
+     * Second row:
+     * contains 28 atoms that can not evaporate.
+     * Have additional offset 0.5 of x-distance between atoms (to make the lattice of atoms).
+     *
+     * */
     [
       { offset: 0.5, num: 28 }
     ],
-  /**
-   * Third row:
-   * contains 29 atoms that can not evaporate.
-   *
-   * */
+    /**
+     * Third row:
+     * contains 29 atoms that can not evaporate.
+     *
+     * */
     [
       { num: 29 }
     ]
@@ -146,22 +148,20 @@ define( function( require ) {
     this.toEvaporateSample = []; // array of all atoms which able to evaporate, need for resetting game
     this.toEvaporate = []; // current set of atoms which may evaporate, but not yet evaporated (generally the lowest row in the top book)
 
-    PropertySet.call( this, {
-      amplitude: this.atoms.amplitude.min, // atoms amplitude
-      position: new Vector2( 0, 0 ), // position of top book, changes when dragging
-      distance: self.atoms.distance, // distance between books
-      bottomOffset: 0, // additional offset, results from drag
-      atomRowsToEvaporate: 0, // top atoms number of rows to evaporate
-      contact: false, // are books in contact
-      hint: true, // show hint icon
-      newStep: false // update every step
-    } );
+    this.amplitudeProperty = new Property( this.atoms.amplitude.min );
+    this.positionProperty = new Property( new Vector2( 0, 0 ) );
+    this.distanceProperty = new Property( self.atoms.distance );
+    this.bottomOffsetProperty = new NumberProperty( 0 );
+    this.atomRowsToEvaporateProperty = new NumberProperty( 0 );
+    this.contactProperty = new BooleanProperty( false );
+    this.hintProperty = new BooleanProperty( true );
+    this.newStepProperty = new BooleanProperty( false );
 
     this.dndScale = 0.025; // drag and drop book coordinates conversion coefficient
 
     // check atom's contact
     self.distanceProperty.link( function( distance ) {
-      self.contact = (Math.floor( distance ) <= 0);
+      self.contactProperty.set( Math.floor( distance ) <= 0 );
     } );
 
     self.positionProperty.link( function( newPosition, oldPosition ) {
@@ -169,9 +169,9 @@ define( function( require ) {
       self.distance -= (newPosition.minus( oldPosition || new Vector2( 0, 0 ) )).y;
 
       // add amplitude in contact
-      if ( self.contact ) {
+      if ( self.contactProperty.get() ) {
         var dx = Math.abs( newPosition.x - oldPosition.x );
-        self.amplitude = Math.min( self.amplitude + dx * CONSTANTS.HEATING_MULTIPLIER, self.atoms.amplitude.max );
+        self.amplitudeProperty.set( Math.min( self.amplitudeProperty.get() + dx * CONSTANTS.HEATING_MULTIPLIER, self.atoms.amplitude.max ) );
       }
     } );
 
@@ -184,21 +184,28 @@ define( function( require ) {
   }
 
   friction.register( 'FrictionModel', FrictionModel );
-  
-  return inherit( PropertySet, FrictionModel, {
+
+  return inherit( Object, FrictionModel, {
     step: function( dt ) {
       if ( dt > 0.5 ) {
         // Workaround for the case when user minimize window or switches to
         // another tab and then back, where big dt values can result.
         return;
       }
-      this.newStep = !this.newStep;
+      this.newStepProperty.set( !this.newStepProperty.get() );
 
       // Cool the atoms.
-      this.amplitude = Math.max( this.atoms.amplitude.min, this.amplitude * ( 1 - dt * CONSTANTS.COOLING_RATE ) );
+      this.amplitudeProperty.set( Math.max( this.atoms.amplitude.min, this.amplitudeProperty.get() * ( 1 - dt * CONSTANTS.COOLING_RATE ) ) );
     },
     reset: function() {
-      PropertySet.prototype.reset.call( this );
+      this.amplitudeProperty.reset();
+      this.positionProperty.reset();
+      this.distanceProperty.reset();
+      this.bottomOffsetProperty.reset();
+      this.atomRowsToEvaporateProperty.reset();
+      this.contactProperty.reset();
+      this.hintProperty.reset();
+      this.newStepProperty.reset();
       this.init();
     },
     init: function() {
@@ -214,37 +221,37 @@ define( function( require ) {
         }
       }
 
-      this.atomRowsToEvaporate = this.toEvaporate.length;
+      this.atomRowsToEvaporateProperty.set( this.toEvaporate.length );
 
       // set min vertical position
       this.minYPos = -70; // empirically determined such that top book can't be completely dragged out of frame
     },
     move: function( v ) {
-      this.hint = false;
+      this.hintProperty.set( false );
 
       // check bottom offset
-      if ( this.bottomOffset > 0 && v.y < 0 ) {
-        this.bottomOffset += v.y;
+      if ( this.bottomOffsetProperty.get() > 0 && v.y < 0 ) {
+        this.bottomOffsetProperty.get( this.bottomOffsetProperty.get() + v.y );
         v.y = 0;
       }
 
       // Check if the motion vector would put the book in an invalid location and limit it if so.
-      if ( v.y > this.distance ) {
-        this.bottomOffset += (v.y - this.distance);
-        v.y = this.distance;
+      if ( v.y > this.distanceProperty.get() ) {
+        this.bottomOffsetProperty.set( this.bottomOffsetProperty + (v.y - this.distanceProperty.get()) );
+        v.y = this.distanceProperty.get();
       }
-      else if ( this.position.y + v.y < this.minYPos ) {
-        v.y = this.minYPos - this.position.y; // Limit book from going out of magnifier window.
+      else if ( this.positionProperty.get().y + v.y < this.minYPos ) {
+        v.y = this.minYPos - this.positionProperty.get().y; // Limit book from going out of magnifier window.
       }
-      if ( this.position.x + v.x > CONSTANTS.MAX_X_DISPLACEMENT ) {
-        v.x = CONSTANTS.MAX_X_DISPLACEMENT - this.position.x;
+      if ( this.positionProperty.get().x + v.x > CONSTANTS.MAX_X_DISPLACEMENT ) {
+        v.x = CONSTANTS.MAX_X_DISPLACEMENT - this.positionProperty.get().x;
       }
-      else if ( this.position.x + v.x < -CONSTANTS.MAX_X_DISPLACEMENT ) {
-        v.x = -CONSTANTS.MAX_X_DISPLACEMENT - this.position.x;
+      else if ( this.positionProperty.get().x + v.x < -CONSTANTS.MAX_X_DISPLACEMENT ) {
+        v.x = -CONSTANTS.MAX_X_DISPLACEMENT - this.positionProperty.get().x;
       }
 
       // set the new position
-      this.position = this.position.plus( v );
+      this.positionProperty.set( this.positionProperty.get().plus( v ) );
     },
     initDrag: function( view ) {
       var self = this;
@@ -254,7 +261,7 @@ define( function( require ) {
           self.move( { x: e.delta.x, y: e.delta.y } );
         },
         end: function() {
-          self.bottomOffset = 0;
+          self.bottomOffsetProperty.set( 0 );
         }
       } ) );
     },
@@ -262,8 +269,8 @@ define( function( require ) {
       if ( this.toEvaporate[ this.toEvaporate.length - 1 ] && !this.toEvaporate[ this.toEvaporate.length - 1 ].length ) {
         // move to the next row of atoms to evaporate
         this.toEvaporate.pop();
-        this.distance += this.atoms.dy;
-        this.atomRowsToEvaporate = this.toEvaporate.length;
+        this.distanceProperty.set( this.distanceProperty.get() + this.atoms.dy );
+        this.atomRowsToEvaporateProperty.set( this.toEvaporate.length );
       }
 
       if ( this.toEvaporate[ this.toEvaporate.length - 1 ] ) {
@@ -272,7 +279,7 @@ define( function( require ) {
         var atom = currentEvaporationRow.splice( Math.floor( Math.random() * currentEvaporationRow.length ), 1 )[ 0 ];
         if ( atom ) {
           atom.evaporate();
-          this.amplitude -= CONSTANTS.EVAPORATION_AMPLITUDE_REDUCTION; // cooling due to evaporation
+          this.amplitudeProperty.set( CONSTANTS.EVAPORATION_AMPLITUDE_REDUCTION ); // cooling due to evaporation
         }
       }
     }
