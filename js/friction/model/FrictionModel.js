@@ -148,14 +148,14 @@ define( function( require ) {
     this.toEvaporateSample = []; // array of all atoms which able to evaporate, need for resetting game
     this.toEvaporate = []; // current set of atoms which may evaporate, but not yet evaporated (generally the lowest row in the top book)
 
-    this.amplitudeProperty = new Property( this.atoms.amplitude.min );
-    this.positionProperty = new Property( new Vector2( 0, 0 ) );
-    this.distanceProperty = new Property( self.atoms.distance );
-    this.bottomOffsetProperty = new NumberProperty( 0 );
-    this.atomRowsToEvaporateProperty = new NumberProperty( 0 );
-    this.contactProperty = new BooleanProperty( false );
-    this.hintProperty = new BooleanProperty( true );
-    this.newStepProperty = new BooleanProperty( false );
+    this.amplitudeProperty = new Property( this.atoms.amplitude.min ); // atoms amplitude
+    this.positionProperty = new Property( new Vector2( 0, 0 ) ); // position of top book, changes when dragging
+    this.distanceProperty = new Property( self.atoms.distance ); // distance between books
+    this.bottomOffsetProperty = new NumberProperty( 0 ); // additional offset, results from drag
+    this.atomRowsToEvaporateProperty = new NumberProperty( 0 ); // top atoms number of rows to evaporate
+    this.contactProperty = new BooleanProperty( false ); // are books in contact
+    this.hintProperty = new BooleanProperty( true ); // show hint icon
+    this.newStepProperty = new BooleanProperty( false ); // update every step
 
     this.dndScale = 0.025; // drag and drop book coordinates conversion coefficient
 
@@ -185,7 +185,7 @@ define( function( require ) {
 
   friction.register( 'FrictionModel', FrictionModel );
 
-  return inherit( Object, FrictionModel, {
+  return inherit( FrictionModel, FrictionModel, {
     step: function( dt ) {
       if ( dt > 0.5 ) {
         // Workaround for the case when user minimize window or switches to
