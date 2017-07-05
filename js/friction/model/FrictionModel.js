@@ -13,8 +13,6 @@ define( function( require ) {
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -151,11 +149,11 @@ define( function( require ) {
     this.amplitudeProperty = new Property( this.atoms.amplitude.min ); // atoms amplitude
     this.positionProperty = new Property( new Vector2( 0, 0 ) ); // position of top book, changes when dragging
     this.distanceProperty = new Property( self.atoms.distance ); // distance between books
-    this.bottomOffsetProperty = new NumberProperty( 0 ); // additional offset, results from drag
-    this.atomRowsToEvaporateProperty = new NumberProperty( 0 ); // top atoms number of rows to evaporate
-    this.contactProperty = new BooleanProperty( false ); // are books in contact
-    this.hintProperty = new BooleanProperty( true ); // show hint icon
-    this.newStepProperty = new BooleanProperty( false ); // update every step
+    this.bottomOffsetProperty = new Property( 0 ); // additional offset, results from drag
+    this.atomRowsToEvaporateProperty = new Property( 0 ); // top atoms number of rows to evaporate
+    this.contactProperty = new Property( false ); // are books in contact
+    this.hintProperty = new Property( true ); // show hint icon
+    this.newStepProperty = new Property( false ); // update every step
 
     this.dndScale = 0.025; // drag and drop book coordinates conversion coefficient
 
@@ -166,7 +164,7 @@ define( function( require ) {
 
     self.positionProperty.link( function( newPosition, oldPosition ) {
       // set distance between atoms
-      self.distance -= (newPosition.minus( oldPosition || new Vector2( 0, 0 ) )).y;
+      self.distanceProperty.set( self.distanceProperty.get() - (newPosition.minus( oldPosition || new Vector2( 0, 0 ) )).y );
 
       // add amplitude in contact
       if ( self.contactProperty.get() ) {
@@ -231,13 +229,13 @@ define( function( require ) {
 
       // check bottom offset
       if ( this.bottomOffsetProperty.get() > 0 && v.y < 0 ) {
-        this.bottomOffsetProperty.get( this.bottomOffsetProperty.get() + v.y );
+        this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + v.y );
         v.y = 0;
       }
 
       // Check if the motion vector would put the book in an invalid location and limit it if so.
       if ( v.y > this.distanceProperty.get() ) {
-        this.bottomOffsetProperty.set( this.bottomOffsetProperty + (v.y - this.distanceProperty.get()) );
+        this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + (v.y - this.distanceProperty.get()) );
         v.y = this.distanceProperty.get();
       }
       else if ( this.positionProperty.get().y + v.y < this.minYPos ) {
