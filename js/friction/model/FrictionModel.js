@@ -183,7 +183,7 @@ define( function( require ) {
 
   friction.register( 'FrictionModel', FrictionModel );
 
-  return inherit( FrictionModel, FrictionModel, {
+  return inherit( Object, FrictionModel, {
     step: function( dt ) {
       if ( dt > 0.5 ) {
         // Workaround for the case when user minimize window or switches to
@@ -235,7 +235,7 @@ define( function( require ) {
 
       // Check if the motion vector would put the book in an invalid location and limit it if so.
       if ( v.y > this.distanceProperty.get() ) {
-        this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + (v.y - this.distanceProperty.get()) );
+        this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + v.y - this.distanceProperty.get() );
         v.y = this.distanceProperty.get();
       }
       else if ( this.positionProperty.get().y + v.y < this.minYPos ) {
@@ -277,7 +277,7 @@ define( function( require ) {
         var atom = currentEvaporationRow.splice( Math.floor( Math.random() * currentEvaporationRow.length ), 1 )[ 0 ];
         if ( atom ) {
           atom.evaporate();
-          this.amplitudeProperty.set( CONSTANTS.EVAPORATION_AMPLITUDE_REDUCTION ); // cooling due to evaporation
+          this.amplitudeProperty.set( this.amplitudeProperty.get() - CONSTANTS.EVAPORATION_AMPLITUDE_REDUCTION ); // cooling due to evaporation
         }
       }
     }
