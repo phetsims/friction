@@ -29,9 +29,9 @@ define( function( require ) {
       credits: {
         leadDesign: 'Michael Dubson, Noah Podolefsky',
         softwareDevelopment: 'Michael Dubson, John Blanco, Jonathan Olson',
-        team: 'Wendy Adams, Mindy Gratny, Emily B. Moore, Ariel Paul,\nKatherine Perkins, Carl Wieman',
-        qualityAssurance: 'Steele Dalton, Bryce Griebenow, Ethan Johnson, Elise Morgan,\nOliver Orejola, Ben Roberts, Bryan Yoelin',
-        thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team\nto convert this simulation to HTML5.'
+        team: 'Wendy Adams, Mindy Gratny, Emily B. Moore, Ariel Paul, Katherine Perkins, Carl Wieman',
+        qualityAssurance: 'Steele Dalton, Bryce Griebenow, Ethan Johnson, Elise Morgan, Oliver Orejola, Ben Roberts, Bryan Yoelin',
+        thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation to HTML5.'
       }
     };
 
