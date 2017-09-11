@@ -10,12 +10,12 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
-  var Sim = require( 'JOIST/Sim' );
   var FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   var FrictionView = require( 'FRICTION/friction/view/FrictionView' );
-  var SimLauncher = require( 'JOIST/SimLauncher' );
-  var Screen = require( 'JOIST/Screen' );
   var Property = require( 'AXON/Property' );
+  var Screen = require( 'JOIST/Screen' );
+  var Sim = require( 'JOIST/Sim' );
+  var SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
   var frictionTitleString = require( 'string!FRICTION/friction.title' );

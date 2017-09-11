@@ -7,15 +7,15 @@
  */
 define( function( require ) {
   'use strict';
-  var Node = require( 'SCENERY/nodes/Node' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
 
+  var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
-  var Path = require( 'SCENERY/nodes/Path' );
 
-  var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var FONT = new PhetFont( 22 );
   var friction = require( 'FRICTION/friction' );
 

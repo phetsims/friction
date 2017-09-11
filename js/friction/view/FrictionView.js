@@ -11,12 +11,12 @@ define( function( require ) {
   // modules
   var Book = require( 'FRICTION/friction/view/book/Book' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var friction = require( 'FRICTION/friction' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Magnifier = require( 'FRICTION/friction/view/magnifier/Magnifier' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var ThermometerNode = require( 'SCENERY_PHET/ThermometerNode' );
-  var friction = require( 'FRICTION/friction' );
 
   // strings
   var chemistryString = require( 'string!FRICTION/chemistry' );

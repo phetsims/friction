@@ -9,13 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Circle = require( 'SCENERY/nodes/Circle' );
+  var friction = require( 'FRICTION/friction' );
+  var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
   var Vector2 = require( 'DOT/Vector2' );
-  var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
-  var friction = require( 'FRICTION/friction' );
 
   /**
    * @param model

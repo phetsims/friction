@@ -19,9 +19,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var MagnifierTarget = require( 'FRICTION/friction/view/magnifier/MagnifierTarget' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
-  var Path = require( 'SCENERY/nodes/Path' );
 
   // constants
   var ARROW_LENGTH = 70;
