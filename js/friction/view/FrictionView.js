@@ -12,6 +12,7 @@ define( function( require ) {
   var Book = require( 'FRICTION/friction/view/book/Book' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var friction = require( 'FRICTION/friction' );
+  var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Magnifier = require( 'FRICTION/friction/view/magnifier/Magnifier' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -22,6 +23,12 @@ define( function( require ) {
   var chemistryString = require( 'string!FRICTION/chemistry' );
   var physicsString = require( 'string!FRICTION/physics' );
 
+  // constants
+  var THERMOMETER_FLUID_MAIN_COLOR = 'rgb(237,28,36)';
+  var THERMOMETER_FLUID_HIGHLIGHT_COLOR = 'rgb(240,150,150)';
+  var THERMOMETER_FLUID_RIGHT_SIDE_COLOR = 'rgb(237,28,36)';
+  var THERMOMETER_BACKGROUND_FILL_COLOR = 'white';
+
   /**
    * @param {FrictionModel} model
    * @constructor
@@ -30,10 +37,10 @@ define( function( require ) {
     ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, model.width, model.height ) } );
 
     // add physics book
-    this.addChild( new Book( model, { x: 50, y: 225, title: physicsString, color: 'rgb(0,255,51)', drag: false } ) );
+    this.addChild( new Book( model, 50, 225, physicsString ) );
 
     // add chemistry book
-    this.addChild( new Book( model, { x: 65, y: 209, title: chemistryString, color: 'rgb(255,240,0)', drag: true } ) );
+    this.addChild( new Book( model, 65, 209, chemistryString, { color: FrictionSharedConstants.TOP_BOOK_COLOR_MACRO, drag: true } ) );
 
     // add magnifier
     this.addChild( this.magnifier = new Magnifier( model, { x: 40, y: 25, targetX: 195, targetY: 425, layerSplit: true } ) );
@@ -50,10 +57,10 @@ define( function( require ) {
         bulbDiameter: 24,
         majorTickLength: 4,
         minorTickLength: 4,
-        fluidMainColor: 'rgb(237,28,36)',
-        fluidHighlightColor: 'rgb(240,150,150)',
-        fluidRightSideColor: 'rgb(237,28,36)',
-        backgroundFill: 'white'
+        fluidMainColor: THERMOMETER_FLUID_MAIN_COLOR,
+        fluidHighlightColor: THERMOMETER_FLUID_HIGHLIGHT_COLOR,
+        fluidRightSideColor: THERMOMETER_FLUID_RIGHT_SIDE_COLOR,
+        backgroundFill: THERMOMETER_BACKGROUND_FILL_COLOR
       } ) );
 
     // add reset button

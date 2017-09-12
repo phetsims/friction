@@ -19,7 +19,12 @@ define( function( require ) {
   var FONT = new PhetFont( 22 );
   var friction = require( 'FRICTION/friction' );
 
-  function Cover( options ) {
+  function Cover( x, y, title, options ) {
+
+    options = _.extend( {
+      color: 'black'
+    }, options );
+
     var width = 200;
     var height = 30;
     var round = 5;
@@ -27,7 +32,7 @@ define( function( require ) {
     var length = 75;
     var angle = Math.PI / 12;
 
-    Node.call( this, { x: options.x, y: options.y } );
+    Node.call( this, { x: x, y: y } );
 
     // add last page
     this.addChild( new Path( new Shape()
@@ -45,7 +50,7 @@ define( function( require ) {
 
     // add binding, scaling the title to fit if necessary
     this.addChild( new Rectangle( 0, 0, width, height, round, round, { fill: options.color, stroke: 'black' } ) );
-    var titleNode = new Text( options.title, {
+    var titleNode = new Text( title, {
       font: FONT,
       fill: 'black',
       pickable: false
