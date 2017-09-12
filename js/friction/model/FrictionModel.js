@@ -125,8 +125,8 @@ define( function( require ) {
     // create a suitable structure from the initial data for further work
     this.atoms = {
       radius: CONSTANTS.ATOM_RADIUS,
-      dx: CONSTANTS.DISTANCE_X,
-      dy: CONSTANTS.DISTANCE_Y,
+      distanceX: CONSTANTS.DISTANCE_X,
+      distanceY: CONSTANTS.DISTANCE_Y,
       distance: CONSTANTS.DISTANCE_INITIAL,
       amplitude: {
         min: CONSTANTS.AMPLITUDE_MIN,
@@ -277,7 +277,7 @@ define( function( require ) {
       if ( this.toEvaporate[ this.toEvaporate.length - 1 ] && !this.toEvaporate[ this.toEvaporate.length - 1 ].length ) {
         // move to the next row of atoms to evaporate
         this.toEvaporate.pop();
-        this.distanceProperty.set( this.distanceProperty.get() + this.atoms.dy );
+        this.distanceProperty.set( this.distanceProperty.get() + this.atoms.distanceY );
         this.atomRowsToEvaporateProperty.set( this.toEvaporate.length );
       }
 

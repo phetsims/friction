@@ -40,11 +40,14 @@ define( function( require ) {
     this.addChild( new Book( model, 50, 225, physicsString ) );
 
     // @private (for a11y) - add chemistry book
-    this.draggableBook = new Book( model, 65, 209, chemistryString, { color: FrictionSharedConstants.TOP_BOOK_COLOR_MACRO, drag: true } );
+    this.draggableBook = new Book( model, 65, 209, chemistryString, {
+      color: FrictionSharedConstants.TOP_BOOK_COLOR_MACRO,
+      drag: true
+    } );
     this.addChild( this.draggableBook );
 
     // add magnifier
-    this.addChild( this.magnifier = new Magnifier( model, { x: 40, y: 25, targetX: 195, targetY: 425, layerSplit: true } ) );
+    this.addChild( this.magnifier = new Magnifier( model, 40, 25, 195, 425, { layerSplit: true } ) );
 
     // add thermometer
     this.addChild( new ThermometerNode( model.atoms.amplitude.min - 1.05, model.atoms.evaporationLimit * 1.1, model.amplitudeProperty,
@@ -65,13 +68,18 @@ define( function( require ) {
       } ) );
 
     // add reset button
-    this.addChild( new ResetAllButton( { listener: function() { model.reset(); }, radius: 22, x: model.width * 0.94, y: model.height * 0.9 } ) );
+    this.addChild( new ResetAllButton( {
+      listener: function() { model.reset(); },
+      radius: 22,
+      x: model.width * 0.94,
+      y: model.height * 0.9
+    } ) );
 
     model.init();
   }
 
   friction.register( 'FrictionView', FrictionView );
-  
+
   return inherit( ScreenView, FrictionView, {
     step: function( timeElapsed ) {
       this.magnifier.step( timeElapsed );

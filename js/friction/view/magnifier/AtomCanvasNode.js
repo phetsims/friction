@@ -55,7 +55,7 @@ define( function( require ) {
     context.stroke();
 
     // draw the circle that will be used for atoms in the bottom book onto the canvas
-    context.fillStyle = 'rgb( 0, 251, 50 )';
+    context.fillStyle = FrictionSharedConstants.BOTTOM_BOOK_ATOMS_COLOR;
     context.beginPath();
     context.arc(
       PARTICLE_IMAGE_SIZE * 1.5,

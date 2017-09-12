@@ -111,7 +111,7 @@ define( function( require ) {
     },
     getYrange: function() {
       var model = this.model;
-      return model.distanceProperty.get() + model.atoms.dy * model.toEvaporate.length;
+      return model.distanceProperty.get() + model.atoms.distanceY * model.toEvaporate.length;
     },
     reset: function() {
       this.x0 = this.options.x;
