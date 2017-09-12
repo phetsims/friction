@@ -116,7 +116,11 @@ define( function( require ) {
     reset: function() {
       this.x0 = this.options.x;
       this.y0 = this.options.y;
-      this.model.newStepProperty.unlink( this.handler );
+
+      // handler may have been unlinked by itself (see above), so check that we're still registered
+      if ( this.model.newStepProperty.hasListener( this.handler ) ) {
+        this.model.newStepProperty.unlink( this.handler );
+      }
       this.setVisible( true );
       this.isEvaporated = false;
     }
