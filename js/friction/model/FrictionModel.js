@@ -224,6 +224,16 @@ define( function( require ) {
       // set min vertical position
       this.minYPos = -70; // empirically determined such that top book can't be completely dragged out of frame
     },
+
+    /**
+     * Move the book, checking to make sure the new location is valid. If the book is going to move out of bounds,
+     * prevent movement.
+     * 
+     * @public
+     * @param {Object} v {x:{number}, y:{number}} - NOT a Vector2 (presumably to reduce memory footprint)
+     * @param {number} v.x
+     * @param {number} v.y
+     */
     move: function( v ) {
       this.hintProperty.set( false );
 

@@ -39,8 +39,9 @@ define( function( require ) {
     // add physics book
     this.addChild( new Book( model, 50, 225, physicsString ) );
 
-    // add chemistry book
-    this.addChild( new Book( model, 65, 209, chemistryString, { color: FrictionSharedConstants.TOP_BOOK_COLOR_MACRO, drag: true } ) );
+    // @private (for a11y) - add chemistry book
+    this.draggableBook = new Book( model, 65, 209, chemistryString, { color: FrictionSharedConstants.TOP_BOOK_COLOR_MACRO, drag: true } );
+    this.addChild( this.draggableBook );
 
     // add magnifier
     this.addChild( this.magnifier = new Magnifier( model, { x: 40, y: 25, targetX: 195, targetY: 425, layerSplit: true } ) );
@@ -74,6 +75,9 @@ define( function( require ) {
   return inherit( ScreenView, FrictionView, {
     step: function( timeElapsed ) {
       this.magnifier.step( timeElapsed );
+
+      // a11y - to step the keyboard drag handler
+      this.draggableBook.step( timeElapsed );
     }
   } );
 } );
