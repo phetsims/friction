@@ -17,6 +17,7 @@ define( function( require ) {
   var friction = require( 'FRICTION/friction' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var KeyboardDragHandler = require( 'SCENERY_PHET/accessibility/KeyboardDragHandler' );
   var MagnifierTarget = require( 'FRICTION/friction/view/magnifier/MagnifierTarget' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -142,6 +143,29 @@ define( function( require ) {
     model.initDrag( dragArea );
     this.topBookBackground.addChild( dragArea );
 
+    // a11y add accessibility to the rectangle that surrounds the top atoms.
+    dragArea.tagName = 'div';
+    dragArea.ariaRole = 'application';
+    dragArea.focusable = true;
+
+    // a11y add the keyboard drag listener to the top atoms
+    var oldValue; // determines our delta for how the positionProperty changed every drag
+    this.keyboardDragHandler = new KeyboardDragHandler( model.positionProperty, {
+      startDrag: function() {
+        oldValue = model.positionProperty.get();
+      },
+      onDrag: function() {
+        var newValue = model.positionProperty.get();
+        var delta = { x: newValue.x - oldValue.x, y: newValue.y - oldValue.y };
+
+        model.move( delta );
+
+        // update the oldValue for the next onDrag
+        oldValue = model.positionProperty.get();
+      }
+    } );
+    dragArea.addAccessibleInputListener( this.keyboardDragHandler );
+
     this.addRowCircles( model, this.topBookBackground, {
       color: FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR,
       x: -this.param.width,
@@ -225,8 +249,9 @@ define( function( require ) {
 
   return inherit( Node, Magnifier, {
 
-    step: function() {
+    step: function( dt ) {
       this.atomCanvasNode.invalidatePaint(); // tell the atom canvas to redraw itself
+      this.keyboardDragHandler.step( dt ); // a11y
     },
 
     addAtoms: function( model ) {
