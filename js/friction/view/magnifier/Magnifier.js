@@ -64,9 +64,6 @@ define( function( require ) {
     Node.call( this, options );
 
     var self = this;
-    var arrowIcon;
-    var dragArea;
-    var background;
 
     // main params
     this.param = {
@@ -100,6 +97,12 @@ define( function( require ) {
     this.bottomAtomsLayer = new Node();
     this.topAtomsLayer = new Node();
 
+    // arrow icon
+    var arrowIcon = new Node();
+    arrowIcon.addChild( new ArrowNode( INTER_ARROW_SPACING / 2, 0, ARROW_LENGTH, 0, ARROW_OPTIONS ) );
+    arrowIcon.addChild( new ArrowNode( -INTER_ARROW_SPACING / 2, 0, -ARROW_LENGTH, 0, ARROW_OPTIONS ) );
+    arrowIcon.mutate( { centerX: this.param.width / 2, centerY: this.param.topAtoms.y / 2 } );
+
     // add bottom book
     this.bottomBookBackground = new Node( {
       children: [
@@ -127,7 +130,7 @@ define( function( require ) {
     this.topBookBackground = new Node();
 
     // init drag for background
-    background = new Rectangle(
+    var background = new Rectangle(
       -1.125 * this.param.width,
       -this.param.height, 3.25 * this.param.width,
       4 * this.param.height / 3 - model.atoms.distance,
@@ -139,7 +142,7 @@ define( function( require ) {
     this.topBookBackground.addChild( background );
 
     // init drag for drag area
-    dragArea = new Rectangle( 0.055 * this.param.width, 0.175 * this.param.height, 0.875 * this.param.width, model.atoms.distanceY * 6, { fill: null } );
+    var dragArea = new Rectangle( 0.055 * this.param.width, 0.175 * this.param.height, 0.875 * this.param.width, model.atoms.distanceY * 6, { fill: null } );
     model.initDrag( dragArea );
     this.topBookBackground.addChild( dragArea );
 
@@ -147,6 +150,11 @@ define( function( require ) {
     dragArea.tagName = 'div';
     dragArea.ariaRole = 'application';
     dragArea.focusable = true;
+
+    var arrowAndTopAtoms = new Node();
+    arrowAndTopAtoms.children = [ dragArea, arrowIcon ];
+    //
+    dragArea.focusHighlight = Rectangle.bounds( arrowAndTopAtoms.bounds, {stroke: 'red'} );
 
     // a11y add the keyboard drag listener to the top atoms
     var oldValue; // determines our delta for how the positionProperty changed every drag
@@ -217,11 +225,7 @@ define( function( require ) {
     } );
     this.addChild( this.target );
 
-    // arrow icon
-    arrowIcon = new Node();
-    arrowIcon.addChild( new ArrowNode( INTER_ARROW_SPACING / 2, 0, ARROW_LENGTH, 0, ARROW_OPTIONS ) );
-    arrowIcon.addChild( new ArrowNode( -INTER_ARROW_SPACING / 2, 0, -ARROW_LENGTH, 0, ARROW_OPTIONS ) );
-    arrowIcon.mutate( { centerX: this.param.width / 2, centerY: this.param.topAtoms.y / 2 } );
+    // add the arrow at the end
     this.container.addChild( arrowIcon );
 
     // Add the canvas where the atoms will be rendered. NOTE: For better performance (particularly on iPad), we are
