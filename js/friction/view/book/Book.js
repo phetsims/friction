@@ -20,8 +20,8 @@ define( function( require ) {
    * Constructor
    *
    * @param {FrictionModel} model
-   * @param {number} x 
-   * @param {number} y 
+   * @param {number} x
+   * @param {number} y
    * @param {string} title - title that appears on the book spine
    * @param {Object} options
    */
@@ -57,14 +57,14 @@ define( function( require ) {
 
       // a11y - add a keyboard drag handler
       var oldValue; // determines our delta for how the positionProperty changed every drag
-      this.keyboardDragHandler = new KeyboardDragHandler( model.positionProperty,  {
+      this.keyboardDragHandler = new KeyboardDragHandler( model.positionProperty, {
         startDrag: function() {
           oldValue = model.positionProperty.get();
         },
         onDrag: function() {
           var newValue = model.positionProperty.get();
           var delta = { x: newValue.x - oldValue.x, y: newValue.y - oldValue.y };
-          
+
           model.move( delta );
 
           // update the oldValue for the next onDrag
@@ -81,7 +81,7 @@ define( function( require ) {
   }
 
   friction.register( 'Book', Book );
-  
+
   return inherit( Node, Book, {
 
     step: function( dt ) {
