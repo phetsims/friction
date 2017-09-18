@@ -153,8 +153,10 @@ define( function( require ) {
 
     var arrowAndTopAtoms = new Node();
     arrowAndTopAtoms.children = [ dragArea, arrowIcon ];
-    //
-    dragArea.focusHighlight = Rectangle.bounds( arrowAndTopAtoms.bounds, {stroke: 'red'} );
+
+    // The focusHighlight of the top particles. It also includes the place for the arrows so that it extends up into the
+    // book "background."
+    dragArea.focusHighlight = Shape.bounds( arrowAndTopAtoms.bounds, { stroke: 'red' } );
 
     // a11y add the keyboard drag listener to the top atoms
     var oldValue; // determines our delta for how the positionProperty changed every drag
