@@ -1,11 +1,11 @@
 {
-  "comment": "# friction 1.4.0-dev.0 Tue Sep 12 2017 14:43:54 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# friction 1.4.0-dev.1 Mon Sep 18 2017 08:30:21 GMT-0800 (Alaskan Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
   },
   "axon": {
-    "sha": "63eae866364215a6d84d2849eab06b8649f23708",
+    "sha": "1eecfa9f782acf0b16ebd19a1e3eaa1f1d3ac660",
     "branch": "master"
   },
   "brand": {
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "61409cf82accf76c4c4d4c912c85278e582d35e4",
+    "sha": "1dae5e7b5f163e54ba0f455b86b2bf0e2141b9fb",
     "branch": "master"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "friction": {
-    "sha": "117f84f1b80faa83838eb92428ea35710723a117",
+    "sha": "f7bb2de216118c7ba6de8576f625a2cc252533e1",
     "branch": "master"
   },
   "joist": {
-    "sha": "081275093e195f68aafec59773f9b45c94abc9e0",
+    "sha": "90497d3add061bf702ab853343d40baa3ca5a17f",
     "branch": "master"
   },
   "kite": {
@@ -45,15 +45,15 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "7ca07ab44b0b9ef3b2a973adc17c8d960f5bb0cf",
+    "sha": "0570d540f7a45aaf0c72fdab0b5d897351d2a7dc",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "cb7236cfa23a3cfb15c708f1a544b1a5473b4198",
+    "sha": "f8b1c99668d3f2afbedbb88165bf51cd8124805f",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "e29820c9401f11cc292bec57f36c7c559c980b00",
+    "sha": "f0d5f7504e8bfc00109989c890bd84ec21ba2128",
     "branch": "master"
   },
   "sun": {
@@ -61,7 +61,7 @@
     "branch": "master"
   },
   "tandem": {
-    "sha": "a473eb43e47bddf1fa10cf8ddec96f99bd2804a5",
+    "sha": "3b161ec8fa2f0d48868958bed3e6839f84163818",
     "branch": "master"
   }
 }
