@@ -15,6 +15,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var KeyboardDragHandler = require( 'SCENERY_PHET/accessibility/KeyboardDragHandler' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Shape = require( 'KITE/Shape' );
 
   /**
    * Constructor
@@ -52,6 +53,11 @@ define( function( require ) {
       this.tagName = 'div';
       this.ariaRole = 'application';
       this.focusable = true;
+
+      // Customize the focus highlight. Make the lowest bound a bit higher on the screen so that it doesn't overlap with
+      // the small gap where friction occurs.
+      var bounds = this.getLocalBounds().copy();
+      this.focusHighlight = Shape.bounds( bounds.withMaxY( bounds.getMaxY() - 5 ) );
 
       model.initDrag( this );
 
