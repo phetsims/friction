@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.4.0-dev.1 Mon Sep 18 2017 08:30:21 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# friction 1.4.0-dev.2 Tue Sep 19 2017 15:49:33 GMT-0800 (Alaskan Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "1dae5e7b5f163e54ba0f455b86b2bf0e2141b9fb",
+    "sha": "beecf7e300db0bfc761a6a32899a3a6ec4fd83b0",
     "branch": "master"
   },
   "dot": {
@@ -21,15 +21,15 @@
     "branch": "master"
   },
   "friction": {
-    "sha": "f7bb2de216118c7ba6de8576f625a2cc252533e1",
+    "sha": "f42d7a962386da5bf3428d8a394ca4673f077523",
     "branch": "master"
   },
   "joist": {
-    "sha": "90497d3add061bf702ab853343d40baa3ca5a17f",
+    "sha": "4ac9bf9dbb610f6973c828471d9f884fdcb771be",
     "branch": "master"
   },
   "kite": {
-    "sha": "aa585660d740c023ee3f2f6f3cc993a096e69804",
+    "sha": "5a2004499abfe4e5577e10873ff2ad889fa55881",
     "branch": "master"
   },
   "phet-core": {
@@ -45,7 +45,7 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "0570d540f7a45aaf0c72fdab0b5d897351d2a7dc",
+    "sha": "fcb94925c73eb76cb5b3ce6589d7d1ac778ab077",
     "branch": "master"
   },
   "scenery-phet": {
@@ -57,7 +57,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "96c223b3fb271992069088e4d48019b141c9191c",
+    "sha": "f3392936337da4c76f1933d1a1b1855a066f1ce5",
     "branch": "master"
   },
   "tandem": {
