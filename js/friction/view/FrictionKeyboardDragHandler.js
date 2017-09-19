@@ -22,14 +22,14 @@ define( function( require ) {
     var oldValue; // determines our delta for how the positionProperty changed every drag
 
     KeyboardDragHandler.call( this, model.positionProperty, {
+      positionDelta: 10,
+      shiftKeyMultiplier: .5,
       startDrag: function() {
         oldValue = model.positionProperty.get();
       },
       onDrag: function() {
         var newValue = model.positionProperty.get();
-        var delta = { x: newValue.x - oldValue.x, y: newValue.y - oldValue.y };
-
-        model.move( delta );
+        model.move( { x: newValue.x - oldValue.x, y: newValue.y - oldValue.y } );
 
         // update the oldValue for the next onDrag
         oldValue = model.positionProperty.get();
