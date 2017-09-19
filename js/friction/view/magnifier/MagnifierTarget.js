@@ -1,7 +1,7 @@
 // Copyright 2013-2015, University of Colorado Boulder
 
 /**
- * view for magnifier's target
+ * view for magnifier's target, this includes the dashed traces up to the magnified view
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -15,32 +15,54 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
 
-  function MagnifierTarget( options ) {
-    Node.call( this );
-    this.param = options;
 
-    this.magRect = new Rectangle( 0, 0, options.width, options.height, options.round, options.round, { stroke: 'red', lineWidth: 1 } );
+  /**
+   *
+   * @param {number} x
+   * @param {number} y
+   * @param {number} width
+   * @param {number} height
+   * @param {number} round
+   * @param {Vector2)} leftAnchor - point on the magnifier to draw the left dashed line to
+   * @param {Vector2)} rightAnchor - point on the magnifier to draw the right dashed line to
+   * @param {object} options
+   * @constructor
+   */
+  function MagnifierTarget( x, y, width, height, round, leftAnchor, rightAnchor, options ) {
+
+    options = _.extend( {
+      stroke: 'black'
+    }, options );
+
+    Node.call( this );
+
+    this.targetWidth = width;
+    this.targetHeight = height;
+    this.leftAnchor = leftAnchor;
+    this.rightAnchor = rightAnchor;
+
+    this.magRect = new Rectangle( 0, 0, width, height, round, round, { stroke: options.stroke, lineWidth: 1 } );
     this.addChild( this.magRect );
-    this.pathLeft = new Path( new Shape(), { stroke: 'red', lineDash: [ 10, 10 ] } );
+    this.pathLeft = new Path( new Shape(), { stroke: options.stroke, lineDash: [ 10, 10 ] } );
     this.addChild( this.pathLeft );
-    this.pathRight = new Path( new Shape(), { stroke: 'red', lineDash: [ 10, 10 ] } );
+    this.pathRight = new Path( new Shape(), { stroke: options.stroke, lineDash: [ 10, 10 ] } );
     this.addChild( this.pathRight );
-    this.set( options.x, options.y );
+    this.set( x, y );
   }
 
   friction.register( 'MagnifierTarget', MagnifierTarget );
-  
+
   return inherit( Node, MagnifierTarget, {
     set: function( x, y ) {
       this.pathLeft.setShape( new Shape()
-        .moveTo( this.param.leftAnchor.x, this.param.leftAnchor.y )
-        .lineTo( x - this.param.width / 2, y ) );
+        .moveTo( this.leftAnchor.x, this.leftAnchor.y )
+        .lineTo( x - this.targetWidth / 2, y ) );
 
       this.pathRight.setShape( new Shape()
-        .moveTo( this.param.rightAnchor.x, this.param.rightAnchor.y )
-        .lineTo( x + this.param.width / 2, y ) );
+        .moveTo( this.rightAnchor.x, this.rightAnchor.y )
+        .lineTo( x + this.targetWidth / 2, y ) );
 
-      this.magRect.setTranslation( x - this.param.width / 2, y - this.param.height / 2 );
+      this.magRect.setTranslation( x - this.targetWidth / 2, y - this.targetHeight / 2 );
     }
   } );
 } );

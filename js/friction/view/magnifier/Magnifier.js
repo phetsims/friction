@@ -23,6 +23,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var ARROW_LENGTH = 70;
@@ -56,7 +57,6 @@ define( function( require ) {
   function Magnifier( model, x, y, targetX, targetY, options ) {
 
     options = _.extend( {
-
       x: x,
       y: y
     }, options );
@@ -210,21 +210,23 @@ define( function( require ) {
         .lineTo( innerHighX, innerLowY - this.param.round )
         .close(),
       { fill: 'white' } ) );
+
+    // add the containing border rectangle
     this.addChild( new Rectangle( 0, 0, this.param.width, this.param.height, this.param.round, this.param.round, {
-      stroke: 'red',
+      stroke: 'black',
       lineWidth: 5
     } ) );
 
     // add magnifier's target
-    this.target = new MagnifierTarget( {
-      x: targetX,
-      y: targetY,
-      width: this.param.width * this.param.scale,
-      height: this.param.height * this.param.scale,
-      round: this.param.round * this.param.scale,
-      leftAnchor: { x: this.param.round, y: this.param.height },
-      rightAnchor: { x: this.param.width - this.param.round, y: this.param.height }
-    } );
+    this.target = new MagnifierTarget(
+      targetX,
+      targetY,
+      this.param.width * this.param.scale,
+      this.param.height * this.param.scale,
+      this.param.round * this.param.scale,
+      new Vector2(this.param.round, this.param.height ),
+      new Vector2(this.param.width - this.param.round, this.param.height )
+    );
     this.addChild( this.target );
 
     // add the arrow at the end

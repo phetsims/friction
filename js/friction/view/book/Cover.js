@@ -22,6 +22,7 @@ define( function( require ) {
   function Cover( x, y, title, options ) {
 
     options = _.extend( {
+      stroke: 'gray',
       color: 'black'
     }, options );
 
@@ -38,7 +39,7 @@ define( function( require ) {
     this.addChild( new Path( new Shape()
       .moveTo( width - round / 2, height )
       .lineTo( (width - round / 2) + Math.cos( angle ) * length, height - Math.sin( angle ) * length ),
-      { stroke: 'black', lineWidth: 1, pickable: false } ) );
+      { stroke: options.stroke, lineWidth: 1, pickable: false } ) );
 
     // add front cover
     this.addChild( new Path( new Shape()
@@ -46,10 +47,10 @@ define( function( require ) {
       .lineTo( round / 2 + Math.cos( angle ) * length, -Math.sin( angle ) * length )
       .lineTo( width - round / 2 + Math.cos( angle ) * length, -Math.sin( angle ) * length )
       .lineTo( width - round / 2, 0 ),
-      { stroke: 'black', lineWidth: 1, fill: options.color } ) );
+      { stroke: options.stroke, lineWidth: 1, fill: options.color } ) );
 
     // add binding, scaling the title to fit if necessary
-    this.addChild( new Rectangle( 0, 0, width, height, round, round, { fill: options.color, stroke: 'black' } ) );
+    this.addChild( new Rectangle( 0, 0, width, height, round, round, { fill: options.color, stroke: options.stroke } ) );
     var titleNode = new Text( title, {
       font: FONT,
       fill: 'black',
