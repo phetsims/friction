@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var Cover = require( 'FRICTION/friction/view/book/Cover' );
   var friction = require( 'FRICTION/friction' );
+  var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var KeyboardDragHandler = require( 'SCENERY_PHET/accessibility/KeyboardDragHandler' );
@@ -62,21 +63,7 @@ define( function( require ) {
       model.initDrag( this );
 
       // a11y - add a keyboard drag handler
-      var oldValue; // determines our delta for how the positionProperty changed every drag
-      this.keyboardDragHandler = new KeyboardDragHandler( model.positionProperty, {
-        startDrag: function() {
-          oldValue = model.positionProperty.get();
-        },
-        onDrag: function() {
-          var newValue = model.positionProperty.get();
-          var delta = { x: newValue.x - oldValue.x, y: newValue.y - oldValue.y };
-
-          model.move( delta );
-
-          // update the oldValue for the next onDrag
-          oldValue = model.positionProperty.get();
-        }
-      } );
+      this.keyboardDragHandler = new FrictionKeyboardDragHandler( model );
       this.addAccessibleInputListener( this.keyboardDragHandler );
 
       // add observer

@@ -17,7 +17,7 @@ define( function( require ) {
   var friction = require( 'FRICTION/friction' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var KeyboardDragHandler = require( 'SCENERY_PHET/accessibility/KeyboardDragHandler' );
+  var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
   var MagnifierTarget = require( 'FRICTION/friction/view/magnifier/MagnifierTarget' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -159,21 +159,7 @@ define( function( require ) {
     dragArea.focusHighlight = Shape.bounds( arrowAndTopAtoms.bounds, { stroke: 'red' } );
 
     // a11y add the keyboard drag listener to the top atoms
-    var oldValue; // determines our delta for how the positionProperty changed every drag
-    this.keyboardDragHandler = new KeyboardDragHandler( model.positionProperty, {
-      startDrag: function() {
-        oldValue = model.positionProperty.get();
-      },
-      onDrag: function() {
-        var newValue = model.positionProperty.get();
-        var delta = { x: newValue.x - oldValue.x, y: newValue.y - oldValue.y };
-
-        model.move( delta );
-
-        // update the oldValue for the next onDrag
-        oldValue = model.positionProperty.get();
-      }
-    } );
+    this.keyboardDragHandler = new FrictionKeyboardDragHandler( model );
     dragArea.addAccessibleInputListener( this.keyboardDragHandler );
 
     this.addRowCircles( model, this.topBookBackground, {
@@ -224,8 +210,8 @@ define( function( require ) {
       this.param.width * this.param.scale,
       this.param.height * this.param.scale,
       this.param.round * this.param.scale,
-      new Vector2(this.param.round, this.param.height ),
-      new Vector2(this.param.width - this.param.round, this.param.height )
+      new Vector2( this.param.round, this.param.height ),
+      new Vector2( this.param.width - this.param.round, this.param.height )
     );
     this.addChild( this.target );
 
@@ -320,6 +306,7 @@ define( function( require ) {
     /**
      * Add a row of atoms
      * @param {FrictionModel} model
+     * @param {Node} target
      * @param {Node} target
      * @param {Object} options
      */
