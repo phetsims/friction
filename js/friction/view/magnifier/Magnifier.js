@@ -156,7 +156,7 @@ define( function( require ) {
 
     // The focusHighlight of the top particles. It also includes the place for the arrows so that it extends up into the
     // book "background."
-    dragArea.focusHighlight = Shape.bounds( arrowAndTopAtoms.bounds, { stroke: 'red' } );
+    dragArea.focusHighlight = Shape.bounds( arrowAndTopAtoms.bounds );
 
     // a11y add the keyboard drag listener to the top atoms
     this.keyboardDragHandler = new FrictionKeyboardDragHandler( model );
