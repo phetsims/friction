@@ -151,12 +151,10 @@ define( function( require ) {
     dragArea.ariaRole = 'application';
     dragArea.focusable = true;
 
-    var arrowAndTopAtoms = new Node();
-    arrowAndTopAtoms.children = [ dragArea, arrowIcon ];
-
-    // The focusHighlight of the top particles. It also includes the place for the arrows so that it extends up into the
-    // book "background."
-    dragArea.focusHighlight = Shape.bounds( arrowAndTopAtoms.bounds );
+    // The focusHighlight of the top atoms. It also includes the place for the arrows so that it extends up into the
+    // book "background." See `link()` below
+    var arrowAndTopAtomsForFocusHighlight = new Node();
+    arrowAndTopAtomsForFocusHighlight.children = [ dragArea, arrowIcon ];
 
     // a11y add the keyboard drag listener to the top atoms
     this.keyboardDragHandler = new FrictionKeyboardDragHandler( model );
@@ -235,7 +233,12 @@ define( function( require ) {
     model.positionProperty.linkAttribute( self.topAtomsLayer, 'translation' );
 
     model.atomRowsToEvaporateProperty.link( function( number ) {
+
+      // Adjust the drag area as the number of rows of atoms evaporates.
       dragArea.setRectHeight( (number + 2) * model.atoms.distanceY );
+
+      // Update the size of the focus highlight accordingly
+      dragArea.focusHighlight = Shape.bounds( arrowAndTopAtomsForFocusHighlight.bounds );
     } );
   }
 
