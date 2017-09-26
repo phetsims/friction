@@ -136,7 +136,7 @@ define( function( require ) {
       4 * this.param.height / 3 - model.atoms.distance,
       this.param.round,
       this.param.round, {
-        fill: FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR
+        fill: FrictionSharedConstants.TOP_BOOK_COLOR
       } );
     model.initDrag( background );
     this.topBookBackground.addChild( background );
@@ -161,7 +161,7 @@ define( function( require ) {
     dragArea.addAccessibleInputListener( this.keyboardDragHandler );
 
     this.addRowCircles( model, this.topBookBackground, {
-      color: FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR,
+      color: FrictionSharedConstants.TOP_BOOK_COLOR,
       x: -this.param.width,
       y: this.param.height / 3 - model.atoms.distance,
       width: 3 * this.param.width

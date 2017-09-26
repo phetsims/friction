@@ -7,14 +7,14 @@
  */
 define( function( require ) {
   'use strict';
+
+  var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-
   var Path = require( 'SCENERY/nodes/Path' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
-
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
   var FONT = new PhetFont( 22 );
   var friction = require( 'FRICTION/friction' );
@@ -53,7 +53,7 @@ define( function( require ) {
     this.addChild( new Rectangle( 0, 0, width, height, round, round, { fill: options.color, stroke: options.stroke } ) );
     var titleNode = new Text( title, {
       font: FONT,
-      fill: 'black',
+      fill: FrictionSharedConstants.BOOK_TEXT_COLOR,
       pickable: false
     } );
     titleNode.scale( Math.min( ( width * 0.9 ) / titleNode.width, 1 ) );
