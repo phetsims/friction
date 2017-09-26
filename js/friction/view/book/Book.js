@@ -15,6 +15,7 @@ define( function( require ) {
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Shape = require( 'KITE/Shape' );
 
   /**
    * Constructor
@@ -52,6 +53,7 @@ define( function( require ) {
       this.tagName = 'div';
       this.ariaRole = 'application';
       this.focusable = true;
+      this.focusHighlight = Shape.bounds( this.localBounds.eroded(2) );
 
       model.initDrag( this );
 
