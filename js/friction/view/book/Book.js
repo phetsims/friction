@@ -10,11 +10,13 @@ define( function( require ) {
 
   // modules
   var Cover = require( 'FRICTION/friction/view/book/Cover' );
+  var FocusOverlay = require( 'SCENERY/overlays/FocusOverlay' );
   var friction = require( 'FRICTION/friction' );
   var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
 
   /**
@@ -53,7 +55,13 @@ define( function( require ) {
       this.tagName = 'div';
       this.ariaRole = 'application';
       this.focusable = true;
-      this.focusHighlight = Shape.bounds( this.localBounds.eroded(2) );
+      this.focusHighlightLayerable = true;
+
+      var focusHighlightLineWidth = FocusOverlay.getFocusHighlightLineWidth( this );
+      var focusHighlightRect = FocusOverlay.getFocusHighlightNodeFromShape( Shape.bounds( this.localBounds.eroded( focusHighlightLineWidth / 2 ) ) );
+
+      this.addChild( focusHighlightRect );
+      this.focusHighlight = focusHighlightRect;
 
       model.initDrag( this );
 

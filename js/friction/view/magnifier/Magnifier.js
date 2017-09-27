@@ -14,10 +14,11 @@ define( function( require ) {
   var AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var FocusOverlay = require( 'SCENERY/overlays/FocusOverlay' );
   var friction = require( 'FRICTION/friction' );
+  var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
   var MagnifierTarget = require( 'FRICTION/friction/view/magnifier/MagnifierTarget' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -150,6 +151,7 @@ define( function( require ) {
     dragArea.tagName = 'div';
     dragArea.ariaRole = 'application';
     dragArea.focusable = true;
+    dragArea.focusHighlightLayerable = true;
 
     // The focusHighlight of the top atoms. It also includes the place for the arrows so that it extends up into the
     // book "background." See `link()` below
@@ -238,7 +240,10 @@ define( function( require ) {
       dragArea.setRectHeight( (number + 2) * model.atoms.distanceY );
 
       // Update the size of the focus highlight accordingly
-      dragArea.focusHighlight = Shape.bounds( arrowAndTopAtomsForFocusHighlight.bounds );
+      dragArea.focusHighlight && dragArea.removeChild( dragArea.focusHighlight);
+      var focusHighlight = FocusOverlay.getFocusHighlightNodeFromShape( Shape.bounds( arrowAndTopAtomsForFocusHighlight.bounds ) );
+      dragArea.addChild( focusHighlight);
+      dragArea.focusHighlight = focusHighlight;
     } );
   }
 
