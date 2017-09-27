@@ -14,7 +14,7 @@ define( function( require ) {
   var AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
-  var FocusOverlay = require( 'SCENERY/overlays/FocusOverlay' );
+  var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   var friction = require( 'FRICTION/friction' );
   var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
@@ -158,6 +158,12 @@ define( function( require ) {
     var arrowAndTopAtomsForFocusHighlight = new Node();
     arrowAndTopAtomsForFocusHighlight.children = [ dragArea, arrowIcon ];
 
+    // custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
+    var focusHighlightShape = Shape.bounds( dragArea.bounds );
+    var focusHighlightPath = new FocusHighlightPath( focusHighlightShape );
+    this.topBookBackground.addChild( focusHighlightPath );
+    dragArea.setFocusHighlight( focusHighlightPath );
+
     // a11y add the keyboard drag listener to the top atoms
     this.keyboardDragHandler = new FrictionKeyboardDragHandler( model );
     dragArea.addAccessibleInputListener( this.keyboardDragHandler );
@@ -237,13 +243,10 @@ define( function( require ) {
     model.atomRowsToEvaporateProperty.link( function( number ) {
 
       // Adjust the drag area as the number of rows of atoms evaporates.
-      dragArea.setRectHeight( (number + 2) * model.atoms.distanceY );
+      dragArea.setRectHeight( ( number + 2 ) * model.atoms.distanceY );
 
       // Update the size of the focus highlight accordingly
-      dragArea.focusHighlight && dragArea.removeChild( dragArea.focusHighlight);
-      var focusHighlight = FocusOverlay.getFocusHighlightNodeFromShape( Shape.bounds( arrowAndTopAtomsForFocusHighlight.bounds ) );
-      dragArea.addChild( focusHighlight);
-      dragArea.focusHighlight = focusHighlight;
+      focusHighlightPath.setHighlightShape( Shape.bounds( arrowAndTopAtomsForFocusHighlight.bounds ) );
     } );
   }
 
