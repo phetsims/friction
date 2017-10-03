@@ -154,9 +154,9 @@ define( function( require ) {
     dragArea.focusHighlightLayerable = true;
 
     // a11y - The focusHighlight of the top atoms. It also includes the place for the arrows so that it extends up into the
-    // book "background." See `link()` below
+    // book "background." Dilated to get around the arrows fully. See `atomRowsToEvaporateProperty.link()` below
     var arrowAndTopAtomsForFocusHighlight = new Node();
-    arrowAndTopAtomsForFocusHighlight.children = [ dragArea, arrowIcon ];
+    arrowAndTopAtomsForFocusHighlight.children = [ dragArea, Rectangle.bounds( arrowIcon.bounds.dilated( 3 ) ) ];
 
     // a11y - custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
     var focusHighlightShape = Shape.bounds( dragArea.bounds );
