@@ -147,24 +147,23 @@ define( function( require ) {
     model.initDrag( dragArea );
     this.topBookBackground.addChild( dragArea );
 
-    // a11y add accessibility to the rectangle that surrounds the top atoms.
+    // a11y - add accessibility to the rectangle that surrounds the top atoms.
     dragArea.tagName = 'div';
     dragArea.ariaRole = 'application';
     dragArea.focusable = true;
     dragArea.focusHighlightLayerable = true;
 
-    // The focusHighlight of the top atoms. It also includes the place for the arrows so that it extends up into the
+    // a11y - The focusHighlight of the top atoms. It also includes the place for the arrows so that it extends up into the
     // book "background." See `link()` below
     var arrowAndTopAtomsForFocusHighlight = new Node();
     arrowAndTopAtomsForFocusHighlight.children = [ dragArea, arrowIcon ];
 
-    // custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
+    // a11y - custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
     var focusHighlightShape = Shape.bounds( dragArea.bounds );
     var focusHighlightPath = new FocusHighlightPath( focusHighlightShape );
-    this.topBookBackground.addChild( focusHighlightPath );
     dragArea.setFocusHighlight( focusHighlightPath );
 
-    // a11y add the keyboard drag listener to the top atoms
+    // a11y - add the keyboard drag listener to the top atoms
     this.keyboardDragHandler = new FrictionKeyboardDragHandler( model );
     dragArea.addAccessibleInputListener( this.keyboardDragHandler );
 
@@ -175,6 +174,10 @@ define( function( require ) {
       width: 3 * this.param.width
     } );
     this.param.topAtoms.target = this.topAtomsLayer;
+
+    // a11y - add the focus highlight on top of the row circles
+    this.topBookBackground.addChild( focusHighlightPath );
+
     this.container.addChild( this.topBookBackground );
 
     // Add the red border around the magnified area, and add a white shape below it to block out the clipped area.
