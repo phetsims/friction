@@ -11,7 +11,6 @@ define( function( require ) {
   // modules
   var Cover = require( 'FRICTION/friction/view/book/Cover' );
   var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
-  var FocusOverlay = require( 'SCENERY/overlays/FocusOverlay' );
   var friction = require( 'FRICTION/friction' );
   var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
@@ -57,8 +56,10 @@ define( function( require ) {
       this.focusable = true;
       this.focusHighlightLayerable = true;
 
-      var focusHighlightLineWidth = FocusOverlay.getFocusHighlightLineWidth( this );
-      var focusHighlightRect = new FocusHighlightPath( Shape.bounds( this.localBounds.eroded( focusHighlightLineWidth / 2 ) ) );
+      // We want the focus highlight to be completely within the bounds of the book.
+      var focusHighlightRect = new FocusHighlightPath( null );
+      var focusHighlightLineWidth = focusHighlightRect.getOuterLineWidth( this );
+      focusHighlightRect.setShape( Shape.bounds( this.localBounds.eroded( focusHighlightLineWidth / 2 ) ) );
 
       this.addChild( focusHighlightRect );
       this.focusHighlight = focusHighlightRect;
