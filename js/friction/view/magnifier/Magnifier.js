@@ -249,7 +249,7 @@ define( function( require ) {
       dragArea.setRectHeight( ( number + 2 ) * model.atoms.distanceY );
 
       // Update the size of the focus highlight accordingly
-      focusHighlightPath.setHighlightShape( Shape.bounds( arrowAndTopAtomsForFocusHighlight.bounds ) );
+      focusHighlightPath.setShape( Shape.bounds( arrowAndTopAtomsForFocusHighlight.bounds ) );
     } );
   }
 
