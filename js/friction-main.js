@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
+  var FrictionKeyboardHelpContent = require( 'FRICTION/friction/view/FrictionKeyboardHelpContent' );
   var FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   var FrictionView = require( 'FRICTION/friction/view/FrictionView' );
   var Property = require( 'AXON/Property' );
@@ -25,6 +26,7 @@ define( function( require ) {
 
   SimLauncher.launch( function() {
 
+    var keyboardHelpContent = new FrictionKeyboardHelpContent();
     var simOptions = {
       credits: {
         leadDesign: 'Michael Dubson, Noah Podolefsky',
@@ -32,7 +34,8 @@ define( function( require ) {
         team: 'Wendy Adams, Mindy Gratny, Emily B. Moore, Ariel Paul, Katherine Perkins, Carl Wieman',
         qualityAssurance: 'Steele Dalton, Bryce Griebenow, Ethan Johnson, Elise Morgan, Oliver Orejola, Ben Roberts, Bryan Yoelin',
         thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation to HTML5.'
-      }
+      },
+      keyboardHelpNode: keyboardHelpContent
     };
 
     //Create and start the sim
