@@ -70,7 +70,7 @@ define( function( require ) {
 
     // Book row
     var moveBookText = new RichText( moveBookString, DEFAULT_LABEL_OPTIONS );
-    var arrowKeys = HelpContent.arrowKeysRowIcon( { scale: options.arrowKeysScale } );
+    var arrowKeys = HelpContent.arrowKeysRowIcon();
     var orText = new RichText( orString, DEFAULT_LABEL_OPTIONS );
     var wasdKeys = HelpContent.wasdRowIcon();
     var moveBookRow = new HBox( {
@@ -80,7 +80,7 @@ define( function( require ) {
 
     // Book in smaller steps row
     var moveInSmallerStepsText = new RichText( moveInSmallerSteps, DEFAULT_LABEL_OPTIONS );
-    var shiftPlusArrowKeys = HelpContent.shiftPlusIcon( HelpContent.arrowKeysRowIcon( { scale: options.arrowKeysScale } ) );
+    var shiftPlusArrowKeys = HelpContent.shiftPlusIcon( HelpContent.arrowKeysRowIcon() );
     var shiftPlusWASDKeys = HelpContent.shiftPlusIcon( HelpContent.wasdRowIcon() );
     var row = HelpContent.labelWithIconList( moveInSmallerStepsText, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], {
       spacing: HelpContent.DEFAULT_LABEL_ICON_SPACING
