@@ -143,15 +143,17 @@ define( function( require ) {
     this.topBookBackground.addChild( background );
 
     // init drag for drag area
-    var dragArea = new Rectangle( 0.055 * this.param.width, 0.175 * this.param.height, 0.875 * this.param.width, model.atoms.distanceY * 6, { fill: null } );
+    var dragArea = new Rectangle( 0.055 * this.param.width, 0.175 * this.param.height, 0.875 * this.param.width, model.atoms.distanceY * 6, {
+      fill: null,
+
+      // a11y - add accessibility to the rectangle that surrounds the top atoms.
+      tagName: 'div',
+      ariaRole: 'application',
+      focusable: true,
+      focusHighlightLayerable: true
+    } );
     model.initDrag( dragArea );
     this.topBookBackground.addChild( dragArea );
-
-    // a11y - add accessibility to the rectangle that surrounds the top atoms.
-    dragArea.tagName = 'div';
-    dragArea.ariaRole = 'application';
-    dragArea.focusable = true;
-    dragArea.focusHighlightLayerable = true;
 
     // a11y - The focusHighlight of the top atoms. It also includes the place for the arrows so that it extends up into the
     // book "background." Dilated to get around the arrows fully. See `atomRowsToEvaporateProperty.link()` below
