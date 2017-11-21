@@ -17,19 +17,16 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var RichText = require( 'SCENERY/nodes/RichText' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // TODO: export to string files
   var moveBookHeaderString = 'Move Book';
-  var moveBookString = 'Move book:';
-  var orString = 'or';
-  var moveInSmallerSteps = 'Move in smaller steps:';
+  var moveBookString = 'Move book';
+  var moveInSmallerSteps = 'Move in smaller steps';
 
   var DEFAULT_LABEL_OPTIONS = {
     font: HelpContent.DEFAULT_LABEL_FONT,
     maxWidth: HelpContent.DEFAULT_TEXT_MAX_WIDTH
   };
-
 
   /**
    * Constructor.
@@ -70,13 +67,8 @@ define( function( require ) {
 
     // Book row
     var moveBookText = new RichText( moveBookString, DEFAULT_LABEL_OPTIONS );
-    var arrowKeys = HelpContent.arrowKeysRowIcon();
-    var orText = new RichText( orString, DEFAULT_LABEL_OPTIONS );
-    var wasdKeys = HelpContent.wasdRowIcon();
-    var moveBookRow = new HBox( {
-      children: [ moveBookText, arrowKeys, orText, wasdKeys ],
-      spacing: HelpContent.DEFAULT_LABEL_ICON_SPACING
-    } );
+    var moveBookIcon = HelpContent.arrowOrWasdKeysRowIcon();
+    var moveBookRow = HelpContent.labelWithIcon( moveBookText, moveBookIcon );
 
     // Book in smaller steps row
     var moveInSmallerStepsText = new RichText( moveInSmallerSteps, DEFAULT_LABEL_OPTIONS );
@@ -86,9 +78,7 @@ define( function( require ) {
       spacing: HelpContent.DEFAULT_LABEL_ICON_SPACING
     } );
 
-    var content = new VBox( { children: [ moveBookRow, row ], align: 'left', spacing: options.verticalIconSpacing } );
-
-    HelpContent.call( this, moveBookHeaderString, content, options );
+    HelpContent.call( this, moveBookHeaderString, [ moveBookRow, row ], options );
   }
 
   inherit( HelpContent, MoveBookHelpNode );
