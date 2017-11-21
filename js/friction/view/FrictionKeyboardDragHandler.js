@@ -9,7 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
   var friction = require( 'FRICTION/friction' );
+  var FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var KeyboardDragHandler = require( 'SCENERY_PHET/accessibility/KeyboardDragHandler' );
 
@@ -33,7 +35,12 @@ define( function( require ) {
 
         // update the oldValue for the next onDrag
         oldValue = model.positionProperty.get();
-      }
+      },
+      dragBounds: new Bounds2(
+        -FrictionModel.MAX_X_DISPLACEMENT, // left bound
+        FrictionModel.MIN_Y_POSITION, // top bound
+        FrictionModel.MAX_X_DISPLACEMENT, // right bound
+        2000 ) // bottom bound, arbitrary because the model stops the motion when the top atoms collide with the bottom book
     } );
   }
 
