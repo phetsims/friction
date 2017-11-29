@@ -47,7 +47,7 @@ define( function( require ) {
     this.addChild( this.draggableBook );
 
     // add magnifier
-    this.addChild( this.magnifier = new Magnifier( model, 40, 25, 195, 425, { layerSplit: true } ) );
+    this.addChild( this.magnifier = new Magnifier( model, 40, 25, 195, 425, chemistryString, { layerSplit: true } ) );
 
     // add thermometer
     this.addChild( new ThermometerNode( model.atoms.amplitude.min - 1.05, model.atoms.evaporationLimit * 1.1, model.amplitudeProperty,

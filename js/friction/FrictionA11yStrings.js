@@ -14,8 +14,11 @@ define( function( require ) {
 
   var FrictionA11yStrings = {
 
-    bookString: {
-      'value': 'book'
+    bookTitleStringPattern: {
+      'value': '{{bookTitle}} book'
+    },
+    atomicViewBookTitleStringPattern: {
+      'value': '{{bookTitleString}}, Atomic view'
     }
   };
 

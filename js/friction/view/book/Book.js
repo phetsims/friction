@@ -18,9 +18,10 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // a11y strings
-  var bookString = FrictionA11yStrings.bookString.value;
+  var bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
 
   /**
    * Constructor
@@ -66,8 +67,7 @@ define( function( require ) {
         tagName: 'div',
         ariaRole: 'application',
         prependLabels: true,
-        accessibleLabel: title + bookString,
-        labelTagName: 'h4',
+        accessibleLabel: StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } ),
         focusable: true,
         focusHighlightLayerable: true,
         focusHighlight: focusHighlightRect

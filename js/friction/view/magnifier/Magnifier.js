@@ -16,6 +16,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   var friction = require( 'FRICTION/friction' );
+  var FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -24,7 +25,12 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Vector2 = require( 'DOT/Vector2' );
+
+  // a11y strings
+  var bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
+  var atomicViewBookTitleStringPattern = FrictionA11yStrings.atomicViewBookTitleStringPattern.value;
 
   // constants
   var ARROW_LENGTH = 70;
@@ -52,10 +58,11 @@ define( function( require ) {
    * @param {number} y
    * @param {number} targetX
    * @param {number} targetY
+   * @param {string} title -  the title of the book that is draggable, used for a11y
    * @param {Object} options
    * @constructor
    */
-  function Magnifier( model, x, y, targetX, targetY, options ) {
+  function Magnifier( model, x, y, targetX, targetY, title, options ) {
 
     options = _.extend( {
       x: x,
@@ -150,7 +157,15 @@ define( function( require ) {
       tagName: 'div',
       ariaRole: 'application',
       focusable: true,
-      focusHighlightLayerable: true
+      focusHighlightLayerable: true,
+      prependLabels: true,
+
+      // Add the accessibleLabel based on the name of the name of the book title.
+      accessibleLabel: StringUtils.fillIn( atomicViewBookTitleStringPattern, {
+        bookTitleString: StringUtils.fillIn( bookTitleStringPattern, {
+          bookTitle: title
+        } )
+      } )
     } );
     model.initDrag( dragArea );
     this.topBookBackground.addChild( dragArea );
@@ -248,7 +263,7 @@ define( function( require ) {
     model.atomRowsToEvaporateProperty.link( function( number ) {
 
       // Adjust the drag area as the number of rows of atoms evaporates.
-      dragArea.setRectHeight( ( number + 2 ) * model.atoms.distanceY );
+      dragArea.setRectHeight( (number + 2) * model.atoms.distanceY );
 
       // Update the size of the focus highlight accordingly
       focusHighlightPath.setShape( Shape.bounds( arrowAndTopAtomsForFocusHighlight.bounds ) );
