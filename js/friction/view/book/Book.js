@@ -67,6 +67,7 @@ define( function( require ) {
         tagName: 'div',
         parentContainerAriaRole: 'application',
         parentContainerTagName: 'div',
+        useAriaLabel: true,
         prependLabels: true,
         accessibleLabel: StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } ),
         focusable: true,
