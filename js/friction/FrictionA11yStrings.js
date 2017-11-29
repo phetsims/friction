@@ -15,7 +15,7 @@ define( function( require ) {
   var FrictionA11yStrings = {
 
     bookString: {
-      'value': 'Book'
+      'value': 'book'
     }
   };
 
