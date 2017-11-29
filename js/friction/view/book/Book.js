@@ -47,14 +47,8 @@ define( function( require ) {
     // add cover
     this.addChild( new Cover( x, y, title, options ) );
 
-    // init drag
+    // init drag and a11y options for the draggable book
     if ( options.drag ) {
-
-      // a11y
-      this.tagName = 'div';
-      this.ariaRole = 'application';
-      this.focusable = true;
-      this.focusHighlightLayerable = true;
 
       // We want the focus highlight to be completely within the bounds of the book.
       var focusHighlightRect = new FocusHighlightPath( null );
@@ -62,7 +56,16 @@ define( function( require ) {
       focusHighlightRect.setShape( Shape.bounds( this.localBounds.eroded( focusHighlightLineWidth / 2 ) ) );
 
       this.addChild( focusHighlightRect );
-      this.focusHighlight = focusHighlightRect;
+
+      // add a11y options for the interactive Book
+      this.mutate( {
+        tagName: 'div',
+        ariaRole: 'application',
+        prependLabels: true,
+        focusable: true,
+        focusHighlightLayerable: true,
+        focusHighlight: focusHighlightRect
+      } );
 
       model.initDrag( this );
 
