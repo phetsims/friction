@@ -12,11 +12,15 @@ define( function( require ) {
   var Cover = require( 'FRICTION/friction/view/book/Cover' );
   var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   var friction = require( 'FRICTION/friction' );
+  var FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
+
+  // a11y strings
+  var bookString = FrictionA11yStrings.bookString.value;
 
   /**
    * Constructor
@@ -62,6 +66,8 @@ define( function( require ) {
         tagName: 'div',
         ariaRole: 'application',
         prependLabels: true,
+        accessibleLabel: title + bookString,
+        labelTagName: 'h4',
         focusable: true,
         focusHighlightLayerable: true,
         focusHighlight: focusHighlightRect
