@@ -65,7 +65,8 @@ define( function( require ) {
       // add a11y options for the interactive Book
       this.mutate( {
         tagName: 'div',
-        ariaRole: 'application',
+        parentContainerAriaRole: 'application',
+        parentContainerTagName: 'div',
         prependLabels: true,
         accessibleLabel: StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } ),
         focusable: true,
