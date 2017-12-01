@@ -27,14 +27,14 @@ define( function( require ) {
       positionDelta: 10,
       shiftKeyMultiplier: .5,
       startDrag: function() {
-        oldValue = model.positionProperty.get();
+        oldValue = model.positionProperty.get().copy();
       },
       onDrag: function() {
         var newValue = model.positionProperty.get();
         model.move( { x: newValue.x - oldValue.x, y: newValue.y - oldValue.y } );
 
         // update the oldValue for the next onDrag
-        oldValue = model.positionProperty.get();
+        oldValue = model.positionProperty.get().copy();
       },
       dragBounds: new Bounds2(
         -FrictionModel.MAX_X_DISPLACEMENT, // left bound
