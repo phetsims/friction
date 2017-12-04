@@ -10,6 +10,12 @@
     "grunt": "~1.0.0"
   },
   "phet": {
-    "requirejsNamespace": "FRICTION"
+    "requirejsNamespace": "FRICTION",
+    "runnable": true,
+    "supportedBrands": [
+      "phet"
+    ],
+    "accessible": true,
+    "simulation": true
   }
 }
