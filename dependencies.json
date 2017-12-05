@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.3.4-rc.1 Fri Nov 17 2017 18:49:39 GMT-0700 (MST)",
+  "comment": "# friction 1.3.4 Tue Dec 05 2017 01:41:35 GMT-0700 (MST)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "3d123f1aa3eb99c67c5752dc79f7cb2208597b48",
+    "sha": "e7dad44cd9116281db29422f9d435574575436f6",
     "branch": "1.3"
   },
   "joist": {
