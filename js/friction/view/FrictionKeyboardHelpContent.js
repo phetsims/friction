@@ -18,10 +18,9 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var RichText = require( 'SCENERY/nodes/RichText' );
 
-  // TODO: export to string files
-  var moveBookHeaderString = 'Move Book';
-  var moveBookString = 'Move book';
-  var moveInSmallerSteps = 'Move in smaller steps';
+  var moveBookHeaderString = require( 'string!FRICTION/moveBookHeader' );
+  var moveBookString = require( 'string!FRICTION/moveBook' );
+  var moveInSmallerStepsString = require( 'string!FRICTION/moveInSmallerSteps' );
 
   var DEFAULT_LABEL_OPTIONS = {
     font: HelpContent.DEFAULT_LABEL_FONT,
@@ -71,7 +70,7 @@ define( function( require ) {
     var moveBookRow = HelpContent.labelWithIcon( moveBookText, moveBookIcon );
 
     // Book in smaller steps row
-    var moveInSmallerStepsText = new RichText( moveInSmallerSteps, DEFAULT_LABEL_OPTIONS );
+    var moveInSmallerStepsText = new RichText( moveInSmallerStepsString, DEFAULT_LABEL_OPTIONS );
     var shiftPlusArrowKeys = HelpContent.shiftPlusIcon( HelpContent.arrowKeysRowIcon() );
     var shiftPlusWASDKeys = HelpContent.shiftPlusIcon( HelpContent.wasdRowIcon() );
     var row = HelpContent.labelWithIconList( moveInSmallerStepsText, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], {
