@@ -1,6 +1,6 @@
 {
   "name": "friction",
-  "version": "1.4.0-dev.2",
+  "version": "1.5.0-dev.1",
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
@@ -10,6 +10,13 @@
     "grunt": "~1.0.0"
   },
   "phet": {
-    "requirejsNamespace": "FRICTION"
+    "requirejsNamespace": "FRICTION",
+    "runnable": true,
+    "supportedBrands": [
+      "phet",
+      "adapted-from-phet"
+    ],
+    "accessible": true,
+    "simulation": true
   }
 }

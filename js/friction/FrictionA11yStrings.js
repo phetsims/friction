@@ -15,10 +15,10 @@ define( function( require ) {
   var FrictionA11yStrings = {
 
     bookTitleStringPattern: {
-      'value': '{{bookTitle}} book'
+      value: '{{bookTitle}} book'
     },
     atomicViewBookTitleStringPattern: {
-      'value': '{{bookTitleString}}, Atomic view'
+      value: '{{bookTitleString}}, Atomic view'
     }
   };
 

@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Atom = require( 'FRICTION/friction/view/magnifier/Atom' );
   var AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
@@ -155,7 +156,8 @@ define( function( require ) {
 
       // a11y - add accessibility to the rectangle that surrounds the top atoms.
       tagName: 'div',
-      ariaRole: 'application',
+      parentContainerAriaRole: 'application',
+      parentContainerTagName: 'div',
       focusable: true,
       focusHighlightLayerable: true,
       prependLabels: true,
@@ -169,6 +171,10 @@ define( function( require ) {
     } );
     model.initDrag( dragArea );
     this.topBookBackground.addChild( dragArea );
+
+    // this node's parent container is labelledby its label
+    dragArea.setAriaLabelledByNode( dragArea );
+    dragArea.setAriaLabelledContent( AccessiblePeer.PARENT_CONTAINER );
 
     // a11y - The focusHighlight of the top atoms. It also includes the place for the arrows so that it extends up into the
     // book "background." Dilated to get around the arrows fully. See `atomRowsToEvaporateProperty.link()` below

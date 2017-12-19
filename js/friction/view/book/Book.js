@@ -14,6 +14,7 @@ define( function( require ) {
   var friction = require( 'FRICTION/friction' );
   var FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
+  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -73,6 +74,10 @@ define( function( require ) {
         focusHighlightLayerable: true,
         focusHighlight: focusHighlightRect
       } );
+
+      // this node is labelledby its own label
+      this.setAriaLabelledByNode( this );
+      this.setAriaLabelledContent( AccessiblePeer.PARENT_CONTAINER );
 
       model.initDrag( this );
 

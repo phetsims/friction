@@ -7,5 +7,14 @@
   },
   "chemistry": {
     "value": "Chemistry"
+  },
+  "moveBookHeader": {
+    "value": "Move Book"
+  },
+  "moveBook": {
+    "value": "Move book"
+  },
+  "moveInSmallerSteps": {
+    "value": "Move in smaller steps"
   }
 }
