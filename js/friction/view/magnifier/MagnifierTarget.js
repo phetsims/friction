@@ -25,7 +25,7 @@ define( function( require ) {
    * @param {number} round
    * @param {Vector2)} leftAnchor - point on the magnifier to draw the left dashed line to
    * @param {Vector2)} rightAnchor - point on the magnifier to draw the right dashed line to
-   * @param {object} options
+   * @param {Object} [options]
    * @constructor
    */
   function MagnifierTarget( x, y, width, height, round, leftAnchor, rightAnchor, options ) {
