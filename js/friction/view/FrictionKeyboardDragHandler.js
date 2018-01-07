@@ -2,9 +2,9 @@
 
 /**
  * Keyboard drag handler used for a11y keyboard navigation for both the Book and the Magnifier atoms.
- * @author - Michael Kauzmann (PhET Interactive Simulations)
+ *
+ * @author Michael Kauzmann (PhET Interactive Simulations)
  */
-
 define( function( require ) {
   'use strict';
 
