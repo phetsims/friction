@@ -165,7 +165,7 @@ define( function( require ) {
 
     self.positionProperty.link( function( newPosition, oldPosition ) {
       // set distance between atoms
-      self.distanceProperty.set( self.distanceProperty.get() - (newPosition.minus( oldPosition || new Vector2( 0, 0 ) )).y );
+      self.distanceProperty.set( self.distanceProperty.get() - ( newPosition.minus( oldPosition || new Vector2( 0, 0 ) ) ).y );
 
       // add amplitude in contact
       if ( self.contactProperty.get() ) {
@@ -195,7 +195,7 @@ define( function( require ) {
 
       // Cool the atoms.
       this.amplitudeProperty.set( Math.max( this.atoms.amplitude.min,
-        this.amplitudeProperty.get() * (1 - dt * CONSTANTS.COOLING_RATE) ) );
+        this.amplitudeProperty.get() * ( 1 - dt * CONSTANTS.COOLING_RATE ) ) );
     },
     reset: function() {
       this.amplitudeProperty.reset();

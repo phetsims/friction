@@ -269,7 +269,7 @@ define( function( require ) {
     model.atomRowsToEvaporateProperty.link( function( number ) {
 
       // Adjust the drag area as the number of rows of atoms evaporates.
-      dragArea.setRectHeight( (number + 2) * model.atoms.distanceY );
+      dragArea.setRectHeight( ( number + 2 ) * model.atoms.distanceY );
 
       // Update the size of the focus highlight accordingly
       focusHighlightPath.setShape( Shape.bounds( arrowAndTopAtomsForFocusHighlight.bounds ) );
@@ -309,7 +309,7 @@ define( function( require ) {
           offset = layer[ i ].offset || 0;
           evaporate = layer[ i ].evaporate || false;
           for ( n = 0; n < layer[ i ].num; n++ ) {
-            atom = new Atom( model, { y: y, x: x + (offset + n) * dx, color: color } );
+            atom = new Atom( model, { y: y, x: x + ( offset + n ) * dx, color: color } );
             if ( evaporate ) {
               row.push( atom );
             }

@@ -110,7 +110,7 @@ define( function( require ) {
       var particleImageSize = FrictionSharedConstants.ATOM_RADIUS * 2 * 1.1;
 
       // render each of the atoms on the canvas
-      for ( var i = 0; i < this.atoms.length; i++ ){
+      for ( var i = 0; i < this.atoms.length; i++ ) {
         var atom = this.atoms[ i ];
         this.particleImagePosition.x = atom.currentX - particleImageSize / 2;
         this.particleImagePosition.y = atom.currentY - particleImageSize / 2;

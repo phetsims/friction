@@ -71,8 +71,8 @@ define( function( require ) {
 
     // update atom's position based on vibration and center position
     model.newStepProperty.link( function() {
-      self.currentX = self.x0 + model.amplitudeProperty.get() * (Math.random() - 0.5);
-      self.currentY = self.y0 + model.amplitudeProperty.get() * (Math.random() - 0.5);
+      self.currentX = self.x0 + model.amplitudeProperty.get() * ( Math.random() - 0.5 );
+      self.currentY = self.y0 + model.amplitudeProperty.get() * ( Math.random() - 0.5 );
     } );
   }
 
@@ -83,7 +83,7 @@ define( function( require ) {
   Atom.atomOffset = null; // NOTE: this is OK for now because the atoms are the same size, and the toImage'd images should have the exact same offsets
 
   friction.register( 'Atom', Atom );
-  
+
   return inherit( Node, Atom, {
     evaporate: function() {
       var self = this;
@@ -93,10 +93,10 @@ define( function( require ) {
 
       this.isEvaporated = true;
 
-      var evaporationDestinationX = this.x0 + 4 * this.model.width * (Math.round( Math.random() ) - 0.5);
-      dx = (evaporationDestinationX - this.x0) / steps;
+      var evaporationDestinationX = this.x0 + 4 * this.model.width * ( Math.round( Math.random() ) - 0.5 );
+      dx = ( evaporationDestinationX - this.x0 ) / steps;
       var evaporationDestinationY = this.y0 + Math.random() * 1.5 * this.getYrange();
-      dy = (evaporationDestinationY - this.y0) / steps;
+      dy = ( evaporationDestinationY - this.y0 ) / steps;
 
       // create and attach the evaporation motion handler
       this.handler = function() {
