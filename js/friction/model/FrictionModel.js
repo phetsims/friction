@@ -16,22 +16,20 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
 
-  var CONSTANTS = {
-    ATOM_RADIUS: FrictionSharedConstants.ATOM_RADIUS, // radius of single atom
-    DISTANCE_X: 20, // x-distance between neighbors (atoms)
-    DISTANCE_Y: 20, // y-distance between neighbors (atoms)
-    DISTANCE_INITIAL: 25, // initial distance between top and bottom atoms
-    AMPLITUDE_MIN: 1, // min amplitude for an atom
-    AMPLITUDE_EVAPORATE: 7, // evaporation amplitude for an atom
-    AMPLITUDE_MAX: 12, // atom's max amplitude
-    BOOK_TOP_ATOMS_COLOR: FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR, // color of top book
-    BOOK_BOTTOM_ATOMS_COLOR: FrictionSharedConstants.BOTTOM_BOOK_ATOMS_COLOR, // color of bottom
-    COOLING_RATE: 0.2, // proportion per second, adjust in order to change the cooling rate
-    HEATING_MULTIPLIER: 0.0075, // multiplied by distance moved while in contact to control heating rate
-    EVAPORATION_AMPLITUDE_REDUCTION: 0.01, // decrease in amplitude (a.k.a. temperature) when an atom evaporates
-    MAX_X_DISPLACEMENT: 600, // max allowed distance from center x
-    MIN_Y_POSITION: -70 // empirically determined such that top book can't be completely dragged out of frame
-  };
+  var ATOM_RADIUS = FrictionSharedConstants.ATOM_RADIUS; // radius of single atom
+  var DISTANCE_X = 20; // x-distance between neighbors (atoms)
+  var DISTANCE_Y = 20; // y-distance between neighbors (atoms)
+  var DISTANCE_INITIAL = 25; // initial distance between top and bottom atoms
+  var AMPLITUDE_MIN = 1; // min amplitude for an atom
+  var AMPLITUDE_EVAPORATE = 7; // evaporation amplitude for an atom
+  var AMPLITUDE_MAX = 12; // atom's max amplitude
+  var BOOK_TOP_ATOMS_COLOR = FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR; // color of top book
+  var BOOK_BOTTOM_ATOMS_COLOR = FrictionSharedConstants.BOTTOM_BOOK_ATOMS_COLOR; // color of bottom
+  var COOLING_RATE = 0.2; // proportion per second; adjust in order to change the cooling rate
+  var HEATING_MULTIPLIER = 0.0075; // multiplied by distance moved while in contact to control heating rate
+  var EVAPORATION_AMPLITUDE_REDUCTION = 0.01; // decrease in amplitude (a.k.a. temperature) when an atom evaporates
+  var MAX_X_DISPLACEMENT = 600; // max allowed distance from center x
+  var MIN_Y_POSITION = -70; // empirically determined such that top book can't be completely dragged out of frame
 
   // atoms of top book (contains 5 rows: 4 of them can evaporate, 1 - can not)
   var topAtomsStructure = [
@@ -125,21 +123,21 @@ define( function( require ) {
 
     // create a suitable structure from the initial data for further work
     this.atoms = {
-      radius: CONSTANTS.ATOM_RADIUS,
-      distanceX: CONSTANTS.DISTANCE_X,
-      distanceY: CONSTANTS.DISTANCE_Y,
-      distance: CONSTANTS.DISTANCE_INITIAL,
+      radius: ATOM_RADIUS,
+      distanceX: DISTANCE_X,
+      distanceY: DISTANCE_Y,
+      distance: DISTANCE_INITIAL,
       amplitude: {
-        min: CONSTANTS.AMPLITUDE_MIN,
-        max: CONSTANTS.AMPLITUDE_MAX
+        min: AMPLITUDE_MIN,
+        max: AMPLITUDE_MAX
       },
-      evaporationLimit: CONSTANTS.AMPLITUDE_EVAPORATE,
+      evaporationLimit: AMPLITUDE_EVAPORATE,
       top: {
-        color: CONSTANTS.BOOK_TOP_ATOMS_COLOR,
+        color: BOOK_TOP_ATOMS_COLOR,
         layers: topAtomsStructure
       },
       bottom: {
-        color: CONSTANTS.BOOK_BOTTOM_ATOMS_COLOR,
+        color: BOOK_BOTTOM_ATOMS_COLOR,
         layers: bottomAtomsStructure
       }
     };
@@ -170,7 +168,7 @@ define( function( require ) {
       // add amplitude in contact
       if ( self.contactProperty.get() ) {
         var dx = Math.abs( newPosition.x - oldPosition.x );
-        self.amplitudeProperty.set( Math.min( self.amplitudeProperty.get() + dx * CONSTANTS.HEATING_MULTIPLIER, self.atoms.amplitude.max ) );
+        self.amplitudeProperty.set( Math.min( self.amplitudeProperty.get() + dx * HEATING_MULTIPLIER, self.atoms.amplitude.max ) );
       }
     } );
 
@@ -195,7 +193,7 @@ define( function( require ) {
 
       // Cool the atoms.
       this.amplitudeProperty.set( Math.max( this.atoms.amplitude.min,
-        this.amplitudeProperty.get() * ( 1 - dt * CONSTANTS.COOLING_RATE ) ) );
+        this.amplitudeProperty.get() * ( 1 - dt * COOLING_RATE ) ) );
     },
     reset: function() {
       this.amplitudeProperty.reset();
@@ -224,7 +222,7 @@ define( function( require ) {
       this.atomRowsToEvaporateProperty.set( this.toEvaporate.length );
 
       // set min vertical position
-      this.minYPos = CONSTANTS.MIN_Y_POSITION;
+      this.minYPos = MIN_Y_POSITION;
     },
 
     /**
@@ -253,11 +251,11 @@ define( function( require ) {
       else if ( this.positionProperty.get().y + v.y < this.minYPos ) {
         v.y = this.minYPos - this.positionProperty.get().y; // Limit book from going out of magnifier window.
       }
-      if ( this.positionProperty.get().x + v.x > CONSTANTS.MAX_X_DISPLACEMENT ) {
-        v.x = CONSTANTS.MAX_X_DISPLACEMENT - this.positionProperty.get().x;
+      if ( this.positionProperty.get().x + v.x > MAX_X_DISPLACEMENT ) {
+        v.x = MAX_X_DISPLACEMENT - this.positionProperty.get().x;
       }
-      else if ( this.positionProperty.get().x + v.x < -CONSTANTS.MAX_X_DISPLACEMENT ) {
-        v.x = -CONSTANTS.MAX_X_DISPLACEMENT - this.positionProperty.get().x;
+      else if ( this.positionProperty.get().x + v.x < -MAX_X_DISPLACEMENT ) {
+        v.x = -MAX_X_DISPLACEMENT - this.positionProperty.get().x;
       }
 
       // set the new position
@@ -289,13 +287,13 @@ define( function( require ) {
         var atom = currentEvaporationRow.splice( Math.floor( Math.random() * currentEvaporationRow.length ), 1 )[ 0 ];
         if ( atom ) {
           atom.evaporate();
-          this.amplitudeProperty.set( this.amplitudeProperty.get() - CONSTANTS.EVAPORATION_AMPLITUDE_REDUCTION ); // cooling due to evaporation
+          this.amplitudeProperty.set( this.amplitudeProperty.get() - EVAPORATION_AMPLITUDE_REDUCTION ); // cooling due to evaporation
         }
       }
     }
   }, { // statics
     // a11y - needed to get bounds for the keyboard drag handler, see https://github.com/phetsims/friction/issues/46
-    MAX_X_DISPLACEMENT: CONSTANTS.MAX_X_DISPLACEMENT,
-    MIN_Y_POSITION: CONSTANTS.MIN_Y_POSITION
+    MAX_X_DISPLACEMENT: MAX_X_DISPLACEMENT,
+    MIN_Y_POSITION: MIN_Y_POSITION
   } );
 } );
