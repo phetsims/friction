@@ -139,7 +139,7 @@ define( function( require ) {
 
     this.amplitudeProperty = new Property( this.atoms.amplitude.min ); // atoms amplitude
     this.positionProperty = new Property( new Vector2( 0, 0 ) ); // position of top book, changes when dragging
-    this.distanceProperty = new Property( self.atoms.distance ); // distance between books
+    this.distanceProperty = new Property( this.atoms.distance ); // distance between books
     this.bottomOffsetProperty = new Property( 0 ); // additional offset, results from drag
     this.atomRowsToEvaporateProperty = new Property( 0 ); // top atoms number of rows to evaporate
     this.contactProperty = new Property( false ); // are books in contact
@@ -149,11 +149,11 @@ define( function( require ) {
     this.dndScale = 0.025; // drag and drop book coordinates conversion coefficient
 
     // check atom's contact
-    self.distanceProperty.link( function( distance ) {
+    this.distanceProperty.link( function( distance ) {
       self.contactProperty.set( Math.floor( distance ) <= 0 );
     } );
 
-    self.positionProperty.link( function( newPosition, oldPosition ) {
+    this.positionProperty.link( function( newPosition, oldPosition ) {
       // set distance between atoms
       self.distanceProperty.set( self.distanceProperty.get() - ( newPosition.minus( oldPosition || new Vector2( 0, 0 ) ) ).y );
 
@@ -164,7 +164,7 @@ define( function( require ) {
       }
     } );
 
-    self.amplitudeProperty.link( function( amplitude ) {
+    this.amplitudeProperty.link( function( amplitude ) {
       // evaporation check
       if ( amplitude > self.atoms.evaporationLimit ) {
         self.evaporate();
