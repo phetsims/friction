@@ -36,8 +36,7 @@ define( function( require ) {
     /**
      * First row:
      * contains 30 atoms that can not evaporate.
-     *
-     * */
+     */
     [
       { num: 30 }
     ],
@@ -45,16 +44,14 @@ define( function( require ) {
      * Second row:
      * contains 29 atoms that can evaporate.
      * Have additional offset 0.5 of x-distance between atoms (to make the lattice of atoms).
-     *
-     * */
+     */
     [
       { offset: 0.5, num: 29, evaporate: true }
     ],
     /**
      * Third row:
      * contains 29 atoms that can evaporate.
-     *
-     * */
+     */
     [
       { num: 29, evaporate: true }
     ],
@@ -62,8 +59,7 @@ define( function( require ) {
      * Fourth row:
      * contains 24 atoms, separated into 5 groups that can evaporate.
      * Have additional offset 0.5 of x-distance between atoms (to make the lattice of atoms).
-     *
-     * */
+     */
     [
       { offset: 0.5, num: 5, evaporate: true },
       { offset: 6.5, num: 8, evaporate: true },
@@ -74,8 +70,7 @@ define( function( require ) {
     /**
      * Fifth row:
      * contains 9 atoms, separated into 5 groups that can evaporate.
-     *
-     * */
+     */
     [
       { offset: 3, num: 2, evaporate: true },
       { offset: 8, num: 1, evaporate: true },
@@ -90,8 +85,7 @@ define( function( require ) {
     /**
      * First row:
      * contains 29 atoms that can not evaporate.
-     *
-     * */
+     */
     [
       { num: 29 }
     ],
@@ -99,16 +93,14 @@ define( function( require ) {
      * Second row:
      * contains 28 atoms that can not evaporate.
      * Have additional offset 0.5 of x-distance between atoms (to make the lattice of atoms).
-     *
-     * */
+     */
     [
       { offset: 0.5, num: 28 }
     ],
     /**
      * Third row:
      * contains 29 atoms that can not evaporate.
-     *
-     * */
+     */
     [
       { num: 29 }
     ]
