@@ -1,4 +1,4 @@
-// Copyright 2013-2017, University of Colorado Boulder
+// Copyright , University of Colorado Boulder
 
 /**
  * view for single atom
@@ -22,7 +22,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function Atom( model, options ) {
+  function AtomNode( model, options ) {
     var self = this;
     var radius = model.atoms.radius;
 
@@ -37,15 +37,15 @@ define( function( require ) {
     Node.call( this, { x: this.x0, y: this.y0 } );
 
     // function for creating or obtaining atom graphic for a given color
-    if ( !Atom.atomGraphics[ options.color ] ) {
-      var scale = Atom.imageScale; // Scale up before rasterization so it won't be too pixellated/fuzzy, value empirically determined.
+    if ( !AtomNode.atomGraphics[ options.color ] ) {
+      var scale = AtomNode.imageScale; // Scale up before rasterization so it won't be too pixellated/fuzzy, value empirically determined.
       var container = new Node( { scale: 1 / scale } );
       var atomNode = new Circle( radius, { fill: options.color, stroke: 'black', lineWidth: 1, scale: scale } );
       atomNode.addChild( new Circle( radius * 0.3, { fill: 'white', x: radius * 0.3, y: -radius * 0.3 } ) );
       atomNode.toImage( function( img, x, y ) {
         // add our actual HTMLImageElement to atomImages
-        Atom.atomImages[ self.isTopAtom ] = img;
-        Atom.atomOffset = new Vector2( -x, -y );
+        AtomNode.atomImages[ self.isTopAtom ] = img;
+        AtomNode.atomOffset = new Vector2( -x, -y );
 
         // add a node with that image to our container (part of atomGraphics)
         container.addChild( new Node( {
@@ -54,9 +54,9 @@ define( function( require ) {
           ]
         } ) );
       } );
-      Atom.atomGraphics[ options.color ] = container;
+      AtomNode.atomGraphics[ options.color ] = container;
     }
-    this.addChild( Atom.atomGraphics[ options.color ] );
+    this.addChild( AtomNode.atomGraphics[ options.color ] );
 
     // move the atom as the top book moves if it is part of that book
     var motionVector = new Vector2(); // Optimization to minimize garbage collection.
@@ -77,14 +77,14 @@ define( function( require ) {
   }
 
   // export information needed to directly render the images
-  Atom.imageScale = 3;
-  Atom.atomGraphics = {};
-  Atom.atomImages = {};
-  Atom.atomOffset = null; // NOTE: this is OK for now because the atoms are the same size, and the toImage'd images should have the exact same offsets
+  AtomNode.imageScale = 3;
+  AtomNode.atomGraphics = {};
+  AtomNode.atomImages = {};
+  AtomNode.atomOffset = null; // NOTE: this is OK for now because the atoms are the same size, and the toImage'd images should have the exact same offsets
 
-  friction.register( 'Atom', Atom );
+  friction.register( 'AtomNode', AtomNode );
 
-  return inherit( Node, Atom, {
+  return inherit( Node, AtomNode, {
     evaporate: function() {
       var self = this;
       var steps = 250; // steps until atom has completed evaporation movement

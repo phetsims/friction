@@ -1,4 +1,4 @@
-// Copyright 2013-2017, University of Colorado Boulder
+// Copyright , University of Colorado Boulder
 
 /**
  * Container for magnifier
@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var Atom = require( 'FRICTION/friction/view/magnifier/Atom' );
+  var AtomNode = require( 'FRICTION/friction/view/magnifier/AtomNode' );
   var AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
@@ -63,7 +63,7 @@ define( function( require ) {
    * @param {Object} options
    * @constructor
    */
-  function Magnifier( model, x, y, targetX, targetY, title, options ) {
+  function MagnifierNode( model, x, y, targetX, targetY, title, options ) {
 
     options = _.extend( {
       x: x,
@@ -252,7 +252,7 @@ define( function( require ) {
 
     // Add the canvas where the atoms will be rendered. NOTE: For better performance (particularly on iPad), we are
     // using CanvasNode to render the atoms instead of individual nodes. All atoms are displayed there, even though we
-    // still create Atom view instances.
+    // still create AtomNode view instances.
     this.atomCanvasNode = new AtomCanvasNode( model.positionProperty, {
       canvasBounds: new Bounds2( 0, 0, this.param.width, this.param.height )
     } );
@@ -276,9 +276,9 @@ define( function( require ) {
     } );
   }
 
-  friction.register( 'Magnifier', Magnifier );
+  friction.register( 'MagnifierNode', MagnifierNode );
 
-  return inherit( Node, Magnifier, {
+  return inherit( Node, MagnifierNode, {
 
     step: function( dt ) {
       this.atomCanvasNode.invalidatePaint(); // tell the atom canvas to redraw itself
@@ -309,7 +309,7 @@ define( function( require ) {
           offset = layer[ i ].offset || 0;
           evaporate = layer[ i ].evaporate || false;
           for ( n = 0; n < layer[ i ].num; n++ ) {
-            atom = new Atom( model, { y: y, x: x + ( offset + n ) * dx, color: color } );
+            atom = new AtomNode( model, { y: y, x: x + ( offset + n ) * dx, color: color } );
             if ( evaporate ) {
               row.push( atom );
             }

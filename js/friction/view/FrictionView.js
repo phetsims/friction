@@ -9,12 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Book = require( 'FRICTION/friction/view/book/Book' );
+  var BookNode = require( 'FRICTION/friction/view/book/BookNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var friction = require( 'FRICTION/friction' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Magnifier = require( 'FRICTION/friction/view/magnifier/Magnifier' );
+  var MagnifierNode = require( 'FRICTION/friction/view/magnifier/MagnifierNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var ThermometerNode = require( 'SCENERY_PHET/ThermometerNode' );
@@ -37,17 +37,17 @@ define( function( require ) {
     ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, model.width, model.height ) } );
 
     // add physics book
-    this.addChild( new Book( model, 50, 225, physicsString ) );
+    this.addChild( new BookNode( model, 50, 225, physicsString ) );
 
     // @private (for a11y) - add chemistry book
-    this.draggableBook = new Book( model, 65, 209, chemistryString, {
+    this.draggableBook = new BookNode( model, 65, 209, chemistryString, {
       color: FrictionSharedConstants.TOP_BOOK_COLOR_MACRO,
       drag: true
     } );
     this.addChild( this.draggableBook );
 
     // add magnifier
-    this.addChild( this.magnifier = new Magnifier( model, 40, 25, 195, 425, chemistryString, { layerSplit: true } ) );
+    this.addChild( this.magnifier = new MagnifierNode( model, 40, 25, 195, 425, chemistryString, { layerSplit: true } ) );
 
     // add thermometer
     this.addChild( new ThermometerNode( model.atoms.amplitude.min - 1.05, model.atoms.evaporationLimit * 1.1, model.amplitudeProperty,

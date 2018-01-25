@@ -64,12 +64,12 @@ define( function( require ) {
 
     }, options );
 
-    // Book row
+    // BookNode row
     var moveBookText = new RichText( moveBookString, DEFAULT_LABEL_OPTIONS );
     var moveBookIcon = HelpContent.arrowOrWasdKeysRowIcon();
     var moveBookRow = HelpContent.labelWithIcon( moveBookText, moveBookIcon );
 
-    // Book in smaller steps row
+    // BookNode in smaller steps row
     var moveInSmallerStepsText = new RichText( moveInSmallerStepsString, DEFAULT_LABEL_OPTIONS );
     var shiftPlusArrowKeys = HelpContent.shiftPlusIcon( HelpContent.arrowKeysRowIcon() );
     var shiftPlusWASDKeys = HelpContent.shiftPlusIcon( HelpContent.wasdRowIcon() );

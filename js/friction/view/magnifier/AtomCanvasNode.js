@@ -1,4 +1,4 @@
-// Copyright 2016-2017, University of Colorado Boulder
+// Copyright 2016-2018, University of Colorado Boulder
 
 /**
  * This is an optimization that uses a CanvasNode to draw the atoms.
@@ -88,7 +88,7 @@ define( function( require ) {
     );
     context.fill();
 
-    // array that holds the Atom views
+    // array that holds the AtomNode views
     this.atoms = [];
 
     // pre-allocated vector, improves performance
@@ -128,7 +128,7 @@ define( function( require ) {
       }
     },
 
-    // when an Atom view is created, we want a reference so we can quickly scan a list of atoms
+    // when an AtomNode view is created, we want a reference so we can quickly scan a list of atoms
     registerAtom: function( atom ) {
       this.atoms.push( atom );
     }

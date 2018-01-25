@@ -1,4 +1,4 @@
-// Copyright 2013-2017, University of Colorado Boulder
+// Copyright , University of Colorado Boulder
 
 /**
  * Container for cover of book
@@ -19,7 +19,7 @@ define( function( require ) {
   var FONT = new PhetFont( 22 );
   var friction = require( 'FRICTION/friction' );
 
-  function Cover( x, y, title, options ) {
+  function CoverNode( x, y, title, options ) {
 
     options = _.extend( {
       stroke: 'gray',
@@ -82,7 +82,7 @@ define( function( require ) {
     }
   }
 
-  friction.register( 'Cover', Cover );
+  friction.register( 'CoverNode', CoverNode );
 
-  return inherit( Node, Cover );
+  return inherit( Node, CoverNode );
 } );

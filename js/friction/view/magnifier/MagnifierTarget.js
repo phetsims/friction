@@ -15,16 +15,14 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
 
-
   /**
-   *
    * @param {number} x
    * @param {number} y
    * @param {number} width
    * @param {number} height
    * @param {number} round
-   * @param {Vector2)} leftAnchor - point on the magnifier to draw the left dashed line to
-   * @param {Vector2)} rightAnchor - point on the magnifier to draw the right dashed line to
+   * @param {Vector2} leftAnchor - point on the magnifier to draw the left dashed line to
+   * @param {Vector2} rightAnchor - point on the magnifier to draw the right dashed line to
    * @param {Object} [options]
    * @constructor
    */

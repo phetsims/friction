@@ -1,4 +1,4 @@
-// Copyright 2013-2017, University of Colorado Boulder
+// Copyright , University of Colorado Boulder
 
 /**
  * Container for single book.
@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
-  var Cover = require( 'FRICTION/friction/view/book/Cover' );
+  var CoverNode = require( 'FRICTION/friction/view/book/CoverNode' );
   var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   var friction = require( 'FRICTION/friction' );
   var FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
@@ -25,15 +25,14 @@ define( function( require ) {
   var bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
 
   /**
-   * Constructor
-   *
    * @param {FrictionModel} model
    * @param {number} x
    * @param {number} y
    * @param {string} title - title that appears on the book spine
    * @param {Object} options
+   * @constructor
    */
-  function Book( model, x, y, title, options ) {
+  function BookNode( model, x, y, title, options ) {
     var self = this;
     var dndScale = model.dndScale;
 
@@ -41,17 +40,17 @@ define( function( require ) {
 
       // whether or not we can drag the book
       drag: false,
-      color: FrictionSharedConstants.BOTTOM_BOOK_COLOR_MACRO
+      color: FrictionSharedConstants.BOTTOM_BOOK_COLOR_MACRO,
+
+      // position the book
+      x: x,
+      y: y
     }, options );
 
     Node.call( this, options );
 
-    // position the book
-    this.x = x;
-    this.y = y;
-
     // add cover
-    this.addChild( new Cover( x, y, title, options ) );
+    this.addChild( new CoverNode( x, y, title, options ) );
 
     // init drag and a11y options for the draggable book
     if ( options.drag ) {
@@ -63,7 +62,7 @@ define( function( require ) {
 
       this.addChild( focusHighlightRect );
 
-      // add a11y options for the interactive Book
+      // add a11y options for the interactive BookNode
       this.mutate( {
         tagName: 'div',
         parentContainerAriaRole: 'application',
@@ -92,13 +91,13 @@ define( function( require ) {
     }
   }
 
-  friction.register( 'Book', Book );
+  friction.register( 'BookNode', BookNode );
 
-  return inherit( Node, Book, {
+  return inherit( Node, BookNode, {
 
     step: function( dt ) {
 
-      // step the keyboard drag handler if one exists on this Book
+      // step the keyboard drag handler if one exists on this BookNode
       this.keyboardDragHandler && this.keyboardDragHandler.step( dt );
     }
   } );
