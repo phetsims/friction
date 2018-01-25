@@ -10,9 +10,9 @@ define( function( require ) {
 
   // modules
   var Bounds2 = require( 'DOT/Bounds2' );
-  var FrictionKeyboardHelpContent = require( 'FRICTION/friction/view/FrictionKeyboardHelpContent' );
+  var FrictionKeyboardHelpContentPanel = require( 'FRICTION/friction/view/FrictionKeyboardHelpContentPanel' );
   var FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
-  var FrictionView = require( 'FRICTION/friction/view/FrictionView' );
+  var FrictionScreenView = require( 'FRICTION/friction/view/FrictionScreenView' );
   var Property = require( 'AXON/Property' );
   var Screen = require( 'JOIST/Screen' );
   var Sim = require( 'JOIST/Sim' );
@@ -26,7 +26,7 @@ define( function( require ) {
 
   SimLauncher.launch( function() {
 
-    var keyboardHelpContent = new FrictionKeyboardHelpContent();
+    var keyboardHelpContent = new FrictionKeyboardHelpContentPanel();
     var simOptions = {
       credits: {
         leadDesign: 'Michael Dubson, Noah Podolefsky',
@@ -43,7 +43,7 @@ define( function( require ) {
     new Sim( frictionTitleString, [
       new Screen(
         function() {return new FrictionModel( LAYOUT_BOUNDS.width, LAYOUT_BOUNDS.height );},
-        function( model ) {return new FrictionView( model );},
+        function( model ) {return new FrictionScreenView( model );},
         { backgroundColorProperty: new Property( '#fff' ) }
       )
     ], simOptions ).start();

@@ -33,7 +33,7 @@ define( function( require ) {
    * @param {FrictionModel} model
    * @constructor
    */
-  function FrictionView( model ) {
+  function FrictionScreenView( model ) {
     ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, model.width, model.height ) } );
 
     // add physics book
@@ -78,9 +78,9 @@ define( function( require ) {
     model.init();
   }
 
-  friction.register( 'FrictionView', FrictionView );
+  friction.register( 'FrictionScreenView', FrictionScreenView );
 
-  return inherit( ScreenView, FrictionView, {
+  return inherit( ScreenView, FrictionScreenView, {
     step: function( timeElapsed ) {
       this.magnifier.step( timeElapsed );
 

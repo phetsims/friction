@@ -32,7 +32,7 @@ define( function( require ) {
    *
    * @constructor
    */
-  function FrictionKeyboardHelpContent() {
+  function FrictionKeyboardHelpContentPanel() {
 
     var moveBookHelpContent = new MoveBookHelpNode();
     var generalNavigationHelpContent = new GeneralNavigationHelpContent();
@@ -82,7 +82,7 @@ define( function( require ) {
 
   inherit( HelpContent, MoveBookHelpNode );
 
-  friction.register( 'FrictionKeyboardHelpContent', FrictionKeyboardHelpContent );
+  friction.register( 'FrictionKeyboardHelpContentPanel', FrictionKeyboardHelpContentPanel );
 
-  return inherit( Panel, FrictionKeyboardHelpContent );
+  return inherit( Panel, FrictionKeyboardHelpContentPanel );
 } );

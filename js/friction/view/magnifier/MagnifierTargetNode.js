@@ -26,7 +26,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function MagnifierTarget( x, y, width, height, round, leftAnchor, rightAnchor, options ) {
+  function MagnifierTargetNode( x, y, width, height, round, leftAnchor, rightAnchor, options ) {
 
     options = _.extend( {
       stroke: 'black'
@@ -48,9 +48,9 @@ define( function( require ) {
     this.set( x, y );
   }
 
-  friction.register( 'MagnifierTarget', MagnifierTarget );
+  friction.register( 'MagnifierTargetNode', MagnifierTargetNode );
 
-  return inherit( Node, MagnifierTarget, {
+  return inherit( Node, MagnifierTargetNode, {
 
     // TODO: rename method
     set: function( x, y ) {

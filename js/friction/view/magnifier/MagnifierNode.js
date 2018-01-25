@@ -21,7 +21,7 @@ define( function( require ) {
   var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MagnifierTarget = require( 'FRICTION/friction/view/magnifier/MagnifierTarget' );
+  var MagnifierTargetNode = require( 'FRICTION/friction/view/magnifier/MagnifierTargetNode' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -236,7 +236,7 @@ define( function( require ) {
     } ) );
 
     // add magnifier's target
-    this.target = new MagnifierTarget(
+    this.target = new MagnifierTargetNode(
       targetX,
       targetY,
       this.param.width * this.param.scale,
