@@ -51,6 +51,8 @@ define( function( require ) {
   friction.register( 'MagnifierTarget', MagnifierTarget );
 
   return inherit( Node, MagnifierTarget, {
+
+    // TODO: rename method
     set: function( x, y ) {
       this.pathLeft.setShape( new Shape()
         .moveTo( this.leftAnchor.x, this.leftAnchor.y )
