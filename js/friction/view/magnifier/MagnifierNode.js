@@ -72,8 +72,6 @@ define( function( require ) {
 
     Node.call( this, options );
 
-    var self = this;
-
     // main params
     this.param = {
       width: 690,
