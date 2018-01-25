@@ -2,6 +2,9 @@
 
 /**
  * Shared constants for the 'Friction' simulation.
+ *
+ * @author Jesse Greenberg (PhET Interactive Simulations)
+ * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

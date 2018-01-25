@@ -3,7 +3,7 @@
 /**
  * This is an optimization that uses a CanvasNode to draw the atoms.
  *
- * @author John Blanco
+ * @author John Blanco (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
