@@ -50,22 +50,21 @@ define( function( require ) {
     this.addChild( this.magnifier = new MagnifierNode( model, 40, 25, 195, 425, chemistryString, { layerSplit: true } ) );
 
     // add thermometer
-    this.addChild( new ThermometerNode( model.atoms.amplitude.min - 1.05, model.atoms.evaporationLimit * 1.1, model.amplitudeProperty,
-      {
-        x: 690,
-        y: 250,
-        tubeHeight: 160,
-        tickSpacing: 9,
-        lineWidth: 1,
-        tubeWidth: 12,
-        bulbDiameter: 24,
-        majorTickLength: 4,
-        minorTickLength: 4,
-        fluidMainColor: THERMOMETER_FLUID_MAIN_COLOR,
-        fluidHighlightColor: THERMOMETER_FLUID_HIGHLIGHT_COLOR,
-        fluidRightSideColor: THERMOMETER_FLUID_RIGHT_SIDE_COLOR,
-        backgroundFill: THERMOMETER_BACKGROUND_FILL_COLOR
-      } ) );
+    this.addChild( new ThermometerNode( model.atoms.amplitude.min - 1.05, model.atoms.evaporationLimit * 1.1, model.amplitudeProperty, {
+      x: 690,
+      y: 250,
+      tubeHeight: 160,
+      tickSpacing: 9,
+      lineWidth: 1,
+      tubeWidth: 12,
+      bulbDiameter: 24,
+      majorTickLength: 4,
+      minorTickLength: 4,
+      fluidMainColor: THERMOMETER_FLUID_MAIN_COLOR,
+      fluidHighlightColor: THERMOMETER_FLUID_HIGHLIGHT_COLOR,
+      fluidRightSideColor: THERMOMETER_FLUID_RIGHT_SIDE_COLOR,
+      backgroundFill: THERMOMETER_BACKGROUND_FILL_COLOR
+    } ) );
 
     // add reset button
     this.addChild( new ResetAllButton( {
@@ -75,7 +74,7 @@ define( function( require ) {
       y: model.height * 0.9
     } ) );
 
-    model.init();
+    model.init(); // TODO: does this need to be called here?  If so, why?
   }
 
   friction.register( 'FrictionScreenView', FrictionScreenView );

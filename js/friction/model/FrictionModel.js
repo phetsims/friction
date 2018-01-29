@@ -147,35 +147,49 @@ define( function( require ) {
     // @public - current set of atoms which may evaporate, but not yet evaporated (generally the lowest row in the top book)
     this.toEvaporate = [];
 
-    this.amplitudeProperty = new Property( this.atoms.amplitude.min ); // atoms amplitude
-    this.positionProperty = new Property( new Vector2( 0, 0 ) ); // position of top book, changes when dragging
-    this.distanceProperty = new Property( this.atoms.distance ); // distance between books
-    this.bottomOffsetProperty = new Property( 0 ); // additional offset, results from drag
-    this.atomRowsToEvaporateProperty = new Property( 0 ); // top atoms number of rows to evaporate
-    this.contactProperty = new Property( false ); // are books in contact
-    this.hintProperty = new Property( true ); // show hint icon
-    this.newStepProperty = new Property( false ); // update every step
+    // @public - atoms amplitude
+    this.amplitudeProperty = new Property( this.atoms.amplitude.min );
 
-    this.dndScale = 0.025; // drag and drop book coordinates conversion coefficient
+    // @public - position of top book, changes when dragging
+    this.positionProperty = new Property( new Vector2( 0, 0 ) );
+
+    // @public - distance between books
+    this.distanceProperty = new Property( this.atoms.distance );
+
+    // @private - additional offset, results from drag
+    this.bottomOffsetProperty = new Property( 0 );
+
+    // @public - top atoms number of rows to evaporate
+    this.atomRowsToEvaporateProperty = new Property( 0 );
+
+    // @private - are books in contact
+    this.contactProperty = new Property( false );
+
+    // @public - show hint icon
+    this.hintProperty = new Property( true );
+
+    // @public - update every step
+    this.newStepProperty = new Property( false );
+
+    // @public - drag and drop book coordinates conversion coefficient
+    this.dndScale = 0.025;
 
     // check atom's contact
     this.distanceProperty.link( function( distance ) {
       self.contactProperty.set( Math.floor( distance ) <= 0 );
     } );
 
+    // set distance between atoms and set the amplitude if they are in contact
     this.positionProperty.link( function( newPosition, oldPosition ) {
-      // set distance between atoms
       self.distanceProperty.set( self.distanceProperty.get() - ( newPosition.minus( oldPosition || new Vector2( 0, 0 ) ) ).y );
-
-      // add amplitude in contact
       if ( self.contactProperty.get() ) {
         var dx = Math.abs( newPosition.x - oldPosition.x );
         self.amplitudeProperty.set( Math.min( self.amplitudeProperty.get() + dx * HEATING_MULTIPLIER, self.atoms.amplitude.max ) );
       }
     } );
 
+    // evaporation check
     this.amplitudeProperty.link( function( amplitude ) {
-      // evaporation check
       if ( amplitude > self.atoms.evaporationLimit ) {
         self.evaporate();
       }
@@ -185,18 +199,30 @@ define( function( require ) {
   friction.register( 'FrictionModel', FrictionModel );
 
   return inherit( Object, FrictionModel, {
+
+    /**
+     * Move forward in time
+     * @param {number} dt - in seconds
+     * @public
+     */
     step: function( dt ) {
+
+      // Workaround for the case when user minimize window or switches to
+      // another tab and then back, where big dt values can result.
       if ( dt > 0.5 ) {
-        // Workaround for the case when user minimize window or switches to
-        // another tab and then back, where big dt values can result.
         return;
       }
       this.newStepProperty.set( !this.newStepProperty.get() );
 
       // Cool the atoms.
-      this.amplitudeProperty.set( Math.max( this.atoms.amplitude.min,
-        this.amplitudeProperty.get() * ( 1 - dt * COOLING_RATE ) ) );
+      var amplitude = Math.max( this.atoms.amplitude.min, this.amplitudeProperty.get() * ( 1 - dt * COOLING_RATE ) );
+      this.amplitudeProperty.set( amplitude );
     },
+
+    /**
+     * Restores the initial conditions.
+     * @public
+     */
     reset: function() {
       this.amplitudeProperty.reset();
       this.positionProperty.reset();
