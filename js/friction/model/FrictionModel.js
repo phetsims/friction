@@ -1,7 +1,7 @@
 // Copyright 2013-2018, University of Colorado Boulder
 
 /**
- * main Model container.
+ * The model for the Friction sim.
  *
  * @author Andrey Zelenkov (Mlearner)
  */
@@ -106,14 +106,21 @@ define( function( require ) {
     ]
   ];
 
+  /**
+   * @param {number} width
+   * @param {number} height
+   * @constructor
+   */
   function FrictionModel( width, height ) {
     var self = this;
 
-    // dimensions of the model's space
+    // @public - dimensions of the model's space
     this.width = width;
+
+    // @public - dimensions of the model's space
     this.height = height;
 
-    // create a suitable structure from the initial data for further work
+    // @public - create a suitable structure from the initial data for further work
     this.atoms = {
       radius: ATOM_RADIUS,
       distanceX: DISTANCE_X,
@@ -134,8 +141,11 @@ define( function( require ) {
       }
     };
 
-    this.toEvaporateSample = []; // array of all atoms which able to evaporate, need for resetting game
-    this.toEvaporate = []; // current set of atoms which may evaporate, but not yet evaporated (generally the lowest row in the top book)
+    // @public - array of all atoms which able to evaporate, need for resetting game
+    this.toEvaporateSample = [];
+
+    // @public - current set of atoms which may evaporate, but not yet evaporated (generally the lowest row in the top book)
+    this.toEvaporate = [];
 
     this.amplitudeProperty = new Property( this.atoms.amplitude.min ); // atoms amplitude
     this.positionProperty = new Property( new Vector2( 0, 0 ) ); // position of top book, changes when dragging
