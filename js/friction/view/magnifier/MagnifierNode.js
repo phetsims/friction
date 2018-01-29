@@ -280,7 +280,6 @@ define( function( require ) {
 
     step: function( dt ) {
       this.atomCanvasNode.invalidatePaint(); // tell the atom canvas to redraw itself
-      this.keyboardDragHandler.step( dt ); // a11y
     },
 
     addAtoms: function( model ) {

@@ -82,9 +82,6 @@ define( function( require ) {
   return inherit( ScreenView, FrictionScreenView, {
     step: function( timeElapsed ) {
       this.magnifier.step( timeElapsed );
-
-      // a11y - to step the keyboard drag handler
-      this.draggableBook.step( timeElapsed );
     }
   } );
 } );

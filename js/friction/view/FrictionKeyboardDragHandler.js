@@ -13,7 +13,7 @@ define( function( require ) {
   var friction = require( 'FRICTION/friction' );
   var FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var KeyboardDragListener = require( 'SCENERY/accessibility/listeners/KeyboardDragListener' );
+  var KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
 
   /**
    * @constructor

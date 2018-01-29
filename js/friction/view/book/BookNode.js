@@ -93,12 +93,5 @@ define( function( require ) {
 
   friction.register( 'BookNode', BookNode );
 
-  return inherit( Node, BookNode, {
-
-    step: function( dt ) {
-
-      // step the keyboard drag handler if one exists on this BookNode
-      this.keyboardDragHandler && this.keyboardDragHandler.step( dt );
-    }
-  } );
+  return inherit( Node, BookNode );
 } );
