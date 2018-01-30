@@ -13,8 +13,9 @@
     "requirejsNamespace": "FRICTION",
     "runnable": true,
     "supportedBrands": [
+      "adapted-from-phet",
       "phet",
-      "adapted-from-phet"
+      "phet-io"
     ],
     "accessible": true,
     "simulation": true
