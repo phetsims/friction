@@ -73,6 +73,7 @@ define( function( require ) {
     Node.call( this, options );
 
     // main params
+    // TODO: eliminate this
     this.param = {
       width: 690,
       height: 300,
@@ -288,12 +289,15 @@ define( function( require ) {
       var bottomAtoms = this.param.bottomAtoms;
       var dx = model.atoms.distanceX;
       var dy = model.atoms.distanceY;
-      var color;
-      var y0;
-      var x0;
-      var target;
 
-      // add one layer of atoms
+      /**
+       * TODO: docs
+       * @param target
+       * @param layer
+       * @param y
+       * @param x
+       * @param {string} color - HEADS up this must be a string because it indexes into an object.
+       */
       var addLayer = function( target, layer, y, x, color ) {
         var evaporate;
         var row = [];
@@ -315,21 +319,17 @@ define( function( require ) {
       };
 
       // add top atoms
-      color = topAtoms.atoms.color;
-      y0 = topAtoms.y;
-      x0 = topAtoms.x;
-      target = topAtoms.target;
+      var x0 = topAtoms.x;
+      var y0 = topAtoms.y;
       topAtoms.atoms.layers.forEach( function( layer, i ) {
-        addLayer( target, layer, y0 + dy * i, x0, color );
+        addLayer( topAtoms.target, layer, y0 + dy * i, x0, topAtoms.atoms.color );
       } );
 
       // add bottom atoms
-      color = bottomAtoms.atoms.color;
       y0 = self.param.bottomAtoms.y;
       x0 = self.param.bottomAtoms.x;
-      target = bottomAtoms.target;
       bottomAtoms.atoms.layers.forEach( function( layer, i ) {
-        addLayer( target, layer, y0 + dy * i, x0, color );
+        addLayer( bottomAtoms.target, layer, y0 + dy * i, x0, bottomAtoms.atoms.color );
       } );
     },
 
