@@ -37,10 +37,15 @@ define( function( require ) {
     ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, model.width, model.height ) } );
 
     // add physics book
-    this.addChild( new BookNode( model, 50, 225, physicsString ) );
+    this.addChild( new BookNode( model, physicsString, {
+      x: 50,
+      y: 225
+    } ) );
 
     // @private (for a11y) - add chemistry book
-    this.draggableBook = new BookNode( model, 65, 209, chemistryString, {
+    this.draggableBook = new BookNode( model, chemistryString, {
+      x: 65,
+      y: 209,
       color: FrictionSharedConstants.TOP_BOOK_COLOR_MACRO,
       drag: true
     } );

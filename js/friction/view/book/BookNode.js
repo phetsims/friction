@@ -26,31 +26,27 @@ define( function( require ) {
 
   /**
    * @param {FrictionModel} model
-   * @param {number} x
-   * @param {number} y
    * @param {string} title - title that appears on the book spine
    * @param {Object} options
    * @constructor
    */
-  function BookNode( model, x, y, title, options ) {
+  function BookNode( model, title, options ) {
     var self = this;
-    var dndScale = model.dndScale;
 
     options = _.extend( {
 
       // whether or not we can drag the book
       drag: false,
-      color: FrictionSharedConstants.BOTTOM_BOOK_COLOR_MACRO,
-
-      // position the book
-      x: x,
-      y: y
+      color: FrictionSharedConstants.BOTTOM_BOOK_COLOR_MACRO
     }, options );
+
+    assert && assert( typeof options.x === 'number', 'options.x must be specified' );
+    assert && assert( typeof options.y === 'number', 'options.y must be specified' );
 
     Node.call( this, options );
 
     // add cover
-    this.addChild( new CoverNode( x, y, title, options ) );
+    this.addChild( new CoverNode( options.x, options.y, title, options ) );
 
     // init drag and a11y options for the draggable book
     if ( options.drag ) {
@@ -85,8 +81,8 @@ define( function( require ) {
       this.addAccessibleInputListener( this.keyboardDragHandler );
 
       // add observer
-      model.positionProperty.link( function( v ) {
-        self.setTranslation( x + v.x * dndScale, y + v.y * dndScale );
+      model.positionProperty.link( function( position ) {
+        self.setTranslation( options.x + position.x * model.dndScale, options.y + position.y * model.dndScale );
       } );
     }
   }

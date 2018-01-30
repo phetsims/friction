@@ -234,6 +234,11 @@ define( function( require ) {
       this.newStepProperty.reset();
       this.init();
     },
+
+    /**
+     * TODO: this must be called from the end of the view construction for unknown reasonrs, or atoms don't fly off
+     * @public
+     */
     init: function() {
       var i;
       var j;
@@ -257,10 +262,8 @@ define( function( require ) {
      * Move the book, checking to make sure the new location is valid. If the book is going to move out of bounds,
      * prevent movement.
      *
-     * @public
      * @param {Object} v {x:{number}, y:{number}} - NOT a Vector2 (presumably to reduce memory footprint)
-     * @param {number} v.x
-     * @param {number} v.y
+     * @public
      */
     move: function( v ) {
       this.hintProperty.set( false );
@@ -289,6 +292,12 @@ define( function( require ) {
       // set the new position
       this.positionProperty.set( this.positionProperty.get().plus( v ) );
     },
+
+    /**
+     * // TODO: this seems like the wrong place for this code, also; why is it creating so many drag handlers?
+     * @param {Node} view
+     * @public
+     */
     initDrag: function( view ) {
       var self = this;
       view.cursor = 'pointer';
@@ -301,6 +310,11 @@ define( function( require ) {
         }
       } ) );
     },
+
+    /**
+     * TODO: document me
+     * @private
+     */
     evaporate: function() {
       if ( this.toEvaporate[ this.toEvaporate.length - 1 ] && !this.toEvaporate[ this.toEvaporate.length - 1 ].length ) {
         // move to the next row of atoms to evaporate
