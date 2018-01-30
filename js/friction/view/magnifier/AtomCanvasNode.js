@@ -31,6 +31,8 @@ define( function( require ) {
     this.topPositionProperty = topPositionProperty;
 
     // create a canvas and render the particle images that will be used
+    // TODO: why not render these with scenery and use Node.toImage? or toImageSynchronous?
+    // TODO: or just use SphereNode.toImage?
     this.particleImageCanvas = document.createElement( 'canvas' );
     this.particleImageCanvas.width = PARTICLE_IMAGE_SIZE * 2; // wide enough to accommodate two particles
     this.particleImageCanvas.height = PARTICLE_IMAGE_SIZE;
