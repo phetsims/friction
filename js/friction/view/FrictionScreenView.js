@@ -62,7 +62,7 @@ define( function( require ) {
     this.addChild( this.magnifierNode );
 
     // add thermometer
-    this.addChild( new ThermometerNode( model.atoms.amplitude.min - 1.05, model.atoms.evaporationLimit * 1.1, model.amplitudeProperty, {
+    this.addChild( new ThermometerNode( model.atoms.amplitude.min - 1.05, model.atoms.evaporationLimit * 1.1, model.temperatureProperty, {
       x: 690,
       y: 250,
       tubeHeight: 160,

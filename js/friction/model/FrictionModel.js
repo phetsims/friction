@@ -12,6 +12,7 @@ define( function( require ) {
   var friction = require( 'FRICTION/friction' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -109,9 +110,10 @@ define( function( require ) {
   /**
    * @param {number} width
    * @param {number} height
+   * @param {Tandem} tandem
    * @constructor
    */
-  function FrictionModel( width, height ) {
+  function FrictionModel( width, height, tandem ) {
     var self = this;
 
     // @public - dimensions of the model's space
@@ -147,8 +149,10 @@ define( function( require ) {
     // @public - current set of atoms which may evaporate, but not yet evaporated (generally the lowest row in the top book)
     this.toEvaporate = [];
 
-    // @public - atoms amplitude
-    this.amplitudeProperty = new Property( this.atoms.amplitude.min );
+    // @public - atoms temperature = amplitude of oscillation
+    this.temperatureProperty = new NumberProperty( this.atoms.amplitude.min, {
+      tandem: tandem.createTandem( 'temperatureProperty' )
+    } );
 
     // @public - position of top book, changes when dragging
     this.positionProperty = new Property( new Vector2( 0, 0 ) );
@@ -184,12 +188,12 @@ define( function( require ) {
       self.distanceProperty.set( self.distanceProperty.get() - ( newPosition.minus( oldPosition || new Vector2( 0, 0 ) ) ).y );
       if ( self.contactProperty.get() ) {
         var dx = Math.abs( newPosition.x - oldPosition.x );
-        self.amplitudeProperty.set( Math.min( self.amplitudeProperty.get() + dx * HEATING_MULTIPLIER, self.atoms.amplitude.max ) );
+        self.temperatureProperty.set( Math.min( self.temperatureProperty.get() + dx * HEATING_MULTIPLIER, self.atoms.amplitude.max ) );
       }
     } );
 
     // evaporation check
-    this.amplitudeProperty.link( function( amplitude ) {
+    this.temperatureProperty.link( function( amplitude ) {
       if ( amplitude > self.atoms.evaporationLimit ) {
         self.evaporate();
       }
@@ -215,8 +219,8 @@ define( function( require ) {
       this.newStepProperty.set( !this.newStepProperty.get() );
 
       // Cool the atoms.
-      var amplitude = Math.max( this.atoms.amplitude.min, this.amplitudeProperty.get() * ( 1 - dt * COOLING_RATE ) );
-      this.amplitudeProperty.set( amplitude );
+      var amplitude = Math.max( this.atoms.amplitude.min, this.temperatureProperty.get() * ( 1 - dt * COOLING_RATE ) );
+      this.temperatureProperty.set( amplitude );
     },
 
     /**
@@ -224,7 +228,7 @@ define( function( require ) {
      * @public
      */
     reset: function() {
-      this.amplitudeProperty.reset();
+      this.temperatureProperty.reset();
       this.positionProperty.reset();
       this.distanceProperty.reset();
       this.bottomOffsetProperty.reset();
@@ -330,7 +334,7 @@ define( function( require ) {
         var atom = currentEvaporationRow.splice( Math.floor( Math.random() * currentEvaporationRow.length ), 1 )[ 0 ];
         if ( atom ) {
           atom.evaporate();
-          this.amplitudeProperty.set( this.amplitudeProperty.get() - EVAPORATION_AMPLITUDE_REDUCTION ); // cooling due to evaporation
+          this.temperatureProperty.set( this.temperatureProperty.get() - EVAPORATION_AMPLITUDE_REDUCTION ); // cooling due to evaporation
         }
       }
     }
