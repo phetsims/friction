@@ -17,8 +17,11 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  // constants
+  var STEPS = 250; // steps until atom has completed evaporation movement
+
   /**
-   * @param model
+   * @param {FrictionModel} model
    * @param {Object} [options]
    * @constructor
    */
@@ -87,16 +90,13 @@ define( function( require ) {
   return inherit( Node, AtomNode, {
     evaporate: function() {
       var self = this;
-      var steps = 250; // steps until atom has completed evaporation movement
-      var dx;
-      var dy;
 
       this.isEvaporated = true;
 
       var evaporationDestinationX = this.x0 + 4 * this.model.width * ( Math.round( Math.random() ) - 0.5 );
-      dx = ( evaporationDestinationX - this.x0 ) / steps;
+      var dx = ( evaporationDestinationX - this.x0 ) / STEPS;
       var evaporationDestinationY = this.y0 + Math.random() * 1.5 * this.getYrange();
-      dy = ( evaporationDestinationY - this.y0 ) / steps;
+      var dy = ( evaporationDestinationY - this.y0 ) / STEPS;
 
       // create and attach the evaporation motion handler
       this.handler = function() {
@@ -110,8 +110,7 @@ define( function( require ) {
       this.model.newStepProperty.link( self.handler );
     },
     getYrange: function() {
-      var model = this.model;
-      return model.distanceProperty.get() + model.atoms.distanceY * model.toEvaporate.length;
+      return this.model.distanceProperty.get() + this.model.atoms.distanceY * this.model.toEvaporate.length;
     },
     reset: function() {
       this.x0 = this.options.x;
@@ -125,5 +124,4 @@ define( function( require ) {
       this.isEvaporated = false;
     }
   } );
-} )
-;
+} );
