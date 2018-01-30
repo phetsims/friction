@@ -74,7 +74,8 @@ define( function( require ) {
       this.setAriaLabelledByNode( this );
       this.setAriaLabelledContent( AccessiblePeer.PARENT_CONTAINER );
 
-      model.initDrag( this );
+      // TODO: this seems odd
+      model.addDragInputListener( this, options.tandem.createTandem( 'dragHandler' ) );
 
       // a11y - add a keyboard drag handler
       this.keyboardDragHandler = new FrictionKeyboardDragHandler( model );

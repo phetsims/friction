@@ -47,13 +47,6 @@ define( function( require ) {
   };
 
   /**
-   * @param model
-   * @param {Object} [options]
-   * @constructor
-   */
-
-  /**
-   *
    * @param {FrictionModel} model
    * @param {number} x
    * @param {number} y
@@ -146,7 +139,7 @@ define( function( require ) {
       this.param.round, {
         fill: FrictionSharedConstants.TOP_BOOK_COLOR
       } );
-    model.initDrag( background );
+    model.addDragInputListener( background, options.tandem.createTandem( 'backgroundDragHandler' ) );
     this.topBookBackground.addChild( background );
 
     // init drag for drag area
@@ -168,7 +161,7 @@ define( function( require ) {
         } )
       } )
     } );
-    model.initDrag( dragArea );
+    model.addDragInputListener( dragArea, options.tandem.createTandem( 'dragAreaDragHandler' ) );
     this.topBookBackground.addChild( dragArea );
 
     // this node's parent container is labelledby its label

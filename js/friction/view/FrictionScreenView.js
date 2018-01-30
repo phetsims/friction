@@ -31,15 +31,17 @@ define( function( require ) {
 
   /**
    * @param {FrictionModel} model
+   * @param {Tandem} tandem
    * @constructor
    */
-  function FrictionScreenView( model ) {
+  function FrictionScreenView( model, tandem ) {
     ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, model.width, model.height ) } );
 
     // add physics book
     this.addChild( new BookNode( model, physicsString, {
       x: 50,
-      y: 225
+      y: 225,
+      tandem: tandem.createTandem( 'physicsBookNode' )
     } ) );
 
     // @private (for a11y) - add chemistry book
@@ -47,12 +49,17 @@ define( function( require ) {
       x: 65,
       y: 209,
       color: FrictionSharedConstants.TOP_BOOK_COLOR_MACRO,
-      drag: true
+      drag: true,
+      tandem: tandem.createTandem( 'chemistryBookNode' )
     } );
     this.addChild( this.draggableBook );
 
     // add magnifier
-    this.addChild( this.magnifier = new MagnifierNode( model, 40, 25, 195, 425, chemistryString, { layerSplit: true } ) );
+    this.magnifierNode = new MagnifierNode( model, 40, 25, 195, 425, chemistryString, {
+      layerSplit: true,
+      tandem: tandem.createTandem( 'magnifierNode' )
+    } );
+    this.addChild( this.magnifierNode );
 
     // add thermometer
     this.addChild( new ThermometerNode( model.atoms.amplitude.min - 1.05, model.atoms.evaporationLimit * 1.1, model.amplitudeProperty, {
@@ -76,7 +83,8 @@ define( function( require ) {
       listener: function() { model.reset(); },
       radius: 22,
       x: model.width * 0.94,
-      y: model.height * 0.9
+      y: model.height * 0.9,
+      tandem: tandem.createTandem( 'resetAllButton' )
     } ) );
 
     model.init(); // TODO: does this need to be called here?  If so, why?
@@ -86,7 +94,7 @@ define( function( require ) {
 
   return inherit( ScreenView, FrictionScreenView, {
     step: function( timeElapsed ) {
-      this.magnifier.step( timeElapsed );
+      this.magnifierNode.step( timeElapsed );
     }
   } );
 } );

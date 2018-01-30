@@ -295,19 +295,20 @@ define( function( require ) {
 
     /**
      * // TODO: this seems like the wrong place for this code, also; why is it creating so many drag handlers?
-     * @param {Node} view
+     * @param {Node} node
      * @public
      */
-    initDrag: function( view ) {
+    addDragInputListener: function( node, tandem ) {
       var self = this;
-      view.cursor = 'pointer';
-      view.addInputListener( new SimpleDragHandler( {
+      node.cursor = 'pointer';
+      node.addInputListener( new SimpleDragHandler( {
         translate: function( e ) {
           self.move( { x: e.delta.x, y: e.delta.y } );
         },
         end: function() {
           self.bottomOffsetProperty.set( 0 );
-        }
+        },
+        tandem: tandem
       } ) );
     },
 

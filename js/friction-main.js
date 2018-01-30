@@ -17,6 +17,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
+  var Tandem = require( 'TANDEM/Tandem' );
 
   // strings
   var frictionTitleString = require( 'string!FRICTION/friction.title' );
@@ -40,11 +41,13 @@ define( function( require ) {
     };
 
     //Create and start the sim
+    var screenTandem = Tandem.rootTandem.createTandem( 'frictionScreen' );
     new Sim( frictionTitleString, [
-      new Screen(
-        function() {return new FrictionModel( LAYOUT_BOUNDS.width, LAYOUT_BOUNDS.height );},
-        function( model ) {return new FrictionScreenView( model );},
-        { backgroundColorProperty: new Property( '#fff' ) }
+      new Screen( function() {return new FrictionModel( LAYOUT_BOUNDS.width, LAYOUT_BOUNDS.height, screenTandem.createTandem( 'model' ) );},
+        function( model ) {return new FrictionScreenView( model, screenTandem.createTandem( 'view' ) );}, {
+          backgroundColorProperty: new Property( '#fff' ),
+          tandem: screenTandem
+        }
       )
     ], simOptions ).start();
   } );
