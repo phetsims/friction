@@ -122,6 +122,9 @@ define( function( require ) {
     // @public - dimensions of the model's space
     this.height = height;
 
+    // @private - track how much to evaporate in step() to prevent a property loop
+    this.scheduledEvaporationAmount = 0;
+
     // @public - create a suitable structure from the initial data for further work
     this.atoms = {
       radius: ATOM_RADIUS,
@@ -219,8 +222,11 @@ define( function( require ) {
       this.newStepProperty.set( !this.newStepProperty.get() );
 
       // Cool the atoms.
-      var amplitude = Math.max( this.atoms.amplitude.min, this.temperatureProperty.get() * ( 1 - dt * COOLING_RATE ) );
-      this.temperatureProperty.set( amplitude );
+      var temperature = this.temperatureProperty.get() - this.scheduledEvaporationAmount;
+      temperature = Math.max( this.atoms.amplitude.min, temperature * ( 1 - dt * COOLING_RATE ) );
+      this.temperatureProperty.set( temperature );
+
+      this.scheduledEvaporationAmount = 0;
     },
 
     /**
@@ -334,7 +340,7 @@ define( function( require ) {
         var atom = currentEvaporationRow.splice( Math.floor( Math.random() * currentEvaporationRow.length ), 1 )[ 0 ];
         if ( atom ) {
           atom.evaporate();
-          this.temperatureProperty.set( this.temperatureProperty.get() - EVAPORATION_AMPLITUDE_REDUCTION ); // cooling due to evaporation
+          this.scheduledEvaporationAmount = this.scheduledEvaporationAmount + EVAPORATION_AMPLITUDE_REDUCTION; // cooling due to evaporation
         }
       }
     }
