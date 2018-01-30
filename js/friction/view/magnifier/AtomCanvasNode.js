@@ -130,7 +130,11 @@ define( function( require ) {
       }
     },
 
-    // when an AtomNode view is created, we want a reference so we can quickly scan a list of atoms
+    /**
+     * when an AtomNode view is created, we want a reference so we can quickly scan a list of atoms
+     * @param atom
+     * @public
+     */
     registerAtom: function( atom ) {
       this.atoms.push( atom );
     }

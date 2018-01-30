@@ -29,6 +29,7 @@ define( function( require ) {
     var self = this;
     var radius = model.atoms.radius;
 
+    // TODO: mark these variables with visibility annotations
     this.isTopAtom = options.color === FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR; // flag records whether we are on the top book
     this.isEvaporated = false;
     this.currentX = 0;

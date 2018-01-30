@@ -295,18 +295,14 @@ define( function( require ) {
 
       // add one layer of atoms
       var addLayer = function( target, layer, y, x, color ) {
-        var i;
-        var n;
-        var offset;
         var evaporate;
-        var atom;
         var row = [];
 
-        for ( i = 0; i < layer.length; i++ ) {
-          offset = layer[ i ].offset || 0;
+        for ( var i = 0; i < layer.length; i++ ) {
+          var offset = layer[ i ].offset || 0;
           evaporate = layer[ i ].evaporate || false;
-          for ( n = 0; n < layer[ i ].num; n++ ) {
-            atom = new AtomNode( model, { y: y, x: x + ( offset + n ) * dx, color: color } );
+          for ( var n = 0; n < layer[ i ].num; n++ ) {
+            var atom = new AtomNode( model, { y: y, x: x + ( offset + n ) * dx, color: color } );
             if ( evaporate ) {
               row.push( atom );
             }
