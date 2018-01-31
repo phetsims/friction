@@ -44,7 +44,7 @@ define( function( require ) {
       tandem: tandem.createTandem( 'physicsBookNode' )
     } ) );
 
-    // @private (for a11y) - add chemistry book
+    // @private - add chemistry book
     this.draggableBook = new BookNode( model, chemistryString, {
       x: 65,
       y: 209,
