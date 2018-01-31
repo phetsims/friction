@@ -75,8 +75,8 @@ define( function( require ) {
 
     // update atom's position based on vibration and center position
     model.newStepProperty.link( function() {
-      self.currentX = self.x0 + model.temperatureProperty.get() * ( Math.random() - 0.5 );
-      self.currentY = self.y0 + model.temperatureProperty.get() * ( Math.random() - 0.5 );
+      self.currentX = self.x0 + model.amplitudeProperty.get() * ( Math.random() - 0.5 );
+      self.currentY = self.y0 + model.amplitudeProperty.get() * ( Math.random() - 0.5 );
     } );
   }
 

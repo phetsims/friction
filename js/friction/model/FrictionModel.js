@@ -157,8 +157,8 @@ define( function( require ) {
     this.toEvaporate = [];
 
     // @public - atoms temperature = amplitude of oscillation
-    this.temperatureProperty = new NumberProperty( this.atoms.amplitude.min, {
-      tandem: tandem.createTandem( 'temperatureProperty' )
+    this.amplitudeProperty = new NumberProperty( this.atoms.amplitude.min, {
+      tandem: tandem.createTandem( 'amplitudeProperty' )
     } );
 
     // @public - position of top book, changes when dragging
@@ -198,12 +198,12 @@ define( function( require ) {
       self.distanceProperty.set( self.distanceProperty.get() - ( newPosition.minus( oldPosition || new Vector2( 0, 0 ) ) ).y );
       if ( self.contactProperty.get() ) {
         var dx = Math.abs( newPosition.x - oldPosition.x );
-        self.temperatureProperty.set( Math.min( self.temperatureProperty.get() + dx * HEATING_MULTIPLIER, self.atoms.amplitude.max ) );
+        self.amplitudeProperty.set( Math.min( self.amplitudeProperty.get() + dx * HEATING_MULTIPLIER, self.atoms.amplitude.max ) );
       }
     } );
 
     // evaporation check
-    this.temperatureProperty.link( function( amplitude ) {
+    this.amplitudeProperty.link( function( amplitude ) {
       if ( amplitude > self.atoms.evaporationLimit ) {
         self.evaporate();
       }
@@ -231,9 +231,9 @@ define( function( require ) {
       this.newStepProperty.set( !this.newStepProperty.get() );
 
       // Cool the atoms.
-      var temperature = this.temperatureProperty.get() - this.scheduledEvaporationAmount;
+      var temperature = this.amplitudeProperty.get() - this.scheduledEvaporationAmount;
       temperature = Math.max( this.atoms.amplitude.min, temperature * ( 1 - dt * COOLING_RATE ) );
-      this.temperatureProperty.set( temperature );
+      this.amplitudeProperty.set( temperature );
 
       this.scheduledEvaporationAmount = 0;
     },
@@ -243,7 +243,7 @@ define( function( require ) {
      * @public
      */
     reset: function() {
-      this.temperatureProperty.reset();
+      this.amplitudeProperty.reset();
       this.positionProperty.reset();
       this.distanceProperty.reset();
       this.bottomOffsetProperty.reset();
