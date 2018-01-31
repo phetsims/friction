@@ -9,11 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
   var friction = require( 'FRICTION/friction' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -31,6 +33,8 @@ define( function( require ) {
   var EVAPORATION_AMPLITUDE_REDUCTION = 0.01; // decrease in amplitude (a.k.a. temperature) when an atom evaporates
   var MAX_X_DISPLACEMENT = 600; // max allowed distance from center x
   var MIN_Y_POSITION = -70; // empirically determined such that top book can't be completely dragged out of frame
+
+  // TODO: rename amplitude => temperature throughout the project
 
   // atoms of top book (contains 5 rows: 4 of them can evaporate, 1 - can not)
   var topAtomsStructure = [
@@ -170,7 +174,10 @@ define( function( require ) {
     this.atomRowsToEvaporateProperty = new Property( 0 );
 
     // @private - are books in contact
-    this.contactProperty = new Property( false );
+    this.contactProperty = new Property( false, {
+      tandem: tandem.createTandem( 'contactProperty' ),
+      phetioType: PropertyIO( BooleanIO )
+    } );
 
     // @public - show hint icon
     this.hintProperty = new Property( true );
@@ -219,6 +226,8 @@ define( function( require ) {
       if ( dt > 0.5 ) {
         return;
       }
+
+      // TODO: what is happening here?
       this.newStepProperty.set( !this.newStepProperty.get() );
 
       // Cool the atoms.
@@ -250,14 +259,12 @@ define( function( require ) {
      * @public
      */
     init: function() {
-      var i;
-      var j;
-      for ( i = 0; i < this.toEvaporateSample.length; i++ ) {
+      for ( var i = 0; i < this.toEvaporateSample.length; i++ ) {
         this.toEvaporate[ i ] = this.toEvaporateSample[ i ].slice( 0 );
       }
 
       for ( i = 0; i < this.toEvaporate.length; i++ ) {
-        for ( j = 0; j < this.toEvaporate[ i ].length; j++ ) {
+        for ( var j = 0; j < this.toEvaporate[ i ].length; j++ ) {
           this.toEvaporate[ i ][ j ].reset();
         }
       }
@@ -304,7 +311,7 @@ define( function( require ) {
     },
 
     /**
-     * // TODO: this seems like the wrong place for this code, also; why is it creating so many drag handlers?
+     * // TODO: this seems like the wrong place for this code
      * @param {Node} node
      * @public
      */
