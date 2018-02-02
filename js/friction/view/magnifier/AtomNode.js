@@ -103,6 +103,8 @@ define( function( require ) {
       this.handler = function() {
         self.x0 += dx;
         self.y0 -= dy;
+
+        // TODO: memory leak for atoms moving to the left?
         if ( self.x0 > 4 * self.model.width ) {
           self.model.newStepProperty.unlink( self.handler );
           self.setVisible( false );

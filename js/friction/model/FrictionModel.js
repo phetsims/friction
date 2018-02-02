@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
+  var Emitter = require( 'AXON/Emitter' );
   var friction = require( 'FRICTION/friction' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -151,10 +152,15 @@ define( function( require ) {
       }
     };
 
-    // @public - array of all atoms which able to evaporate, need for resetting game
+    this.evaporationEmitter = new Emitter( {
+      tandem: tandem.createTandem( 'evaporationEmitter' )
+    } );
+
+    // @public - array of all AtomNodes which able to evaporate, need for resetting game
     this.toEvaporateSample = [];
 
-    // @public - current set of atoms which may evaporate, but not yet evaporated (generally the lowest row in the top book)
+    // @public - current set of AtomNodes which may evaporate, but not yet evaporated (generally the lowest row in the top book)
+    // TODO: it seems incorrect to have a list of Nodes in the model
     this.toEvaporate = [];
 
     // @public - atoms temperature = amplitude of oscillation
@@ -210,6 +216,7 @@ define( function( require ) {
     this.amplitudeProperty.link( function( amplitude ) {
       if ( amplitude > self.atoms.evaporationLimit ) {
         self.evaporate();
+        self.evaporationEmitter.emit();
       }
     } );
   }
@@ -339,6 +346,7 @@ define( function( require ) {
      */
     evaporate: function() {
       if ( this.toEvaporate[ this.toEvaporate.length - 1 ] && !this.toEvaporate[ this.toEvaporate.length - 1 ].length ) {
+
         // move to the next row of atoms to evaporate
         this.toEvaporate.pop();
         this.distanceProperty.set( this.distanceProperty.get() + this.atoms.distanceY );
@@ -346,11 +354,12 @@ define( function( require ) {
       }
 
       if ( this.toEvaporate[ this.toEvaporate.length - 1 ] ) {
+
         // choose a random atom from the current row and evaporate it
         var currentEvaporationRow = this.toEvaporate[ this.toEvaporate.length - 1 ];
-        var atom = currentEvaporationRow.splice( Math.floor( Math.random() * currentEvaporationRow.length ), 1 )[ 0 ];
-        if ( atom ) {
-          atom.evaporate();
+        var atomNode = currentEvaporationRow.splice( Math.floor( Math.random() * currentEvaporationRow.length ), 1 )[ 0 ];
+        if ( atomNode ) {
+          atomNode.evaporate();
           this.scheduledEvaporationAmount = this.scheduledEvaporationAmount + EVAPORATION_AMPLITUDE_REDUCTION; // cooling due to evaporation
         }
       }
