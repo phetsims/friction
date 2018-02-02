@@ -64,7 +64,7 @@ define( function( require ) {
 
     // move the atom as the top book moves if it is part of that book
     var motionVector = new Vector2(); // Optimization to minimize garbage collection.
-    model.positionProperty.lazyLink( function( newPosition, oldPosition ) {
+    model.bookPositionProperty.lazyLink( function( newPosition, oldPosition ) {
       if ( self.isTopAtom && !self.isEvaporated ) {
         motionVector.set( newPosition );
         motionVector.subtract( oldPosition );

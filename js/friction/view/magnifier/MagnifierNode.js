@@ -245,7 +245,7 @@ define( function( require ) {
     // Add the canvas where the atoms will be rendered. NOTE: For better performance (particularly on iPad), we are
     // using CanvasNode to render the atoms instead of individual nodes. All atoms are displayed there, even though we
     // still create AtomNode view instances.
-    this.atomCanvasNode = new AtomCanvasNode( model.positionProperty, {
+    this.atomCanvasNode = new AtomCanvasNode( model.bookPositionProperty, {
       canvasBounds: new Bounds2( 0, 0, this.param.width, this.param.height )
     } );
     this.container.addChild( this.atomCanvasNode );
@@ -255,8 +255,8 @@ define( function( require ) {
 
     // add observers
     model.hintProperty.linkAttribute( arrowIcon, 'visible' );
-    model.positionProperty.linkAttribute( this.topBookBackground, 'translation' );
-    model.positionProperty.linkAttribute( this.topAtomsLayer, 'translation' );
+    model.bookPositionProperty.linkAttribute( this.topBookBackground, 'translation' );
+    model.bookPositionProperty.linkAttribute( this.topAtomsLayer, 'translation' );
 
     model.atomRowsToEvaporateProperty.link( function( number ) {
 

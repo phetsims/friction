@@ -82,7 +82,7 @@ define( function( require ) {
       this.addAccessibleInputListener( this.keyboardDragHandler );
 
       // add observer
-      model.positionProperty.link( function( position ) {
+      model.bookPositionProperty.link( function( position ) {
         self.setTranslation( options.x + position.x * model.dndScale, options.y + position.y * model.dndScale );
       } );
     }

@@ -18,6 +18,7 @@ define( function( require ) {
   var PropertyIO = require( 'AXON/PropertyIO' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Vector2IO = require( 'DOT/Vector2IO' );
 
   var ATOM_RADIUS = FrictionSharedConstants.ATOM_RADIUS; // radius of single atom
   var DISTANCE_X = 20; // x-distance between neighbors (atoms)
@@ -162,7 +163,10 @@ define( function( require ) {
     } );
 
     // @public - position of top book, changes when dragging
-    this.positionProperty = new Property( new Vector2( 0, 0 ) );
+    this.bookPositionProperty = new Property( new Vector2( 0, 0 ), {
+      phetioType: PropertyIO( Vector2IO ),
+      tandem: tandem.createTandem( 'bookPositionProperty' )
+    } );
 
     // @public - distance between books
     this.distanceProperty = new Property( this.atoms.distance );
@@ -194,7 +198,7 @@ define( function( require ) {
     } );
 
     // set distance between atoms and set the amplitude if they are in contact
-    this.positionProperty.link( function( newPosition, oldPosition ) {
+    this.bookPositionProperty.link( function( newPosition, oldPosition ) {
       self.distanceProperty.set( self.distanceProperty.get() - ( newPosition.minus( oldPosition || new Vector2( 0, 0 ) ) ).y );
       if ( self.contactProperty.get() ) {
         var dx = Math.abs( newPosition.x - oldPosition.x );
@@ -244,7 +248,7 @@ define( function( require ) {
      */
     reset: function() {
       this.amplitudeProperty.reset();
-      this.positionProperty.reset();
+      this.bookPositionProperty.reset();
       this.distanceProperty.reset();
       this.bottomOffsetProperty.reset();
       this.atomRowsToEvaporateProperty.reset();
@@ -296,18 +300,18 @@ define( function( require ) {
         this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + v.y - this.distanceProperty.get() );
         v.y = this.distanceProperty.get();
       }
-      else if ( this.positionProperty.get().y + v.y < this.minYPos ) {
-        v.y = this.minYPos - this.positionProperty.get().y; // Limit book from going out of magnifier window.
+      else if ( this.bookPositionProperty.get().y + v.y < this.minYPos ) {
+        v.y = this.minYPos - this.bookPositionProperty.get().y; // Limit book from going out of magnifier window.
       }
-      if ( this.positionProperty.get().x + v.x > MAX_X_DISPLACEMENT ) {
-        v.x = MAX_X_DISPLACEMENT - this.positionProperty.get().x;
+      if ( this.bookPositionProperty.get().x + v.x > MAX_X_DISPLACEMENT ) {
+        v.x = MAX_X_DISPLACEMENT - this.bookPositionProperty.get().x;
       }
-      else if ( this.positionProperty.get().x + v.x < -MAX_X_DISPLACEMENT ) {
-        v.x = -MAX_X_DISPLACEMENT - this.positionProperty.get().x;
+      else if ( this.bookPositionProperty.get().x + v.x < -MAX_X_DISPLACEMENT ) {
+        v.x = -MAX_X_DISPLACEMENT - this.bookPositionProperty.get().x;
       }
 
       // set the new position
-      this.positionProperty.set( this.positionProperty.get().plus( v ) );
+      this.bookPositionProperty.set( this.bookPositionProperty.get().plus( v ) );
     },
 
     /**

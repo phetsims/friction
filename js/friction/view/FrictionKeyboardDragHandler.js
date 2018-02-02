@@ -26,16 +26,16 @@ define( function( require ) {
     KeyboardDragListener.call( this, {
       positionDelta: 10,
       shiftPositionDelta: 5,
-      locationProperty: model.positionProperty,
+      locationProperty: model.bookPositionProperty,
       start: function() {
-        oldValue = model.positionProperty.get().copy();
+        oldValue = model.bookPositionProperty.get().copy();
       },
       drag: function() {
-        var newValue = model.positionProperty.get();
+        var newValue = model.bookPositionProperty.get();
         model.move( { x: newValue.x - oldValue.x, y: newValue.y - oldValue.y } );
 
         // update the oldValue for the next onDrag
-        oldValue = model.positionProperty.get().copy();
+        oldValue = model.bookPositionProperty.get().copy();
       },
       dragBounds: new Bounds2(
         -FrictionModel.MAX_X_DISPLACEMENT, // left bound
