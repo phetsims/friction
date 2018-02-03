@@ -215,8 +215,7 @@ define( function( require ) {
     // evaporation check
     this.amplitudeProperty.link( function( amplitude ) {
       if ( amplitude > self.atoms.evaporationLimit ) {
-        self.evaporate();
-        self.evaporationEmitter.emit();
+        self.tryToEvaporate();
       }
     } );
   }
@@ -344,7 +343,7 @@ define( function( require ) {
      * TODO: document me
      * @private
      */
-    evaporate: function() {
+    tryToEvaporate: function() {
       if ( this.toEvaporate[ this.toEvaporate.length - 1 ] && !this.toEvaporate[ this.toEvaporate.length - 1 ].length ) {
 
         // move to the next row of atoms to evaporate
@@ -360,6 +359,7 @@ define( function( require ) {
         var atomNode = currentEvaporationRow.splice( Math.floor( Math.random() * currentEvaporationRow.length ), 1 )[ 0 ];
         if ( atomNode ) {
           atomNode.evaporate();
+          this.evaporationEmitter.emit();
           this.scheduledEvaporationAmount = this.scheduledEvaporationAmount + EVAPORATION_AMPLITUDE_REDUCTION; // cooling due to evaporation
         }
       }
