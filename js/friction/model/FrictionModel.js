@@ -317,12 +317,14 @@ define( function( require ) {
       }
 
       // set the new position
+      // TODO: Vector2.plus should take a Vector2 argument
       this.bookPositionProperty.set( this.bookPositionProperty.get().plus( v ) );
     },
 
     /**
      * // TODO: this seems like the wrong place for this code
      * @param {Node} node
+     * @param {Tandem} tandem
      * @public
      */
     addDragInputListener: function( node, tandem ) {
@@ -364,7 +366,10 @@ define( function( require ) {
         }
       }
     }
-  }, { // statics
+  }, {
+
+    // statics
+
     // a11y - needed to get bounds for the keyboard drag handler, see https://github.com/phetsims/friction/issues/46
     MAX_X_DISPLACEMENT: MAX_X_DISPLACEMENT,
     MIN_Y_POSITION: MIN_Y_POSITION
