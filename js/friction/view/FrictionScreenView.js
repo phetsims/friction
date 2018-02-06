@@ -93,8 +93,14 @@ define( function( require ) {
   friction.register( 'FrictionScreenView', FrictionScreenView );
 
   return inherit( ScreenView, FrictionScreenView, {
-    step: function( timeElapsed ) {
-      this.magnifierNode.step( timeElapsed );
+
+    /**
+     * Move forward in time
+     * @param {number} dt - seconds
+     * @public
+     */
+    step: function( dt ) {
+      this.magnifierNode.step( dt );
     }
   } );
 } );

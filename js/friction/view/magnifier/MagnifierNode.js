@@ -272,6 +272,11 @@ define( function( require ) {
 
   return inherit( Node, MagnifierNode, {
 
+    /**
+     * Move forward in time
+     * @param {number} dt - seconds
+     * @public
+     */
     step: function( dt ) {
       this.atomCanvasNode.invalidatePaint(); // tell the atom canvas to redraw itself
     },

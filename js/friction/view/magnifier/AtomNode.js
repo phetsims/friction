@@ -110,6 +110,9 @@ define( function( require ) {
           self.setVisible( false );
         }
       };
+
+      // TODO: why is this linking every time it evaporates?  Can it only evaporate once?
+      // TODO: does this file need a dispose function?
       this.model.newStepProperty.link( self.handler );
     },
     getYrange: function() {
