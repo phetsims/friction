@@ -1,7 +1,7 @@
 // Copyright 2013-2018, University of Colorado Boulder
 
 /**
- * Container for single book.
+ * Container for single book.  TODO: indicate whether these are macroscopic or microscopic books.
  *
  * @author Andrey Zelenkov (Mlearner)
  */

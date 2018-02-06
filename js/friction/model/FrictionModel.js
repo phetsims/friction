@@ -36,7 +36,7 @@ define( function( require ) {
   var MAX_X_DISPLACEMENT = 600; // max allowed distance from center x
   var MIN_Y_POSITION = -70; // empirically determined such that top book can't be completely dragged out of frame
 
-  // TODO: rename amplitude => temperature throughout the project
+  // TODO: rename amplitude => temperature throughout the project?  Or maybe not?
 
   // atoms of top book (contains 5 rows: 4 of them can evaporate, 1 - can not)
   var topAtomsStructure = [
