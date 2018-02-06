@@ -2,6 +2,7 @@
 
 /**
  * Shared constants for the 'Friction' simulation.
+ * TODO: rename to FrictionConstants
  *
  * @author Jesse Greenberg (PhET Interactive Simulations)
  * @author Michael Kauzmann (PhET Interactive Simulations)
