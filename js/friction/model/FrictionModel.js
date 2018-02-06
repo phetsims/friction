@@ -22,9 +22,9 @@ define( function( require ) {
   var Vector2IO = require( 'DOT/Vector2IO' );
 
   var ATOM_RADIUS = FrictionSharedConstants.ATOM_RADIUS; // radius of single atom
-  var DISTANCE_X = 20; // x-distance between neighbors (atoms)
-  var DISTANCE_Y = 20; // y-distance between neighbors (atoms)
-  var DISTANCE_INITIAL = 25; // initial distance between top and bottom atoms
+  var ATOM_SPACING_X = 20; // x-distance between neighbors (atoms)
+  var ATOM_SPACING_Y = 20; // y-distance between neighbors (atoms)
+  var INITIAL_ATOM_SPACING_Y = 25; // initial distance between top and bottom atoms
   var AMPLITUDE_MIN = 1; // min amplitude for an atom
   var AMPLITUDE_EVAPORATE = 7; // evaporation amplitude for an atom
   var AMPLITUDE_MAX = 12; // atom's max amplitude
@@ -134,9 +134,9 @@ define( function( require ) {
     // @public - create a suitable structure from the initial data for further work
     this.atoms = {
       radius: ATOM_RADIUS,
-      distanceX: DISTANCE_X,
-      distanceY: DISTANCE_Y,
-      distance: DISTANCE_INITIAL,
+      distanceX: ATOM_SPACING_X,
+      distanceY: ATOM_SPACING_Y,
+      distance: INITIAL_ATOM_SPACING_Y,
       amplitude: {
         min: AMPLITUDE_MIN,
         max: AMPLITUDE_MAX

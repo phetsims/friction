@@ -16,10 +16,10 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var FONT = new PhetFont( 22 );
   var friction = require( 'FRICTION/friction' );
 
   // constants
+  var FONT = new PhetFont( 22 );
   var WIDTH = 200;
   var HEIGHT = 30;
   var ROUND = 5;
