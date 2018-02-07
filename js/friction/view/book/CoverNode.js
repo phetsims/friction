@@ -31,19 +31,18 @@ define( function( require ) {
   var ANGLE = Math.PI / 12;
 
   /**
-   * @param {number} x
-   * @param {number} y
    * @param {string} title
    * @param {Object} options
    * @constructor
    */
-  function CoverNode( x, y, title, options ) {
+  function CoverNode( title, options ) {
 
     options = _.extend( {
       stroke: 'gray',
       color: 'black'
     }, options );
 
+    debugger;
     Node.call( this, { x: options.x, y: options.y } );
 
     // add last page

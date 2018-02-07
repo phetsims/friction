@@ -49,7 +49,7 @@ define( function( require ) {
     Node.call( this, options );
 
     // add cover
-    this.addChild( new CoverNode( options.x, options.y, title, options ) );
+    this.addChild( new CoverNode( title, options ) );
 
     // init drag and a11y options for the draggable book
     if ( options.drag ) {
