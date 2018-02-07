@@ -20,7 +20,7 @@ define( function( require ) {
 
   /**
    * @param {Property.<Vector2>} topPositionProperty
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function AtomCanvasNode( topPositionProperty, options ) {
@@ -28,6 +28,7 @@ define( function( require ) {
     CanvasNode.call( this, options );
 
     // Property[Vector2] that holds the translation of the top book
+    // TODO: is this used?
     this.topPositionProperty = topPositionProperty;
 
     // create a canvas and render the particle images that will be used
@@ -102,7 +103,7 @@ define( function( require ) {
   return inherit( CanvasNode, AtomCanvasNode, {
 
     /**
-     * paints the particles on the canvas node
+     * Paints the particles on the canvas node
      * @param {CanvasRenderingContext2D} context
      */
     paintCanvas: function( context ) {
@@ -131,7 +132,7 @@ define( function( require ) {
     },
 
     /**
-     * when an AtomNode view is created, we want a reference so we can quickly scan a list of atoms
+     * When an AtomNode view is created, we want a reference so we can quickly scan a list of atoms
      * @param atom
      * @public
      */

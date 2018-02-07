@@ -119,18 +119,18 @@ define( function( require ) {
   ];
 
   /**
-   * @param {number} width
-   * @param {number} height
+   * @param {number} width - width in view=model coordinates
+   * @param {number} height - height in view=model coordinates
    * @param {Tandem} tandem
    * @constructor
    */
   function FrictionModel( width, height, tandem ) {
     var self = this;
 
-    // @public - dimensions of the model's space
+    // @public
     this.width = width;
 
-    // @public - dimensions of the model's space
+    // @public
     this.height = height;
 
     // @private - track how much to evaporate in step() to prevent a property loop
@@ -294,6 +294,7 @@ define( function( require ) {
      * Move the book, checking to make sure the new location is valid. If the book is going to move out of bounds,
      * prevent movement.
      *
+     * TODO: arg should be Vector2
      * @param {Object} v {x:{number}, y:{number}} - NOT a Vector2 (presumably to reduce memory footprint)
      * @public
      */
@@ -328,7 +329,7 @@ define( function( require ) {
 
     /**
      * // TODO: this seems like the wrong place for this code
-     * @param {Node} node
+     * @param {Node} node - the node which will receive the input listener
      * @param {Tandem} tandem
      * @public
      */

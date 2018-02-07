@@ -24,7 +24,7 @@ define( function( require ) {
    * @param {number} y
    * @param {number} width
    * @param {number} height
-   * @param {number} round
+   * @param {number} round TODO: document this arg
    * @param {Vector2} leftAnchor - point on the magnifier to draw the left dashed line to
    * @param {Vector2} rightAnchor - point on the magnifier to draw the right dashed line to
    * @param {Object} [options]

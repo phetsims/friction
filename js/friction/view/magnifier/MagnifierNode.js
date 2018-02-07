@@ -54,14 +54,15 @@ define( function( require ) {
    * @param {FrictionModel} model
    * @param {number} x
    * @param {number} y
-   * @param {number} targetX
+   * @param {number} targetX // TODO: document this and below
    * @param {number} targetY
    * @param {string} title -  the title of the book that is draggable, used for a11y
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function MagnifierNode( model, x, y, targetX, targetY, title, options ) {
 
+    // TODO: move x,y into options
     options = _.extend( {
       x: x,
       y: y
@@ -295,14 +296,15 @@ define( function( require ) {
       var dy = model.atoms.distanceY;
 
       /**
-       * TODO: docs
+       * TODO: docs and types
        * @param target
        * @param layer
-       * @param y
+       * @param y TODO: why does y go before x?
        * @param x
-       * @param {string} color - HEADS up this must be a string because it indexes into an object.
+       * @param {string} color - this must be a string because it indexes into an object.
        */
       var addLayer = function( target, layer, y, x, color ) {
+        // TODO: assert that color is a string
         var evaporate;
         var row = [];
 
@@ -342,7 +344,8 @@ define( function( require ) {
      * @param {FrictionModel} model
      * @param {Node} target
      * @param {Node} target
-     * @param {Object} options
+     * @param {Object} [options]
+     * TODO: visibility annotation
      */
     addRowCircles: function( model, target, options ) {
 

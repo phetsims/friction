@@ -30,7 +30,7 @@ define( function( require ) {
   /**
    * @param {FrictionModel} model
    * @param {string} title - title that appears on the book spine
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function BookNode( model, title, options ) {

@@ -32,7 +32,7 @@ define( function( require ) {
 
   /**
    * @param {string} title
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function CoverNode( title, options ) {

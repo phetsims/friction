@@ -50,7 +50,7 @@ define( function( require ) {
   }
 
   /**
-   * @param options
+   * @param {Object} [options]
    * @constructor
    */
   function MoveBookHelpNode( options ) {
