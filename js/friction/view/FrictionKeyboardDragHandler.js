@@ -16,8 +16,8 @@ define( function( require ) {
   var KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
 
   /**
-   * @constructor
    * @param {FrictionModel} model
+   * @constructor
    */
   function FrictionKeyboardDragHandler( model ) {
 

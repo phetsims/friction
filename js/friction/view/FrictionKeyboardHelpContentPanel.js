@@ -30,8 +30,6 @@ define( function( require ) {
   };
 
   /**
-   * Constructor.
-   *
    * @constructor
    */
   function FrictionKeyboardHelpContentPanel() {
