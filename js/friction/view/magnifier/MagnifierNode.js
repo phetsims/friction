@@ -37,6 +37,7 @@ define( function( require ) {
   var ARROW_LENGTH = 70;
   var INTER_ARROW_SPACING = 20;
   var ARROW_OPTIONS = {
+
     // These values were empirically determined based on visual appearance.
     headHeight: 32,
     headWidth: 30,
@@ -90,9 +91,8 @@ define( function( require ) {
     this.param.topAtoms.y = this.param.height / 3 - model.atoms.distance;
     this.param.bottomAtoms.y = 2 * this.param.height / 3;
 
-
     // add container for clipping
-    this.addChild( this.container = new Node() );
+    this.addChild( this.container = new Node() ); // TODO: do not assign value in expression
 
     // add container where the individual atoms will be placed
     this.bottomAtomsLayer = new Node();

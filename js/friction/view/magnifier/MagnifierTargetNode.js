@@ -7,9 +7,10 @@
  */
 define( function( require ) {
   'use strict';
+
+  // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-
   var friction = require( 'FRICTION/friction' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -39,7 +40,7 @@ define( function( require ) {
     this.leftAnchor = leftAnchor;
     this.rightAnchor = rightAnchor;
 
-    this.magRect = new Rectangle( 0, 0, width, height, round, round, { stroke: options.stroke, lineWidth: 1 } );
+    this.magRect = new Rectangle( 0, 0, width, height, round, round, { stroke: options.stroke, lineWidth: 1 } ); // TODO: rename var
     this.addChild( this.magRect );
     this.pathLeft = new Path( new Shape(), { stroke: options.stroke, lineDash: [ 10, 10 ] } );
     this.addChild( this.pathLeft );

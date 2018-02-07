@@ -18,10 +18,12 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var RichText = require( 'SCENERY/nodes/RichText' );
 
+  // strings
   var moveBookHeaderString = require( 'string!FRICTION/moveBookHeader' );
   var moveBookString = require( 'string!FRICTION/moveBook' );
   var moveInSmallerStepsString = require( 'string!FRICTION/moveInSmallerSteps' );
 
+  // constants
   var DEFAULT_LABEL_OPTIONS = {
     font: HelpContent.DEFAULT_LABEL_FONT,
     maxWidth: HelpContent.DEFAULT_TEXT_MAX_WIDTH

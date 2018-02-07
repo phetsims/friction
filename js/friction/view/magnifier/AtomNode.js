@@ -34,7 +34,7 @@ define( function( require ) {
     this.isEvaporated = false;
     this.currentX = 0;
     this.currentY = 0;
-    this.x0 = options.x;
+    this.x0 = options.x; // TODO: is this variable used elsewhere?  Does it need a better name?
     this.y0 = options.y;
     this.model = model;
     this.options = options;

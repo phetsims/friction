@@ -196,7 +196,7 @@ define( function( require ) {
     this.newStepProperty = new Property( false );
 
     // @public - drag and drop book coordinates conversion coefficient
-    this.dndScale = 0.025;
+    this.dndScale = 0.025; // TODO: better name
 
     // check atom's contact
     this.distanceProperty.link( function( distance ) {
@@ -282,7 +282,7 @@ define( function( require ) {
       this.atomRowsToEvaporateProperty.set( this.toEvaporate.length );
 
       // set min vertical position
-      this.minYPos = MIN_Y_POSITION;
+      this.minYPos = MIN_Y_POSITION; // TODO: better name
     },
 
     /**
