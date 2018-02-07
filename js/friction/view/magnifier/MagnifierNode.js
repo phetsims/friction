@@ -4,6 +4,9 @@
  * Container for magnifier
  *
  * @author Andrey Zelenkov (Mlearner)
+ * @author John Blanco (PhET Interactive Simulations)
+ * @author Michael Kauzmann (PhET Interactive Simulations)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

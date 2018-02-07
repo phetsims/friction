@@ -4,6 +4,9 @@
  * view for magnifier's target, this includes the dashed traces up to the magnified view
  *
  * @author Andrey Zelenkov (Mlearner)
+ * @author John Blanco (PhET Interactive Simulations)
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

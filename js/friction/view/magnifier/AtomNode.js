@@ -4,6 +4,8 @@
  * view for single atom
  *
  * @author Andrey Zelenkov (Mlearner)
+ * @author John Blanco (PhET Interactive Simulations)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

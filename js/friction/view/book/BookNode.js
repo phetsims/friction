@@ -4,6 +4,9 @@
  * Container for single book.  TODO: indicate whether these are macroscopic or microscopic books.
  *
  * @author Andrey Zelenkov (Mlearner)
+ * @author John Blanco (PhET Interactive Simulations)
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

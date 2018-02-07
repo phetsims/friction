@@ -4,12 +4,13 @@
  * The model for the Friction sim.
  *
  * @author Andrey Zelenkov (Mlearner)
+ * @author John Blanco (PhET Interactive Simulations)
+ * @author Sam Reid (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
 
   // modules
-  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
   var Emitter = require( 'AXON/Emitter' );
   var friction = require( 'FRICTION/friction' );
   var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
@@ -20,6 +21,9 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector2IO = require( 'DOT/Vector2IO' );
+
+  // phet-io modules
+  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
 
   // constants
   var ATOM_RADIUS = FrictionSharedConstants.ATOM_RADIUS; // radius of single atom
