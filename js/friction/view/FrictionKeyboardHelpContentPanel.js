@@ -50,7 +50,6 @@ define( function( require ) {
   }
 
   /**
-   *
    * @param options
    * @constructor
    */
