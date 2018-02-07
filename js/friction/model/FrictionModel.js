@@ -21,6 +21,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Vector2IO = require( 'DOT/Vector2IO' );
 
+  // constants
   var ATOM_RADIUS = FrictionSharedConstants.ATOM_RADIUS; // radius of single atom
   var ATOM_SPACING_X = 20; // x-distance between neighbors (atoms)
   var ATOM_SPACING_Y = 20; // y-distance between neighbors (atoms)

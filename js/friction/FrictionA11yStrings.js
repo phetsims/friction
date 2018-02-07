@@ -10,6 +10,7 @@
 define( function( require ) {
   'use strict';
 
+  // modules
   var friction = require( 'FRICTION/friction' );
 
   var FrictionA11yStrings = {
