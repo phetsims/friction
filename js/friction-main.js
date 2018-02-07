@@ -4,6 +4,11 @@
  * Main entry point for the 'Friction' sim.
  *
  * @author Andrey Zelenkov (Mlearner)
+ * @author Sam Reid (PhET Interactive Simulations)
+ * @author Michael Kauzmann (PhET Interactive Simulations)
+ * @author Jonathan Olson (PhET Interactive Simulations)
+ * @author Chris Malley (PixelZoom, Inc.)
+ * @author John Blanco (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
