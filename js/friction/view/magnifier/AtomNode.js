@@ -126,6 +126,7 @@ define( function( require ) {
      * TODO: visibility annotation
      * @returns {number}
      */
+    // TODO: fix casing on the name
     getYrange: function() {
       return this.model.distanceProperty.get() + this.model.atoms.distanceY * this.model.toEvaporate.length;
     },
