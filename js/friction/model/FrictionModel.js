@@ -133,7 +133,7 @@ define( function( require ) {
     // @public
     this.height = height;
 
-    // @private - track how much to evaporate in step() to prevent a property loop
+    // @private - track how much to evaporate in step() to prevent a Property loop
     this.scheduledEvaporationAmount = 0;
 
     // @public - create a suitable structure from the initial data for further work

@@ -45,7 +45,7 @@ define( function( require ) {
       accessibility: true
     };
 
-    //Create and start the sim
+    // Create and start the sim
     var screenTandem = Tandem.rootTandem.createTandem( 'frictionScreen' );
     new Sim( frictionTitleString, [
       new Screen( function() {
