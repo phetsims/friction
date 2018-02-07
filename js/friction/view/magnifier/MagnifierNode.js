@@ -308,6 +308,7 @@ define( function( require ) {
        * @param {string} color - this must be a string because it indexes into an object.
        */
       var addLayer = function( target, layer, y, x, color ) {
+
         // TODO: assert that color is a string
         var evaporate;
         var row = [];

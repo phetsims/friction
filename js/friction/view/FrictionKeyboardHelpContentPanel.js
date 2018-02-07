@@ -57,6 +57,7 @@ define( function( require ) {
 
     Node.call( this );
     options = _.extend( {
+
       // icon options
       arrowKeysScale: 0.55,
       verticalIconSpacing: HelpContent.DEFAULT_VERTICAL_ICON_SPACING
