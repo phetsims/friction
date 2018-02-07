@@ -138,6 +138,5 @@ define( function( require ) {
     registerAtom: function( atom ) {
       this.atoms.push( atom );
     }
-
   } );
 } );

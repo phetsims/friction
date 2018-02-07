@@ -91,6 +91,10 @@ define( function( require ) {
   friction.register( 'AtomNode', AtomNode );
 
   return inherit( Node, AtomNode, {
+
+    /**
+     * TODO: visibility annotation
+     */
     evaporate: function() {
       var self = this;
 
@@ -117,9 +121,18 @@ define( function( require ) {
       // TODO: does this file need a dispose function?
       this.model.newStepProperty.link( self.handler );
     },
+
+    /**
+     * TODO: visibility annotation
+     * @returns {number}
+     */
     getYrange: function() {
       return this.model.distanceProperty.get() + this.model.atoms.distanceY * this.model.toEvaporate.length;
     },
+
+    /**
+     * @public
+     */
     reset: function() {
       this.x0 = this.options.x;
       this.y0 = this.options.y;

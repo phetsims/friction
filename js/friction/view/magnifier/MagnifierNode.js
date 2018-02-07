@@ -284,6 +284,9 @@ define( function( require ) {
       this.atomCanvasNode.invalidatePaint(); // tell the atom canvas to redraw itself
     },
 
+    /**
+     * @param {FrictionModel} model
+     */
     addAtoms: function( model ) {
       var self = this;
       var topAtoms = this.param.topAtoms;

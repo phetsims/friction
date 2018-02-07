@@ -57,6 +57,12 @@ define( function( require ) {
   return inherit( Node, MagnifierTargetNode, {
 
     // TODO: rename method
+    /**
+     * TODO: document
+     * @param {number} x
+     * @param {number} y
+     * TODO: mark visibility
+     */
     set: function( x, y ) {
       this.pathLeft.setShape( new Shape()
         .moveTo( this.leftAnchor.x, this.leftAnchor.y )
