@@ -43,7 +43,8 @@ define( function( require ) {
     this.leftAnchor = leftAnchor;
     this.rightAnchor = rightAnchor;
 
-    this.magRect = new Rectangle( 0, 0, width, height, round, round, { stroke: options.stroke, lineWidth: 1 } ); // TODO: rename var
+    // TODO: rename var
+    this.magRect = new Rectangle( 0, 0, width, height, round, round, { stroke: options.stroke, lineWidth: 1 } );
     this.addChild( this.magRect );
     this.pathLeft = new Path( new Shape(), { stroke: options.stroke, lineDash: [ 10, 10 ] } );
     this.addChild( this.pathLeft );

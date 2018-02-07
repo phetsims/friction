@@ -48,8 +48,12 @@ define( function( require ) {
     //Create and start the sim
     var screenTandem = Tandem.rootTandem.createTandem( 'frictionScreen' );
     new Sim( frictionTitleString, [
-      new Screen( function() {return new FrictionModel( LAYOUT_BOUNDS.width, LAYOUT_BOUNDS.height, screenTandem.createTandem( 'model' ) );},
-        function( model ) {return new FrictionScreenView( model, screenTandem.createTandem( 'view' ) );}, {
+      new Screen( function() {
+          return new FrictionModel( LAYOUT_BOUNDS.width, LAYOUT_BOUNDS.height, screenTandem.createTandem( 'model' ) );
+        },
+        function( model ) {
+          return new FrictionScreenView( model, screenTandem.createTandem( 'view' ) );
+        }, {
           backgroundColorProperty: new Property( '#fff' ),
           tandem: screenTandem
         }

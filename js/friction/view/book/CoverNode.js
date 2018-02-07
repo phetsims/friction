@@ -32,7 +32,7 @@ define( function( require ) {
 
   /**
    * @param {string} title
-   * @param {Object} [options]
+   * @param {Object} options
    * @constructor
    */
   function CoverNode( title, options ) {
@@ -42,7 +42,6 @@ define( function( require ) {
       color: 'black'
     }, options );
 
-    debugger;
     Node.call( this, { x: options.x, y: options.y } );
 
     // add last page
@@ -91,8 +90,9 @@ define( function( require ) {
 
     // add remaining pages
     for ( var i = 0, dy = ( HEIGHT - ROUND ) / PAGES, dl = LENGTH / 5, offset = 5; i < PAGES; i++ ) {
-      var x2 = WIDTH + ROUND / 2 + Math.cos( ANGLE ) * ( LENGTH - offset + dl * ( Math.pow( 1 / 2 - i / PAGES, 2 ) - 1 / 4 ) );
-      var y2 = ROUND / 2 + dy * i - Math.sin( ANGLE ) * ( LENGTH - offset + dl * ( Math.pow( 1 / 2 - i / PAGES, 2 ) - 1 / 4 ) );
+      var amplitude = ( LENGTH - offset + dl * ( Math.pow( 1 / 2 - i / PAGES, 2 ) - 1 / 4 ) );
+      var x2 = WIDTH + ROUND / 2 + Math.cos( ANGLE ) * amplitude;
+      var y2 = ROUND / 2 + dy * i - Math.sin( ANGLE ) * amplitude;
       this.addChild( new Path( new Shape()
           .moveTo( WIDTH + ROUND / 2, ROUND / 2 + dy * i )
           .lineTo( x2, y2 ), {

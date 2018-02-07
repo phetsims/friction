@@ -41,7 +41,7 @@ define( function( require ) {
         -FrictionModel.MAX_X_DISPLACEMENT, // left bound
         FrictionModel.MIN_Y_POSITION, // top bound
         FrictionModel.MAX_X_DISPLACEMENT, // right bound
-        2000 ) // bottom bound, arbitrary because the model stops the motion when the top atoms collide with the bottom book
+        2000 ) // bottom, arbitrary because the model stops the motion when the top atoms collide with the bottom book
     } );
   }
 

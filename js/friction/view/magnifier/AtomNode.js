@@ -32,7 +32,8 @@ define( function( require ) {
     var radius = model.atoms.radius;
 
     // TODO: mark these variables with visibility annotations
-    this.isTopAtom = options.color === FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR; // flag records whether we are on the top book
+    // flag records whether we are on the top book
+    this.isTopAtom = options.color === FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR;
     this.isEvaporated = false;
     this.currentX = 0;
     this.currentY = 0;
@@ -44,7 +45,9 @@ define( function( require ) {
 
     // function for creating or obtaining atom graphic for a given color
     if ( !AtomNode.atomGraphics[ options.color ] ) {
-      var scale = AtomNode.imageScale; // Scale up before rasterization so it won't be too pixellated/fuzzy, value empirically determined.
+
+      // Scale up before rasterization so it won't be too pixellated/fuzzy, value empirically determined.
+      var scale = AtomNode.imageScale;
       var container = new Node( { scale: 1 / scale } );
       var atomNode = new Circle( radius, { fill: options.color, stroke: 'black', lineWidth: 1, scale: scale } );
       atomNode.addChild( new Circle( radius * 0.3, { fill: 'white', x: radius * 0.3, y: -radius * 0.3 } ) );
@@ -86,7 +89,10 @@ define( function( require ) {
   AtomNode.imageScale = 3;
   AtomNode.atomGraphics = {};
   AtomNode.atomImages = {};
-  AtomNode.atomOffset = null; // NOTE: this is OK for now because the atoms are the same size, and the toImage'd images should have the exact same offsets
+
+  // NOTE: this is OK for now because the atoms are the same size, and the toImage'd images should have the exact same
+  // offsets
+  AtomNode.atomOffset = null;
 
   friction.register( 'AtomNode', AtomNode );
 

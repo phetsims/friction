@@ -147,24 +147,28 @@ define( function( require ) {
     this.topBookBackground.addChild( background );
 
     // init drag for drag area
-    var dragArea = new Rectangle( 0.055 * this.param.width, 0.175 * this.param.height, 0.875 * this.param.width, model.atoms.distanceY * 6, {
-      fill: null,
+    var dragArea = new Rectangle(
+      0.055 * this.param.width,
+      0.175 * this.param.height,
+      0.875 * this.param.width,
+      model.atoms.distanceY * 6, {
+        fill: null,
 
-      // a11y - add accessibility to the rectangle that surrounds the top atoms.
-      tagName: 'div',
-      parentContainerAriaRole: 'application',
-      parentContainerTagName: 'div',
-      focusable: true,
-      focusHighlightLayerable: true,
-      prependLabels: true,
+        // a11y - add accessibility to the rectangle that surrounds the top atoms.
+        tagName: 'div',
+        parentContainerAriaRole: 'application',
+        parentContainerTagName: 'div',
+        focusable: true,
+        focusHighlightLayerable: true,
+        prependLabels: true,
 
-      // Add the accessibleLabel based on the name of the name of the book title.
-      accessibleLabel: StringUtils.fillIn( atomicViewBookTitleStringPattern, {
-        bookTitleString: StringUtils.fillIn( bookTitleStringPattern, {
-          bookTitle: title
+        // Add the accessibleLabel based on the name of the name of the book title.
+        accessibleLabel: StringUtils.fillIn( atomicViewBookTitleStringPattern, {
+          bookTitleString: StringUtils.fillIn( bookTitleStringPattern, {
+            bookTitle: title
+          } )
         } )
-      } )
-    } );
+      } );
     model.addDragInputListener( dragArea, options.tandem.createTandem( 'dragAreaDragHandler' ) );
     this.topBookBackground.addChild( dragArea );
 
@@ -172,8 +176,8 @@ define( function( require ) {
     dragArea.setAriaLabelledByNode( dragArea );
     dragArea.setAriaLabelledContent( AccessiblePeer.PARENT_CONTAINER );
 
-    // a11y - The focusHighlight of the top atoms. It also includes the place for the arrows so that it extends up into the
-    // book "background." Dilated to get around the arrows fully. See `atomRowsToEvaporateProperty.link()` below
+    // a11y - The focusHighlight of the top atoms. It also includes the place for the arrows so that it extends up into
+    // the book "background." Dilated to get around the arrows fully. See `atomRowsToEvaporateProperty.link()` below
     var arrowAndTopAtomsForFocusHighlight = new Node();
     arrowAndTopAtomsForFocusHighlight.children = [ dragArea, Rectangle.bounds( arrowIcon.bounds.dilated( 3 ) ) ];
 

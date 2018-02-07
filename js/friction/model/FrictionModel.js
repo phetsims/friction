@@ -164,7 +164,8 @@ define( function( require ) {
     // @public - array of all AtomNodes which able to evaporate, need for resetting game
     this.toEvaporateSample = [];
 
-    // @public - current set of AtomNodes which may evaporate, but not yet evaporated (generally the lowest row in the top book)
+    // @public - current set of AtomNodes which may evaporate, but not yet evaporated (generally the lowest row in the
+    // top book)
     // TODO: it seems incorrect to have a list of Nodes in the model
     this.toEvaporate = [];
 
@@ -210,10 +211,12 @@ define( function( require ) {
 
     // set distance between atoms and set the amplitude if they are in contact
     this.bookPositionProperty.link( function( newPosition, oldPosition ) {
-      self.distanceProperty.set( self.distanceProperty.get() - ( newPosition.minus( oldPosition || new Vector2( 0, 0 ) ) ).y );
+      oldPosition = oldPosition || Vector2.ZERO;
+      self.distanceProperty.set( self.distanceProperty.get() - ( newPosition.minus( oldPosition ) ).y );
       if ( self.contactProperty.get() ) {
         var dx = Math.abs( newPosition.x - oldPosition.x );
-        self.amplitudeProperty.set( Math.min( self.amplitudeProperty.get() + dx * HEATING_MULTIPLIER, self.atoms.amplitude.max ) );
+        var newValue = self.amplitudeProperty.get() + dx * HEATING_MULTIPLIER;
+        self.amplitudeProperty.set( Math.min( newValue, self.atoms.amplitude.max ) );
       }
     } );
 
@@ -368,7 +371,9 @@ define( function( require ) {
         if ( atomNode ) {
           atomNode.evaporate();
           this.evaporationEmitter.emit();
-          this.scheduledEvaporationAmount = this.scheduledEvaporationAmount + EVAPORATION_AMPLITUDE_REDUCTION; // cooling due to evaporation
+
+          // cooling due to evaporation
+          this.scheduledEvaporationAmount = this.scheduledEvaporationAmount + EVAPORATION_AMPLITUDE_REDUCTION;
         }
       }
     }
