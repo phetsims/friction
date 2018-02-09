@@ -249,9 +249,9 @@ define( function( require ) {
       this.newStepProperty.set( !this.newStepProperty.get() );
 
       // Cool the atoms.
-      var temperature = this.amplitudeProperty.get() - this.scheduledEvaporationAmount;
-      temperature = Math.max( this.atoms.amplitude.min, temperature * ( 1 - dt * COOLING_RATE ) );
-      this.amplitudeProperty.set( temperature );
+      var amplitude = this.amplitudeProperty.get() - this.scheduledEvaporationAmount;
+      amplitude = Math.max( this.atoms.amplitude.min, amplitude * ( 1 - dt * COOLING_RATE ) );
+      this.amplitudeProperty.set( amplitude );
 
       this.scheduledEvaporationAmount = 0;
     },

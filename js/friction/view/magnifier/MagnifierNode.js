@@ -253,7 +253,7 @@ define( function( require ) {
     // Add the canvas where the atoms will be rendered. NOTE: For better performance (particularly on iPad), we are
     // using CanvasNode to render the atoms instead of individual nodes. All atoms are displayed there, even though we
     // still create AtomNode view instances.
-    this.atomCanvasNode = new AtomCanvasNode( model.bookPositionProperty, {
+    this.atomCanvasNode = new AtomCanvasNode( {
       canvasBounds: new Bounds2( 0, 0, this.param.width, this.param.height )
     } );
     this.container.addChild( this.atomCanvasNode );

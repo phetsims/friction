@@ -19,17 +19,12 @@ define( function( require ) {
   var PARTICLE_IMAGE_SIZE = 32; // pixels, square
 
   /**
-   * @param {Property.<Vector2>} topPositionProperty
    * @param {Object} [options]
    * @constructor
    */
-  function AtomCanvasNode( topPositionProperty, options ) {
+  function AtomCanvasNode( options ) {
 
     CanvasNode.call( this, options );
-
-    // Property[Vector2] that holds the translation of the top book
-    // TODO: is this used?
-    this.topPositionProperty = topPositionProperty;
 
     // create a canvas and render the particle images that will be used
     // TODO: why not render these with scenery and use Node.toImage? or toImageSynchronous?
