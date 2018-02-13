@@ -326,11 +326,11 @@ define( function( require ) {
           var offset = layer[ i ].offset || 0;
           evaporate = layer[ i ].evaporate || false;
           for ( var n = 0; n < layer[ i ].num; n++ ) {
-            var atom = new AtomNode( model, { y: y, x: x + ( offset + n ) * dx, color: color } );
+            var atomNode = new AtomNode( model, { y: y, x: x + ( offset + n ) * dx, color: color } );
             if ( evaporate ) {
-              row.push( atom );
+              row.push( atomNode );
             }
-            self.atomCanvasNode.registerAtom( atom );
+            self.atomCanvasNode.registerAtom( atomNode );
           }
         }
         if ( evaporate ) {

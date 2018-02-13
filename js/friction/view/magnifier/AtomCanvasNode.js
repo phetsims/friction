@@ -105,15 +105,15 @@ define( function( require ) {
 
       // render each of the atoms on the canvas
       for ( var i = 0; i < this.atomCanvasNodeAtoms.length; i++ ) {
-        var atom = this.atomCanvasNodeAtoms[ i ];
+        var atomNode = this.atomCanvasNodeAtoms[ i ];
         context.drawImage(
           this.particleImageCanvas,
-          atom.isTopAtom ? 0 : PARTICLE_IMAGE_SIZE,
+          atomNode.isTopAtom ? 0 : PARTICLE_IMAGE_SIZE,
           0,
           PARTICLE_IMAGE_SIZE,
           PARTICLE_IMAGE_SIZE,
-          atom.currentX - particleImageSize / 2,
-          atom.currentY - particleImageSize / 2,
+          atomNode.currentX - particleImageSize / 2,
+          atomNode.currentY - particleImageSize / 2,
           particleImageSize,
           particleImageSize
         );
