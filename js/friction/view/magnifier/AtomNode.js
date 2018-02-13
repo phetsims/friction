@@ -13,7 +13,7 @@ define( function( require ) {
   // modules
   var Circle = require( 'SCENERY/nodes/Circle' );
   var friction = require( 'FRICTION/friction' );
-  var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
+  var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -34,7 +34,7 @@ define( function( require ) {
 
     // TODO: mark these variables with visibility annotations
     // flag records whether we are on the top book
-    this.isTopAtom = options.color === FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR;
+    this.isTopAtom = options.color === FrictionConstants.TOP_BOOK_ATOMS_COLOR;
 
     // TODO: visibility annotation and docs
     this.isEvaporated = false;

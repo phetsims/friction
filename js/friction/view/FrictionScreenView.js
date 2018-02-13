@@ -14,7 +14,7 @@ define( function( require ) {
   var BookNode = require( 'FRICTION/friction/view/book/BookNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var friction = require( 'FRICTION/friction' );
-  var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
+  var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MagnifierNode = require( 'FRICTION/friction/view/magnifier/MagnifierNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -50,7 +50,7 @@ define( function( require ) {
     this.draggableBook = new BookNode( model, chemistryString, {
       x: 65,
       y: 209,
-      color: FrictionSharedConstants.TOP_BOOK_COLOR_MACRO,
+      color: FrictionConstants.TOP_BOOK_COLOR_MACRO,
       drag: true,
       tandem: tandem.createTandem( 'chemistryBookNode' )
     } );

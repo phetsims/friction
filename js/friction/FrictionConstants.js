@@ -2,7 +2,6 @@
 
 /**
  * Shared constants for the 'Friction' simulation.
- * TODO: rename to FrictionConstants
  *
  * @author Jesse Greenberg (PhET Interactive Simulations)
  * @author Michael Kauzmann (PhET Interactive Simulations)
@@ -13,7 +12,7 @@ define( function( require ) {
   // modules
   var friction = require( 'FRICTION/friction' );
 
-  var FrictionSharedConstants = {
+  var FrictionConstants = {
     TOP_BOOK_COLOR_MACRO: 'rgb(125,226,249)', // color of the macroscopic view of the book
     TOP_BOOK_COLOR: 'rgb(125,226,249)', // color for the book in the magnified view
     TOP_BOOK_ATOMS_COLOR: 'rgb( 0, 255, 255 )', // color for the atoms in the magnified view
@@ -24,7 +23,7 @@ define( function( require ) {
     ATOM_RADIUS: 7 // in screen coordinates
   };
 
-  friction.register( 'FrictionSharedConstants', FrictionSharedConstants );
+  friction.register( 'FrictionConstants', FrictionConstants );
 
-  return FrictionSharedConstants;
+  return FrictionConstants;
 } );

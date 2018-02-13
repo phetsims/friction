@@ -18,7 +18,7 @@ define( function( require ) {
   var friction = require( 'FRICTION/friction' );
   var FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
-  var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
+  var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
@@ -40,7 +40,7 @@ define( function( require ) {
 
       // whether or not we can drag the book
       drag: false,
-      color: FrictionSharedConstants.BOTTOM_BOOK_COLOR_MACRO
+      color: FrictionConstants.BOTTOM_BOOK_COLOR_MACRO
     }, options );
 
     assert && assert( typeof options.x === 'number', 'options.x must be specified' );

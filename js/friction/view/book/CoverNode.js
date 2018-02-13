@@ -11,7 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
+  var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -71,7 +71,7 @@ define( function( require ) {
     } ) );
     var titleNode = new Text( title, {
       font: FONT,
-      fill: FrictionSharedConstants.BOOK_TEXT_COLOR,
+      fill: FrictionConstants.BOOK_TEXT_COLOR,
       pickable: false
     } );
     titleNode.scale( Math.min( ( WIDTH * 0.9 ) / titleNode.width, 1 ) );

@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
   var friction = require( 'FRICTION/friction' );
-  var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
+  var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -40,7 +40,7 @@ define( function( require ) {
     var context = this.particleImageCanvas.getContext( '2d' );
     context.strokeStyle = 'black';
     context.lineWidth = 2;
-    context.fillStyle = FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR;
+    context.fillStyle = FrictionConstants.TOP_BOOK_ATOMS_COLOR;
     context.beginPath();
     context.arc(
       PARTICLE_IMAGE_SIZE / 2,
@@ -53,7 +53,7 @@ define( function( require ) {
     context.stroke();
 
     // draw the circle that will be used for atoms in the bottom book onto the canvas
-    context.fillStyle = FrictionSharedConstants.BOTTOM_BOOK_ATOMS_COLOR;
+    context.fillStyle = FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR;
     context.beginPath();
     context.arc(
       PARTICLE_IMAGE_SIZE * 1.5,
@@ -107,7 +107,7 @@ define( function( require ) {
 
       // image width - this is tweaked slightly to account for stroke and to get behavior that is consistent with
       // previous versions of the sim
-      var particleImageSize = FrictionSharedConstants.ATOM_RADIUS * 2 * 1.1;
+      var particleImageSize = FrictionConstants.ATOM_RADIUS * 2 * 1.1;
 
       // render each of the atoms on the canvas
       for ( var i = 0; i < this.atoms.length; i++ ) {

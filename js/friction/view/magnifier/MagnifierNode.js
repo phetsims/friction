@@ -22,7 +22,7 @@ define( function( require ) {
   var friction = require( 'FRICTION/friction' );
   var FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
-  var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
+  var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MagnifierTargetNode = require( 'FRICTION/friction/view/magnifier/MagnifierTargetNode' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -120,12 +120,12 @@ define( function( require ) {
           this.param.height / 3,
           0,
           this.param.round - 3,
-          { fill: FrictionSharedConstants.BOTTOM_BOOK_COLOR }
+          { fill: FrictionConstants.BOTTOM_BOOK_COLOR }
         )
       ]
     } );
     this.addRowCircles( model, this.bottomBookBackground, {
-      color: FrictionSharedConstants.BOTTOM_BOOK_COLOR,
+      color: FrictionConstants.BOTTOM_BOOK_COLOR,
       x: -model.atoms.distanceX / 2,
       y: 2 * this.param.height / 3 - 2,
       width: this.param.width
@@ -144,7 +144,7 @@ define( function( require ) {
       4 * this.param.height / 3 - model.atoms.distance,
       this.param.round,
       this.param.round, {
-        fill: FrictionSharedConstants.TOP_BOOK_COLOR
+        fill: FrictionConstants.TOP_BOOK_COLOR
       } );
     model.addDragInputListener( background, options.tandem.createTandem( 'backgroundDragHandler' ) );
     this.topBookBackground.addChild( background );
@@ -194,7 +194,7 @@ define( function( require ) {
     dragArea.addAccessibleInputListener( this.keyboardDragHandler );
 
     this.addRowCircles( model, this.topBookBackground, {
-      color: FrictionSharedConstants.TOP_BOOK_COLOR,
+      color: FrictionConstants.TOP_BOOK_COLOR,
       x: -this.param.width,
       y: this.param.height / 3 - model.atoms.distance,
       width: 3 * this.param.width

@@ -13,7 +13,7 @@ define( function( require ) {
   // modules
   var Emitter = require( 'AXON/Emitter' );
   var friction = require( 'FRICTION/friction' );
-  var FrictionSharedConstants = require( 'FRICTION/friction/FrictionSharedConstants' );
+  var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
@@ -26,15 +26,15 @@ define( function( require ) {
   var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
 
   // constants
-  var ATOM_RADIUS = FrictionSharedConstants.ATOM_RADIUS; // radius of single atom
+  var ATOM_RADIUS = FrictionConstants.ATOM_RADIUS; // radius of single atom
   var ATOM_SPACING_X = 20; // x-distance between neighbors (atoms)
   var ATOM_SPACING_Y = 20; // y-distance between neighbors (atoms)
   var INITIAL_ATOM_SPACING_Y = 25; // initial distance between top and bottom atoms
   var AMPLITUDE_MIN = 1; // min amplitude for an atom
   var AMPLITUDE_EVAPORATE = 7; // evaporation amplitude for an atom
   var AMPLITUDE_MAX = 12; // atom's max amplitude
-  var BOOK_TOP_ATOMS_COLOR = FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR; // color of top book
-  var BOOK_BOTTOM_ATOMS_COLOR = FrictionSharedConstants.BOTTOM_BOOK_ATOMS_COLOR; // color of bottom
+  var BOOK_TOP_ATOMS_COLOR = FrictionConstants.TOP_BOOK_ATOMS_COLOR; // color of top book
+  var BOOK_BOTTOM_ATOMS_COLOR = FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR; // color of bottom
   var COOLING_RATE = 0.2; // proportion per second; adjust in order to change the cooling rate
   var HEATING_MULTIPLIER = 0.0075; // multiplied by distance moved while in contact to control heating rate
   var EVAPORATION_AMPLITUDE_REDUCTION = 0.01; // decrease in amplitude (a.k.a. temperature) when an atom evaporates
