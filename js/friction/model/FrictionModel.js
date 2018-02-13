@@ -18,7 +18,6 @@ define( function( require ) {
   var NumberProperty = require( 'AXON/NumberProperty' );
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector2IO = require( 'DOT/Vector2IO' );
 
@@ -323,26 +322,6 @@ define( function( require ) {
       // set the new position
       // TODO: Vector2.plus should take a Vector2 argument
       this.bookPositionProperty.set( this.bookPositionProperty.get().plus( delta ) );
-    },
-
-    /**
-     * // TODO: this seems like the wrong place for this code
-     * @param {Node} node - the node which will receive the input listener
-     * @param {Tandem} tandem
-     * @public
-     */
-    addDragInputListener: function( node, tandem ) {
-      var self = this;
-      node.cursor = 'pointer';
-      node.addInputListener( new SimpleDragHandler( {
-        translate: function( e ) {
-          self.move( new Vector2( e.delta.x, e.delta.y ) );
-        },
-        end: function() {
-          self.bottomOffsetProperty.set( 0 );
-        },
-        tandem: tandem
-      } ) );
     },
 
     /**

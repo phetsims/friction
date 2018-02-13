@@ -14,15 +14,16 @@ define( function( require ) {
   // modules
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var AtomNode = require( 'FRICTION/friction/view/magnifier/AtomNode' );
   var AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
+  var AtomNode = require( 'FRICTION/friction/view/magnifier/AtomNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var DragHandler = require( 'FRICTION/friction/view/DragHandler' );
   var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   var friction = require( 'FRICTION/friction' );
   var FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
-  var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
   var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MagnifierTargetNode = require( 'FRICTION/friction/view/magnifier/MagnifierTargetNode' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -144,9 +145,10 @@ define( function( require ) {
       4 * this.param.height / 3 - model.atoms.distance,
       this.param.round,
       this.param.round, {
-        fill: FrictionConstants.TOP_BOOK_COLOR
+        fill: FrictionConstants.TOP_BOOK_COLOR,
+        cursor: 'pointer'
       } );
-    model.addDragInputListener( background, options.tandem.createTandem( 'backgroundDragHandler' ) );
+    background.addInputListener( new DragHandler( model, options.tandem.createTandem( 'backgroundDragHandler' ) ) );
     this.topBookBackground.addChild( background );
 
     // init drag for drag area
@@ -156,6 +158,7 @@ define( function( require ) {
       0.875 * this.param.width,
       model.atoms.distanceY * 6, {
         fill: null,
+        cursor: 'pointer',
 
         // a11y - add accessibility to the rectangle that surrounds the top atoms.
         tagName: 'div',
@@ -172,7 +175,7 @@ define( function( require ) {
           } )
         } )
       } );
-    model.addDragInputListener( dragArea, options.tandem.createTandem( 'dragAreaDragHandler' ) );
+    dragArea.addInputListener( new DragHandler( model, options.tandem.createTandem( 'dragAreaDragHandler' ) ) );
     this.topBookBackground.addChild( dragArea );
 
     // this node's parent container is labelledby its label

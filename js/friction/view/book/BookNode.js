@@ -14,6 +14,7 @@ define( function( require ) {
   // modules
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var CoverNode = require( 'FRICTION/friction/view/book/CoverNode' );
+  var DragHandler = require( 'FRICTION/friction/view/DragHandler' );
   var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   var friction = require( 'FRICTION/friction' );
   var FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
@@ -70,15 +71,15 @@ define( function( require ) {
         accessibleLabel: StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } ),
         focusable: true,
         focusHighlightLayerable: true,
-        focusHighlight: focusHighlightRect
+        focusHighlight: focusHighlightRect,
+        cursor: 'pointer'
       } );
 
       // this node is labelledby its own label
       this.setAriaLabelledByNode( this );
       this.setAriaLabelledContent( AccessiblePeer.PARENT_CONTAINER );
 
-      // TODO: this seems odd
-      model.addDragInputListener( this, options.tandem.createTandem( 'dragHandler' ) );
+      this.addInputListener( new DragHandler( model, options.tandem.createTandem( 'dragHandler' ) ) );
 
       // a11y - add a keyboard drag handler
       this.keyboardDragHandler = new FrictionKeyboardDragHandler( model );
