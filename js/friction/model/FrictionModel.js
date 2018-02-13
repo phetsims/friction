@@ -369,7 +369,7 @@ define( function( require ) {
 
         // choose a random atom from the current row and evaporate it
         var currentEvaporationRow = this.toEvaporate[ this.toEvaporate.length - 1 ];
-        var atomNode = currentEvaporationRow.splice( Math.floor( Math.random() * currentEvaporationRow.length ), 1 )[ 0 ];
+        var atomNode = currentEvaporationRow.splice( Math.floor( phet.joist.random.nextDouble() * currentEvaporationRow.length ), 1 )[ 0 ];
         if ( atomNode ) {
           atomNode.evaporate();
           this.evaporationEmitter.emit();

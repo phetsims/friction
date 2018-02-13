@@ -17,6 +17,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -92,8 +93,8 @@ define( function( require ) {
 
     // update atom's position based on vibration and center position
     model.newStepProperty.link( function() {
-      self.currentX = self.x0 + model.amplitudeProperty.get() * ( Math.random() - 0.5 );
-      self.currentY = self.y0 + model.amplitudeProperty.get() * ( Math.random() - 0.5 );
+      self.currentX = self.x0 + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 );
+      self.currentY = self.y0 + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 );
     } );
   }
 
@@ -119,9 +120,9 @@ define( function( require ) {
 
       this.isEvaporated = true;
 
-      var evaporationDestinationX = this.x0 + 4 * this.model.width * ( Math.round( Math.random() ) - 0.5 );
+      var evaporationDestinationX = this.x0 + 4 * this.model.width * ( Util.roundSymmetric( phet.joist.random.nextDouble() ) - 0.5 );
       var dx = ( evaporationDestinationX - this.x0 ) / STEPS;
-      var evaporationDestinationY = this.y0 + Math.random() * 1.5 * this.getYrange();
+      var evaporationDestinationY = this.y0 + phet.joist.random.nextDouble() * 1.5 * this.getYrange();
       var dy = ( evaporationDestinationY - this.y0 ) / STEPS;
 
       // create and attach the evaporation motion handler
