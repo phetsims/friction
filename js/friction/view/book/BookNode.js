@@ -1,7 +1,7 @@
 // Copyright 2013-2018, University of Colorado Boulder
 
 /**
- * Container for single book.  TODO: indicate whether these are macroscopic or microscopic books.
+ * Displays a single macroscopic book.
  *
  * @author Andrey Zelenkov (Mlearner)
  * @author John Blanco (PhET Interactive Simulations)
