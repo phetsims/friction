@@ -29,7 +29,7 @@ define( function( require ) {
   var bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
 
   /**
-   * @param {FrictionModel} model TODO: after making TODO changes below, maybe the entire model doesn't need to be passed in
+   * @param {FrictionModel} model
    * @param {string} title - title that appears on the book spine
    * @param {Object} [options]
    * @constructor

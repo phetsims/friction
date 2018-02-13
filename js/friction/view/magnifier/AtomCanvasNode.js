@@ -86,9 +86,8 @@ define( function( require ) {
     );
     context.fill();
 
-    // array that holds the AtomNode views
-    // TODO: visibility annotation
-    this.atoms = [];
+    // @private - array that holds the AtomNode views
+    this.atomCanvasNodeAtoms = [];
 
     // pre-allocated vector, improves performance
     // TODO: visibility annotation
@@ -110,8 +109,8 @@ define( function( require ) {
       var particleImageSize = FrictionConstants.ATOM_RADIUS * 2 * 1.1;
 
       // render each of the atoms on the canvas
-      for ( var i = 0; i < this.atoms.length; i++ ) {
-        var atom = this.atoms[ i ];
+      for ( var i = 0; i < this.atomCanvasNodeAtoms.length; i++ ) {
+        var atom = this.atomCanvasNodeAtoms[ i ];
         this.particleImagePosition.x = atom.currentX - particleImageSize / 2;
         this.particleImagePosition.y = atom.currentY - particleImageSize / 2;
         context.drawImage(
@@ -134,7 +133,7 @@ define( function( require ) {
      * @public
      */
     registerAtom: function( atom ) {
-      this.atoms.push( atom );
+      this.atomCanvasNodeAtoms.push( atom );
     }
   } );
 } );
