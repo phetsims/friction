@@ -13,7 +13,6 @@ define( function( require ) {
   var friction = require( 'FRICTION/friction' );
   var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var PARTICLE_IMAGE_SIZE = 32; // pixels, square
@@ -88,10 +87,6 @@ define( function( require ) {
 
     // @private - array that holds the AtomNode views
     this.atomCanvasNodeAtoms = [];
-
-    // pre-allocated vector, improves performance
-    // TODO: visibility annotation
-    this.particleImagePosition = new Vector2();
   }
 
   friction.register( 'AtomCanvasNode', AtomCanvasNode );
@@ -111,16 +106,14 @@ define( function( require ) {
       // render each of the atoms on the canvas
       for ( var i = 0; i < this.atomCanvasNodeAtoms.length; i++ ) {
         var atom = this.atomCanvasNodeAtoms[ i ];
-        this.particleImagePosition.x = atom.currentX - particleImageSize / 2;
-        this.particleImagePosition.y = atom.currentY - particleImageSize / 2;
         context.drawImage(
           this.particleImageCanvas,
           atom.isTopAtom ? 0 : PARTICLE_IMAGE_SIZE,
           0,
           PARTICLE_IMAGE_SIZE,
           PARTICLE_IMAGE_SIZE,
-          this.particleImagePosition.x,
-          this.particleImagePosition.y,
+          atom.currentX - particleImageSize / 2,
+          atom.currentY - particleImageSize / 2,
           particleImageSize,
           particleImageSize
         );
