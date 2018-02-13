@@ -264,7 +264,7 @@
       // whenever an element in the parallel DOM changes, we need to update its copied element as well
       var domObserver = new MutationObserver( function( mutations ) {
 
-        // This is extremely ineficient - every time the document changes, make a new copy, remove
+        // This is extremely inefficient - every time the document changes, make a new copy, remove
         // the visual dom, and add a new one
         // TODO: Work on refining this, and only modifying the elements that change in the PDOM
         copyContainer.removeChild( pDOMCopy );
