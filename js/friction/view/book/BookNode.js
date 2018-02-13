@@ -86,7 +86,7 @@ define( function( require ) {
 
       // add observer
       model.bookPositionProperty.link( function( position ) {
-        self.setTranslation( options.x + position.x * model.dndScale, options.y + position.y * model.dndScale );
+        self.setTranslation( options.x + position.x * model.bookDraggingScaleFactor, options.y + position.y * model.bookDraggingScaleFactor );
       } );
     }
   }

@@ -198,12 +198,11 @@ define( function( require ) {
     // @public (read-only) - show hint icon
     this.hintProperty = new Property( true );
 
-    // @public (read-only)- update every step
-    // TODO: Use an emitter here
+    // @public - update every step
     this.stepEmitter = new Emitter();
 
     // @public (read-only) - drag and drop book coordinates conversion coefficient
-    this.dndScale = 0.025; // TODO: better name
+    this.bookDraggingScaleFactor = 0.025;
 
     // check atom's contact
     this.distanceProperty.link( function( distance ) {
@@ -272,7 +271,7 @@ define( function( require ) {
     },
 
     /**
-     * TODO: this must be called from the end of the view construction for unknown reasonrs, or atoms don't fly off
+     * TODO: this must be called from the end of the view construction for unknown reasons, or atoms don't fly off
      * @public
      */
     init: function() {
@@ -287,9 +286,6 @@ define( function( require ) {
       }
 
       this.atomRowsToEvaporateProperty.set( this.toEvaporate.length );
-
-      // set min vertical position
-      this.minYPos = MIN_Y_POSITION; // TODO: better name
     },
 
     /**
@@ -314,8 +310,8 @@ define( function( require ) {
         this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + v.y - this.distanceProperty.get() );
         v.y = this.distanceProperty.get();
       }
-      else if ( this.bookPositionProperty.get().y + v.y < this.minYPos ) {
-        v.y = this.minYPos - this.bookPositionProperty.get().y; // Limit book from going out of magnifier window.
+      else if ( this.bookPositionProperty.get().y + v.y < MIN_Y_POSITION ) {
+        v.y = MIN_Y_POSITION - this.bookPositionProperty.get().y; // Limit book from going out of magnifier window.
       }
       if ( this.bookPositionProperty.get().x + v.x > MAX_X_DISPLACEMENT ) {
         v.x = MAX_X_DISPLACEMENT - this.bookPositionProperty.get().x;
