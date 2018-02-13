@@ -1,7 +1,7 @@
 // Copyright 2013-2018, University of Colorado Boulder
 
 /**
- * view for magnifier's target, this includes the dashed traces up to the magnified view
+ * View for magnifier's target, this includes the dashed traces up to the magnified view
  *
  * @author Andrey Zelenkov (Mlearner)
  * @author John Blanco (PhET Interactive Simulations)
@@ -38,12 +38,14 @@ define( function( require ) {
 
     Node.call( this );
 
+    // TODO: visibility annotations
     this.targetWidth = width;
     this.targetHeight = height;
     this.leftAnchor = leftAnchor;
     this.rightAnchor = rightAnchor;
 
     // TODO: rename var
+    // TODO: visibility annotation
     this.magRect = new Rectangle( 0, 0, width, height, round, round, { stroke: options.stroke, lineWidth: 1 } );
     this.addChild( this.magRect );
     this.pathLeft = new Path( new Shape(), { stroke: options.stroke, lineDash: [ 10, 10 ] } );

@@ -1,7 +1,7 @@
 // Copyright 2013-2018, University of Colorado Boulder
 
 /**
- * view for single atom
+ * Displays a single atom
  *
  * @author Andrey Zelenkov (Mlearner)
  * @author John Blanco (PhET Interactive Simulations)
@@ -34,13 +34,24 @@ define( function( require ) {
     // TODO: mark these variables with visibility annotations
     // flag records whether we are on the top book
     this.isTopAtom = options.color === FrictionSharedConstants.TOP_BOOK_ATOMS_COLOR;
+
+    // TODO: visibility annotation and docs
     this.isEvaporated = false;
+
+    // TODO: visibility annotation and docs
     this.currentX = 0;
     this.currentY = 0;
+
+    // TODO: visibility annotation and docs
     this.x0 = options.x; // TODO: is this variable used elsewhere?  Does it need a better name?
     this.y0 = options.y;
+
+    // TODO: visibility annotation and docs
     this.model = model;
+
+    // TODO: visibility annotation and docs
     this.options = options;
+
     Node.call( this, { x: this.x0, y: this.y0 } );
 
     // function for creating or obtaining atom graphic for a given color
@@ -100,7 +111,7 @@ define( function( require ) {
   return inherit( Node, AtomNode, {
 
     /**
-     * TODO: visibility annotation
+     * TODO: visibility annotation and documentation
      */
     evaporate: function() {
       var self = this;

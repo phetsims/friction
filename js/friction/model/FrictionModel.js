@@ -127,10 +127,10 @@ define( function( require ) {
   function FrictionModel( width, height, tandem ) {
     var self = this;
 
-    // @public
+    // @public - the width for the model in model=view coordinates
     this.width = width;
 
-    // @public
+    // @public - the height for the model in model=view coordinates
     this.height = height;
 
     // @private - track how much to evaporate in step() to prevent a Property loop
@@ -157,6 +157,7 @@ define( function( require ) {
       }
     };
 
+    // TODO: docs
     this.evaporationEmitter = new Emitter( {
       tandem: tandem.createTandem( 'evaporationEmitter' )
     } );

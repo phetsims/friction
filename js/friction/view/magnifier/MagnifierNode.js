@@ -1,7 +1,7 @@
 // Copyright 2013-2018, University of Colorado Boulder
 
 /**
- * Container for magnifier
+ * Container that shows the entire magnification area
  *
  * @author Andrey Zelenkov (Mlearner)
  * @author John Blanco (PhET Interactive Simulations)
@@ -99,6 +99,7 @@ define( function( require ) {
     this.addChild( this.container = new Node() ); // TODO: do not assign value in expression
 
     // add container where the individual atoms will be placed
+    // TODO: visibility annotations
     this.bottomAtomsLayer = new Node();
     this.topAtomsLayer = new Node();
 
@@ -109,6 +110,7 @@ define( function( require ) {
     arrowIcon.mutate( { centerX: this.param.width / 2, centerY: this.param.topAtoms.y / 2 } );
 
     // add bottom book
+    // TODO: visibility annotation
     this.bottomBookBackground = new Node( {
       children: [
         new Rectangle(
@@ -132,6 +134,7 @@ define( function( require ) {
     this.container.addChild( this.bottomBookBackground );
 
     // add top book
+    // TODO: visibility annotation
     this.topBookBackground = new Node();
 
     // init drag for background
@@ -236,6 +239,7 @@ define( function( require ) {
     } ) );
 
     // add magnifier's target
+    // TODO: visibility annotation
     this.target = new MagnifierTargetNode(
       targetX,
       targetY,
@@ -253,6 +257,7 @@ define( function( require ) {
     // Add the canvas where the atoms will be rendered. NOTE: For better performance (particularly on iPad), we are
     // using CanvasNode to render the atoms instead of individual nodes. All atoms are displayed there, even though we
     // still create AtomNode view instances.
+    // TODO: visibility annotation
     this.atomCanvasNode = new AtomCanvasNode( {
       canvasBounds: new Bounds2( 0, 0, this.param.width, this.param.height )
     } );
@@ -290,6 +295,7 @@ define( function( require ) {
     },
 
     /**
+     * TODO: documentation
      * @param {FrictionModel} model
      */
     addAtoms: function( model ) {

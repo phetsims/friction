@@ -87,9 +87,11 @@ define( function( require ) {
     context.fill();
 
     // array that holds the AtomNode views
+    // TODO: visibility annotation
     this.atoms = [];
 
     // pre-allocated vector, improves performance
+    // TODO: visibility annotation
     this.particleImagePosition = new Vector2();
   }
 
