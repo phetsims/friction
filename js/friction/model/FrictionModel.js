@@ -41,8 +41,6 @@ define( function( require ) {
   var MAX_X_DISPLACEMENT = 600; // max allowed distance from center x
   var MIN_Y_POSITION = -70; // empirically determined such that top book can't be completely dragged out of frame
 
-  // TODO: rename amplitude => temperature throughout the project?  Or maybe not?
-
   // atoms of top book (contains 5 rows: 4 of them can evaporate, 1 - can not)
   var topAtomsStructure = [
     /**
@@ -157,17 +155,17 @@ define( function( require ) {
       }
     };
 
-    // TODO: docs
-    // TODO: annotation (and readonly)
+    // @public (phet-io) Instrumented so that PhET-iO clients can get a message when an atom evaporates
     this.evaporationEmitter = new Emitter( {
       tandem: tandem.createTandem( 'evaporationEmitter' )
     } );
 
     // @public - array of all AtomNodes which able to evaporate, need for resetting game
+    // TODO: Why does the model have arrays of Nodes?
     this.toEvaporateSample = [];
 
-    // @public - current set of AtomNodes which may evaporate, but not yet evaporated (generally the lowest row in the
-    // top book)
+    // @public (read-only) - current set of AtomNodes which may evaporate, but not yet evaporated (generally the lowest
+    // row in the top book)
     // TODO: it seems incorrect to have a list of Nodes in the model
     this.toEvaporate = [];
 
@@ -202,7 +200,7 @@ define( function( require ) {
 
     // @public (read-only)- update every step
     // TODO: Use an emitter here
-    this.newStepProperty = new Property( false );
+    this.stepEmitter = new Emitter();
 
     // @public (read-only) - drag and drop book coordinates conversion coefficient
     this.dndScale = 0.025; // TODO: better name
@@ -248,8 +246,7 @@ define( function( require ) {
         return;
       }
 
-      // TODO: what is happening here?
-      this.newStepProperty.set( !this.newStepProperty.get() );
+      this.stepEmitter.emit();
 
       // Cool the atoms.
       var amplitude = this.amplitudeProperty.get() - this.scheduledEvaporationAmount;
@@ -271,7 +268,6 @@ define( function( require ) {
       this.atomRowsToEvaporateProperty.reset();
       this.contactProperty.reset();
       this.hintProperty.reset();
-      this.newStepProperty.reset();
       this.init();
     },
 

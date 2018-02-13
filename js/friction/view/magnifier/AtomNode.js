@@ -95,7 +95,7 @@ define( function( require ) {
     } );
 
     // update atom's position based on vibration and center position
-    model.newStepProperty.link( function() {
+    model.stepEmitter.addListener( function() {
       self.currentX = self.x0 + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 );
       self.currentY = self.y0 + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 );
     } );
@@ -135,14 +135,14 @@ define( function( require ) {
 
         // TODO: memory leak for atoms moving to the left?
         if ( self.x0 > 4 * self.model.width ) {
-          self.model.newStepProperty.unlink( self.handler );
+          self.model.stepEmitter.removeListener( self.handler );
           self.setVisible( false );
         }
       };
 
       // TODO: why is this linking every time it evaporates?  Can it only evaporate once?
       // TODO: does this file need a dispose function?
-      this.model.newStepProperty.link( self.handler );
+      this.model.stepEmitter.addListener( self.handler );
     },
 
     /**
@@ -162,8 +162,8 @@ define( function( require ) {
       this.y0 = this.options.y;
 
       // handler may have been unlinked by itself (see above), so check that we're still registered
-      if ( this.model.newStepProperty.hasListener( this.handler ) ) {
-        this.model.newStepProperty.unlink( this.handler );
+      if ( this.model.stepEmitter.hasListener( this.handler ) ) {
+        this.model.stepEmitter.removeListener( this.handler );
       }
       this.setVisible( true );
       this.isEvaporated = false;
