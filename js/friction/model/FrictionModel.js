@@ -292,37 +292,37 @@ define( function( require ) {
      * Move the book, checking to make sure the new location is valid. If the book is going to move out of bounds,
      * prevent movement.
      *
-     * TODO: arg should be Vector2
-     * @param {Object} v {x:{number}, y:{number}} - NOT a Vector2 (presumably to reduce memory footprint)
+     * @param {Vector2} delta
      * @public
      */
-    move: function( v ) {
+    move: function( delta ) {
+      assert && assert( delta instanceof Vector2, 'delta should be a Vector2' );
       this.hintProperty.set( false );
 
       // check bottom offset
-      if ( this.bottomOffsetProperty.get() > 0 && v.y < 0 ) {
-        this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + v.y );
-        v.y = 0;
+      if ( this.bottomOffsetProperty.get() > 0 && delta.y < 0 ) {
+        this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + delta.y );
+        delta.y = 0;
       }
 
       // Check if the motion vector would put the book in an invalid location and limit it if so.
-      if ( v.y > this.distanceProperty.get() ) {
-        this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + v.y - this.distanceProperty.get() );
-        v.y = this.distanceProperty.get();
+      if ( delta.y > this.distanceProperty.get() ) {
+        this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + delta.y - this.distanceProperty.get() );
+        delta.y = this.distanceProperty.get();
       }
-      else if ( this.bookPositionProperty.get().y + v.y < MIN_Y_POSITION ) {
-        v.y = MIN_Y_POSITION - this.bookPositionProperty.get().y; // Limit book from going out of magnifier window.
+      else if ( this.bookPositionProperty.get().y + delta.y < MIN_Y_POSITION ) {
+        delta.y = MIN_Y_POSITION - this.bookPositionProperty.get().y; // Limit book from going out of magnifier window.
       }
-      if ( this.bookPositionProperty.get().x + v.x > MAX_X_DISPLACEMENT ) {
-        v.x = MAX_X_DISPLACEMENT - this.bookPositionProperty.get().x;
+      if ( this.bookPositionProperty.get().x + delta.x > MAX_X_DISPLACEMENT ) {
+        delta.x = MAX_X_DISPLACEMENT - this.bookPositionProperty.get().x;
       }
-      else if ( this.bookPositionProperty.get().x + v.x < -MAX_X_DISPLACEMENT ) {
-        v.x = -MAX_X_DISPLACEMENT - this.bookPositionProperty.get().x;
+      else if ( this.bookPositionProperty.get().x + delta.x < -MAX_X_DISPLACEMENT ) {
+        delta.x = -MAX_X_DISPLACEMENT - this.bookPositionProperty.get().x;
       }
 
       // set the new position
       // TODO: Vector2.plus should take a Vector2 argument
-      this.bookPositionProperty.set( this.bookPositionProperty.get().plus( v ) );
+      this.bookPositionProperty.set( this.bookPositionProperty.get().plus( delta ) );
     },
 
     /**
@@ -336,7 +336,7 @@ define( function( require ) {
       node.cursor = 'pointer';
       node.addInputListener( new SimpleDragHandler( {
         translate: function( e ) {
-          self.move( { x: e.delta.x, y: e.delta.y } );
+          self.move( new Vector2( e.delta.x, e.delta.y ) );
         },
         end: function() {
           self.bottomOffsetProperty.set( 0 );
