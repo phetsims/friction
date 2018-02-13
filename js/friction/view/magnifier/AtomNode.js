@@ -98,6 +98,7 @@ define( function( require ) {
   }
 
   // export information needed to directly render the images
+  // TODO: move to static?
   AtomNode.imageScale = 3;
   AtomNode.atomGraphics = {};
   AtomNode.atomImages = {};

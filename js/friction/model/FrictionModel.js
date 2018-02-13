@@ -127,16 +127,16 @@ define( function( require ) {
   function FrictionModel( width, height, tandem ) {
     var self = this;
 
-    // @public - the width for the model in model=view coordinates
+    // @public (read-only) - the width for the model in model=view coordinates
     this.width = width;
 
-    // @public - the height for the model in model=view coordinates
+    // @public (read-only) - the height for the model in model=view coordinates
     this.height = height;
 
     // @private - track how much to evaporate in step() to prevent a Property loop
     this.scheduledEvaporationAmount = 0;
 
-    // @public - create a suitable structure from the initial data for further work
+    // @public (read-only) - create a suitable structure from the initial data for further work
     this.atoms = {
       radius: ATOM_RADIUS,
       distanceX: ATOM_SPACING_X,
@@ -158,6 +158,7 @@ define( function( require ) {
     };
 
     // TODO: docs
+    // TODO: annotation (and readonly)
     this.evaporationEmitter = new Emitter( {
       tandem: tandem.createTandem( 'evaporationEmitter' )
     } );
@@ -196,13 +197,13 @@ define( function( require ) {
       phetioType: PropertyIO( BooleanIO )
     } );
 
-    // @public - show hint icon
+    // @public (read-only) - show hint icon
     this.hintProperty = new Property( true );
 
-    // @public - update every step
+    // @public (read-only)- update every step
     this.newStepProperty = new Property( false );
 
-    // @public - drag and drop book coordinates conversion coefficient
+    // @public (read-only) - drag and drop book coordinates conversion coefficient
     this.dndScale = 0.025; // TODO: better name
 
     // check atom's contact
