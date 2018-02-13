@@ -61,11 +61,14 @@ define( function( require ) {
       // Scale up before rasterization so it won't be too pixellated/fuzzy, value empirically determined.
       var scale = AtomNode.imageScale;
       var container = new Node( { scale: 1 / scale } );
+
+      // TODO: should we use shaded sphere?
       var atomNode = new Circle( radius, { fill: options.color, stroke: 'black', lineWidth: 1, scale: scale } );
       atomNode.addChild( new Circle( radius * 0.3, { fill: 'white', x: radius * 0.3, y: -radius * 0.3 } ) );
       atomNode.toImage( function( img, x, y ) {
 
         // add our actual HTMLImageElement to atomImages
+        // TODO: what is happening here?
         AtomNode.atomImages[ self.isTopAtom ] = img;
         AtomNode.atomOffset = new Vector2( -x, -y );
 

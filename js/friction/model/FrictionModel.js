@@ -201,6 +201,7 @@ define( function( require ) {
     this.hintProperty = new Property( true );
 
     // @public (read-only)- update every step
+    // TODO: Use an emitter here
     this.newStepProperty = new Property( false );
 
     // @public (read-only) - drag and drop book coordinates conversion coefficient
