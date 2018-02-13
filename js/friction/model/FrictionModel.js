@@ -271,6 +271,7 @@ define( function( require ) {
 
     /**
      * TODO: this must be called from the end of the view construction for unknown reasons, or atoms don't fly off
+     * TODO: Why?  it would be better if this could be called during the constructor.
      * @public
      */
     init: function() {
@@ -320,12 +321,12 @@ define( function( require ) {
       }
 
       // set the new position
-      // TODO: Vector2.plus should take a Vector2 argument
       this.bookPositionProperty.set( this.bookPositionProperty.get().plus( delta ) );
     },
 
     /**
-     * TODO: document me
+     * If the oscillation amplitude is over the evaporation threshold, this method is called.  It will try to evaporate
+     * an atom, if one is available.
      * @private
      */
     tryToEvaporate: function() {
