@@ -288,8 +288,9 @@ define( function( require ) {
     },
 
     /**
-     * TODO: documentation
+     * Add the layers of atoms to the view *and* to the model.
      * @param {FrictionModel} model
+     * @private
      */
     addAtoms: function( model ) {
       var self = this;
@@ -299,16 +300,16 @@ define( function( require ) {
       var dy = model.atoms.distanceY;
 
       /**
-       * TODO: docs and types
-       * @param target
-       * @param layer
-       * @param y TODO: why does y go before x?
-       * @param x
+       * @param {Node} target
+       * @param {Object[]} layer
+       * @param {number} x - origin in x coordinate
+       * @param {number} y - origin in y coordinate
        * @param {string} color - this must be a string because it indexes into an object.
        */
-      var addLayer = function( target, layer, y, x, color ) {
+      var addLayer = function( target, layer, x, y, color ) {
 
-        // TODO: assert that color is a string
+        assert && assert( typeof color === 'string', 'Color should be a string' );
+
         var evaporate;
         var row = [];
 
@@ -330,12 +331,12 @@ define( function( require ) {
 
       // add top atoms
       topAtoms.atoms.layers.forEach( function( layer, i ) {
-        addLayer( topAtoms.target, layer, topAtoms.y + dy * i, topAtoms.x, topAtoms.atoms.color );
+        addLayer( topAtoms.target, layer, topAtoms.x, topAtoms.y + dy * i, topAtoms.atoms.color );
       } );
 
       // add bottom atoms
       bottomAtoms.atoms.layers.forEach( function( layer, i ) {
-        addLayer( bottomAtoms.target, layer, self.bottomAtoms.y + dy * i, self.bottomAtoms.x, bottomAtoms.atoms.color );
+        addLayer( bottomAtoms.target, layer, self.bottomAtoms.x, self.bottomAtoms.y + dy * i, bottomAtoms.atoms.color );
       } );
     },
 
@@ -345,10 +346,9 @@ define( function( require ) {
      * @param {Node} target
      * @param {Node} target
      * @param {Object} [options]
-     * TODO: visibility annotation
+     * @private
      */
     addRowCircles: function( model, target, options ) {
-
       var numberOfAtomsForRow = options.width / model.atoms.distanceX;
       for ( var i = 0; i < numberOfAtomsForRow; i++ ) {
         target.addChild( new Circle( model.atoms.radius, {
