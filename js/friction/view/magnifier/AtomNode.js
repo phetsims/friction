@@ -22,6 +22,8 @@ define( function( require ) {
 
   // constants
   var STEPS = 250; // steps until atom has completed evaporation movement
+  var IMAGE_SCALE = 3;
+  var ATOM_NODES = {}; // key = {string} color, value = node
 
   /**
    * @param {FrictionModel} model
@@ -62,32 +64,26 @@ define( function( require ) {
     Node.call( this, { x: this.originX, y: this.originY } );
 
     // function for creating or obtaining atom graphic for a given color
-    if ( !AtomNode.atomGraphics[ options.color ] ) {
+    if ( !ATOM_NODES[ options.color ] ) {
 
       // Scale up before rasterization so it won't be too pixellated/fuzzy, value empirically determined.
-      var scale = AtomNode.imageScale;
-      var container = new Node( { scale: 1 / scale } );
+      var container = new Node( { scale: 1 / IMAGE_SCALE } );
 
       // TODO: should we use shaded sphere?
-      var atomNode = new Circle( radius, { fill: options.color, stroke: 'black', lineWidth: 1, scale: scale } );
+      var atomNode = new Circle( radius, { fill: options.color, stroke: 'black', lineWidth: 1, scale: IMAGE_SCALE } );
       atomNode.addChild( new Circle( radius * 0.3, { fill: 'white', x: radius * 0.3, y: -radius * 0.3 } ) );
       atomNode.toImage( function( img, x, y ) {
 
-        // add our actual HTMLImageElement to atomImages
-        // TODO: what is happening here?
-        AtomNode.atomImages[ self.isTopAtom ] = img;
-        AtomNode.atomOffset = new Vector2( -x, -y );
-
-        // add a node with that image to our container (part of atomGraphics)
+        // add a node with that image to our container
         container.addChild( new Node( {
           children: [
             new Image( img, { x: -x, y: -y } )
           ]
         } ) );
       } );
-      AtomNode.atomGraphics[ options.color ] = container;
+      ATOM_NODES[ options.color ] = container;
     }
-    this.addChild( AtomNode.atomGraphics[ options.color ] );
+    this.addChild( ATOM_NODES[ options.color ] );
 
     // move the atom as the top book moves if it is part of that book
     var motionVector = new Vector2(); // Optimization to minimize garbage collection.
@@ -106,16 +102,6 @@ define( function( require ) {
       self.positionY = self.originY + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 );
     } );
   }
-
-  // export information needed to directly render the images
-  // TODO: move to static?
-  AtomNode.imageScale = 3;
-  AtomNode.atomGraphics = {};
-  AtomNode.atomImages = {};
-
-  // NOTE: this is OK for now because the atoms are the same size, and the toImage'd images should have the exact same
-  // offsets
-  AtomNode.atomOffset = null;
 
   friction.register( 'AtomNode', AtomNode );
 
