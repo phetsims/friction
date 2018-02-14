@@ -53,22 +53,13 @@ define( function( require ) {
 
   /**
    * @param {FrictionModel} model
-   * @param {number} x
-   * @param {number} y
-   * @param {number} targetX // TODO: document this and below
-   * @param {number} targetY
-   * @param {string} title -  the title of the book that is draggable, used for a11y
+   * @param {number} targetX - x position of the MagnifierTargetNode rectangle
+   * @param {number} targetY - y position of the MagnifierTargetNode rectangle
+   * @param {string} title - the title of the book that is draggable, used for a11y
    * @param {Object} [options]
    * @constructor
    */
-  function MagnifierNode( model, x, y, targetX, targetY, title, options ) {
-
-    // TODO: move x,y into options
-    options = _.extend( {
-      x: x,
-      y: y
-    }, options );
-
+  function MagnifierNode( model, targetX, targetY, title, options ) {
     Node.call( this, options );
 
     // main params

@@ -57,7 +57,9 @@ define( function( require ) {
     this.addChild( this.draggableBook );
 
     // add magnifier
-    this.magnifierNode = new MagnifierNode( model, 40, 25, 195, 425, chemistryString, {
+    this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, {
+      x: 40,
+      y: 25,
       layerSplit: true,
       tandem: tandem.createTandem( 'magnifierNode' )
     } );
