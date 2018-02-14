@@ -112,8 +112,8 @@ define( function( require ) {
           0,
           PARTICLE_IMAGE_SIZE,
           PARTICLE_IMAGE_SIZE,
-          atomNode.currentX - particleImageSize / 2,
-          atomNode.currentY - particleImageSize / 2,
+          atomNode.positionX - particleImageSize / 2,
+          atomNode.positionY - particleImageSize / 2,
           particleImageSize,
           particleImageSize
         );

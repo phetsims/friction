@@ -32,16 +32,17 @@ define( function( require ) {
     var self = this;
     var radius = model.atoms.radius;
 
-    // TODO: mark these variables with visibility annotations
-    // flag records whether we are on the top book
+    // @public (read-only) {boolean} flag records whether we are on the top book
     this.isTopAtom = options.color === FrictionConstants.TOP_BOOK_ATOMS_COLOR;
 
-    // TODO: visibility annotation and docs
+    // @private - marked as true when the atom is evaporated
     this.isEvaporated = false;
 
-    // TODO: visibility annotation and docs
-    this.currentX = 0;
-    this.currentY = 0;
+    // @public {number} - the x-position of the AtomNode
+    this.positionX = 0;
+
+    // @public {number} - the y-position of the AtomNode
+    this.positionY = 0;
 
     // TODO: visibility annotation and docs
     this.x0 = options.x; // TODO: is this variable used elsewhere?  Does it need a better name?
@@ -96,8 +97,8 @@ define( function( require ) {
 
     // update atom's position based on vibration and center position
     model.stepEmitter.addListener( function() {
-      self.currentX = self.x0 + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 );
-      self.currentY = self.y0 + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 );
+      self.positionX = self.x0 + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 );
+      self.positionY = self.y0 + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 );
     } );
   }
 
