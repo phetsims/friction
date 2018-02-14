@@ -44,17 +44,22 @@ define( function( require ) {
     // @public {number} - the y-position of the AtomNode
     this.positionY = 0;
 
-    // TODO: visibility annotation and docs
-    this.x0 = options.x; // TODO: is this variable used elsewhere?  Does it need a better name?
-    this.y0 = options.y;
+    // @private {number} - origin for oscillation
+    this.originX = options.x;
 
-    // TODO: visibility annotation and docs
+    // @private {number} - origin for oscillation
+    this.originY = options.y;
+
+    // @private {FrictionModel} 
     this.model = model;
 
-    // TODO: visibility annotation and docs
-    this.options = options;
+    // @private {number} initial coordinate for resetting
+    this.initialX = options.x;
 
-    Node.call( this, { x: this.x0, y: this.y0 } );
+    // @private {number} initial coordinate for resetting
+    this.initialY = options.y;
+
+    Node.call( this, { x: this.originX, y: this.originY } );
 
     // function for creating or obtaining atom graphic for a given color
     if ( !AtomNode.atomGraphics[ options.color ] ) {
@@ -90,15 +95,15 @@ define( function( require ) {
       if ( self.isTopAtom && !self.isEvaporated ) {
         motionVector.set( newPosition );
         motionVector.subtract( oldPosition );
-        self.x0 = self.x0 + motionVector.x;
-        self.y0 = self.y0 + motionVector.y;
+        self.originX = self.originX + motionVector.x;
+        self.originY = self.originY + motionVector.y;
       }
     } );
 
     // update atom's position based on vibration and center position
     model.stepEmitter.addListener( function() {
-      self.positionX = self.x0 + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 );
-      self.positionY = self.y0 + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 );
+      self.positionX = self.originX + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 );
+      self.positionY = self.originY + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 );
     } );
   }
 
@@ -124,18 +129,18 @@ define( function( require ) {
 
       this.isEvaporated = true;
 
-      var evaporationDestinationX = this.x0 + 4 * this.model.width * ( Util.roundSymmetric( phet.joist.random.nextDouble() ) - 0.5 );
-      var dx = ( evaporationDestinationX - this.x0 ) / STEPS;
-      var evaporationDestinationY = this.y0 + phet.joist.random.nextDouble() * 1.5 * this.getYrange();
-      var dy = ( evaporationDestinationY - this.y0 ) / STEPS;
+      var evaporationDestinationX = this.originX + 4 * this.model.width * ( Util.roundSymmetric( phet.joist.random.nextDouble() ) - 0.5 );
+      var dx = ( evaporationDestinationX - this.originX ) / STEPS;
+      var evaporationDestinationY = this.originY + phet.joist.random.nextDouble() * 1.5 * this.getYrange();
+      var dy = ( evaporationDestinationY - this.originY ) / STEPS;
 
       // create and attach the evaporation motion handler
       this.handler = function() {
-        self.x0 += dx;
-        self.y0 -= dy;
+        self.originX += dx;
+        self.originY -= dy;
 
         // TODO: memory leak for atoms moving to the left?
-        if ( self.x0 > 4 * self.model.width ) {
+        if ( self.originX > 4 * self.model.width ) {
           self.model.stepEmitter.removeListener( self.handler );
           self.setVisible( false );
         }
@@ -159,8 +164,8 @@ define( function( require ) {
      * @public
      */
     reset: function() {
-      this.x0 = this.options.x;
-      this.y0 = this.options.y;
+      this.originX = this.initialX;
+      this.originY = this.initialY;
 
       // handler may have been unlinked by itself (see above), so check that we're still registered
       if ( this.model.stepEmitter.hasListener( this.handler ) ) {
