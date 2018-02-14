@@ -29,7 +29,7 @@ define( function( require ) {
     // TODO: why not render these with scenery and use Node.toImage? or toImageSynchronous?
     // TODO: or just use SphereNode.toImage?
     this.particleImageCanvas = document.createElement( 'canvas' );
-    this.particleImageCanvas.width = PARTICLE_IMAGE_SIZE * 2; // wide enough to accommodate two particles
+    this.particleImageCanvas.width = PARTICLE_IMAGE_SIZE * 2; // wide enough to accommodate two particles // TODO: WHY?
     this.particleImageCanvas.height = PARTICLE_IMAGE_SIZE;
 
     // the particle radius must be a little smaller than half the image to allow space for the stroke
