@@ -242,8 +242,7 @@ define( function( require ) {
     } ) );
 
     // add magnifier's target
-    // TODO: visibility annotation
-    this.target = new MagnifierTargetNode(
+    var magnifierTargetNode = new MagnifierTargetNode(
       targetX,
       targetY,
       this.param.width * this.param.scale,
@@ -252,7 +251,7 @@ define( function( require ) {
       new Vector2( this.param.round, this.param.height ),
       new Vector2( this.param.width - this.param.round, this.param.height )
     );
-    this.addChild( this.target );
+    this.addChild( magnifierTargetNode );
 
     // add the arrow at the end
     this.container.addChild( arrowIcon );
