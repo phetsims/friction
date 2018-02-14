@@ -24,13 +24,13 @@ define( function( require ) {
    * @param {number} y
    * @param {number} width
    * @param {number} height
-   * @param {number} round TODO: document this arg
+   * @param {number} cornerRadius - corner radius for the rectangle (in X and Y)
    * @param {Vector2} leftAnchor - point on the magnifier to draw the left dashed line to
    * @param {Vector2} rightAnchor - point on the magnifier to draw the right dashed line to
    * @param {Object} [options]
    * @constructor
    */
-  function MagnifierTargetNode( x, y, width, height, round, leftAnchor, rightAnchor, options ) {
+  function MagnifierTargetNode( x, y, width, height, cornerRadius, leftAnchor, rightAnchor, options ) {
 
     options = _.extend( {
       stroke: 'black'
@@ -38,44 +38,30 @@ define( function( require ) {
 
     Node.call( this );
 
-    // TODO: visibility annotations
-    this.targetWidth = width;
-    this.targetHeight = height;
-    this.leftAnchor = leftAnchor;
-    this.rightAnchor = rightAnchor;
+    var rectangle = new Rectangle( 0, 0, width, height, cornerRadius, cornerRadius, {
+      stroke: options.stroke,
+      lineWidth: 1
+    } );
+    this.addChild( rectangle );
+    var pathLeft = new Path( new Shape()
+      .moveToPoint( leftAnchor )
+      .lineTo( x - width / 2, y ), {
+      stroke: options.stroke,
+      lineDash: [ 10, 10 ]
+    } );
+    this.addChild( pathLeft );
+    var pathRight = new Path( new Shape()
+      .moveToPoint( rightAnchor )
+      .lineTo( x + width / 2, y ), {
+      stroke: options.stroke,
+      lineDash: [ 10, 10 ]
+    } );
+    this.addChild( pathRight );
 
-    // TODO: rename var
-    // TODO: visibility annotation
-    this.magRect = new Rectangle( 0, 0, width, height, round, round, { stroke: options.stroke, lineWidth: 1 } );
-    this.addChild( this.magRect );
-    this.pathLeft = new Path( new Shape(), { stroke: options.stroke, lineDash: [ 10, 10 ] } );
-    this.addChild( this.pathLeft );
-    this.pathRight = new Path( new Shape(), { stroke: options.stroke, lineDash: [ 10, 10 ] } );
-    this.addChild( this.pathRight );
-    this.set( x, y );
+    rectangle.setTranslation( x - width / 2, y - height / 2 );
   }
 
   friction.register( 'MagnifierTargetNode', MagnifierTargetNode );
 
-  return inherit( Node, MagnifierTargetNode, {
-
-    // TODO: rename method
-    /**
-     * TODO: document
-     * @param {number} x
-     * @param {number} y
-     * TODO: mark visibility
-     */
-    set: function( x, y ) {
-      this.pathLeft.setShape( new Shape()
-        .moveTo( this.leftAnchor.x, this.leftAnchor.y )
-        .lineTo( x - this.targetWidth / 2, y ) );
-
-      this.pathRight.setShape( new Shape()
-        .moveTo( this.rightAnchor.x, this.rightAnchor.y )
-        .lineTo( x + this.targetWidth / 2, y ) );
-
-      this.magRect.setTranslation( x - this.targetWidth / 2, y - this.targetHeight / 2 );
-    }
-  } );
+  return inherit( Node, MagnifierTargetNode );
 } );
