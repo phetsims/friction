@@ -111,6 +111,7 @@ define( function( require ) {
      * TODO: visibility annotation and documentation
      */
     evaporate: function() {
+      assert && assert( !this.isEvaporated, 'AtomNode was already evaporated' );
       var self = this;
 
       this.isEvaporated = true;
@@ -125,8 +126,7 @@ define( function( require ) {
         self.originX += dx;
         self.originY -= dy;
 
-        // TODO: memory leak for atoms moving to the left?
-        if ( self.originX > 4 * self.model.width ) {
+        if ( Math.abs( self.originX ) > 4 * self.model.width ) {
           self.model.stepEmitter.removeListener( self.handler );
           self.setVisible( false );
         }
