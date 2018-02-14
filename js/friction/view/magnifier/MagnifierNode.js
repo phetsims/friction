@@ -88,7 +88,8 @@ define( function( require ) {
     this.param.bottomAtoms.y = 2 * this.param.height / 3;
 
     // add container for clipping
-    this.addChild( this.container = new Node() ); // TODO: do not assign value in expression
+    this.container = new Node();
+    this.addChild( this.container );
 
     // add container where the individual atoms will be placed
     // TODO: visibility annotations
