@@ -225,6 +225,8 @@ define( function( require ) {
         self.tryToEvaporate();
       }
     } );
+
+    this.init();
   }
 
   friction.register( 'FrictionModel', FrictionModel );
@@ -270,8 +272,8 @@ define( function( require ) {
     },
 
     /**
-     * TODO: this must be called from the end of the view construction for unknown reasons, or atoms don't fly off
-     * TODO: Why?  it would be better if this could be called during the constructor.
+     * This must be called after MagnifierNode adds AtomNodes to the toEvaporateSample, or atoms don't fly off
+     * TODO: It would be better if this could be called during the constructor and didn't need a view step first
      * @public
      */
     init: function() {

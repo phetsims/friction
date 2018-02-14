@@ -90,7 +90,8 @@ define( function( require ) {
       tandem: tandem.createTandem( 'resetAllButton' )
     } ) );
 
-    model.init(); // TODO: does this need to be called here?  If so, why?
+    // Initialize the model now that MagnifierNode has added the toEvaporateSample AtomNodes
+    model.init();
   }
 
   friction.register( 'FrictionScreenView', FrictionScreenView );
