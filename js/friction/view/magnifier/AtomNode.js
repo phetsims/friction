@@ -108,7 +108,8 @@ define( function( require ) {
   return inherit( Node, AtomNode, {
 
     /**
-     * TODO: visibility annotation and documentation
+     * When the oscillation has exceeded the threshold, the AtomNode animates to one side of the screen and disappears.
+     * @public
      */
     evaporate: function() {
       assert && assert( !this.isEvaporated, 'AtomNode was already evaporated' );
@@ -118,10 +119,12 @@ define( function( require ) {
 
       var evaporationDestinationX = this.originX + 4 * this.model.width * ( Util.roundSymmetric( phet.joist.random.nextDouble() ) - 0.5 );
       var dx = ( evaporationDestinationX - this.originX ) / STEPS;
-      var evaporationDestinationY = this.originY + phet.joist.random.nextDouble() * 1.5 * this.getYrange();
+
+      var yRange = this.model.distanceProperty.get() + this.model.atoms.distanceY * this.model.toEvaporate.length;
+      var evaporationDestinationY = this.originY + phet.joist.random.nextDouble() * 1.5 * yRange;
       var dy = ( evaporationDestinationY - this.originY ) / STEPS;
 
-      // create and attach the evaporation motion handler
+      // @private {function} evaporation motion handler
       this.handler = function() {
         self.originX += dx;
         self.originY -= dy;
@@ -132,18 +135,7 @@ define( function( require ) {
         }
       };
 
-      // TODO: why is this linking every time it evaporates?  Can it only evaporate once?
-      // TODO: does this file need a dispose function?
       this.model.stepEmitter.addListener( self.handler );
-    },
-
-    /**
-     * TODO: visibility annotation
-     * @returns {number}
-     */
-    // TODO: fix casing on the name
-    getYrange: function() {
-      return this.model.distanceProperty.get() + this.model.atoms.distanceY * this.model.toEvaporate.length;
     },
 
     /**
