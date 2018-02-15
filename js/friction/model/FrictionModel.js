@@ -272,6 +272,7 @@ define( function( require ) {
     /**
      * This must be called after MagnifierNode adds Atoms to the toEvaporateSample, or atoms don't fly off
      * TODO: It would be better if this could be called during the constructor and didn't need a view step first
+     * see https://github.com/phetsims/friction/issues/70
      * @public
      */
     init: function() {
