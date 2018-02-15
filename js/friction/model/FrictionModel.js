@@ -160,12 +160,10 @@ define( function( require ) {
     } );
 
     // @public - array of all Atoms which able to evaporate, need for resetting game
-    // TODO: Why does the model have arrays of Nodes?
     this.toEvaporateSample = [];
 
     // @public (read-only) - current set of Atoms which may evaporate, but not yet evaporated (generally the lowest
     // row in the top book)
-    // TODO: it seems incorrect to have a list of Nodes in the model
     this.toEvaporate = [];
 
     // @public - atoms temperature = amplitude of oscillation
