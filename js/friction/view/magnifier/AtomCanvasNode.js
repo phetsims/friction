@@ -85,7 +85,7 @@ define( function( require ) {
     );
     context.fill();
 
-    // @private - array that holds the AtomNode views
+    // @private - array that holds the Atoms
     this.atomCanvasNodeAtoms = [];
   }
 
@@ -105,15 +105,15 @@ define( function( require ) {
 
       // render each of the atoms on the canvas
       for ( var i = 0; i < this.atomCanvasNodeAtoms.length; i++ ) {
-        var atomNode = this.atomCanvasNodeAtoms[ i ];
+        var atom = this.atomCanvasNodeAtoms[ i ];
         context.drawImage(
           this.particleImageCanvas,
-          atomNode.isTopAtom ? 0 : PARTICLE_IMAGE_SIZE,
+          atom.isTopAtom ? 0 : PARTICLE_IMAGE_SIZE,
           0,
           PARTICLE_IMAGE_SIZE,
           PARTICLE_IMAGE_SIZE,
-          atomNode.positionX - particleImageSize / 2,
-          atomNode.positionY - particleImageSize / 2,
+          atom.positionX - particleImageSize / 2,
+          atom.positionY - particleImageSize / 2,
           particleImageSize,
           particleImageSize
         );
@@ -121,7 +121,7 @@ define( function( require ) {
     },
 
     /**
-     * When an AtomNode view is created, we want a reference so we can quickly scan a list of atoms
+     * When an Atom is created, we want a reference so we can quickly scan a list of atoms
      * @param atom
      * @public
      */

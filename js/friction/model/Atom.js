@@ -1,7 +1,7 @@
 // Copyright 2013-2018, University of Colorado Boulder
 
 /**
- * Displays a single atom
+ * Model for a single atom
  *
  * @author Andrey Zelenkov (Mlearner)
  * @author John Blanco (PhET Interactive Simulations)
@@ -11,28 +11,22 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Circle = require( 'SCENERY/nodes/Circle' );
   var friction = require( 'FRICTION/friction' );
   var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var STEPS = 250; // steps until atom has completed evaporation movement
-  var IMAGE_SCALE = 3;
-  var ATOM_NODES = {}; // key = {string} color, value = node
 
   /**
    * @param {FrictionModel} model
    * @param {Object} [options]
    * @constructor
    */
-  function AtomNode( model, options ) {
+  function Atom( model, options ) {
     var self = this;
-    var radius = model.atoms.radius;
 
     // @public (read-only) {boolean} flag records whether we are on the top book
     this.isTopAtom = options.color === FrictionConstants.TOP_BOOK_ATOMS_COLOR;
@@ -40,10 +34,10 @@ define( function( require ) {
     // @private - marked as true when the atom is evaporated
     this.isEvaporated = false;
 
-    // @public {number} - the x-position of the AtomNode
+    // @public {number} - the x-position of the Atom
     this.positionX = 0;
 
-    // @public {number} - the y-position of the AtomNode
+    // @public {number} - the y-position of the Atom
     this.positionY = 0;
 
     // @private {number} - origin for oscillation
@@ -60,30 +54,6 @@ define( function( require ) {
 
     // @private {number} initial coordinate for resetting
     this.initialY = options.y;
-
-    Node.call( this, { x: this.originX, y: this.originY } );
-
-    // function for creating or obtaining atom graphic for a given color
-    if ( !ATOM_NODES[ options.color ] ) {
-
-      // Scale up before rasterization so it won't be too pixellated/fuzzy, value empirically determined.
-      var container = new Node( { scale: 1 / IMAGE_SCALE } );
-
-      // TODO: should we use shaded sphere?
-      var atomNode = new Circle( radius, { fill: options.color, stroke: 'black', lineWidth: 1, scale: IMAGE_SCALE } );
-      atomNode.addChild( new Circle( radius * 0.3, { fill: 'white', x: radius * 0.3, y: -radius * 0.3 } ) );
-      atomNode.toImage( function( img, x, y ) {
-
-        // add a node with that image to our container
-        container.addChild( new Node( {
-          children: [
-            new Image( img, { x: -x, y: -y } )
-          ]
-        } ) );
-      } );
-      ATOM_NODES[ options.color ] = container;
-    }
-    this.addChild( ATOM_NODES[ options.color ] );
 
     // move the atom as the top book moves if it is part of that book
     var motionVector = new Vector2(); // Optimization to minimize garbage collection.
@@ -103,16 +73,16 @@ define( function( require ) {
     } );
   }
 
-  friction.register( 'AtomNode', AtomNode );
+  friction.register( 'Atom', Atom );
 
-  return inherit( Node, AtomNode, {
+  return inherit( Object, Atom, {
 
     /**
-     * When the oscillation has exceeded the threshold, the AtomNode animates to one side of the screen and disappears.
+     * When the oscillation has exceeded the threshold, the Atom animates to one side of the screen and disappears.
      * @public
      */
     evaporate: function() {
-      assert && assert( !this.isEvaporated, 'AtomNode was already evaporated' );
+      assert && assert( !this.isEvaporated, 'Atom was already evaporated' );
       var self = this;
 
       this.isEvaporated = true;
@@ -131,7 +101,6 @@ define( function( require ) {
 
         if ( Math.abs( self.originX ) > 4 * self.model.width ) {
           self.model.stepEmitter.removeListener( self.handler );
-          self.setVisible( false );
         }
       };
 
@@ -139,6 +108,7 @@ define( function( require ) {
     },
 
     /**
+     * Restores the initial conditions.
      * @public
      */
     reset: function() {
@@ -149,7 +119,6 @@ define( function( require ) {
       if ( this.model.stepEmitter.hasListener( this.handler ) ) {
         this.model.stepEmitter.removeListener( this.handler );
       }
-      this.setVisible( true );
       this.isEvaporated = false;
     }
   } );

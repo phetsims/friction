@@ -159,11 +159,11 @@ define( function( require ) {
       tandem: tandem.createTandem( 'evaporationEmitter' )
     } );
 
-    // @public - array of all AtomNodes which able to evaporate, need for resetting game
+    // @public - array of all Atoms which able to evaporate, need for resetting game
     // TODO: Why does the model have arrays of Nodes?
     this.toEvaporateSample = [];
 
-    // @public (read-only) - current set of AtomNodes which may evaporate, but not yet evaporated (generally the lowest
+    // @public (read-only) - current set of Atoms which may evaporate, but not yet evaporated (generally the lowest
     // row in the top book)
     // TODO: it seems incorrect to have a list of Nodes in the model
     this.toEvaporate = [];
@@ -272,7 +272,7 @@ define( function( require ) {
     },
 
     /**
-     * This must be called after MagnifierNode adds AtomNodes to the toEvaporateSample, or atoms don't fly off
+     * This must be called after MagnifierNode adds Atoms to the toEvaporateSample, or atoms don't fly off
      * TODO: It would be better if this could be called during the constructor and didn't need a view step first
      * @public
      */
@@ -344,9 +344,9 @@ define( function( require ) {
 
         // choose a random atom from the current row and evaporate it
         var currentEvaporationRow = this.toEvaporate[ this.toEvaporate.length - 1 ];
-        var atomNode = currentEvaporationRow.splice( Math.floor( phet.joist.random.nextDouble() * currentEvaporationRow.length ), 1 )[ 0 ];
-        if ( atomNode ) {
-          atomNode.evaporate();
+        var atom = currentEvaporationRow.splice( Math.floor( phet.joist.random.nextDouble() * currentEvaporationRow.length ), 1 )[ 0 ];
+        if ( atom ) {
+          atom.evaporate();
           this.evaporationEmitter.emit();
 
           // cooling due to evaporation

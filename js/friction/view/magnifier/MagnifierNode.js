@@ -15,7 +15,7 @@ define( function( require ) {
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
-  var AtomNode = require( 'FRICTION/friction/view/magnifier/AtomNode' );
+  var Atom = require( 'FRICTION/friction/model/Atom' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var DragHandler = require( 'FRICTION/friction/view/DragHandler' );
@@ -250,7 +250,7 @@ define( function( require ) {
 
     // @private - Add the canvas where the atoms will be rendered. NOTE: For better performance (particularly on iPad), we are
     // using CanvasNode to render the atoms instead of individual nodes. All atoms are displayed there, even though we
-    // still create AtomNode view instances.
+    // still create Atom instances.
     this.atomCanvasNode = new AtomCanvasNode( {
       canvasBounds: new Bounds2( 0, 0, WIDTH, HEIGHT )
     } );
@@ -317,11 +317,11 @@ define( function( require ) {
           var offset = layer[ i ].offset || 0;
           evaporate = layer[ i ].evaporate || false;
           for ( var n = 0; n < layer[ i ].num; n++ ) {
-            var atomNode = new AtomNode( model, { y: y, x: x + ( offset + n ) * dx, color: color } );
+            var atom = new Atom( model, { y: y, x: x + ( offset + n ) * dx, color: color } );
             if ( evaporate ) {
-              row.push( atomNode );
+              row.push( atom );
             }
-            self.atomCanvasNode.registerAtom( atomNode );
+            self.atomCanvasNode.registerAtom( atom );
           }
         }
         if ( evaporate ) {
