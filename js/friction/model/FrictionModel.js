@@ -133,6 +133,9 @@ define( function( require ) {
     // @private - track how much to evaporate in step() to prevent a Property loop
     this.scheduledEvaporationAmount = 0;
 
+    // @public - group tandem for creating the atoms
+    this.atomGroupTandem = tandem.createGroupTandem( 'atoms' );
+
     // @public (read-only) - create a suitable structure from the initial data for further work
     this.atoms = {
       radius: ATOM_RADIUS,

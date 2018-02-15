@@ -14,18 +14,22 @@ define( function( require ) {
   var friction = require( 'FRICTION/friction' );
   var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Property = require( 'AXON/Property' );
+  var PropertyIO = require( 'AXON/PropertyIO' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Vector2IO = require( 'DOT/Vector2IO' );
 
   // constants
   var STEPS = 250; // steps until atom has completed evaporation movement
 
   /**
    * @param {FrictionModel} model
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
-  function Atom( model, options ) {
+  function Atom( model, tandem, options ) {
     var self = this;
 
     // @public (read-only) {boolean} flag records whether we are on the top book
@@ -34,11 +38,11 @@ define( function( require ) {
     // @private - marked as true when the atom is evaporated
     this.isEvaporated = false;
 
-    // @public {number} - the x-position of the Atom
-    this.positionX = 0;
-
-    // @public {number} - the y-position of the Atom
-    this.positionY = 0;
+    // @public {Property.<Vector2>} - the position of the Atom relative to its origin
+    this.positionProperty = new Property( new Vector2(), {
+      phetioType: PropertyIO( Vector2IO ),
+      tandem: tandem.createTandem( 'positionProperty' )
+    } );
 
     // @private {number} - origin for oscillation
     this.originX = options.x;
@@ -46,7 +50,7 @@ define( function( require ) {
     // @private {number} - origin for oscillation
     this.originY = options.y;
 
-    // @private {FrictionModel} 
+    // @private {FrictionModel}
     this.model = model;
 
     // @private {number} initial coordinate for resetting
@@ -68,8 +72,11 @@ define( function( require ) {
 
     // update atom's position based on vibration and center position
     model.stepEmitter.addListener( function() {
-      self.positionX = self.originX + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 );
-      self.positionY = self.originY + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 );
+      var newPosition = new Vector2(
+        self.originX + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 ),
+        self.originY + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 )
+      );
+      self.positionProperty.set( newPosition );
     } );
   }
 

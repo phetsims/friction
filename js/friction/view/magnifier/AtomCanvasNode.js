@@ -88,6 +88,11 @@ define( function( require ) {
 
     // @private - array that holds the Atoms
     this.atomCanvasNodeAtoms = [];
+
+    var self = this;
+    setInterval( function() {
+      self.invalidatePaint();
+    }, 10 );
   }
 
   friction.register( 'AtomCanvasNode', AtomCanvasNode );
@@ -113,8 +118,8 @@ define( function( require ) {
           0,
           PARTICLE_IMAGE_SIZE,
           PARTICLE_IMAGE_SIZE,
-          atom.positionX - particleImageSize / 2,
-          atom.positionY - particleImageSize / 2,
+          atom.positionProperty.get().x - particleImageSize / 2,
+          atom.positionProperty.get().y - particleImageSize / 2,
           particleImageSize,
           particleImageSize
         );

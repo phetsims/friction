@@ -317,7 +317,11 @@ define( function( require ) {
           var offset = layer[ i ].offset || 0;
           evaporate = layer[ i ].evaporate || false;
           for ( var n = 0; n < layer[ i ].num; n++ ) {
-            var atom = new Atom( model, { y: y, x: x + ( offset + n ) * dx, color: color } );
+            var atom = new Atom( model, model.atomGroupTandem.createNextTandem(), {
+              x: x + ( offset + n ) * dx,
+              y: y,
+              color: color
+            } );
             if ( evaporate ) {
               row.push( atom );
             }
