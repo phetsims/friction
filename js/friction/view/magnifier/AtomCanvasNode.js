@@ -28,6 +28,7 @@ define( function( require ) {
     // create a canvas and render the particle images that will be used
     // TODO: why not render these with scenery and use Node.toImage? or toImageSynchronous?
     // TODO: or just use SphereNode.toImage?
+    // TODO: see https://github.com/phetsims/friction/issues/71
     this.particleImageCanvas = document.createElement( 'canvas' );
     this.particleImageCanvas.width = PARTICLE_IMAGE_SIZE * 2; // wide enough to accommodate two particles // TODO: WHY?
     this.particleImageCanvas.height = PARTICLE_IMAGE_SIZE;
