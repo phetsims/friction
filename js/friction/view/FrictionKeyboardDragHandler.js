@@ -14,6 +14,7 @@ define( function( require ) {
   var FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {FrictionModel} model
@@ -32,7 +33,7 @@ define( function( require ) {
       },
       drag: function() {
         var newValue = model.bookPositionProperty.get();
-        model.move( { x: newValue.x - oldValue.x, y: newValue.y - oldValue.y } );
+        model.move( new Vector2( newValue.x - oldValue.x, newValue.y - oldValue.y ) );
 
         // update the oldValue for the next onDrag
         oldValue = model.bookPositionProperty.get().copy();
