@@ -66,7 +66,7 @@ define( function( require ) {
       this.mutate( {
         tagName: 'div',
         parentContainerAriaRole: 'application',
-        parentContainerTagName: 'div',
+        containerTagName: 'div',
         prependLabels: true,
         accessibleLabel: StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } ),
         focusable: true,

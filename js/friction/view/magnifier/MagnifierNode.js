@@ -154,7 +154,7 @@ define( function( require ) {
         // a11y - add accessibility to the rectangle that surrounds the top atoms.
         tagName: 'div',
         parentContainerAriaRole: 'application',
-        parentContainerTagName: 'div',
+        containerTagName: 'div',
         focusable: true,
         focusHighlightLayerable: true,
         prependLabels: true,
