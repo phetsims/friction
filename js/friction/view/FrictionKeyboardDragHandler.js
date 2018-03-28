@@ -25,8 +25,8 @@ define( function( require ) {
     var oldValue; // determines our delta for how the positionProperty changed every drag
 
     KeyboardDragListener.call( this, {
-      positionDelta: 10,
-      shiftPositionDelta: 5,
+      downDelta: 10,
+      shiftDownDelta: 5,
       locationProperty: model.bookPositionProperty,
       start: function() {
         oldValue = model.bookPositionProperty.get().copy();
