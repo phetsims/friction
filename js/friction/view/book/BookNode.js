@@ -68,7 +68,7 @@ define( function( require ) {
         parentContainerAriaRole: 'application',
         containerTagName: 'div',
         prependLabels: true,
-        accessibleLabel: StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } ),
+        innerContent: StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } ),
         focusable: true,
         focusHighlightLayerable: true,
         focusHighlight: focusHighlightRect,

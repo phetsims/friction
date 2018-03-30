@@ -160,7 +160,7 @@ define( function( require ) {
         prependLabels: true,
 
         // Add the accessibleLabel based on the name of the name of the book title.
-        accessibleLabel: StringUtils.fillIn( atomicViewBookTitleStringPattern, {
+        innerContent: StringUtils.fillIn( atomicViewBookTitleStringPattern, {
           bookTitleString: StringUtils.fillIn( bookTitleStringPattern, {
             bookTitle: title
           } )
