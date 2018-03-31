@@ -65,7 +65,7 @@ define( function( require ) {
       // add a11y options for the interactive BookNode
       this.mutate( {
         tagName: 'div',
-        parentContainerAriaRole: 'application',
+        containerAriaRole: 'application',
         containerTagName: 'div',
         prependLabels: true,
         innerContent: StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } ),
