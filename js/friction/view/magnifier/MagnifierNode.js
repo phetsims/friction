@@ -159,7 +159,7 @@ define( function( require ) {
         focusHighlightLayerable: true,
         prependLabels: true,
 
-        // Add the accessibleLabel based on the name of the name of the book title.
+        // Add the Accessible Name based on the name of the name of the book title.
         innerContent: StringUtils.fillIn( atomicViewBookTitleStringPattern, {
           bookTitleString: StringUtils.fillIn( bookTitleStringPattern, {
             bookTitle: title
