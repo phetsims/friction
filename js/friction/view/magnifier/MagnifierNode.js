@@ -169,7 +169,7 @@ define( function( require ) {
     dragArea.addInputListener( new DragHandler( model, options.tandem.createTandem( 'dragAreaDragHandler' ) ) );
     this.topBookBackground.addChild( dragArea );
 
-    // this node's parent container is labelledby its label
+    // this node's container parent is labelledby its label
     dragArea.setAriaLabelledByNode( dragArea );
     dragArea.setAriaLabelledContent( AccessiblePeer.PARENT_CONTAINER );
 
