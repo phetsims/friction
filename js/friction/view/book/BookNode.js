@@ -67,7 +67,6 @@ define( function( require ) {
         tagName: 'div',
         containerAriaRole: 'application',
         containerTagName: 'div',
-        prependLabels: true,
         innerContent: StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } ),
         focusable: true,
         focusHighlightLayerable: true,

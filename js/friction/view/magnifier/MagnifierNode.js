@@ -157,7 +157,6 @@ define( function( require ) {
         containerTagName: 'div',
         focusable: true,
         focusHighlightLayerable: true,
-        prependLabels: true,
 
         // Add the Accessible Name based on the name of the name of the book title.
         innerContent: StringUtils.fillIn( atomicViewBookTitleStringPattern, {
