@@ -18,6 +18,8 @@ define( function( require ) {
   // constants
   var PARTICLE_IMAGE_SIZE = 32; // pixels, square
   var ATOM_NODE_LINE_WIDTH = 2;
+  var HIGHLIGHT_FACTOR = 0.7;
+  var ATOM_STROKE = 'black';
 
   /**
    * @param {Object} [options]
@@ -32,8 +34,8 @@ define( function( require ) {
 
     var topBookAtomNode = new ShadedSphereNode( PARTICLE_IMAGE_SIZE, {
       mainColor: FrictionConstants.TOP_BOOK_ATOMS_COLOR,
-      highlightColor: FrictionConstants.TOP_BOOK_ATOMS_COLOR.colorUtilsBrighter( 0.7 ),
-      stroke: 'black',
+      highlightColor: FrictionConstants.TOP_BOOK_ATOMS_COLOR.colorUtilsBrighter( HIGHLIGHT_FACTOR ),
+      stroke: ATOM_STROKE,
       lineWidth: ATOM_NODE_LINE_WIDTH
     } );
     topBookAtomNode.toCanvas( function( image ) {
@@ -42,8 +44,8 @@ define( function( require ) {
 
     var bottomBookAtomNode = new ShadedSphereNode( PARTICLE_IMAGE_SIZE, {
       mainColor: FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR,
-      highlightColor: FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR.colorUtilsBrighter( 0.7 ),
-      stroke: 'black',
+      highlightColor: FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR.colorUtilsBrighter( HIGHLIGHT_FACTOR ),
+      stroke: ATOM_STROKE,
       lineWidth: ATOM_NODE_LINE_WIDTH
     } );
     bottomBookAtomNode.toCanvas( function( image ) {
@@ -59,12 +61,12 @@ define( function( require ) {
   return inherit( CanvasNode, AtomCanvasNode, {
 
     /**
-     * Paints the particles on the canvas node
+     * paints the particles on the canvas node
      * @param {CanvasRenderingContext2D} context
      */
     paintCanvas: function( context ) {
 
-      // image width - this is tweaked slightly to account for stroke and to get behavior that is consistent with
+      // image size - this is tweaked slightly to account for stroke and to get behavior that is consistent with
       // previous versions of the sim
       var particleImageSize = FrictionConstants.ATOM_RADIUS * 2 * 1.2;
 
