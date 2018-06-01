@@ -307,8 +307,6 @@ define( function( require ) {
        */
       var addLayer = function( target, layer, x, y, color ) {
 
-        assert && assert( typeof color === 'string', 'Color should be a string' );
-
         var evaporate;
         var row = [];
 

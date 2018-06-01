@@ -13,9 +13,11 @@ define( function( require ) {
   var friction = require( 'FRICTION/friction' );
   var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
 
   // constants
   var PARTICLE_IMAGE_SIZE = 32; // pixels, square
+  var ATOM_NODE_LINE_WIDTH = 2;
 
   /**
    * @param {Object} [options]
@@ -23,73 +25,34 @@ define( function( require ) {
    */
   function AtomCanvasNode( options ) {
 
+    var self = this;
     CanvasNode.call( this, options );
 
-    // create a canvas and render the particle images that will be used
-    // TODO: why not render these with scenery and use Node.toImage? or toImageSynchronous?
-    // TODO: or just use SphereNode.toImage?
-    // TODO: see https://github.com/phetsims/friction/issues/71
-    this.particleImageCanvas = document.createElement( 'canvas' );
-    this.particleImageCanvas.width = PARTICLE_IMAGE_SIZE * 2; // wide enough to accommodate two particles // TODO: WHY?
-    this.particleImageCanvas.height = PARTICLE_IMAGE_SIZE;
+    // create the images that will be used to render the atoms
 
-    // the particle radius must be a little smaller than half the image to allow space for the stroke
-    var particleImageRadius = PARTICLE_IMAGE_SIZE * 0.47;
+    var topBookAtomNode = new ShadedSphereNode( PARTICLE_IMAGE_SIZE, {
+      mainColor: FrictionConstants.TOP_BOOK_ATOMS_COLOR,
+      highlightColor: FrictionConstants.TOP_BOOK_ATOMS_COLOR.colorUtilsBrighter( 0.7 ),
+      stroke: 'black',
+      lineWidth: ATOM_NODE_LINE_WIDTH
+    } );
+    topBookAtomNode.toCanvas( function( image ) {
+      self.topBookAtomImage = image;
+    } );
 
-    // draw the circle that will be used for atoms in the top book onto the canvas
-    var context = this.particleImageCanvas.getContext( '2d' );
-    context.strokeStyle = 'black';
-    context.lineWidth = 2;
-    context.fillStyle = FrictionConstants.TOP_BOOK_ATOMS_COLOR;
-    context.beginPath();
-    context.arc(
-      PARTICLE_IMAGE_SIZE / 2,
-      PARTICLE_IMAGE_SIZE / 2,
-      particleImageRadius,
-      0,
-      Math.PI * 2
-    );
-    context.fill();
-    context.stroke();
+    var bottomBookAtomNode = new ShadedSphereNode( PARTICLE_IMAGE_SIZE, {
+      mainColor: FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR,
+      highlightColor: FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR.colorUtilsBrighter( 0.7 ),
+      stroke: 'black',
+      lineWidth: ATOM_NODE_LINE_WIDTH
+    } );
+    bottomBookAtomNode.toCanvas( function( image ) {
+      self.bottomBookAtomImage = image;
+    } );
 
-    // draw the circle that will be used for atoms in the bottom book onto the canvas
-    context.fillStyle = FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR;
-    context.beginPath();
-    context.arc(
-      PARTICLE_IMAGE_SIZE * 1.5,
-      PARTICLE_IMAGE_SIZE / 2,
-      particleImageRadius,
-      0,
-      Math.PI * 2
-    );
-    context.fill();
-    context.stroke();
+    // @private {Atom[]} - array that holds the atoms to be rendered
+    this.atoms = [];
 
-    // add the highlights for both atom images
-    context.beginPath();
-    context.fillStyle = 'white';
-    context.arc(
-      PARTICLE_IMAGE_SIZE * 0.65,
-      PARTICLE_IMAGE_SIZE * 0.35,
-      PARTICLE_IMAGE_SIZE * 0.12,
-      0,
-      Math.PI * 2
-    );
-    context.fill();
-    context.beginPath();
-    context.arc(
-      PARTICLE_IMAGE_SIZE * 1.65,
-      PARTICLE_IMAGE_SIZE * 0.35,
-      PARTICLE_IMAGE_SIZE * 0.12,
-      0,
-      Math.PI * 2
-    );
-    context.fill();
-
-    // @private - array that holds the Atoms
-    this.atomCanvasNodeAtoms = [];
-
-    var self = this;
     setInterval( function() {
       self.invalidatePaint();
     }, 10 );
@@ -107,17 +70,14 @@ define( function( require ) {
 
       // image width - this is tweaked slightly to account for stroke and to get behavior that is consistent with
       // previous versions of the sim
-      var particleImageSize = FrictionConstants.ATOM_RADIUS * 2 * 1.1;
+      var particleImageSize = FrictionConstants.ATOM_RADIUS * 2 * 1.2;
 
       // render each of the atoms on the canvas
-      for ( var i = 0; i < this.atomCanvasNodeAtoms.length; i++ ) {
-        var atom = this.atomCanvasNodeAtoms[ i ];
+      for ( var i = 0; i < this.atoms.length; i++ ) {
+        var atom = this.atoms[ i ];
+        var sourceImage = atom.isTopAtom ? this.topBookAtomImage : this.bottomBookAtomImage;
         context.drawImage(
-          this.particleImageCanvas,
-          atom.isTopAtom ? 0 : PARTICLE_IMAGE_SIZE,
-          0,
-          PARTICLE_IMAGE_SIZE,
-          PARTICLE_IMAGE_SIZE,
+          sourceImage,
           atom.positionProperty.get().x - particleImageSize / 2,
           atom.positionProperty.get().y - particleImageSize / 2,
           particleImageSize,
@@ -127,12 +87,12 @@ define( function( require ) {
     },
 
     /**
-     * When an Atom is created, we want a reference so we can quickly scan a list of atoms
-     * @param atom
+     * add a reference to an atom model
+     * @param {Atom} atom
      * @public
      */
     registerAtom: function( atom ) {
-      this.atomCanvasNodeAtoms.push( atom );
+      this.atoms.push( atom );
     }
   } );
 } );
