@@ -1,7 +1,7 @@
 // Copyright 2013-2018, University of Colorado Boulder
 
 /**
- * Container that shows the entire magnification area
+ * a Scenery Node that depicts the magnified area between the two books where the atoms can be seen
  *
  * @author Andrey Zelenkov (Mlearner)
  * @author John Blanco (PhET Interactive Simulations)
@@ -42,7 +42,7 @@ define( function( require ) {
   var INTER_ARROW_SPACING = 20;
   var ARROW_OPTIONS = {
 
-    // These values were empirically determined based on visual appearance.
+    // these values were empirically determined based on visual appearance
     headHeight: 32,
     headWidth: 30,
     tailWidth: 15,
@@ -69,9 +69,9 @@ define( function( require ) {
 
     // @private
     this.topAtoms = {
-      atoms: model.atoms.top,
+      magnifiedAtomsInfo: model.magnifiedAtomsInfo.top,
       x: 50,
-      y: HEIGHT / 3 - model.atoms.distance,
+      y: HEIGHT / 3 - model.magnifiedAtomsInfo.distance,
 
       // {Node}
       target: null
@@ -79,7 +79,7 @@ define( function( require ) {
 
     // @private
     this.bottomAtoms = {
-      atoms: model.atoms.bottom,
+      magnifiedAtomsInfo: model.magnifiedAtomsInfo.bottom,
       x: 50,
       y: 2 * HEIGHT / 3,
 
@@ -117,9 +117,11 @@ define( function( require ) {
         )
       ]
     } );
-    this.addRowCircles( model, this.bottomBookBackground, {
+
+    // add the "bumps" to the book
+    addRowCircles( model.magnifiedAtomsInfo.radius, model.magnifiedAtomsInfo.distanceX, this.bottomBookBackground, {
       color: FrictionConstants.BOTTOM_BOOK_COLOR,
-      x: -model.atoms.distanceX / 2,
+      x: -model.magnifiedAtomsInfo.distanceX / 2,
       y: 2 * HEIGHT / 3 - 2,
       width: WIDTH
     } );
@@ -133,7 +135,7 @@ define( function( require ) {
     var background = new Rectangle(
       -1.125 * WIDTH,
       -HEIGHT, 3.25 * WIDTH,
-      4 * HEIGHT / 3 - model.atoms.distance,
+      4 * HEIGHT / 3 - model.magnifiedAtomsInfo.distance,
       ROUND,
       ROUND, {
         fill: FrictionConstants.TOP_BOOK_COLOR,
@@ -147,7 +149,7 @@ define( function( require ) {
       0.055 * WIDTH,
       0.175 * HEIGHT,
       0.875 * WIDTH,
-      model.atoms.distanceY * 6, {
+      model.magnifiedAtomsInfo.distanceY * 6, {
         fill: null,
         cursor: 'pointer',
 
@@ -168,7 +170,7 @@ define( function( require ) {
     dragArea.addInputListener( new DragHandler( model, options.tandem.createTandem( 'dragAreaDragHandler' ) ) );
     this.topBookBackground.addChild( dragArea );
 
-    // this node's container parent is labelledby its label
+    // this node's container parent is labelled by its label
     dragArea.setAriaLabelledByNode( dragArea );
     dragArea.setAriaLabelledContent( AccessiblePeer.CONTAINER_PARENT );
 
@@ -186,10 +188,10 @@ define( function( require ) {
     this.keyboardDragHandler = new FrictionKeyboardDragHandler( model );
     dragArea.addAccessibleInputListener( this.keyboardDragHandler );
 
-    this.addRowCircles( model, this.topBookBackground, {
+    addRowCircles( model.magnifiedAtomsInfo.radius, model.magnifiedAtomsInfo.distanceX, this.topBookBackground, {
       color: FrictionConstants.TOP_BOOK_COLOR,
       x: -WIDTH,
-      y: HEIGHT / 3 - model.atoms.distance,
+      y: HEIGHT / 3 - model.magnifiedAtomsInfo.distance,
       width: 3 * WIDTH
     } );
     this.topAtoms.target = this.topAtomsLayer;
@@ -266,7 +268,7 @@ define( function( require ) {
     model.atomRowsToEvaporateProperty.link( function( number ) {
 
       // Adjust the drag area as the number of rows of atoms evaporates.
-      dragArea.setRectHeight( ( number + 2 ) * model.atoms.distanceY );
+      dragArea.setRectHeight( ( number + 2 ) * model.magnifiedAtomsInfo.distanceY );
 
       // Update the size of the focus highlight accordingly
       focusHighlightPath.setShape( Shape.bounds( arrowAndTopAtomsForFocusHighlight.bounds ) );
@@ -274,6 +276,18 @@ define( function( require ) {
   }
 
   friction.register( 'MagnifierNode', MagnifierNode );
+
+  // helper function that adds a row of circles at the specified location, used to add bumps to the magnified books
+  function addRowCircles( circleRadius, xSpacing, parentNode, options ) {
+    var numberOfAtomsForRow = options.width / xSpacing;
+    for ( var i = 0; i < numberOfAtomsForRow; i++ ) {
+      parentNode.addChild( new Circle( circleRadius, {
+        fill: options.color,
+        y: options.y,
+        x: options.x + xSpacing * i
+      } ) );
+    }
+  }
 
   return inherit( Node, MagnifierNode, {
 
@@ -294,25 +308,25 @@ define( function( require ) {
       var self = this;
       var topAtoms = this.topAtoms;
       var bottomAtoms = this.bottomAtoms;
-      var dx = model.atoms.distanceX;
-      var dy = model.atoms.distanceY;
+      var dx = model.magnifiedAtomsInfo.distanceX;
+      var dy = model.magnifiedAtomsInfo.distanceY;
 
       /**
        * @param {Node} target
-       * @param {Object[]} layer
+       * @param {Object[]} layerDescription
        * @param {number} x - origin in x coordinate
        * @param {number} y - origin in y coordinate
        * @param {string} color - this must be a string because it indexes into an object.
        */
-      var addLayer = function( target, layer, x, y, color ) {
+      var addLayer = function( target, layerDescription, x, y, color ) {
 
         var evaporate;
         var row = [];
 
-        for ( var i = 0; i < layer.length; i++ ) {
-          var offset = layer[ i ].offset || 0;
-          evaporate = layer[ i ].evaporate || false;
-          for ( var n = 0; n < layer[ i ].num; n++ ) {
+        for ( var i = 0; i < layerDescription.length; i++ ) {
+          var offset = layerDescription[ i ].offset || 0;
+          evaporate = layerDescription[ i ].evaporate || false;
+          for ( var n = 0; n < layerDescription[ i ].num; n++ ) {
             var atom = new Atom( model, model.atomGroupTandem.createNextTandem(), {
               x: x + ( offset + n ) * dx,
               y: y,
@@ -330,33 +344,26 @@ define( function( require ) {
       };
 
       // add top atoms
-      topAtoms.atoms.layers.forEach( function( layer, i ) {
-        addLayer( topAtoms.target, layer, topAtoms.x, topAtoms.y + dy * i, topAtoms.atoms.color );
+      topAtoms.magnifiedAtomsInfo.layerDescriptions.forEach( function( layerDescription, i ) {
+        addLayer(
+          topAtoms.target,
+          layerDescription,
+          topAtoms.x,
+          topAtoms.y + dy * i,
+          topAtoms.magnifiedAtomsInfo.color
+        );
       } );
 
       // add bottom atoms
-      bottomAtoms.atoms.layers.forEach( function( layer, i ) {
-        addLayer( bottomAtoms.target, layer, self.bottomAtoms.x, self.bottomAtoms.y + dy * i, bottomAtoms.atoms.color );
+      bottomAtoms.magnifiedAtomsInfo.layerDescriptions.forEach( function( layerDescription, i ) {
+        addLayer(
+          bottomAtoms.target,
+          layerDescription,
+          bottomAtoms.x,
+          bottomAtoms.y + dy * i,
+          bottomAtoms.magnifiedAtomsInfo.color
+        );
       } );
-    },
-
-    /**
-     * Add a row of atoms
-     * @param {FrictionModel} model
-     * @param {Node} target
-     * @param {Node} target
-     * @param {Object} [options]
-     * @private
-     */
-    addRowCircles: function( model, target, options ) {
-      var numberOfAtomsForRow = options.width / model.atoms.distanceX;
-      for ( var i = 0; i < numberOfAtomsForRow; i++ ) {
-        target.addChild( new Circle( model.atoms.radius, {
-          fill: options.color,
-          y: options.y,
-          x: options.x + model.atoms.distanceX * i
-        } ) );
-      }
     }
   } );
 } );

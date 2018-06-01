@@ -29,9 +29,9 @@ define( function( require ) {
   var ATOM_SPACING_X = 20; // x-distance between neighbors (atoms)
   var ATOM_SPACING_Y = 20; // y-distance between neighbors (atoms)
   var INITIAL_ATOM_SPACING_Y = 25; // initial distance between top and bottom atoms
-  var AMPLITUDE_MIN = 1; // min amplitude for an atom
+  var VIBRATION_AMPLITUDE_MIN = 1; // min amplitude for an atom
   var AMPLITUDE_EVAPORATE = 7; // evaporation amplitude for an atom
-  var AMPLITUDE_MAX = 12; // atom's max amplitude
+  var VIBRATION_AMPLITUDE_MAX = 12; // atom's max amplitude
   var BOOK_TOP_ATOMS_COLOR = FrictionConstants.TOP_BOOK_ATOMS_COLOR; // color of top book
   var BOOK_BOTTOM_ATOMS_COLOR = FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR; // color of bottom
   var COOLING_RATE = 0.2; // proportion per second; adjust in order to change the cooling rate
@@ -40,16 +40,18 @@ define( function( require ) {
   var MAX_X_DISPLACEMENT = 600; // max allowed distance from center x
   var MIN_Y_POSITION = -70; // empirically determined such that top book can't be completely dragged out of frame
 
-  // atoms of top book (contains 5 rows: 4 of them can evaporate, 1 - can not)
-  var topAtomsStructure = [
-    /**
+  // atoms of top book, contains 5 rows, 4 of which can evaporate and 1 that can't
+  var topBookAtomsStructure = [
+
+    /*
      * First row:
      * contains 30 atoms that can not evaporate.
      */
     [
       { num: 30 }
     ],
-    /**
+
+    /*
      * Second row:
      * contains 29 atoms that can evaporate.
      * Have additional offset 0.5 of x-distance between atoms (to make the lattice of atoms).
@@ -57,14 +59,16 @@ define( function( require ) {
     [
       { offset: 0.5, num: 29, evaporate: true }
     ],
-    /**
+
+    /*
      * Third row:
      * contains 29 atoms that can evaporate.
      */
     [
       { num: 29, evaporate: true }
     ],
-    /**
+
+    /*
      * Fourth row:
      * contains 24 atoms, separated into 5 groups that can evaporate.
      * Have additional offset 0.5 of x-distance between atoms (to make the lattice of atoms).
@@ -76,7 +80,8 @@ define( function( require ) {
       { offset: 21.5, num: 5, evaporate: true },
       { offset: 27.5, num: 1, evaporate: true }
     ],
-    /**
+
+    /*
      * Fifth row:
      * contains 9 atoms, separated into 5 groups that can evaporate.
      */
@@ -90,15 +95,17 @@ define( function( require ) {
   ];
 
   // atoms of bottom book (contains 3 rows that can not evaporate)
-  var bottomAtomsStructure = [
-    /**
+  var bottomBookAtomsStructure = [
+
+    /*
      * First row:
      * contains 29 atoms that can not evaporate.
      */
     [
       { num: 29 }
     ],
-    /**
+
+    /*
      * Second row:
      * contains 28 atoms that can not evaporate.
      * Have additional offset 0.5 of x-distance between atoms (to make the lattice of atoms).
@@ -106,7 +113,8 @@ define( function( require ) {
     [
       { offset: 0.5, num: 28 }
     ],
-    /**
+
+    /*
      * Third row:
      * contains 29 atoms that can not evaporate.
      */
@@ -124,10 +132,10 @@ define( function( require ) {
   function FrictionModel( width, height, tandem ) {
     var self = this;
 
-    // @public (read-only) - the width for the model in model=view coordinates
+    // @public (read-only) - the width for the model in model coordinates
     this.width = width;
 
-    // @public (read-only) - the height for the model in model=view coordinates
+    // @public (read-only) - the height for the model in model coordinates
     this.height = height;
 
     // @private - track how much to evaporate in step() to prevent a Property loop
@@ -136,24 +144,24 @@ define( function( require ) {
     // @public - group tandem for creating the atoms
     this.atomGroupTandem = tandem.createGroupTandem( 'atoms' );
 
-    // @public (read-only) - create a suitable structure from the initial data for further work
-    this.atoms = {
+    // @public (read-only) - information about the nature of the atoms that can be seen in the magnifier window
+    this.magnifiedAtomsInfo = {
       radius: ATOM_RADIUS,
       distanceX: ATOM_SPACING_X,
       distanceY: ATOM_SPACING_Y,
       distance: INITIAL_ATOM_SPACING_Y,
-      amplitude: {
-        min: AMPLITUDE_MIN,
-        max: AMPLITUDE_MAX
+      vibrationAmplitude: {
+        min: VIBRATION_AMPLITUDE_MIN,
+        max: VIBRATION_AMPLITUDE_MAX
       },
       evaporationLimit: AMPLITUDE_EVAPORATE,
       top: {
         color: BOOK_TOP_ATOMS_COLOR,
-        layers: topAtomsStructure
+        layerDescriptions: topBookAtomsStructure
       },
       bottom: {
         color: BOOK_BOTTOM_ATOMS_COLOR,
-        layers: bottomAtomsStructure
+        layerDescriptions: bottomBookAtomsStructure
       }
     };
 
@@ -170,7 +178,7 @@ define( function( require ) {
     this.toEvaporate = [];
 
     // @public - atoms temperature = amplitude of oscillation
-    this.amplitudeProperty = new NumberProperty( this.atoms.amplitude.min, {
+    this.amplitudeProperty = new NumberProperty( this.magnifiedAtomsInfo.vibrationAmplitude.min, {
       tandem: tandem.createTandem( 'amplitudeProperty' )
     } );
 
@@ -181,7 +189,7 @@ define( function( require ) {
     } );
 
     // @public - distance between books
-    this.distanceProperty = new Property( this.atoms.distance );
+    this.distanceProperty = new Property( this.magnifiedAtomsInfo.distance );
 
     // @private - additional offset, results from drag
     this.bottomOffsetProperty = new Property( 0 );
@@ -216,13 +224,13 @@ define( function( require ) {
       if ( self.contactProperty.get() ) {
         var dx = Math.abs( newPosition.x - oldPosition.x );
         var newValue = self.amplitudeProperty.get() + dx * HEATING_MULTIPLIER;
-        self.amplitudeProperty.set( Math.min( newValue, self.atoms.amplitude.max ) );
+        self.amplitudeProperty.set( Math.min( newValue, self.magnifiedAtomsInfo.vibrationAmplitude.max ) );
       }
     } );
 
     // evaporation check
     this.amplitudeProperty.link( function( amplitude ) {
-      if ( amplitude > self.atoms.evaporationLimit ) {
+      if ( amplitude > self.magnifiedAtomsInfo.evaporationLimit ) {
         self.tryToEvaporate();
       }
     } );
@@ -251,7 +259,7 @@ define( function( require ) {
 
       // Cool the atoms.
       var amplitude = this.amplitudeProperty.get() - this.scheduledEvaporationAmount;
-      amplitude = Math.max( this.atoms.amplitude.min, amplitude * ( 1 - dt * COOLING_RATE ) );
+      amplitude = Math.max( this.magnifiedAtomsInfo.vibrationAmplitude.min, amplitude * ( 1 - dt * COOLING_RATE ) );
       this.amplitudeProperty.set( amplitude );
 
       this.scheduledEvaporationAmount = 0;
@@ -338,7 +346,7 @@ define( function( require ) {
 
         // move to the next row of atoms to evaporate
         this.toEvaporate.pop();
-        this.distanceProperty.set( this.distanceProperty.get() + this.atoms.distanceY );
+        this.distanceProperty.set( this.distanceProperty.get() + this.magnifiedAtomsInfo.distanceY );
         this.atomRowsToEvaporateProperty.set( this.toEvaporate.length );
       }
 
