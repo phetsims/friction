@@ -52,10 +52,6 @@ define( function( require ) {
 
     // @private {Atom[]} - array that holds the atoms to be rendered
     this.atoms = [];
-
-    setInterval( function() {
-      self.invalidatePaint();
-    }, 10 );
   }
 
   friction.register( 'AtomCanvasNode', AtomCanvasNode );

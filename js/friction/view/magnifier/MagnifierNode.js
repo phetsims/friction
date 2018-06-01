@@ -279,10 +279,9 @@ define( function( require ) {
 
     /**
      * Move forward in time
-     * @param {number} dt - seconds
      * @public
      */
-    step: function( dt ) {
+    step: function() {
       this.atomCanvasNode.invalidatePaint(); // tell the atom canvas to redraw itself
     },
 
