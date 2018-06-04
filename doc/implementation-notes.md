@@ -3,3 +3,5 @@ part of the play area is the MagnifierNode, which shows the zoomed in part of th
 the atoms in attempt to improve performance.  The main property modeled by the simulation and depicted in the thermometer
 is FrictionModel.amplitudeProperty, which indicates how much the atoms are oscillating.  If an atom meets the threshold,
 it evaporates.
+
+Model and screen coordinates are the same in this sim, so no model-view transform is needed.
