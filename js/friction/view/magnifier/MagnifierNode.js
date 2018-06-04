@@ -15,7 +15,6 @@ define( function( require ) {
   var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
-  var Atom = require( 'FRICTION/friction/model/Atom' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var DragHandler = require( 'FRICTION/friction/view/DragHandler' );
@@ -52,8 +51,8 @@ define( function( require ) {
     lineWidth: 2
   };
 
-  var WIDTH = 690;
-  var HEIGHT = 300;
+  var WIDTH = FrictionConstants.MAGNIFIER_WINDOW_WIDTH;
+  var HEIGHT = FrictionConstants.MAGNIFIER_WINDOW_HEIGHT;
   var ROUND = 30;
   var SCALE = 0.05;
 
@@ -68,32 +67,9 @@ define( function( require ) {
   function MagnifierNode( model, targetX, targetY, title, options ) {
     Node.call( this, options );
 
-    // @private
-    this.topAtoms = {
-      magnifiedAtomsInfo: FrictionModel.MAGNIFIED_ATOMS_INFO.top,
-      x: 50,
-      y: HEIGHT / 3 - FrictionModel.MAGNIFIED_ATOMS_INFO.distance,
-
-      // {Node}
-      target: null
-    };
-
-    // @private
-    this.bottomAtoms = {
-      magnifiedAtomsInfo: FrictionModel.MAGNIFIED_ATOMS_INFO.bottom,
-      x: 50,
-      y: 2 * HEIGHT / 3,
-
-      // {Node}
-      target: null
-    };
-
     // add container for clipping
     this.container = new Node();
     this.addChild( this.container );
-
-    // @private - container where the individual atoms will be placed
-    this.bottomAtomsLayer = new Node();
 
     // @private - container where the individual atoms will be placed
     this.topAtomsLayer = new Node();
@@ -102,7 +78,7 @@ define( function( require ) {
     var arrowIcon = new Node();
     arrowIcon.addChild( new ArrowNode( INTER_ARROW_SPACING / 2, 0, ARROW_LENGTH, 0, ARROW_OPTIONS ) );
     arrowIcon.addChild( new ArrowNode( -INTER_ARROW_SPACING / 2, 0, -ARROW_LENGTH, 0, ARROW_OPTIONS ) );
-    arrowIcon.mutate( { centerX: WIDTH / 2, centerY: this.topAtoms.y / 2 } );
+    arrowIcon.mutate( { centerX: WIDTH / 2, top: 20 } );
 
     // @private - add bottom book
     this.bottomBookBackground = new Node( {
@@ -131,7 +107,6 @@ define( function( require ) {
         width: WIDTH
       }
     );
-    this.bottomAtoms.target = this.bottomAtomsLayer;
     this.container.addChild( this.bottomBookBackground );
 
     // @private - add top book
@@ -140,7 +115,8 @@ define( function( require ) {
     // init drag for background
     var background = new Rectangle(
       -1.125 * WIDTH,
-      -HEIGHT, 3.25 * WIDTH,
+      -HEIGHT,
+      3.25 * WIDTH,
       4 * HEIGHT / 3 - FrictionModel.MAGNIFIED_ATOMS_INFO.distance,
       ROUND,
       ROUND, {
@@ -205,7 +181,6 @@ define( function( require ) {
         width: 3 * WIDTH
       }
     );
-    this.topAtoms.target = this.topAtomsLayer;
 
     // a11y - add the focus highlight on top of the row circles
     this.topBookBackground.addChild( focusHighlightPath );
@@ -260,16 +235,18 @@ define( function( require ) {
     // add the arrow at the end
     this.container.addChild( arrowIcon );
 
-    // @private - Add the canvas where the atoms will be rendered. NOTE: For better performance (particularly on iPad), we are
-    // using CanvasNode to render the atoms instead of individual nodes. All atoms are displayed there, even though we
-    // still create Atom instances.
+    // @private - Add the canvas where the atoms will be rendered. For better performance, particularly on iPad, we are
+    // using CanvasNode to render the atoms instead of individual nodes.
     this.atomCanvasNode = new AtomCanvasNode( {
       canvasBounds: new Bounds2( 0, 0, WIDTH, HEIGHT )
     } );
     this.container.addChild( this.atomCanvasNode );
 
-    // add the atoms
-    this.addAtoms( model );
+    // add the atoms to the canvas
+    var self = this;
+    model.atoms.forEach( function( atom ) {
+      self.atomCanvasNode.registerAtom( atom );
+    } );
 
     // add observers
     model.hintProperty.linkAttribute( arrowIcon, 'visible' );
@@ -303,78 +280,12 @@ define( function( require ) {
   return inherit( Node, MagnifierNode, {
 
     /**
-     * Move forward in time
+     * move forward in time
      * @public
      */
     step: function() {
-      this.atomCanvasNode.invalidatePaint(); // tell the atom canvas to redraw itself
-    },
-
-    /**
-     * Add the layers of atoms to the view *and* to the model.
-     * @param {FrictionModel} model
-     * @private
-     */
-    addAtoms: function( model ) {
-      var self = this;
-      var topAtoms = this.topAtoms;
-      var bottomAtoms = this.bottomAtoms;
-      var dx = FrictionModel.MAGNIFIED_ATOMS_INFO.distanceX;
-      var dy = FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY;
-
-      /**
-       * @param {Node} target
-       * @param {Object[]} layerDescription
-       * @param {number} x - origin in x coordinate
-       * @param {number} y - origin in y coordinate
-       * @param {string} color - this must be a string because it indexes into an object.
-       */
-      var addLayer = function( target, layerDescription, x, y, color ) {
-
-        var evaporate;
-        var row = [];
-
-        for ( var i = 0; i < layerDescription.length; i++ ) {
-          var offset = layerDescription[ i ].offset || 0;
-          evaporate = layerDescription[ i ].evaporate || false;
-          for ( var n = 0; n < layerDescription[ i ].num; n++ ) {
-            var atom = new Atom( model, model.atomGroupTandem.createNextTandem(), {
-              x: x + ( offset + n ) * dx,
-              y: y,
-              color: color
-            } );
-            if ( evaporate ) {
-              row.push( atom );
-            }
-            self.atomCanvasNode.registerAtom( atom );
-          }
-        }
-        if ( evaporate ) {
-          model.evaporableAtomsByRow.push( row );
-        }
-      };
-
-      // add top atoms
-      topAtoms.magnifiedAtomsInfo.layerDescriptions.forEach( function( layerDescription, i ) {
-        addLayer(
-          topAtoms.target,
-          layerDescription,
-          topAtoms.x,
-          topAtoms.y + dy * i,
-          topAtoms.magnifiedAtomsInfo.color
-        );
-      } );
-
-      // add bottom atoms
-      bottomAtoms.magnifiedAtomsInfo.layerDescriptions.forEach( function( layerDescription, i ) {
-        addLayer(
-          bottomAtoms.target,
-          layerDescription,
-          bottomAtoms.x,
-          bottomAtoms.y + dy * i,
-          bottomAtoms.magnifiedAtomsInfo.color
-        );
-      } );
+      this.atomCanvasNode.invalidatePaint(); // tell the atom canvas to redraw itself on every step
     }
+
   } );
 } );

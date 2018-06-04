@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Atom = require( 'FRICTION/friction/model/Atom' );
   var Emitter = require( 'AXON/Emitter' );
   var friction = require( 'FRICTION/friction' );
   var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
@@ -26,14 +27,13 @@ define( function( require ) {
 
   // constants
   var ATOM_RADIUS = FrictionConstants.ATOM_RADIUS; // radius of single atom
-  var ATOM_SPACING_X = 20; // x-distance between neighbors (atoms)
   var ATOM_SPACING_Y = 20; // y-distance between neighbors (atoms)
   var INITIAL_ATOM_SPACING_Y = 25; // initial distance between top and bottom atoms
   var VIBRATION_AMPLITUDE_MIN = 1; // min amplitude for an atom
   var AMPLITUDE_EVAPORATE = 7; // evaporation amplitude for an atom
   var VIBRATION_AMPLITUDE_MAX = 12; // atom's max amplitude
-  var BOOK_TOP_ATOMS_COLOR = FrictionConstants.TOP_BOOK_ATOMS_COLOR; // color of top book
-  var BOOK_BOTTOM_ATOMS_COLOR = FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR; // color of bottom
+  var TOP_BOOK_ATOMS_COLOR = FrictionConstants.TOP_BOOK_ATOMS_COLOR; // color of top book
+  var BOTTOM_BOOK_ATOMS_COLOR = FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR; // color of bottom
   var COOLING_RATE = 0.2; // proportion per second; adjust in order to change the cooling rate
   var HEATING_MULTIPLIER = 0.0075; // multiplied by distance moved while in contact to control heating rate
   var EVAPORATION_AMPLITUDE_REDUCTION = 0.01; // decrease in amplitude (a.k.a. temperature) when an atom evaporates
@@ -57,7 +57,7 @@ define( function( require ) {
      * Have additional offset 0.5 of x-distance between atoms (to make the lattice of atoms).
      */
     [
-      { offset: 0.5, num: 29, evaporate: true }
+      { offset: 0.5, num: 29, canEvaporate: true }
     ],
 
     /*
@@ -65,7 +65,7 @@ define( function( require ) {
      * contains 29 atoms that can evaporate.
      */
     [
-      { num: 29, evaporate: true }
+      { num: 29, canEvaporate: true }
     ],
 
     /*
@@ -74,11 +74,11 @@ define( function( require ) {
      * Have additional offset 0.5 of x-distance between atoms (to make the lattice of atoms).
      */
     [
-      { offset: 0.5, num: 5, evaporate: true },
-      { offset: 6.5, num: 8, evaporate: true },
-      { offset: 15.5, num: 5, evaporate: true },
-      { offset: 21.5, num: 5, evaporate: true },
-      { offset: 27.5, num: 1, evaporate: true }
+      { offset: 0.5, num: 5, canEvaporate: true },
+      { offset: 6.5, num: 8, canEvaporate: true },
+      { offset: 15.5, num: 5, canEvaporate: true },
+      { offset: 21.5, num: 5, canEvaporate: true },
+      { offset: 27.5, num: 1, canEvaporate: true }
     ],
 
     /*
@@ -86,11 +86,11 @@ define( function( require ) {
      * contains 9 atoms, separated into 5 groups that can evaporate.
      */
     [
-      { offset: 3, num: 2, evaporate: true },
-      { offset: 8, num: 1, evaporate: true },
-      { offset: 12, num: 2, evaporate: true },
-      { offset: 17, num: 2, evaporate: true },
-      { offset: 24, num: 2, evaporate: true }
+      { offset: 3, num: 2, canEvaporate: true },
+      { offset: 8, num: 1, canEvaporate: true },
+      { offset: 12, num: 2, canEvaporate: true },
+      { offset: 17, num: 2, canEvaporate: true },
+      { offset: 24, num: 2, canEvaporate: true }
     ]
   ];
 
@@ -126,8 +126,8 @@ define( function( require ) {
   // information about the nature of the atoms that will be shown in the magnifier window
   var MAGNIFIED_ATOMS_INFO = {
     radius: ATOM_RADIUS,
-    distanceX: ATOM_SPACING_X,
-    distanceY: ATOM_SPACING_Y,
+    distanceX: FrictionConstants.INITIAL_ATOM_SPACING_X,
+    distanceY: FrictionConstants.INITIAL_ATOM_SPACING_Y,
     distance: INITIAL_ATOM_SPACING_Y,
     vibrationAmplitude: {
       min: VIBRATION_AMPLITUDE_MIN,
@@ -135,11 +135,11 @@ define( function( require ) {
     },
     evaporationLimit: AMPLITUDE_EVAPORATE,
     top: {
-      color: BOOK_TOP_ATOMS_COLOR,
+      color: TOP_BOOK_ATOMS_COLOR,
       layerDescriptions: TOP_BOOK_ATOM_STRUCTURE
     },
     bottom: {
-      color: BOOK_BOTTOM_ATOMS_COLOR,
+      color: BOTTOM_BOOK_ATOMS_COLOR,
       layerDescriptions: BOTTOM_BOOK_ATOM_STRUCTURE
     }
   };
@@ -161,9 +161,6 @@ define( function( require ) {
 
     // @private - track how much to evaporate in step() to prevent a Property loop
     this.scheduledEvaporationAmount = 0;
-
-    // @public - group tandem for creating the atoms
-    this.atomGroupTandem = tandem.createGroupTandem( 'atoms' );
 
     // @public (phet-io) Instrumented so that PhET-iO clients can get a message when an atom evaporates
     this.evaporationEmitter = new Emitter( {
@@ -225,6 +222,36 @@ define( function( require ) {
       }
     } );
 
+    // group tandem for creating the atoms
+    var atomGroupTandem = tandem.createGroupTandem( 'atoms' );
+
+    // @public (read-only) {Atom[]} - array of atoms that are visible to the user in the magnifier window
+    this.atoms = [];
+
+    // add the atoms that are visible in the top book
+    MAGNIFIED_ATOMS_INFO.top.layerDescriptions.forEach( function( layerDescription, i ) {
+      addAtomRow(
+        self,
+        layerDescription,
+        50, // TODO: Should this be a shared constant somewhere?
+        FrictionConstants.MAGNIFIER_WINDOW_HEIGHT / 3 - INITIAL_ATOM_SPACING_Y + ATOM_SPACING_Y * i,
+        MAGNIFIED_ATOMS_INFO.top.color,
+        atomGroupTandem
+      );
+    } );
+
+    // add the atoms that are visible in the bottom book
+    MAGNIFIED_ATOMS_INFO.bottom.layerDescriptions.forEach( function( layerDescription, i ) {
+      addAtomRow(
+        self,
+        layerDescription,
+        50, // TODO: Yes, this should definitely be a shared constant somewhere
+        2 * FrictionConstants.MAGNIFIER_WINDOW_HEIGHT / 3 + ATOM_SPACING_Y * i,
+        MAGNIFIED_ATOMS_INFO.bottom.color,
+        atomGroupTandem
+      );
+    } );
+
     // evaporation check
     this.amplitudeProperty.link( function( amplitude ) {
       if ( amplitude > MAGNIFIED_ATOMS_INFO.evaporationLimit ) {
@@ -233,6 +260,32 @@ define( function( require ) {
     } );
 
     this.init();
+  }
+
+  // helper function to add a layer of atoms to the model
+  function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, color, atomGroupTandem ) {
+
+    var canEvaporate;
+    var evaporableAtomsRow = [];
+
+    for ( var i = 0; i < layerDescription.length; i++ ) {
+      var offset = layerDescription[ i ].offset || 0;
+      canEvaporate = layerDescription[ i ].canEvaporate || false;
+      for ( var n = 0; n < layerDescription[ i ].num; n++ ) {
+        var atom = new Atom( frictionModel, frictionModel.atomGroupTandem.createNextTandem(), {
+          x: rowStartXPos + ( offset + n ) * MAGNIFIED_ATOMS_INFO.distanceX,
+          y: rowYPos,
+          color: color
+        } );
+        frictionModel.atoms.push( atom );
+        if ( canEvaporate ) {
+          evaporableAtomsRow.push( atom );
+        }
+      }
+    }
+    if ( canEvaporate ) {
+      frictionModel.evaporableAtomsByRow.push( evaporableAtomsRow );
+    }
   }
 
   friction.register( 'FrictionModel', FrictionModel );

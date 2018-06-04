@@ -13,7 +13,6 @@ define( function( require ) {
   // modules
   var friction = require( 'FRICTION/friction' );
   var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
-  var FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
@@ -100,7 +99,7 @@ define( function( require ) {
       var dx = ( evaporationDestinationX - this.originX ) / STEPS;
 
       var yRange = this.model.distanceBetweenBooksProperty.get() +
-                   FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY * this.model.atomRowsToEvaporateProperty.get();
+                   FrictionConstants.INITIAL_ATOM_SPACING_Y * this.model.atomRowsToEvaporateProperty.get();
       var evaporationDestinationY = this.originY + phet.joist.random.nextDouble() * 1.5 * yRange;
       var dy = ( evaporationDestinationY - this.originY ) / STEPS;
 
