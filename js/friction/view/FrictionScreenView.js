@@ -15,6 +15,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var friction = require( 'FRICTION/friction' );
   var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  var FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MagnifierNode = require( 'FRICTION/friction/view/magnifier/MagnifierNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -66,21 +67,26 @@ define( function( require ) {
     this.addChild( this.magnifierNode );
 
     // add thermometer
-    this.addChild( new ThermometerNode( model.magnifiedAtomsInfo.vibrationAmplitude.min - 1.05, model.magnifiedAtomsInfo.evaporationLimit * 1.1, model.amplitudeProperty, {
-      x: 690,
-      y: 250,
-      tubeHeight: 160,
-      tickSpacing: 9,
-      lineWidth: 1,
-      tubeWidth: 12,
-      bulbDiameter: 24,
-      majorTickLength: 4,
-      minorTickLength: 4,
-      fluidMainColor: THERMOMETER_FLUID_MAIN_COLOR,
-      fluidHighlightColor: THERMOMETER_FLUID_HIGHLIGHT_COLOR,
-      fluidRightSideColor: THERMOMETER_FLUID_RIGHT_SIDE_COLOR,
-      backgroundFill: THERMOMETER_BACKGROUND_FILL_COLOR
-    } ) );
+    this.addChild( new ThermometerNode(
+      FrictionModel.MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min - 1.05,
+      FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit * 1.1,
+      model.amplitudeProperty,
+      {
+        x: 690,
+        y: 250,
+        tubeHeight: 160,
+        tickSpacing: 9,
+        lineWidth: 1,
+        tubeWidth: 12,
+        bulbDiameter: 24,
+        majorTickLength: 4,
+        minorTickLength: 4,
+        fluidMainColor: THERMOMETER_FLUID_MAIN_COLOR,
+        fluidHighlightColor: THERMOMETER_FLUID_HIGHLIGHT_COLOR,
+        fluidRightSideColor: THERMOMETER_FLUID_RIGHT_SIDE_COLOR,
+        backgroundFill: THERMOMETER_BACKGROUND_FILL_COLOR
+      }
+    ) );
 
     // add reset button
     this.addChild( new ResetAllButton( {

@@ -41,7 +41,7 @@ define( function( require ) {
   var MIN_Y_POSITION = -70; // empirically determined such that top book can't be completely dragged out of frame
 
   // atoms of top book, contains 5 rows, 4 of which can evaporate and 1 that can't
-  var topBookAtomsStructure = [
+  var TOP_BOOK_ATOM_STRUCTION = [
 
     /*
      * First row:
@@ -95,7 +95,7 @@ define( function( require ) {
   ];
 
   // atoms of bottom book (contains 3 rows that can not evaporate)
-  var bottomBookAtomsStructure = [
+  var BOTTOM_BOOK_ATOM_STRUCTURE = [
 
     /*
      * First row:
@@ -123,6 +123,27 @@ define( function( require ) {
     ]
   ];
 
+  // information about the nature of the atoms that will be shown in the magnifier window
+  var MAGNIFIED_ATOMS_INFO = {
+    radius: ATOM_RADIUS,
+    distanceX: ATOM_SPACING_X,
+    distanceY: ATOM_SPACING_Y,
+    distance: INITIAL_ATOM_SPACING_Y,
+    vibrationAmplitude: {
+      min: VIBRATION_AMPLITUDE_MIN,
+      max: VIBRATION_AMPLITUDE_MAX
+    },
+    evaporationLimit: AMPLITUDE_EVAPORATE,
+    top: {
+      color: BOOK_TOP_ATOMS_COLOR,
+      layerDescriptions: TOP_BOOK_ATOM_STRUCTION
+    },
+    bottom: {
+      color: BOOK_BOTTOM_ATOMS_COLOR,
+      layerDescriptions: BOTTOM_BOOK_ATOM_STRUCTURE
+    }
+  };
+
   /**
    * @param {number} width - width in view=model coordinates
    * @param {number} height - height in view=model coordinates
@@ -144,27 +165,6 @@ define( function( require ) {
     // @public - group tandem for creating the atoms
     this.atomGroupTandem = tandem.createGroupTandem( 'atoms' );
 
-    // @public (read-only) - information about the nature of the atoms that can be seen in the magnifier window
-    this.magnifiedAtomsInfo = {
-      radius: ATOM_RADIUS,
-      distanceX: ATOM_SPACING_X,
-      distanceY: ATOM_SPACING_Y,
-      distance: INITIAL_ATOM_SPACING_Y,
-      vibrationAmplitude: {
-        min: VIBRATION_AMPLITUDE_MIN,
-        max: VIBRATION_AMPLITUDE_MAX
-      },
-      evaporationLimit: AMPLITUDE_EVAPORATE,
-      top: {
-        color: BOOK_TOP_ATOMS_COLOR,
-        layerDescriptions: topBookAtomsStructure
-      },
-      bottom: {
-        color: BOOK_BOTTOM_ATOMS_COLOR,
-        layerDescriptions: bottomBookAtomsStructure
-      }
-    };
-
     // @public (phet-io) Instrumented so that PhET-iO clients can get a message when an atom evaporates
     this.evaporationEmitter = new Emitter( {
       tandem: tandem.createTandem( 'evaporationEmitter' )
@@ -178,7 +178,7 @@ define( function( require ) {
     this.toEvaporate = [];
 
     // @public - atoms temperature = amplitude of oscillation
-    this.amplitudeProperty = new NumberProperty( this.magnifiedAtomsInfo.vibrationAmplitude.min, {
+    this.amplitudeProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min, {
       tandem: tandem.createTandem( 'amplitudeProperty' )
     } );
 
@@ -189,7 +189,7 @@ define( function( require ) {
     } );
 
     // @public - distance between books
-    this.distanceProperty = new Property( this.magnifiedAtomsInfo.distance );
+    this.distanceProperty = new Property( MAGNIFIED_ATOMS_INFO.distance );
 
     // @private - additional offset, results from drag
     this.bottomOffsetProperty = new Property( 0 );
@@ -224,13 +224,13 @@ define( function( require ) {
       if ( self.contactProperty.get() ) {
         var dx = Math.abs( newPosition.x - oldPosition.x );
         var newValue = self.amplitudeProperty.get() + dx * HEATING_MULTIPLIER;
-        self.amplitudeProperty.set( Math.min( newValue, self.magnifiedAtomsInfo.vibrationAmplitude.max ) );
+        self.amplitudeProperty.set( Math.min( newValue, MAGNIFIED_ATOMS_INFO.vibrationAmplitude.max ) );
       }
     } );
 
     // evaporation check
     this.amplitudeProperty.link( function( amplitude ) {
-      if ( amplitude > self.magnifiedAtomsInfo.evaporationLimit ) {
+      if ( amplitude > MAGNIFIED_ATOMS_INFO.evaporationLimit ) {
         self.tryToEvaporate();
       }
     } );
@@ -259,7 +259,7 @@ define( function( require ) {
 
       // Cool the atoms.
       var amplitude = this.amplitudeProperty.get() - this.scheduledEvaporationAmount;
-      amplitude = Math.max( this.magnifiedAtomsInfo.vibrationAmplitude.min, amplitude * ( 1 - dt * COOLING_RATE ) );
+      amplitude = Math.max( MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min, amplitude * ( 1 - dt * COOLING_RATE ) );
       this.amplitudeProperty.set( amplitude );
 
       this.scheduledEvaporationAmount = 0;
@@ -346,7 +346,7 @@ define( function( require ) {
 
         // move to the next row of atoms to evaporate
         this.toEvaporate.pop();
-        this.distanceProperty.set( this.distanceProperty.get() + this.magnifiedAtomsInfo.distanceY );
+        this.distanceProperty.set( this.distanceProperty.get() + MAGNIFIED_ATOMS_INFO.distanceY );
         this.atomRowsToEvaporateProperty.set( this.toEvaporate.length );
       }
 
@@ -367,6 +367,7 @@ define( function( require ) {
   }, {
 
     // statics
+    MAGNIFIED_ATOMS_INFO: MAGNIFIED_ATOMS_INFO,
 
     // a11y - needed to get bounds for the keyboard drag handler, see https://github.com/phetsims/friction/issues/46
     MAX_X_DISPLACEMENT: MAX_X_DISPLACEMENT,

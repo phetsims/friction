@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var friction = require( 'FRICTION/friction' );
   var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  var FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
@@ -85,7 +86,8 @@ define( function( require ) {
   return inherit( Object, Atom, {
 
     /**
-     * When the oscillation has exceeded the threshold, the Atom animates to one side of the screen and disappears.
+     * when the oscillation has exceeded the threshold, the atom breaks off, animates to one side of the screen, and
+     * disappears
      * @public
      */
     evaporate: function() {
@@ -97,7 +99,7 @@ define( function( require ) {
       var evaporationDestinationX = this.originX + 4 * this.model.width * ( Util.roundSymmetric( phet.joist.random.nextDouble() ) - 0.5 );
       var dx = ( evaporationDestinationX - this.originX ) / STEPS;
 
-      var yRange = this.model.distanceProperty.get() + this.model.magnifiedAtomsInfo.distanceY * this.model.toEvaporate.length;
+      var yRange = this.model.distanceProperty.get() + FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY * this.model.toEvaporate.length;
       var evaporationDestinationY = this.originY + phet.joist.random.nextDouble() * 1.5 * yRange;
       var dy = ( evaporationDestinationY - this.originY ) / STEPS;
 

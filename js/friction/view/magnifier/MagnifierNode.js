@@ -24,6 +24,7 @@ define( function( require ) {
   var FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
+  var FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MagnifierTargetNode = require( 'FRICTION/friction/view/magnifier/MagnifierTargetNode' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -69,9 +70,9 @@ define( function( require ) {
 
     // @private
     this.topAtoms = {
-      magnifiedAtomsInfo: model.magnifiedAtomsInfo.top,
+      magnifiedAtomsInfo: FrictionModel.MAGNIFIED_ATOMS_INFO.top,
       x: 50,
-      y: HEIGHT / 3 - model.magnifiedAtomsInfo.distance,
+      y: HEIGHT / 3 - FrictionModel.MAGNIFIED_ATOMS_INFO.distance,
 
       // {Node}
       target: null
@@ -79,7 +80,7 @@ define( function( require ) {
 
     // @private
     this.bottomAtoms = {
-      magnifiedAtomsInfo: model.magnifiedAtomsInfo.bottom,
+      magnifiedAtomsInfo: FrictionModel.MAGNIFIED_ATOMS_INFO.bottom,
       x: 50,
       y: 2 * HEIGHT / 3,
 
@@ -119,12 +120,17 @@ define( function( require ) {
     } );
 
     // add the "bumps" to the book
-    addRowCircles( model.magnifiedAtomsInfo.radius, model.magnifiedAtomsInfo.distanceX, this.bottomBookBackground, {
-      color: FrictionConstants.BOTTOM_BOOK_COLOR,
-      x: -model.magnifiedAtomsInfo.distanceX / 2,
-      y: 2 * HEIGHT / 3 - 2,
-      width: WIDTH
-    } );
+    addRowCircles(
+      FrictionModel.MAGNIFIED_ATOMS_INFO.radius,
+      FrictionModel.MAGNIFIED_ATOMS_INFO.distanceX,
+      this.bottomBookBackground,
+      {
+        color: FrictionConstants.BOTTOM_BOOK_COLOR,
+        x: -FrictionModel.MAGNIFIED_ATOMS_INFO.distanceX / 2,
+        y: 2 * HEIGHT / 3 - 2,
+        width: WIDTH
+      }
+    );
     this.bottomAtoms.target = this.bottomAtomsLayer;
     this.container.addChild( this.bottomBookBackground );
 
@@ -135,7 +141,7 @@ define( function( require ) {
     var background = new Rectangle(
       -1.125 * WIDTH,
       -HEIGHT, 3.25 * WIDTH,
-      4 * HEIGHT / 3 - model.magnifiedAtomsInfo.distance,
+      4 * HEIGHT / 3 - FrictionModel.MAGNIFIED_ATOMS_INFO.distance,
       ROUND,
       ROUND, {
         fill: FrictionConstants.TOP_BOOK_COLOR,
@@ -149,7 +155,7 @@ define( function( require ) {
       0.055 * WIDTH,
       0.175 * HEIGHT,
       0.875 * WIDTH,
-      model.magnifiedAtomsInfo.distanceY * 6, {
+      FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY * 6, {
         fill: null,
         cursor: 'pointer',
 
@@ -188,12 +194,17 @@ define( function( require ) {
     this.keyboardDragHandler = new FrictionKeyboardDragHandler( model );
     dragArea.addAccessibleInputListener( this.keyboardDragHandler );
 
-    addRowCircles( model.magnifiedAtomsInfo.radius, model.magnifiedAtomsInfo.distanceX, this.topBookBackground, {
-      color: FrictionConstants.TOP_BOOK_COLOR,
-      x: -WIDTH,
-      y: HEIGHT / 3 - model.magnifiedAtomsInfo.distance,
-      width: 3 * WIDTH
-    } );
+    addRowCircles(
+      FrictionModel.MAGNIFIED_ATOMS_INFO.radius,
+      FrictionModel.MAGNIFIED_ATOMS_INFO.distanceX,
+      this.topBookBackground,
+      {
+        color: FrictionConstants.TOP_BOOK_COLOR,
+        x: -WIDTH,
+        y: HEIGHT / 3 - FrictionModel.MAGNIFIED_ATOMS_INFO.distance,
+        width: 3 * WIDTH
+      }
+    );
     this.topAtoms.target = this.topAtomsLayer;
 
     // a11y - add the focus highlight on top of the row circles
@@ -268,7 +279,7 @@ define( function( require ) {
     model.atomRowsToEvaporateProperty.link( function( number ) {
 
       // Adjust the drag area as the number of rows of atoms evaporates.
-      dragArea.setRectHeight( ( number + 2 ) * model.magnifiedAtomsInfo.distanceY );
+      dragArea.setRectHeight( ( number + 2 ) * FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY );
 
       // Update the size of the focus highlight accordingly
       focusHighlightPath.setShape( Shape.bounds( arrowAndTopAtomsForFocusHighlight.bounds ) );
@@ -308,8 +319,8 @@ define( function( require ) {
       var self = this;
       var topAtoms = this.topAtoms;
       var bottomAtoms = this.bottomAtoms;
-      var dx = model.magnifiedAtomsInfo.distanceX;
-      var dy = model.magnifiedAtomsInfo.distanceY;
+      var dx = FrictionModel.MAGNIFIED_ATOMS_INFO.distanceX;
+      var dy = FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY;
 
       /**
        * @param {Node} target
