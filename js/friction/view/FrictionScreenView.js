@@ -98,7 +98,7 @@ define( function( require ) {
       tandem: tandem.createTandem( 'resetAllButton' )
     } ) );
 
-    // Initialize the model now that MagnifierNode has added the toEvaporateSample Atoms
+    // Initialize the model now that MagnifierNode has added the evaporableAtomsByRow Atoms
     model.init();
   }
 

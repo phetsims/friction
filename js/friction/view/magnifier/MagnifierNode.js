@@ -350,7 +350,7 @@ define( function( require ) {
           }
         }
         if ( evaporate ) {
-          model.toEvaporateSample.push( row );
+          model.evaporableAtomsByRow.push( row );
         }
       };
 

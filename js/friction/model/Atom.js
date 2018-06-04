@@ -99,7 +99,8 @@ define( function( require ) {
       var evaporationDestinationX = this.originX + 4 * this.model.width * ( Util.roundSymmetric( phet.joist.random.nextDouble() ) - 0.5 );
       var dx = ( evaporationDestinationX - this.originX ) / STEPS;
 
-      var yRange = this.model.distanceProperty.get() + FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY * this.model.toEvaporate.length;
+      var yRange = this.model.distanceBetweenBooksProperty.get() +
+                   FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY * this.model.atomRowsToEvaporateProperty.get();
       var evaporationDestinationY = this.originY + phet.joist.random.nextDouble() * 1.5 * yRange;
       var dy = ( evaporationDestinationY - this.originY ) / STEPS;
 
