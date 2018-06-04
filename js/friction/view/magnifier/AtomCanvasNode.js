@@ -25,13 +25,12 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function AtomCanvasNode( options ) {
+  function AtomCanvasNode( atoms, options ) {
 
     var self = this;
     CanvasNode.call( this, options );
 
-    // create the images that will be used to render the atoms
-
+    // create the Scenery image nodes that will be drawn onto the canvas in order to render the atoms
     var topBookAtomNode = new ShadedSphereNode( PARTICLE_IMAGE_SIZE, {
       mainColor: FrictionConstants.TOP_BOOK_ATOMS_COLOR,
       highlightColor: FrictionConstants.TOP_BOOK_ATOMS_COLOR.colorUtilsBrighter( HIGHLIGHT_FACTOR ),
@@ -53,7 +52,7 @@ define( function( require ) {
     } );
 
     // @private {Atom[]} - array that holds the atoms to be rendered
-    this.atoms = [];
+    this.atoms = atoms;
   }
 
   friction.register( 'AtomCanvasNode', AtomCanvasNode );
@@ -82,15 +81,7 @@ define( function( require ) {
           particleImageSize
         );
       }
-    },
-
-    /**
-     * add a reference to an atom model
-     * @param {Atom} atom
-     * @public
-     */
-    registerAtom: function( atom ) {
-      this.atoms.push( atom );
     }
+
   } );
 } );

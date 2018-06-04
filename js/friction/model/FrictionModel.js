@@ -258,8 +258,6 @@ define( function( require ) {
         self.tryToEvaporate();
       }
     } );
-
-    this.init();
   }
 
   // helper function to add a layer of atoms to the model
@@ -272,7 +270,7 @@ define( function( require ) {
       var offset = layerDescription[ i ].offset || 0;
       canEvaporate = layerDescription[ i ].canEvaporate || false;
       for ( var n = 0; n < layerDescription[ i ].num; n++ ) {
-        var atom = new Atom( frictionModel, frictionModel.atomGroupTandem.createNextTandem(), {
+        var atom = new Atom( frictionModel, atomGroupTandem.createNextTandem(), {
           x: rowStartXPos + ( offset + n ) * MAGNIFIED_ATOMS_INFO.distanceX,
           y: rowYPos,
           color: color
@@ -327,28 +325,14 @@ define( function( require ) {
       this.atomRowsToEvaporateProperty.reset();
       this.contactProperty.reset();
       this.hintProperty.reset();
-      this.init();
-    },
-
-    /**
-     * This must be called after MagnifierNode adds Atoms to the evaporableAtomsByRow, or atoms don't fly off
-     * TODO: It would be better if this could be called during the constructor and didn't need a view step first
-     * see https://github.com/phetsims/friction/issues/70
-     * @public
-     */
-    init: function() {
-
-      for ( var i = 0; i < this.evaporableAtomsByRow.length; i++ ) {
-        for ( var j = 0; j < this.evaporableAtomsByRow[ i ].length; j++ ) {
-          this.evaporableAtomsByRow[ i ][ j ].reset();
-        }
-      }
+      this.atoms.forEach( function( atom ) {
+        atom.reset();
+      } );
     },
 
     /**
      * Move the book, checking to make sure the new location is valid. If the book is going to move out of bounds,
      * prevent movement.
-     *
      * @param {Vector2} delta
      * @public
      */

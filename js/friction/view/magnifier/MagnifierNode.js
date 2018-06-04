@@ -237,16 +237,10 @@ define( function( require ) {
 
     // @private - Add the canvas where the atoms will be rendered. For better performance, particularly on iPad, we are
     // using CanvasNode to render the atoms instead of individual nodes.
-    this.atomCanvasNode = new AtomCanvasNode( {
+    this.atomCanvasNode = new AtomCanvasNode( model.atoms, {
       canvasBounds: new Bounds2( 0, 0, WIDTH, HEIGHT )
     } );
     this.container.addChild( this.atomCanvasNode );
-
-    // add the atoms to the canvas
-    var self = this;
-    model.atoms.forEach( function( atom ) {
-      self.atomCanvasNode.registerAtom( atom );
-    } );
 
     // add observers
     model.hintProperty.linkAttribute( arrowIcon, 'visible' );

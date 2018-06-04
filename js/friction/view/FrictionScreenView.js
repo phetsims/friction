@@ -97,9 +97,6 @@ define( function( require ) {
       touchAreaDilation: 12,
       tandem: tandem.createTandem( 'resetAllButton' )
     } ) );
-
-    // Initialize the model now that MagnifierNode has added the evaporableAtomsByRow Atoms
-    model.init();
   }
 
   friction.register( 'FrictionScreenView', FrictionScreenView );
