@@ -200,9 +200,6 @@ define( function( require ) {
     // @public (read-only) - show hint icon
     this.hintProperty = new Property( true );
 
-    // @public - update every step
-    this.stepEmitter = new Emitter();
-
     // @public (read-only) - drag and drop book coordinates conversion coefficient
     this.bookDraggingScaleFactor = 0.025;
 
@@ -296,9 +293,6 @@ define( function( require ) {
      * @public
      */
     step: function( dt ) {
-
-      // TODO: Can this be removed?
-      this.stepEmitter.emit();
 
       // step the atoms, which is how they vibrate and move away if they evaporate
       for ( var i = 0; i < this.atoms.length; i++ ) {
