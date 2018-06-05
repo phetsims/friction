@@ -12,6 +12,7 @@ define( function( require ) {
 
   // modules
   var Atom = require( 'FRICTION/friction/model/Atom' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Emitter = require( 'AXON/Emitter' );
   var friction = require( 'FRICTION/friction' );
   var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
@@ -153,71 +154,55 @@ define( function( require ) {
   function FrictionModel( width, height, tandem ) {
     var self = this;
 
-    // @public (read-only) - the width for the model in model coordinates
+    // @public (read-only) {Number} - the width for the model in model coordinates
     this.width = width;
 
-    // @public (read-only) - the height for the model in model coordinates
+    // @public (read-only) {Number} - the height for the model in model coordinates
     this.height = height;
 
-    // @private - track how much to evaporate in step() to prevent a Property loop
+    // @private {Number} - track how much to evaporate in step() to prevent a Property loop
     this.scheduledEvaporationAmount = 0;
 
-    // @public (phet-io) Instrumented so that PhET-iO clients can get a message when an atom evaporates
+    // @public (phet-io) - Instrumented so that PhET-iO clients can get a message when an atom evaporates
     this.evaporationEmitter = new Emitter( {
       tandem: tandem.createTandem( 'evaporationEmitter' )
     } );
 
-    // @public (read-only) {Array[][]}- array of all atoms which are able to evaporate organized by row such that the
+    // @public (read-only) {Atom[][]}- array of all atoms which are able to evaporate organized by row such that the
     // last rows should be evaporated first
     this.evaporableAtomsByRow = [];
 
-    // @public - atoms temperature = amplitude of oscillation
+    // @public (read-only) {NumberProperty} - atoms temperature = amplitude of oscillation
     this.amplitudeProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min, {
       tandem: tandem.createTandem( 'amplitudeProperty' )
     } );
 
-    // @public - position of top book, changes when dragging
+    // @public (read-only) {Property.<Vector2>} - position of top book, can by dragged the user
     this.topBookPositionProperty = new Property( new Vector2( 0, 0 ), {
       phetioType: PropertyIO( Vector2IO ),
       tandem: tandem.createTandem( 'topBookPositionProperty' )
     } );
 
-    // @public - distance between books
+    // @public {NumberProperty} - distance between books
     this.distanceBetweenBooksProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.distance );
 
-    // @private - additional offset, results from drag
+    // @public {NumberProperty} - additional offset, results from drag
     this.bottomOffsetProperty = new NumberProperty( 0 );
 
-    // @public {NumberProperty} - number of rows of atoms available to evaporate, goes down as book wears away
+    // @public (read-only) {NumberProperty} - number of rows of atoms available to evaporate, goes down as book wears away
     this.atomRowsToEvaporateProperty = new NumberProperty( TOP_BOOK_ATOM_STRUCTURE.length - 1 );
 
-    // @private - are books in contact
+    // @private - are books in contact?
     this.contactProperty = new Property( false, {
       tandem: tandem.createTandem( 'contactProperty' ),
       phetioType: PropertyIO( BooleanIO )
     } );
 
-    // @public (read-only) - show hint icon
-    this.hintProperty = new Property( true );
+    // @public (read-only) {BooleanProperty} - show hint icon
+    this.hintProperty = new BooleanProperty( true );
 
-    // @public (read-only) - drag and drop book coordinates conversion coefficient
+    // @public {Number} (read-only) - drag and drop book coordinates conversion coefficient
     this.bookDraggingScaleFactor = 0.025;
-
-    // check atom's contact
-    this.distanceBetweenBooksProperty.link( function( distance ) {
-      self.contactProperty.set( Math.floor( distance ) <= 0 );
-    } );
-
-    // set distance between atoms and set the amplitude if they are in contact
-    this.topBookPositionProperty.link( function( newPosition, oldPosition ) {
-      oldPosition = oldPosition || Vector2.ZERO;
-      self.distanceBetweenBooksProperty.set( self.distanceBetweenBooksProperty.get() - ( newPosition.minus( oldPosition ) ).y );
-      if ( self.contactProperty.get() ) {
-        var dx = Math.abs( newPosition.x - oldPosition.x );
-        var newValue = self.amplitudeProperty.get() + dx * HEATING_MULTIPLIER;
-        self.amplitudeProperty.set( Math.min( newValue, MAGNIFIED_ATOMS_INFO.vibrationAmplitude.max ) );
-      }
-    } );
 
     // group tandem for creating the atoms
     var atomGroupTandem = tandem.createGroupTandem( 'atoms' );
@@ -247,6 +232,22 @@ define( function( require ) {
         MAGNIFIED_ATOMS_INFO.bottom.color,
         atomGroupTandem
       );
+    } );
+
+    // check atom's contact
+    this.distanceBetweenBooksProperty.link( function( distance ) {
+      self.contactProperty.set( Math.floor( distance ) <= 0 );
+    } );
+
+    // set distance between atoms and set the amplitude if they are in contact
+    this.topBookPositionProperty.link( function( newPosition, oldPosition ) {
+      oldPosition = oldPosition || Vector2.ZERO;
+      self.distanceBetweenBooksProperty.set( self.distanceBetweenBooksProperty.get() - ( newPosition.minus( oldPosition ) ).y );
+      if ( self.contactProperty.get() ) {
+        var dx = Math.abs( newPosition.x - oldPosition.x );
+        var newValue = self.amplitudeProperty.get() + dx * HEATING_MULTIPLIER;
+        self.amplitudeProperty.set( Math.min( newValue, MAGNIFIED_ATOMS_INFO.vibrationAmplitude.max ) );
+      }
     } );
 
     // evaporation check
