@@ -12,7 +12,6 @@ define( function( require ) {
 
   // modules
   var friction = require( 'FRICTION/friction' );
-  var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
