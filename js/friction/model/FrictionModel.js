@@ -267,11 +267,12 @@ define( function( require ) {
       var offset = layerDescription[ i ].offset || 0;
       canEvaporate = layerDescription[ i ].canEvaporate || false;
       for ( var n = 0; n < layerDescription[ i ].num; n++ ) {
-        var atom = new Atom( frictionModel, atomGroupTandem.createNextTandem(), {
-          x: rowStartXPos + ( offset + n ) * MAGNIFIED_ATOMS_INFO.distanceX,
-          y: rowYPos,
-          color: color
-        } );
+        var atom = new Atom(
+          new Vector2( rowStartXPos + ( offset + n ) * MAGNIFIED_ATOMS_INFO.distanceX, rowYPos ),
+          frictionModel,
+          atomGroupTandem.createNextTandem(),
+          { color: color }
+        );
         frictionModel.atoms.push( atom );
         if ( canEvaporate ) {
           evaporableAtomsRow.push( atom );
