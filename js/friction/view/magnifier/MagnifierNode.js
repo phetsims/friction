@@ -244,8 +244,8 @@ define( function( require ) {
 
     // add observers
     model.hintProperty.linkAttribute( arrowIcon, 'visible' );
-    model.bookPositionProperty.linkAttribute( this.topBookBackground, 'translation' );
-    model.bookPositionProperty.linkAttribute( this.topAtomsLayer, 'translation' );
+    model.topBookPositionProperty.linkAttribute( this.topBookBackground, 'translation' );
+    model.topBookPositionProperty.linkAttribute( this.topAtomsLayer, 'translation' );
 
     model.atomRowsToEvaporateProperty.link( function( number ) {
 

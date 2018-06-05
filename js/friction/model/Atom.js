@@ -16,12 +16,11 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var PropertyIO = require( 'AXON/PropertyIO' );
-  var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
   var Vector2IO = require( 'DOT/Vector2IO' );
 
   // constants
-  var STEPS = 250; // steps until atom has completed evaporation movement
+  var EVAPORATED_SPEED = 400; // speed that particles travel during evaporation, in model units per second
 
   /**
    * @param {FrictionModel} model
@@ -38,12 +37,13 @@ define( function( require ) {
     // @private - marked as true when the atom is evaporated
     this.isEvaporated = false;
 
-    // @public {Property.<Vector2>} - the position of the Atom relative to its origin
-    this.positionProperty = new Property( new Vector2(), {
+    // @public {Property.<Vector2>} - the position of the Atom relative to its origin TODO: I don't think this comment is correct
+    this.positionProperty = new Property( new Vector2( options.x, options.y ), {
       phetioType: PropertyIO( Vector2IO ),
       tandem: tandem.createTandem( 'positionProperty' )
     } );
 
+    // TODO - required params are in the options, not good.
     // @private {number} - origin for oscillation
     this.originX = options.x;
 
@@ -59,24 +59,18 @@ define( function( require ) {
     // @private {number} initial coordinate for resetting
     this.initialY = options.y;
 
+    // @private {Vector2} - velocity vector for evaporation
+    this.evaporationVelocity = new Vector2( 0, 0 );
+
     // move the atom as the top book moves if it is part of that book
     var motionVector = new Vector2(); // Optimization to minimize garbage collection.
-    model.bookPositionProperty.lazyLink( function( newPosition, oldPosition ) {
+    model.topBookPositionProperty.lazyLink( function( newPosition, oldPosition ) {
       if ( self.isTopAtom && !self.isEvaporated ) {
         motionVector.set( newPosition );
         motionVector.subtract( oldPosition );
         self.originX = self.originX + motionVector.x;
         self.originY = self.originY + motionVector.y;
       }
-    } );
-
-    // update atom's position based on vibration and center position
-    model.stepEmitter.addListener( function() {
-      var newPosition = new Vector2(
-        self.originX + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 ),
-        self.originY + model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 )
-      );
-      self.positionProperty.set( newPosition );
     } );
   }
 
@@ -91,44 +85,47 @@ define( function( require ) {
      */
     evaporate: function() {
       assert && assert( !this.isEvaporated, 'Atom was already evaporated' );
-      var self = this;
 
       this.isEvaporated = true;
+      var evaporationDestinationX = this.model.width * ( phet.joist.random.nextBoolean() ? 1 : -1 );
+      var evaporationDestinationY = this.positionProperty.get().y -
+                                    this.model.distanceBetweenBooksProperty.get() * phet.joist.random.nextDouble();
 
-      var evaporationDestinationX = this.originX + 4 * this.model.width * ( Util.roundSymmetric( phet.joist.random.nextDouble() ) - 0.5 );
-      var dx = ( evaporationDestinationX - this.originX ) / STEPS;
-
-      var yRange = this.model.distanceBetweenBooksProperty.get() +
-                   FrictionConstants.INITIAL_ATOM_SPACING_Y * this.model.atomRowsToEvaporateProperty.get();
-      var evaporationDestinationY = this.originY + phet.joist.random.nextDouble() * 1.5 * yRange;
-      var dy = ( evaporationDestinationY - this.originY ) / STEPS;
-
-      // @private {function} evaporation motion handler
-      this.handler = function() {
-        self.originX += dx;
-        self.originY -= dy;
-
-        if ( Math.abs( self.originX ) > 4 * self.model.width ) {
-          self.model.stepEmitter.removeListener( self.handler );
-        }
-      };
-
-      this.model.stepEmitter.addListener( self.handler );
+      this.evaporationVelocity.setXY(
+        evaporationDestinationX - this.positionProperty.get().x,
+        evaporationDestinationY - this.positionProperty.get().y
+      ).setMagnitude( EVAPORATED_SPEED );
     },
 
     /**
-     * Restores the initial conditions.
+     * restore the initial conditions
      * @public
      */
     reset: function() {
       this.originX = this.initialX;
       this.originY = this.initialY;
-
-      // handler may have been unlinked by itself (see above), so check that we're still registered
-      if ( this.model.stepEmitter.hasListener( this.handler ) ) {
-        this.model.stepEmitter.removeListener( this.handler );
-      }
       this.isEvaporated = false;
+    },
+
+    /**
+     * step the atom forward in time
+     * @param dt - delta time, in seconds
+     * @public
+     */
+    step: function( dt ) {
+
+      // update the atom's position based on vibration and center position
+      var newPosition = new Vector2(
+        this.originX + this.model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 ),
+        this.originY + this.model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 )
+      );
+      this.positionProperty.set( newPosition );
+
+      // if evaporated, move away (but don't bother continuing once the atom is out of view)
+      if ( this.isEvaporated && Math.abs( this.originX ) < 4 * this.model.width ) {
+        this.originX += this.evaporationVelocity.x * dt;
+        this.originY += this.evaporationVelocity.y * dt;
+      }
     }
   } );
 } );

@@ -85,7 +85,7 @@ define( function( require ) {
       this.addAccessibleInputListener( this.keyboardDragHandler );
 
       // add observer
-      model.bookPositionProperty.link( function( position ) {
+      model.topBookPositionProperty.link( function( position ) {
         self.setTranslation( options.x + position.x * model.bookDraggingScaleFactor, options.y + position.y * model.bookDraggingScaleFactor );
       } );
     }

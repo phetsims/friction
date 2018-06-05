@@ -177,9 +177,9 @@ define( function( require ) {
     } );
 
     // @public - position of top book, changes when dragging
-    this.bookPositionProperty = new Property( new Vector2( 0, 0 ), {
+    this.topBookPositionProperty = new Property( new Vector2( 0, 0 ), {
       phetioType: PropertyIO( Vector2IO ),
-      tandem: tandem.createTandem( 'bookPositionProperty' )
+      tandem: tandem.createTandem( 'topBookPositionProperty' )
     } );
 
     // @public - distance between books
@@ -212,7 +212,7 @@ define( function( require ) {
     } );
 
     // set distance between atoms and set the amplitude if they are in contact
-    this.bookPositionProperty.link( function( newPosition, oldPosition ) {
+    this.topBookPositionProperty.link( function( newPosition, oldPosition ) {
       oldPosition = oldPosition || Vector2.ZERO;
       self.distanceBetweenBooksProperty.set( self.distanceBetweenBooksProperty.get() - ( newPosition.minus( oldPosition ) ).y );
       if ( self.contactProperty.get() ) {
@@ -297,15 +297,15 @@ define( function( require ) {
      */
     step: function( dt ) {
 
-      // Workaround for the case when user minimize window or switches to
-      // another tab and then back, where big dt values can result.
-      if ( dt > 0.5 ) {
-        return;
-      }
-
+      // TODO: Can this be removed?
       this.stepEmitter.emit();
 
-      // Cool the atoms.
+      // step the atoms, which is how they vibrate and move away if they evaporate
+      for ( var i = 0; i < this.atoms.length; i++ ) {
+        this.atoms[ i ].step( dt );
+      }
+
+      // cool the atoms
       var amplitude = this.amplitudeProperty.get() - this.scheduledEvaporationAmount;
       amplitude = Math.max( MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min, amplitude * ( 1 - dt * COOLING_RATE ) );
       this.amplitudeProperty.set( amplitude );
@@ -319,7 +319,7 @@ define( function( require ) {
      */
     reset: function() {
       this.amplitudeProperty.reset();
-      this.bookPositionProperty.reset();
+      this.topBookPositionProperty.reset();
       this.distanceBetweenBooksProperty.reset();
       this.bottomOffsetProperty.reset();
       this.atomRowsToEvaporateProperty.reset();
@@ -351,18 +351,18 @@ define( function( require ) {
         this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + delta.y - this.distanceBetweenBooksProperty.get() );
         delta.y = this.distanceBetweenBooksProperty.get();
       }
-      else if ( this.bookPositionProperty.get().y + delta.y < MIN_Y_POSITION ) {
-        delta.y = MIN_Y_POSITION - this.bookPositionProperty.get().y; // Limit book from going out of magnifier window.
+      else if ( this.topBookPositionProperty.get().y + delta.y < MIN_Y_POSITION ) {
+        delta.y = MIN_Y_POSITION - this.topBookPositionProperty.get().y; // Limit book from going out of magnifier window.
       }
-      if ( this.bookPositionProperty.get().x + delta.x > MAX_X_DISPLACEMENT ) {
-        delta.x = MAX_X_DISPLACEMENT - this.bookPositionProperty.get().x;
+      if ( this.topBookPositionProperty.get().x + delta.x > MAX_X_DISPLACEMENT ) {
+        delta.x = MAX_X_DISPLACEMENT - this.topBookPositionProperty.get().x;
       }
-      else if ( this.bookPositionProperty.get().x + delta.x < -MAX_X_DISPLACEMENT ) {
-        delta.x = -MAX_X_DISPLACEMENT - this.bookPositionProperty.get().x;
+      else if ( this.topBookPositionProperty.get().x + delta.x < -MAX_X_DISPLACEMENT ) {
+        delta.x = -MAX_X_DISPLACEMENT - this.topBookPositionProperty.get().x;
       }
 
       // set the new position
-      this.bookPositionProperty.set( this.bookPositionProperty.get().plus( delta ) );
+      this.topBookPositionProperty.set( this.topBookPositionProperty.get().plus( delta ) );
     },
 
     /**
