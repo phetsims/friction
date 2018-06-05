@@ -110,7 +110,6 @@ define( function( require ) {
     step: function( dt ) {
 
       // update the atom's position based on vibration and center position
-      // TODO: This allocates lots of vectors, can it be optimized?
       var newPosition = new Vector2(
         this.centerPosition.x + this.model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 ),
         this.centerPosition.y + this.model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 )
