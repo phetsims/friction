@@ -25,11 +25,11 @@ define( function( require ) {
   /**
    * @param {Vector2} initialPosition
    * @param {FrictionModel} model
+   * @param {boolean} isTopAtom
    * @param {Tandem} tandem
-   * @param {Object} [options]
    * @constructor
    */
-  function Atom( initialPosition, model, tandem, options ) {
+  function Atom( initialPosition, model, isTopAtom, tandem ) {
     var self = this;
 
     // @private {Vector2} - initial position, used during resets
@@ -38,15 +38,14 @@ define( function( require ) {
     // @private {FrictionModel}
     this.model = model;
 
-    // TODO: Oh, the humanity! (this is so horrible)
-    // @public (read-only) {boolean} flag records whether we are on the top book
-    this.isTopAtom = options.color === FrictionConstants.TOP_BOOK_ATOMS_COLOR;
+    // @public (read-only) {boolean} - flag that indicates whether this atom is part of the top book
+    this.isTopAtom = isTopAtom;
 
     // @private - marked as true when the atom is evaporated
     this.isEvaporated = false;
 
     // @public {Property.<Vector2>} - the position of the atom
-    this.positionProperty = new Property( new Vector2( options.x, options.y ), {
+    this.positionProperty = new Property( initialPosition, {
       phetioType: PropertyIO( Vector2IO ),
       tandem: tandem.createTandem( 'positionProperty' )
     } );

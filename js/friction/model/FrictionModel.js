@@ -217,7 +217,7 @@ define( function( require ) {
         layerDescription,
         50, // TODO: Should this be a shared constant somewhere?
         FrictionConstants.MAGNIFIER_WINDOW_HEIGHT / 3 - INITIAL_ATOM_SPACING_Y + ATOM_SPACING_Y * i,
-        MAGNIFIED_ATOMS_INFO.top.color,
+        true,
         atomGroupTandem
       );
     } );
@@ -229,7 +229,7 @@ define( function( require ) {
         layerDescription,
         50, // TODO: Yes, this should definitely be a shared constant somewhere
         2 * FrictionConstants.MAGNIFIER_WINDOW_HEIGHT / 3 + ATOM_SPACING_Y * i,
-        MAGNIFIED_ATOMS_INFO.bottom.color,
+        false,
         atomGroupTandem
       );
     } );
@@ -259,7 +259,7 @@ define( function( require ) {
   }
 
   // helper function to add a layer of atoms to the model
-  function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, color, atomGroupTandem ) {
+  function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, isTopAtom, atomGroupTandem ) {
 
     var canEvaporate;
     var evaporableAtomsRow = [];
@@ -271,8 +271,8 @@ define( function( require ) {
         var atom = new Atom(
           new Vector2( rowStartXPos + ( offset + n ) * MAGNIFIED_ATOMS_INFO.distanceX, rowYPos ),
           frictionModel,
-          atomGroupTandem.createNextTandem(),
-          { color: color }
+          isTopAtom,
+          atomGroupTandem.createNextTandem()
         );
         frictionModel.atoms.push( atom );
         if ( canEvaporate ) {
