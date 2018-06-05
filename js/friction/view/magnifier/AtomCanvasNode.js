@@ -21,6 +21,11 @@ define( function( require ) {
   var HIGHLIGHT_FACTOR = 0.7;
   var ATOM_STROKE = 'black';
 
+  // image size - this is tweaked slightly to account for stroke and to get behavior that is consistent with
+  // previous versions of the sim
+  var PARTICLE_IMAGE_SIZE_FOR_RENDERING = FrictionConstants.ATOM_RADIUS * 2 * 1.2;
+  var PARTICLE_RENDERING_OFFSET = -PARTICLE_IMAGE_SIZE_FOR_RENDERING / 2;
+
   /**
    * @param {Object} [options]
    * @constructor
@@ -53,6 +58,10 @@ define( function( require ) {
 
     // @private {Atom[]} - array that holds the atoms to be rendered
     this.atoms = atoms;
+
+    // @private - reusable position values, saves memory allocations
+    this.axomPositionX = 0;
+    this.atomPositionY = 0;
   }
 
   friction.register( 'AtomCanvasNode', AtomCanvasNode );
@@ -65,20 +74,17 @@ define( function( require ) {
      */
     paintCanvas: function( context ) {
 
-      // image size - this is tweaked slightly to account for stroke and to get behavior that is consistent with
-      // previous versions of the sim
-      var particleImageSize = FrictionConstants.ATOM_RADIUS * 2 * 1.2;
-
-      // render each of the atoms on the canvas
+      // render each of the atoms to the canvas
       for ( var i = 0; i < this.atoms.length; i++ ) {
         var atom = this.atoms[ i ];
+        var atomPosition = atom.positionProperty.get();
         var sourceImage = atom.isTopAtom ? this.topBookAtomImage : this.bottomBookAtomImage;
         context.drawImage(
           sourceImage,
-          atom.positionProperty.get().x - particleImageSize / 2,
-          atom.positionProperty.get().y - particleImageSize / 2,
-          particleImageSize,
-          particleImageSize
+          atomPosition.x + PARTICLE_RENDERING_OFFSET,
+          atomPosition.y + PARTICLE_RENDERING_OFFSET,
+          PARTICLE_IMAGE_SIZE_FOR_RENDERING,
+          PARTICLE_IMAGE_SIZE_FOR_RENDERING
         );
       }
     }
