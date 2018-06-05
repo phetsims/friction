@@ -47,17 +47,16 @@ define( function( require ) {
       tandem: tandem.createTandem( 'physicsBookNode' )
     } ) );
 
-    // @private - add chemistry book
-    this.draggableBook = new BookNode( model, chemistryString, {
+    // add chemistry book
+    this.addChild( new BookNode( model, chemistryString, {
       x: 65,
       y: 209,
       color: FrictionConstants.TOP_BOOK_COLOR_MACRO,
       drag: true,
       tandem: tandem.createTandem( 'chemistryBookNode' )
-    } );
-    this.addChild( this.draggableBook );
+    } ) );
 
-    // add magnifier
+    // @private - add magnifier
     this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, {
       x: 40,
       y: 25,
@@ -104,8 +103,8 @@ define( function( require ) {
   return inherit( ScreenView, FrictionScreenView, {
 
     /**
-     * Move forward in time
-     * @param {number} dt - seconds
+     * move forward in time
+     * @param {number} dt - delta time, in seconds
      * @public
      */
     step: function( dt ) {
