@@ -75,8 +75,11 @@ define( function( require ) {
       } );
 
       // this node is labelledby its own label
-      this.setAriaLabelledByNode( this );
-      this.setAriaLabelledContent( AccessiblePeer.CONTAINER_PARENT );
+      this.addAriaLabelledbyAssociation( {
+        thisElementName: AccessiblePeer.PRIMARY_SIBLING,
+        otherNode: this,
+        otherElementName: AccessiblePeer.CONTAINER_PARENT
+      } );
 
       this.addInputListener( new DragHandler( model, options.tandem.createTandem( 'dragHandler' ) ) );
 

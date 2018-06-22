@@ -152,9 +152,12 @@ define( function( require ) {
     dragArea.addInputListener( new DragHandler( model, options.tandem.createTandem( 'dragAreaDragHandler' ) ) );
     this.topBookBackground.addChild( dragArea );
 
-    // this node's container parent is labelled by its label
-    dragArea.setAriaLabelledByNode( dragArea );
-    dragArea.setAriaLabelledContent( AccessiblePeer.CONTAINER_PARENT );
+    // this node's container parent is aria-labelledby its own label
+    dragArea.addAriaLabelledbyAssociation( {
+      thisElementName: AccessiblePeer.PRIMARY_SIBLING,
+      otherNode: dragArea,
+      otherElementName: AccessiblePeer.CONTAINER_PARENT
+    } );
 
     // a11y - The focusHighlight of the top atoms. It also includes the place for the arrows so that it extends up into
     // the book "background." Dilated to get around the arrows fully. See `atomRowsToEvaporateProperty.link()` below
