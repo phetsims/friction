@@ -1,11 +1,11 @@
 {
-  "comment": "# friction 1.5.0-dev.7 Fri Jul 13 2018 16:15:53 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# friction 1.5.0-dev.8 Mon Jul 16 2018 14:39:00 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
   },
   "axon": {
-    "sha": "bbf84cf15d657338211988a5940e0e1f894312ef",
+    "sha": "300e06ac1b3bdb452d4da79fdaa4f21423e2e960",
     "branch": "master"
   },
   "brand": {
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "f5f59a2eaf90ee9fa90a53c6d80bc9b7f34aae2c",
+    "sha": "6d7a5fc027bbc855686e2a8424fccf6058dc4b9a",
     "branch": "master"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "friction": {
-    "sha": "f4255448c11902bbd409a2feb212af33e14f2893",
+    "sha": "adfc52776241545e30fd1a7dcfc8a36dc2867bf3",
     "branch": "master"
   },
   "joist": {
@@ -33,11 +33,11 @@
     "branch": "master"
   },
   "phet-core": {
-    "sha": "e9adfb5b44a2d18b3ffb463db196a8ec58aabb3b",
+    "sha": "b1a11992e3da1747cb123df9432b085ee82be1e3",
     "branch": "master"
   },
   "phet-io": {
-    "sha": "2a3c3457e07deb737eefdb33fbd659f8f7bb6fc9",
+    "sha": "d98423ccebfeb8cf380252c83806c772137760d8",
     "branch": "master"
   },
   "phet-io-wrapper-classroom-activity": {
@@ -53,7 +53,7 @@
     "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "d90097d8403cdb2c3a6a50a2b1abc921d45f6eda",
+    "sha": "342ac6b15242462b2b83501f15b1dc195cd716e8",
     "branch": "master"
   },
   "phetcommon": {
@@ -73,11 +73,11 @@
     "branch": "master"
   },
   "sherpa": {
-    "sha": "341552b7e46696a8ffa9394d31912974bc9be9ee",
+    "sha": "4b8710ca4dca159ab3d8e32afe62dff34f096343",
     "branch": "master"
   },
   "sun": {
-    "sha": "9b94b548fae8823796c6cf4b1fea728e340c69dd",
+    "sha": "dbf9cb407c79d664c47710efac44581a3e6b71ff",
     "branch": "master"
   },
   "tandem": {
