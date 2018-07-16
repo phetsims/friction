@@ -57,11 +57,10 @@ define( function( require ) {
     } ) );
 
     // @private - add magnifier
-    this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, {
+    this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, tandem.createTandem( 'magnifierNode' ), {
       x: 40,
       y: 25,
-      layerSplit: true,
-      tandem: tandem.createTandem( 'magnifierNode' )
+      layerSplit: true
     } );
     this.addChild( this.magnifierNode );
 

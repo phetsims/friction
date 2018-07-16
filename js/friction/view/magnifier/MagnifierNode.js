@@ -61,10 +61,11 @@ define( function( require ) {
    * @param {number} targetX - x position of the MagnifierTargetNode rectangle
    * @param {number} targetY - y position of the MagnifierTargetNode rectangle
    * @param {string} title - the title of the book that is draggable, used for a11y
+   * @param {Tandem} tandem - passed to the dragArea to instrument the focusable item as the magnifier, see https://github.com/phetsims/friction/issues/82
    * @param {Object} [options]
    * @constructor
    */
-  function MagnifierNode( model, targetX, targetY, title, options ) {
+  function MagnifierNode( model, targetX, targetY, title, tandem, options ) {
     Node.call( this, options );
 
     // add container for clipping
@@ -123,7 +124,7 @@ define( function( require ) {
         fill: FrictionConstants.TOP_BOOK_COLOR,
         cursor: 'pointer'
       } );
-    background.addInputListener( new DragHandler( model, options.tandem.createTandem( 'backgroundDragHandler' ) ) );
+    background.addInputListener( new DragHandler( model, tandem.createTandem( 'backgroundDragHandler' ) ) );
     this.topBookBackground.addChild( background );
 
     // init drag for drag area
@@ -134,6 +135,7 @@ define( function( require ) {
       FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY * 6, {
         fill: null,
         cursor: 'pointer',
+        tandem: tandem,
 
         // a11y - add accessibility to the rectangle that surrounds the top atoms.
         tagName: 'div',
@@ -149,7 +151,7 @@ define( function( require ) {
           } )
         } )
       } );
-    dragArea.addInputListener( new DragHandler( model, options.tandem.createTandem( 'dragAreaDragHandler' ) ) );
+    dragArea.addInputListener( new DragHandler( model, tandem.createTandem( 'dragAreaDragHandler' ) ) );
     this.topBookBackground.addChild( dragArea );
 
     // this node's container parent is aria-labelledby its own label
@@ -231,7 +233,7 @@ define( function( require ) {
       HEIGHT * SCALE,
       ROUND * SCALE,
       new Vector2( ROUND, HEIGHT ),
-      new Vector2( WIDTH - ROUND, HEIGHT )
+      new Vector2( WIDTH - ROUND, HEIGHT ),
     );
     this.addChild( magnifierTargetNode );
 
