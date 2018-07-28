@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var friction = require( 'FRICTION/friction' );
+  var FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   var GeneralNavigationHelpContent = require( 'SCENERY_PHET/keyboard/help/GeneralNavigationHelpContent' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HelpContent = require( 'SCENERY_PHET/keyboard/help/HelpContent' );
@@ -22,6 +23,10 @@ define( function( require ) {
   var moveBookHeaderString = require( 'string!FRICTION/moveBookHeader' );
   var moveBookString = require( 'string!FRICTION/moveBook' );
   var moveInSmallerStepsString = require( 'string!FRICTION/moveInSmallerSteps' );
+
+  // a11y strings
+  var moveBookWithString = FrictionA11yStrings.moveBookWith.value;
+  var moveSlowerWithString = FrictionA11yStrings.moveSlowerWith.value;
 
   // constants
   var DEFAULT_LABEL_OPTIONS = {
@@ -67,13 +72,13 @@ define( function( require ) {
     // BookNode row
     var moveBookText = new RichText( moveBookString, DEFAULT_LABEL_OPTIONS );
     var moveBookIcon = HelpContent.arrowOrWasdKeysRowIcon();
-    var moveBookRow = HelpContent.labelWithIcon( moveBookText, moveBookIcon, '{{MOVE THE BOOK WITH WASD AND ARROWS PLACEHOLDER}}' );
+    var moveBookRow = HelpContent.labelWithIcon( moveBookText, moveBookIcon, moveBookWithString );
 
     // BookNode in smaller steps row
     var moveInSmallerStepsText = new RichText( moveInSmallerStepsString, DEFAULT_LABEL_OPTIONS );
     var shiftPlusArrowKeys = HelpContent.shiftPlusIcon( HelpContent.arrowKeysRowIcon() );
     var shiftPlusWASDKeys = HelpContent.shiftPlusIcon( HelpContent.wasdRowIcon() );
-    var row = HelpContent.labelWithIconList( moveInSmallerStepsText, [ shiftPlusArrowKeys, shiftPlusWASDKeys ] );
+    var row = HelpContent.labelWithIconList( moveInSmallerStepsText, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], moveSlowerWithString );
 
     HelpContent.call( this, moveBookHeaderString, [ moveBookRow, row ], options );
   }

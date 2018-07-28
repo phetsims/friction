@@ -20,6 +20,12 @@ define( function( require ) {
     },
     atomicViewBookTitleStringPattern: {
       value: '{{bookTitleString}}, Atomic view'
+    },
+    moveBookWith: {
+      value: 'Move book up, left, down, or right with arrow keys or letter keys W, A, S, or D.'
+    },
+    moveSlowerWith: {
+      value: 'Move slower with with shift plus arrow keys or shift plus letter keys W, A, S, or D.'
     }
   };
 
