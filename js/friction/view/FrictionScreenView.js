@@ -23,6 +23,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var ThermometerNode = require( 'SCENERY_PHET/ThermometerNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
 
   // strings
   var chemistryString = require( 'string!FRICTION/chemistry' );
@@ -40,7 +41,14 @@ define( function( require ) {
    * @constructor
    */
   function FrictionScreenView( model, tandem ) {
-    ScreenView.call( this, { layoutBounds: new Bounds2( 0, 0, model.width, model.height ) } );
+    ScreenView.call( this, {
+      layoutBounds: new Bounds2( 0, 0, model.width, model.height ),
+      includePDOMSummary: true // opt into the generic sceneoverview strategy provided by ScreenView.js see https://github.com/phetsims/joist/issues/509
+    } );
+
+    assert && assert( this.sceneOverview instanceof Node );
+    addSceneOverview( this.sceneOverview );
+
 
     // add physics book
     this.addChild( new BookNode( model, physicsString, {
@@ -110,6 +118,23 @@ define( function( require ) {
   }
 
   friction.register( 'FrictionScreenView', FrictionScreenView );
+
+  function addSceneOverview( overviewNode ) {
+
+    // TODO: use pattern and factor out string
+    overviewNode.addChild( new Node( {
+      tagName: 'p',
+      innerContent: 'A Chemistry book rests on top of a Physics book, and is ready to be rubbed against it. ' +
+                    'In a zoomed-in view of where books meet, atoms jiggle {{a tiny bit}}, and a thermometer is ' +
+                    '{{at cool}}. Move Chemistry book to rub books together.'
+    } ) );
+
+    // TODO: factor this out into its own type in ScreenView
+    overviewNode.addChild( new Node( {
+      tagName: 'p',
+      innerContent: 'If needed, check out keyboard shortcuts under Sim Resources.'
+    } ) );
+  }
 
   return inherit( ScreenView, FrictionScreenView, {
 
