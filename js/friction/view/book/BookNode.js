@@ -12,7 +12,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var CoverNode = require( 'FRICTION/friction/view/book/CoverNode' );
   var DragHandler = require( 'FRICTION/friction/view/DragHandler' );
   var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
@@ -28,6 +27,7 @@ define( function( require ) {
   // a11y strings
   var bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
   var moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
+  var bookHelpTextString = FrictionA11yStrings.bookHelpText.value;
 
   /**
    * @param {FrictionModel} model
@@ -68,6 +68,7 @@ define( function( require ) {
         tagName: 'div',
         ariaRole: 'application',
         innerContent: StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } ),
+        helpText: bookHelpTextString,
         focusable: true,
         focusHighlightLayerable: true,
         focusHighlight: focusHighlightRect,

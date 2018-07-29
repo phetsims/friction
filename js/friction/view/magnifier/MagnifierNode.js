@@ -12,7 +12,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var AccessiblePeer = require( 'SCENERY/accessibility/AccessiblePeer' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
@@ -35,7 +34,9 @@ define( function( require ) {
 
   // a11y strings
   var bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
-  var atomicViewBookTitleStringPattern = FrictionA11yStrings.atomicViewBookTitleStringPattern.value;
+  var zoomedInBookTitlePatternString = FrictionA11yStrings.zoomedInBookTitlePattern.value;
+  var moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
+  var bookHelpTextString = FrictionA11yStrings.bookHelpText.value;
 
   // constants
   var ARROW_LENGTH = 70;
@@ -139,27 +140,23 @@ define( function( require ) {
 
         // a11y - add accessibility to the rectangle that surrounds the top atoms.
         tagName: 'div',
-        containerAriaRole: 'application',
-        containerTagName: 'div',
+        ariaRole: 'application',
+        helpText: bookHelpTextString,
         focusable: true,
         focusHighlightLayerable: true,
 
         // Add the Accessible Name based on the name of the name of the book title.
-        innerContent: StringUtils.fillIn( atomicViewBookTitleStringPattern, {
+        innerContent: StringUtils.fillIn( zoomedInBookTitlePatternString, {
           bookTitleString: StringUtils.fillIn( bookTitleStringPattern, {
             bookTitle: title
           } )
         } )
       } );
+
+    dragArea.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
+
     dragArea.addInputListener( new DragHandler( model, tandem.createTandem( 'dragAreaDragHandler' ) ) );
     this.topBookBackground.addChild( dragArea );
-
-    // this node's container parent is aria-labelledby its own label
-    dragArea.addAriaLabelledbyAssociation( {
-      thisElementName: AccessiblePeer.PRIMARY_SIBLING,
-      otherNode: dragArea,
-      otherElementName: AccessiblePeer.CONTAINER_PARENT
-    } );
 
     // a11y - The focusHighlight of the top atoms. It also includes the place for the arrows so that it extends up into
     // the book "background." Dilated to get around the arrows fully. See `atomRowsToEvaporateProperty.link()` below
