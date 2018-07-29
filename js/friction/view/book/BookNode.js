@@ -27,6 +27,7 @@ define( function( require ) {
 
   // a11y strings
   var bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
+  var moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
 
   /**
    * @param {FrictionModel} model
@@ -65,8 +66,7 @@ define( function( require ) {
       // add a11y options for the interactive BookNode
       this.mutate( {
         tagName: 'div',
-        containerAriaRole: 'application',
-        containerTagName: 'div',
+        ariaRole: 'application',
         innerContent: StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } ),
         focusable: true,
         focusHighlightLayerable: true,
@@ -74,12 +74,7 @@ define( function( require ) {
         cursor: 'pointer'
       } );
 
-      // this node is labelledby its own label
-      this.addAriaLabelledbyAssociation( {
-        thisElementName: AccessiblePeer.PRIMARY_SIBLING,
-        otherNode: this,
-        otherElementName: AccessiblePeer.CONTAINER_PARENT
-      } );
+      this.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
 
       this.addInputListener( new DragHandler( model, options.tandem.createTandem( 'dragHandler' ) ) );
 

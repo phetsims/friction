@@ -21,6 +21,9 @@ define( function( require ) {
     atomicViewBookTitleStringPattern: {
       value: '{{bookTitleString}}, Atomic view'
     },
+    moveInFourDirections: {
+      value: 'move in four directions'
+    },
     moveBookWith: {
       value: 'Move book up, left, down, or right with arrow keys or letter keys W, A, S, or D.'
     },
