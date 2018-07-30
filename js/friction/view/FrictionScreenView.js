@@ -43,11 +43,8 @@ define( function( require ) {
   function FrictionScreenView( model, tandem ) {
     ScreenView.call( this, {
       layoutBounds: new Bounds2( 0, 0, model.width, model.height ),
-      includePDOMSummary: true // opt into the generic sceneoverview strategy provided by ScreenView.js see https://github.com/phetsims/joist/issues/509
+      includeScreenOverviewNode: true // opt into the generic screen overview strategy provided by ScreenView.js see https://github.com/phetsims/joist/issues/509
     } );
-
-    assert && assert( this.sceneOverview instanceof Node );
-    addSceneOverview( this.sceneOverview );
 
 
     // add physics book
@@ -119,23 +116,6 @@ define( function( require ) {
 
   friction.register( 'FrictionScreenView', FrictionScreenView );
 
-  function addSceneOverview( overviewNode ) {
-
-    // TODO: use pattern and factor out string
-    overviewNode.addChild( new Node( {
-      tagName: 'p',
-      innerContent: 'A Chemistry book rests on top of a Physics book, and is ready to be rubbed against it. ' +
-                    'In a zoomed-in view of where books meet, atoms jiggle {{a tiny bit}}, and a thermometer is ' +
-                    '{{at cool}}. Move Chemistry book to rub books together.'
-    } ) );
-
-    // TODO: factor this out into its own type in ScreenView
-    overviewNode.addChild( new Node( {
-      tagName: 'p',
-      innerContent: 'If needed, check out keyboard shortcuts under Sim Resources.'
-    } ) );
-  }
-
   return inherit( ScreenView, FrictionScreenView, {
 
     /**
@@ -145,6 +125,24 @@ define( function( require ) {
      */
     step: function( dt ) {
       this.magnifierNode.step( dt );
+    },
+
+    /**
+     * Called to add overview content to the PDOM, see Screen.initializeView()
+     * Although this.screenOverviewA11yNode is technically of type {Node|null}, we can know that the value
+     * is a Node when this method is called.
+     * @a11y
+     * @public (joist-internal)
+     */
+    addToScreenOverview: function() {
+
+      // TODO: use pattern and factor out string
+      this.screenOverviewA11yNode.addChild( new Node( {
+        tagName: 'p',
+        innerContent: 'A Chemistry book rests on top of a Physics book, and is ready to be rubbed against it. ' +
+                      'In a zoomed-in view of where books meet, atoms jiggle {{a tiny bit}}, and a thermometer is ' +
+                      '{{at cool}}. Move Chemistry book to rub books together.'
+      } ) );
     }
   } );
 } );
