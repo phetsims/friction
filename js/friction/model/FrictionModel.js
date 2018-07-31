@@ -11,20 +11,20 @@ define( function( require ) {
   'use strict';
 
   // modules
-  let Atom = require( 'FRICTION/friction/model/Atom' );
-  let BooleanProperty = require( 'AXON/BooleanProperty' );
-  let Emitter = require( 'AXON/Emitter' );
-  let friction = require( 'FRICTION/friction' );
-  let FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
-  let inherit = require( 'PHET_CORE/inherit' );
-  let NumberProperty = require( 'AXON/NumberProperty' );
-  let Property = require( 'AXON/Property' );
-  let PropertyIO = require( 'AXON/PropertyIO' );
-  let Vector2 = require( 'DOT/Vector2' );
-  let Vector2IO = require( 'DOT/Vector2IO' );
+  const Atom = require( 'FRICTION/friction/model/Atom' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const Emitter = require( 'AXON/Emitter' );
+  const friction = require( 'FRICTION/friction' );
+  const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const Property = require( 'AXON/Property' );
+  const PropertyIO = require( 'AXON/PropertyIO' );
+  const Vector2 = require( 'DOT/Vector2' );
+  const Vector2IO = require( 'DOT/Vector2IO' );
 
   // ifphetio
-  let BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
+  const BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
 
   // constants
   let ATOM_RADIUS = FrictionConstants.ATOM_RADIUS; // radius of single atom

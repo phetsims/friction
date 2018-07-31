@@ -12,25 +12,25 @@ define( function( require ) {
   'use strict';
 
   // modules
-  let ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  let AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
-  let Bounds2 = require( 'DOT/Bounds2' );
-  let Circle = require( 'SCENERY/nodes/Circle' );
-  let DragHandler = require( 'FRICTION/friction/view/DragHandler' );
-  let FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
-  let friction = require( 'FRICTION/friction' );
-  let FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
-  let FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
-  let FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
-  let FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
-  let inherit = require( 'PHET_CORE/inherit' );
-  let MagnifierTargetNode = require( 'FRICTION/friction/view/magnifier/MagnifierTargetNode' );
-  let Node = require( 'SCENERY/nodes/Node' );
-  let Path = require( 'SCENERY/nodes/Path' );
-  let Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  let Shape = require( 'KITE/Shape' );
-  let StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  let Vector2 = require( 'DOT/Vector2' );
+  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  const AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const Circle = require( 'SCENERY/nodes/Circle' );
+  const DragHandler = require( 'FRICTION/friction/view/DragHandler' );
+  const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
+  const friction = require( 'FRICTION/friction' );
+  const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
+  const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  const FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
+  const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MagnifierTargetNode = require( 'FRICTION/friction/view/magnifier/MagnifierTargetNode' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Shape = require( 'KITE/Shape' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // a11y strings
   let bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;

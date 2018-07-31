@@ -11,15 +11,15 @@ define( function( require ) {
   'use strict';
 
   // modules
-  let FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
-  let inherit = require( 'PHET_CORE/inherit' );
-  let Node = require( 'SCENERY/nodes/Node' );
-  let Path = require( 'SCENERY/nodes/Path' );
-  let PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  let Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  let Shape = require( 'KITE/Shape' );
-  let Text = require( 'SCENERY/nodes/Text' );
-  let friction = require( 'FRICTION/friction' );
+  const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Shape = require( 'KITE/Shape' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const friction = require( 'FRICTION/friction' );
 
   // constants
   let FONT = new PhetFont( 22 );

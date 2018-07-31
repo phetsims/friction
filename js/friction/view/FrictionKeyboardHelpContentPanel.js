@@ -9,20 +9,20 @@ define( function( require ) {
   'use strict';
 
   // modules
-  let friction = require( 'FRICTION/friction' );
-  let FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
-  let GeneralNavigationHelpContent = require( 'SCENERY_PHET/keyboard/help/GeneralNavigationHelpContent' );
-  let HBox = require( 'SCENERY/nodes/HBox' );
-  let HelpContent = require( 'SCENERY_PHET/keyboard/help/HelpContent' );
-  let inherit = require( 'PHET_CORE/inherit' );
-  let Node = require( 'SCENERY/nodes/Node' );
-  let Panel = require( 'SUN/Panel' );
-  let RichText = require( 'SCENERY/nodes/RichText' );
+  const friction = require( 'FRICTION/friction' );
+  const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
+  const GeneralNavigationHelpContent = require( 'SCENERY_PHET/keyboard/help/GeneralNavigationHelpContent' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const HelpContent = require( 'SCENERY_PHET/keyboard/help/HelpContent' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Panel = require( 'SUN/Panel' );
+  const RichText = require( 'SCENERY/nodes/RichText' );
 
   // strings
-  let moveBookHeaderString = require( 'string!FRICTION/moveBookHeader' );
-  let moveBookString = require( 'string!FRICTION/moveBook' );
-  let moveInSmallerStepsString = require( 'string!FRICTION/moveInSmallerSteps' );
+  const moveBookHeaderString = require( 'string!FRICTION/moveBookHeader' );
+  const moveBookString = require( 'string!FRICTION/moveBook' );
+  const moveInSmallerStepsString = require( 'string!FRICTION/moveInSmallerSteps' );
 
   // a11y strings
   let moveBookWithString = FrictionA11yStrings.moveBookWith.value;

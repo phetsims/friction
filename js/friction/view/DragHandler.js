@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  let friction = require( 'FRICTION/friction' );
-  let inherit = require( 'PHET_CORE/inherit' );
-  let SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  let Vector2 = require( 'DOT/Vector2' );
+  const friction = require( 'FRICTION/friction' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {FrictionModel} model

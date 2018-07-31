@@ -12,12 +12,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  let inherit = require( 'PHET_CORE/inherit' );
-  let Node = require( 'SCENERY/nodes/Node' );
-  let friction = require( 'FRICTION/friction' );
-  let Path = require( 'SCENERY/nodes/Path' );
-  let Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  let Shape = require( 'KITE/Shape' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const friction = require( 'FRICTION/friction' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const Shape = require( 'KITE/Shape' );
 
   /**
    * @param {number} x

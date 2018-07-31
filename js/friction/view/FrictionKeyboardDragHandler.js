@@ -9,12 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  let Bounds2 = require( 'DOT/Bounds2' );
-  let friction = require( 'FRICTION/friction' );
-  let FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
-  let inherit = require( 'PHET_CORE/inherit' );
-  let KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
-  let Vector2 = require( 'DOT/Vector2' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const friction = require( 'FRICTION/friction' );
+  const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {FrictionModel} model

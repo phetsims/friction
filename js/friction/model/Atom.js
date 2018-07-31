@@ -11,12 +11,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  let friction = require( 'FRICTION/friction' );
-  let inherit = require( 'PHET_CORE/inherit' );
-  let Property = require( 'AXON/Property' );
-  let PropertyIO = require( 'AXON/PropertyIO' );
-  let Vector2 = require( 'DOT/Vector2' );
-  let Vector2IO = require( 'DOT/Vector2IO' );
+  const friction = require( 'FRICTION/friction' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Property = require( 'AXON/Property' );
+  const PropertyIO = require( 'AXON/PropertyIO' );
+  const Vector2 = require( 'DOT/Vector2' );
+  const Vector2IO = require( 'DOT/Vector2IO' );
 
   // constants
   let EVAPORATED_SPEED = 400; // speed that particles travel during evaporation, in model units per second

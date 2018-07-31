@@ -9,11 +9,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  let CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
-  let friction = require( 'FRICTION/friction' );
-  let FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
-  let inherit = require( 'PHET_CORE/inherit' );
-  let ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
+  const CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
+  const friction = require( 'FRICTION/friction' );
+  const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
 
   // constants
   let PARTICLE_IMAGE_SIZE = 32; // pixels, square

@@ -10,9 +10,9 @@ define( function( require ) {
   'use strict';
 
   // modules
-  let Color = require( 'SCENERY/util/Color' );
-  let friction = require( 'FRICTION/friction' );
-  let FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
+  const Color = require( 'SCENERY/util/Color' );
+  const friction = require( 'FRICTION/friction' );
+  const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
 
   // // a11y strings
   let breakAwayString = FrictionA11yStrings.breakAway.value;

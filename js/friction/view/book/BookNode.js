@@ -12,17 +12,17 @@ define( function( require ) {
   'use strict';
 
   // modules
-  let CoverNode = require( 'FRICTION/friction/view/book/CoverNode' );
-  let DragHandler = require( 'FRICTION/friction/view/DragHandler' );
-  let FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
-  let friction = require( 'FRICTION/friction' );
-  let FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
-  let FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
-  let FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
-  let inherit = require( 'PHET_CORE/inherit' );
-  let Node = require( 'SCENERY/nodes/Node' );
-  let Shape = require( 'KITE/Shape' );
-  let StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const CoverNode = require( 'FRICTION/friction/view/book/CoverNode' );
+  const DragHandler = require( 'FRICTION/friction/view/DragHandler' );
+  const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
+  const friction = require( 'FRICTION/friction' );
+  const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
+  const FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
+  const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Shape = require( 'KITE/Shape' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // a11y strings
   let bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;

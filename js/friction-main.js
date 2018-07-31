@@ -14,18 +14,18 @@ define( function( require ) {
   'use strict';
 
   // modules
-  let Bounds2 = require( 'DOT/Bounds2' );
-  let FrictionKeyboardHelpContentPanel = require( 'FRICTION/friction/view/FrictionKeyboardHelpContentPanel' );
-  let FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
-  let FrictionScreenView = require( 'FRICTION/friction/view/FrictionScreenView' );
-  let Property = require( 'AXON/Property' );
-  let Screen = require( 'JOIST/Screen' );
-  let Sim = require( 'JOIST/Sim' );
-  let SimLauncher = require( 'JOIST/SimLauncher' );
-  let Tandem = require( 'TANDEM/Tandem' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const FrictionKeyboardHelpContentPanel = require( 'FRICTION/friction/view/FrictionKeyboardHelpContentPanel' );
+  const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
+  const FrictionScreenView = require( 'FRICTION/friction/view/FrictionScreenView' );
+  const Property = require( 'AXON/Property' );
+  const Screen = require( 'JOIST/Screen' );
+  const Sim = require( 'JOIST/Sim' );
+  const SimLauncher = require( 'JOIST/SimLauncher' );
+  const Tandem = require( 'TANDEM/Tandem' );
 
   // strings
-  let frictionTitleString = require( 'string!FRICTION/friction.title' );
+  const frictionTitleString = require( 'string!FRICTION/friction.title' );
 
   // constants
   let LAYOUT_BOUNDS = new Bounds2( 0, 0, 768, 504 );
