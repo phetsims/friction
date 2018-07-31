@@ -78,8 +78,8 @@ define( function( require ) {
 
 
     // a11y - update the screen summary when the model changes
-    let previousTempString = this.amplitudeToTempString( model.amplitudeProperty );
-    let previousJiggleString = this.amplitudeToJiggleString( model.amplitudeProperty );
+    let previousTempString = this.amplitudeToTempString( model.amplitudeProperty.value );
+    let previousJiggleString = this.amplitudeToJiggleString( model.amplitudeProperty.value );
     model.amplitudeProperty.link( ( amplitude ) => {
       let newTempString = self.amplitudeToTempString( amplitude );
       let newJiggleString = self.amplitudeToJiggleString( amplitude );
