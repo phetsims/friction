@@ -12,6 +12,23 @@ define( function( require ) {
   // modules
   var Color = require( 'SCENERY/util/Color' );
   var friction = require( 'FRICTION/friction' );
+  var FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
+
+  // // a11y strings
+  var breakAwayString = FrictionA11yStrings.breakAway.value;
+  var jiggleALotString = FrictionA11yStrings.jiggleALot.value;
+  var jiggleALittleString = FrictionA11yStrings.jiggleALittle.value;
+  var jiggleABitString = FrictionA11yStrings.jiggleABit.value;
+  // var amountOfAtomsString = FrictionA11yStrings.amountOfAtoms.value;
+  // var fewerString = FrictionA11yStrings.fewer.value;
+  // var farFewerString = FrictionA11yStrings.farFewer.value;
+  // var someString = FrictionA11yStrings.some.value;
+  // var manyString = FrictionA11yStrings.many.value;
+  //
+  var veryHotString = FrictionA11yStrings.veryHot.value;
+  var hotString = FrictionA11yStrings.hot.value;
+  var atWarmString = FrictionA11yStrings.atWarm.value;
+  var atCoolString = FrictionA11yStrings.atCool.value;
 
   var FrictionConstants = {
     TOP_BOOK_COLOR_MACRO: new Color( 'rgb(125,226,249)' ), // color of the macroscopic view of the book
@@ -25,7 +42,14 @@ define( function( require ) {
     INITIAL_ATOM_SPACING_X: 20, // x-distance between neighboring atoms in the books, excluding any gaps
     INITIAL_ATOM_SPACING_Y: 20, // y-distance between neighboring atoms in the books
     MAGNIFIER_WINDOW_HEIGHT: 300,
-    MAGNIFIER_WINDOW_WIDTH: 690
+    MAGNIFIER_WINDOW_WIDTH: 690,
+
+
+    // a11y - the mappings work well divided into 9 sections (arbitrary, but @terracoda's design diagram fit into 9 well
+    TEMPERATURE_STRINGS: [ atCoolString, atCoolString, atWarmString, atWarmString, atWarmString, hotString, hotString,
+      hotString, veryHotString ],
+    JIGGLE_STRINGS: [ jiggleABitString, jiggleABitString, jiggleALittleString, jiggleALittleString, jiggleALittleString,
+      jiggleALotString, jiggleALotString, jiggleALotString, breakAwayString ]
   };
 
   friction.register( 'FrictionConstants', FrictionConstants );

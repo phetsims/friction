@@ -32,7 +32,96 @@ define( function( require ) {
     },
     moveSlowerWith: {
       value: 'Move slower with with shift plus arrow keys or shift plus letter keys W, A, S, or D.'
+    },
+
+
+    //--------------------------------------------------------------------------
+    // Amount of atoms strings
+    //--------------------------------------------------------------------------
+
+    amountOfAtoms: {
+      value: 'Chemistry book has {{comparisonAmount}} jiggling atoms as {{breakAwayAmount}} have broken away.'
+    },
+    fewer: {
+      value: 'fewer'
+    },
+    farFewer: {
+      value: 'far fewer'
+    },
+    some: {
+      value: 'some'
+    },
+    many: {
+      value: 'many'
+    },
+
+
+    //--------------------------------------------------------------------------
+    // Jiggle scale strings
+    //--------------------------------------------------------------------------
+
+
+    breakAway: {
+      value: 'break away'
+    },
+
+    jiggleALot: {
+      value: 'jiggle  a lot'
+    },
+
+    jiggleALittle: {
+      value: 'jiggle a little'
+    },
+
+    jiggleABit: {
+      value: 'jiggle a tiny bit'
+    },
+
+    // if jiggled state has not settled
+    slowingDown: {
+      value: 'slowing down'
+    },
+
+    //--------------------------------------------------------------------------
+    // Temp scale strings
+    //--------------------------------------------------------------------------
+
+    veryHot: { value: 'very hot' },
+    hot: { value: 'hot' },
+    atWarm: { value: 'at warm' },
+    atCool: { value: 'at cool' },
+
+    thermometerTemperaturePattern: {
+      value: 'thermometer {{temp}}'
+    },
+
+    // if state has not settled yet
+    temperatureDropping: {
+      value: 'temperature dropping'
+    },
+
+    // Entire sentence for jiggling and temp
+    jiggleTemperatureScaleSentence: {
+      value: 'In zoomed-in view of where books meet, atoms {{jigglingClause}}, {{temperatureClause}}.'
+    },
+
+    //--------------------------------------------------------------------------
+    // Other summary sentence strings
+    //--------------------------------------------------------------------------
+
+    moveChemistryBookSentence: {
+      value: 'Move Chemistry book to rub books together.'
+
+    },
+    resetSimMoreObservationSentence: {
+      value: 'Reset the sim to make more observations.'
+    },
+
+    summarySentencePattern: {
+      value: 'Chemistry book rests on top of a Physics book, and is ready to be rubbed against it. {{jiggleTemperatureScaleSentence}} ' +
+             '{{supplementarySentence}}'
     }
+
   };
 
   // TODO: This seems it should be factored out, see https://github.com/phetsims/tasks/issues/917

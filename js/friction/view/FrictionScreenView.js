@@ -11,29 +11,40 @@ define( function( require ) {
   'use strict';
 
   // modules
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var BookNode = require( 'FRICTION/friction/view/book/BookNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var ControlPanelNode = require( 'SCENERY_PHET/accessibility/nodes/ControlPanelNode' );
   var friction = require( 'FRICTION/friction' );
+  var FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   var FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MagnifierNode = require( 'FRICTION/friction/view/magnifier/MagnifierNode' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var ThermometerNode = require( 'SCENERY_PHET/ThermometerNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
 
   // strings
   var chemistryString = require( 'string!FRICTION/chemistry' );
   var physicsString = require( 'string!FRICTION/physics' );
+
+  // a11y strings
+  var summarySentencePatternString = FrictionA11yStrings.summarySentencePattern.value;
+  var jiggleTemperatureScaleSentenceString = FrictionA11yStrings.jiggleTemperatureScaleSentence.value;
+  var thermometerTemperaturePatternString = FrictionA11yStrings.thermometerTemperaturePattern.value;
+  var moveChemistryBookSentenceString = FrictionA11yStrings.moveChemistryBookSentence.value;
+  var resetSimMoreObservationSentenceString = FrictionA11yStrings.resetSimMoreObservationSentence.value;
 
   // constants
   var THERMOMETER_FLUID_MAIN_COLOR = 'rgb(237,28,36)';
   var THERMOMETER_FLUID_HIGHLIGHT_COLOR = 'rgb(240,150,150)';
   var THERMOMETER_FLUID_RIGHT_SIDE_COLOR = 'rgb(237,28,36)';
   var THERMOMETER_BACKGROUND_FILL_COLOR = 'white';
+  var THERMOMETER_MIN_TEMP = FrictionModel.MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min - 1.05; // about 0
+  var THERMOMETER_MAX_TEMP = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit * 1.1; // 7.7???
 
   /**
    * @param {FrictionModel} model
@@ -41,19 +52,37 @@ define( function( require ) {
    * @constructor
    */
   function FrictionScreenView( model, tandem ) {
+    var self = this;
     ScreenView.call( this, {
       layoutBounds: new Bounds2( 0, 0, model.width, model.height ),
       addScreenSummaryNode: true // opt into the generic screen overview strategy provided by ScreenView.js see https://github.com/phetsims/joist/issues/509
     } );
 
-    // TODO: use pattern and factor out string
-    this.screenSummaryNode.addChild( new Node( {
+    // @private
+    this.model = model;
+
+    // @private (a11y)
+    this.frictionSummaryNode = new Node( {
       tagName: 'p',
       innerContent: 'A Chemistry book rests on top of a Physics book, and is ready to be rubbed against it. ' +
                     'In a zoomed-in view of where books meet, atoms jiggle {{a tiny bit}}, and a thermometer is ' +
                     '{{at cool}}. Move Chemistry book to rub books together.'
-    } ) );
+    } );
+    this.screenSummaryNode.addChild( this.frictionSummaryNode );
 
+
+    // a11y - update the screen summary when the model changes
+    var previousTempString = this.amplitudeToTempString( model.amplitudeProperty );
+    var previousJiggleString = this.amplitudeToJiggleString( model.amplitudeProperty );
+    model.amplitudeProperty.link( ( amplitude ) => {
+      var newTempString = self.amplitudeToTempString( amplitude );
+      var newJiggleString = self.amplitudeToJiggleString( amplitude );
+      if ( newTempString !== previousTempString || newJiggleString !== previousJiggleString ) {
+        this.updateSummaryString( model );
+        previousTempString = newTempString;
+        previousJiggleString = newJiggleString;
+      }
+    } );
 
     // add physics book
     this.addChild( new BookNode( model, physicsString, {
@@ -82,8 +111,8 @@ define( function( require ) {
 
     // add thermometer
     this.addChild( new ThermometerNode(
-      FrictionModel.MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min - 1.05,
-      FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit * 1.1,
+      THERMOMETER_MIN_TEMP,
+      THERMOMETER_MAX_TEMP,
       model.amplitudeProperty,
       {
         x: 690,
@@ -108,7 +137,10 @@ define( function( require ) {
 
     // add reset button
     var resetAllButton = new ResetAllButton( {
-      listener: function() { model.reset(); },
+      listener: function() {
+        model.reset();
+        self.reset();
+      },
       radius: 22,
       x: model.width * 0.94,
       y: model.height * 0.9,
@@ -133,6 +165,90 @@ define( function( require ) {
      */
     step: function( dt ) {
       this.magnifierNode.step( dt );
+    },
+
+    /**
+     * Reset the view
+     * @private
+     */
+    reset: function() {
+      this.updateSummaryString( this.model );
+    },
+
+    /**
+     * Implementation to go from amplitude to an index for a list of strings to describe the model amplitude. Either
+     * the temperature or the amount of jiggling.
+     * @private
+     * @param {number} amplitude
+     * @param {Array.<string>} stringsList
+     * @returns {number}
+     */
+    amplitudeToIndex: function( amplitude, stringsList ) {
+      if ( amplitude > THERMOMETER_MAX_TEMP ) {
+        amplitude = THERMOMETER_MAX_TEMP;
+      }
+
+      // cancel out the range
+      var normalized = ( amplitude - THERMOMETER_MIN_TEMP ) / THERMOMETER_MAX_TEMP;
+      var i = Math.floor( normalized * stringsList.length );
+
+      // to account for javascript rounding problems
+      if ( i === stringsList.length ) {
+        i = stringsList.length - 1;
+      }
+
+      assert && assert( i >= 0 && i < stringsList.length );
+      return i;
+    },
+
+    /**
+     * Map the amplitude of the model to a temperature string
+     * @private
+     * @a11y
+     * @param {number} amplitude
+     * @returns {string} the temp string based on the amplitude of the model
+     */
+    amplitudeToTempString: function( amplitude ) {
+      var i = this.amplitudeToIndex( amplitude, FrictionConstants.TEMPERATURE_STRINGS );
+      return FrictionConstants.TEMPERATURE_STRINGS[ i ];
+    },
+
+    /**
+     * Map the amplitude of the model to a "jiggle" string
+     * @private
+     * @a11y
+     * @param {number} amplitude
+     * @returns {string} the "jiggle" amount string based on the amplitude of the model
+     */
+    amplitudeToJiggleString: function( amplitude ) {
+      var i = this.amplitudeToIndex( amplitude, FrictionConstants.JIGGLE_STRINGS );
+      return FrictionConstants.JIGGLE_STRINGS[ i ];
+    },
+
+    /**
+     * Update the summary string in the PDOM
+     * @private
+     * @a11y
+     * @param {FrictionModel} model
+     */
+    updateSummaryString: function( model ) {
+      var tempString = StringUtils.fillIn( thermometerTemperaturePatternString, {
+        temp: this.amplitudeToTempString( model.amplitudeProperty.value )
+      } );
+
+      var jiggleTempSentence = StringUtils.fillIn( jiggleTemperatureScaleSentenceString, {
+        jigglingClause: this.amplitudeToJiggleString( model.amplitudeProperty.value ),
+        temperatureClause: tempString
+      } );
+
+      // arbitrary number of atoms needed to evaporate before displaying different info in the PDOM
+      var NUMBER_OF_ATOMS_EVAPORATED_THRESHOLD = 15;
+      var supplementarySentence = model.numberOfAtomsEvaporated > NUMBER_OF_ATOMS_EVAPORATED_THRESHOLD ? resetSimMoreObservationSentenceString : moveChemistryBookSentenceString;
+
+      this.frictionSummaryNode.innerContent = StringUtils.fillIn( summarySentencePatternString, {
+        jiggleTemperatureScaleSentence: jiggleTempSentence,
+        supplementarySentence: supplementarySentence
+      } );
     }
   } );
 } );

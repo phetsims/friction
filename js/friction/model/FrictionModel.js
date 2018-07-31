@@ -210,6 +210,14 @@ define( function( require ) {
     // @public (read-only) {Atom[]} - array of atoms that are visible to the user in the magnifier window
     this.atoms = [];
 
+    // @public (read-only)
+    // {number} the count of how many atoms have been evaporated
+    this.numberOfAtomsEvaporated = 0;
+
+    this.evaporationEmitter.addListener( function() {
+      self.numberOfAtomsEvaporated += 1;
+    } );
+
     // add the atoms that are visible in the top book
     MAGNIFIED_ATOMS_INFO.top.layerDescriptions.forEach( function( layerDescription, i ) {
       addAtomRow(
@@ -324,6 +332,7 @@ define( function( require ) {
       this.atoms.forEach( function( atom ) {
         atom.reset();
       } );
+      this.numberOfAtomsEvaporated = 0;
     },
 
     /**
