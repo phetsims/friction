@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Namespace = require( 'PHET_CORE/Namespace' );
+  let Namespace = require( 'PHET_CORE/Namespace' );
 
   return new Namespace( 'friction' );
 } );

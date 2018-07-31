@@ -11,15 +11,15 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var friction = require( 'FRICTION/friction' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Property = require( 'AXON/Property' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Vector2IO = require( 'DOT/Vector2IO' );
+  let friction = require( 'FRICTION/friction' );
+  let inherit = require( 'PHET_CORE/inherit' );
+  let Property = require( 'AXON/Property' );
+  let PropertyIO = require( 'AXON/PropertyIO' );
+  let Vector2 = require( 'DOT/Vector2' );
+  let Vector2IO = require( 'DOT/Vector2IO' );
 
   // constants
-  var EVAPORATED_SPEED = 400; // speed that particles travel during evaporation, in model units per second
+  let EVAPORATED_SPEED = 400; // speed that particles travel during evaporation, in model units per second
 
   /**
    * @param {Vector2} initialPosition
@@ -29,7 +29,7 @@ define( function( require ) {
    * @constructor
    */
   function Atom( initialPosition, model, isTopAtom, tandem ) {
-    var self = this;
+    let self = this;
 
     // @private {Vector2} - initial position, used during resets
     this.initialPosition = initialPosition;
@@ -60,8 +60,8 @@ define( function( require ) {
       // move the atom's center position as the top book moves
       model.topBookPositionProperty.lazyLink( function( newPosition, oldPosition ) {
         if ( !self.isEvaporated ) {
-          var deltaX = newPosition.x - oldPosition.x;
-          var deltaY = newPosition.y - oldPosition.y;
+          let deltaX = newPosition.x - oldPosition.x;
+          let deltaY = newPosition.y - oldPosition.y;
           self.centerPosition.setXY( self.centerPosition.x + deltaX, self.centerPosition.y + deltaY );
         }
       } );
@@ -81,8 +81,8 @@ define( function( require ) {
       assert && assert( !this.isEvaporated, 'Atom was already evaporated' );
 
       this.isEvaporated = true;
-      var evaporationDestinationX = this.model.width * ( phet.joist.random.nextBoolean() ? 1 : -1 );
-      var evaporationDestinationY = this.positionProperty.get().y -
+      let evaporationDestinationX = this.model.width * ( phet.joist.random.nextBoolean() ? 1 : -1 );
+      let evaporationDestinationY = this.positionProperty.get().y -
                                     this.model.distanceBetweenBooksProperty.get() * phet.joist.random.nextDouble();
 
       this.evaporationVelocity.setXY(
@@ -108,7 +108,7 @@ define( function( require ) {
     step: function( dt ) {
 
       // update the atom's position based on vibration and center position
-      var newPosition = new Vector2(
+      let newPosition = new Vector2(
         this.centerPosition.x + this.model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 ),
         this.centerPosition.y + this.model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 )
       );

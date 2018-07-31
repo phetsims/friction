@@ -12,36 +12,36 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var DragHandler = require( 'FRICTION/friction/view/DragHandler' );
-  var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
-  var friction = require( 'FRICTION/friction' );
-  var FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
-  var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
-  var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
-  var FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MagnifierTargetNode = require( 'FRICTION/friction/view/magnifier/MagnifierTargetNode' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Shape = require( 'KITE/Shape' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Vector2 = require( 'DOT/Vector2' );
+  let ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  let AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
+  let Bounds2 = require( 'DOT/Bounds2' );
+  let Circle = require( 'SCENERY/nodes/Circle' );
+  let DragHandler = require( 'FRICTION/friction/view/DragHandler' );
+  let FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
+  let friction = require( 'FRICTION/friction' );
+  let FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
+  let FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  let FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
+  let FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
+  let inherit = require( 'PHET_CORE/inherit' );
+  let MagnifierTargetNode = require( 'FRICTION/friction/view/magnifier/MagnifierTargetNode' );
+  let Node = require( 'SCENERY/nodes/Node' );
+  let Path = require( 'SCENERY/nodes/Path' );
+  let Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  let Shape = require( 'KITE/Shape' );
+  let StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  let Vector2 = require( 'DOT/Vector2' );
 
   // a11y strings
-  var bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
-  var zoomedInBookTitlePatternString = FrictionA11yStrings.zoomedInBookTitlePattern.value;
-  var moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
-  var bookHelpTextString = FrictionA11yStrings.bookHelpText.value;
+  let bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
+  let zoomedInBookTitlePatternString = FrictionA11yStrings.zoomedInBookTitlePattern.value;
+  let moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
+  let bookHelpTextString = FrictionA11yStrings.bookHelpText.value;
 
   // constants
-  var ARROW_LENGTH = 70;
-  var INTER_ARROW_SPACING = 20;
-  var ARROW_OPTIONS = {
+  let ARROW_LENGTH = 70;
+  let INTER_ARROW_SPACING = 20;
+  let ARROW_OPTIONS = {
 
     // these values were empirically determined based on visual appearance
     headHeight: 32,
@@ -52,10 +52,10 @@ define( function( require ) {
     lineWidth: 2
   };
 
-  var WIDTH = FrictionConstants.MAGNIFIER_WINDOW_WIDTH;
-  var HEIGHT = FrictionConstants.MAGNIFIER_WINDOW_HEIGHT;
-  var ROUND = 30;
-  var SCALE = 0.05;
+  let WIDTH = FrictionConstants.MAGNIFIER_WINDOW_WIDTH;
+  let HEIGHT = FrictionConstants.MAGNIFIER_WINDOW_HEIGHT;
+  let ROUND = 30;
+  let SCALE = 0.05;
 
   /**
    * @param {FrictionModel} model
@@ -77,7 +77,7 @@ define( function( require ) {
     this.topAtomsLayer = new Node();
 
     // arrow icon
-    var arrowIcon = new Node();
+    let arrowIcon = new Node();
     arrowIcon.addChild( new ArrowNode( INTER_ARROW_SPACING / 2, 0, ARROW_LENGTH, 0, ARROW_OPTIONS ) );
     arrowIcon.addChild( new ArrowNode( -INTER_ARROW_SPACING / 2, 0, -ARROW_LENGTH, 0, ARROW_OPTIONS ) );
     arrowIcon.mutate( { centerX: WIDTH / 2, top: 20 } );
@@ -115,7 +115,7 @@ define( function( require ) {
     this.topBookBackground = new Node();
 
     // init drag for background
-    var background = new Rectangle(
+    let background = new Rectangle(
       -1.125 * WIDTH,
       -HEIGHT,
       3.25 * WIDTH,
@@ -129,7 +129,7 @@ define( function( require ) {
     this.topBookBackground.addChild( background );
 
     // init drag for drag area
-    var dragArea = new Rectangle(
+    let dragArea = new Rectangle(
       0.055 * WIDTH,
       0.175 * HEIGHT,
       0.875 * WIDTH,
@@ -160,12 +160,12 @@ define( function( require ) {
 
     // a11y - The focusHighlight of the top atoms. It also includes the place for the arrows so that it extends up into
     // the book "background." Dilated to get around the arrows fully. See `atomRowsToEvaporateProperty.link()` below
-    var arrowAndTopAtomsForFocusHighlight = new Node();
+    let arrowAndTopAtomsForFocusHighlight = new Node();
     arrowAndTopAtomsForFocusHighlight.children = [ dragArea, Rectangle.bounds( arrowIcon.bounds.dilated( 3 ) ) ];
 
     // a11y - custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
-    var focusHighlightShape = Shape.bounds( dragArea.bounds );
-    var focusHighlightPath = new FocusHighlightPath( focusHighlightShape );
+    let focusHighlightShape = Shape.bounds( dragArea.bounds );
+    let focusHighlightPath = new FocusHighlightPath( focusHighlightShape );
     dragArea.setFocusHighlight( focusHighlightPath );
 
     // a11y - add the keyboard drag listener to the top atoms
@@ -190,17 +190,17 @@ define( function( require ) {
     this.container.addChild( this.topBookBackground );
 
     // Add the red border around the magnified area, and add a white shape below it to block out the clipped area.
-    var topPadding = 500;
-    var sidePadding = 800;
-    var bottomPadding = 60;
-    var rightX = WIDTH + sidePadding;
-    var leftX = -sidePadding;
-    var topY = -topPadding;
-    var bottomY = HEIGHT + bottomPadding;
-    var innerLowX = ROUND;
-    var innerHighX = WIDTH - ROUND;
-    var innerLowY = ROUND;
-    var innerHighY = HEIGHT - ROUND;
+    let topPadding = 500;
+    let sidePadding = 800;
+    let bottomPadding = 60;
+    let rightX = WIDTH + sidePadding;
+    let leftX = -sidePadding;
+    let topY = -topPadding;
+    let bottomY = HEIGHT + bottomPadding;
+    let innerLowX = ROUND;
+    let innerHighX = WIDTH - ROUND;
+    let innerLowY = ROUND;
+    let innerHighY = HEIGHT - ROUND;
     this.addChild( new Path( new Shape().moveTo( rightX, topY )
       .lineTo( leftX, topY )
       .lineTo( leftX, bottomY )
@@ -223,7 +223,7 @@ define( function( require ) {
     } ) );
 
     // add magnifier's target
-    var magnifierTargetNode = new MagnifierTargetNode(
+    let magnifierTargetNode = new MagnifierTargetNode(
       targetX,
       targetY,
       WIDTH * SCALE,
@@ -263,8 +263,8 @@ define( function( require ) {
 
   // helper function that adds a row of circles at the specified location, used to add bumps to the magnified books
   function addRowCircles( circleRadius, xSpacing, parentNode, options ) {
-    var numberOfAtomsForRow = options.width / xSpacing;
-    for ( var i = 0; i < numberOfAtomsForRow; i++ ) {
+    let numberOfAtomsForRow = options.width / xSpacing;
+    for ( let i = 0; i < numberOfAtomsForRow; i++ ) {
       parentNode.addChild( new Circle( circleRadius, {
         fill: options.color,
         y: options.y,

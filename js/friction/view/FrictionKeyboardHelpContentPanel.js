@@ -9,27 +9,27 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var friction = require( 'FRICTION/friction' );
-  var FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
-  var GeneralNavigationHelpContent = require( 'SCENERY_PHET/keyboard/help/GeneralNavigationHelpContent' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var HelpContent = require( 'SCENERY_PHET/keyboard/help/HelpContent' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Panel = require( 'SUN/Panel' );
-  var RichText = require( 'SCENERY/nodes/RichText' );
+  let friction = require( 'FRICTION/friction' );
+  let FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
+  let GeneralNavigationHelpContent = require( 'SCENERY_PHET/keyboard/help/GeneralNavigationHelpContent' );
+  let HBox = require( 'SCENERY/nodes/HBox' );
+  let HelpContent = require( 'SCENERY_PHET/keyboard/help/HelpContent' );
+  let inherit = require( 'PHET_CORE/inherit' );
+  let Node = require( 'SCENERY/nodes/Node' );
+  let Panel = require( 'SUN/Panel' );
+  let RichText = require( 'SCENERY/nodes/RichText' );
 
   // strings
-  var moveBookHeaderString = require( 'string!FRICTION/moveBookHeader' );
-  var moveBookString = require( 'string!FRICTION/moveBook' );
-  var moveInSmallerStepsString = require( 'string!FRICTION/moveInSmallerSteps' );
+  let moveBookHeaderString = require( 'string!FRICTION/moveBookHeader' );
+  let moveBookString = require( 'string!FRICTION/moveBook' );
+  let moveInSmallerStepsString = require( 'string!FRICTION/moveInSmallerSteps' );
 
   // a11y strings
-  var moveBookWithString = FrictionA11yStrings.moveBookWith.value;
-  var moveSlowerWithString = FrictionA11yStrings.moveSlowerWith.value;
+  let moveBookWithString = FrictionA11yStrings.moveBookWith.value;
+  let moveSlowerWithString = FrictionA11yStrings.moveSlowerWith.value;
 
   // constants
-  var DEFAULT_LABEL_OPTIONS = {
+  let DEFAULT_LABEL_OPTIONS = {
     font: HelpContent.DEFAULT_LABEL_FONT,
     maxWidth: HelpContent.DEFAULT_TEXT_MAX_WIDTH
   };
@@ -39,10 +39,10 @@ define( function( require ) {
    */
   function FrictionKeyboardHelpContentPanel() {
 
-    var moveBookHelpContent = new MoveBookHelpNode();
-    var generalNavigationHelpContent = new GeneralNavigationHelpContent();
+    let moveBookHelpContent = new MoveBookHelpNode();
+    let generalNavigationHelpContent = new GeneralNavigationHelpContent();
 
-    var content = new HBox( {
+    let content = new HBox( {
       children: [ moveBookHelpContent, generalNavigationHelpContent ],
       align: 'top',
       spacing: 30
@@ -70,15 +70,15 @@ define( function( require ) {
     }, options );
 
     // BookNode row
-    var moveBookText = new RichText( moveBookString, DEFAULT_LABEL_OPTIONS );
-    var moveBookIcon = HelpContent.arrowOrWasdKeysRowIcon();
-    var moveBookRow = HelpContent.labelWithIcon( moveBookText, moveBookIcon, moveBookWithString );
+    let moveBookText = new RichText( moveBookString, DEFAULT_LABEL_OPTIONS );
+    let moveBookIcon = HelpContent.arrowOrWasdKeysRowIcon();
+    let moveBookRow = HelpContent.labelWithIcon( moveBookText, moveBookIcon, moveBookWithString );
 
     // BookNode in smaller steps row
-    var moveInSmallerStepsText = new RichText( moveInSmallerStepsString, DEFAULT_LABEL_OPTIONS );
-    var shiftPlusArrowKeys = HelpContent.shiftPlusIcon( HelpContent.arrowKeysRowIcon() );
-    var shiftPlusWASDKeys = HelpContent.shiftPlusIcon( HelpContent.wasdRowIcon() );
-    var row = HelpContent.labelWithIconList( moveInSmallerStepsText, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], moveSlowerWithString );
+    let moveInSmallerStepsText = new RichText( moveInSmallerStepsString, DEFAULT_LABEL_OPTIONS );
+    let shiftPlusArrowKeys = HelpContent.shiftPlusIcon( HelpContent.arrowKeysRowIcon() );
+    let shiftPlusWASDKeys = HelpContent.shiftPlusIcon( HelpContent.wasdRowIcon() );
+    let row = HelpContent.labelWithIconList( moveInSmallerStepsText, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], moveSlowerWithString );
 
     HelpContent.call( this, moveBookHeaderString, [ moveBookRow, row ], options );
   }

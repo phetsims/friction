@@ -12,12 +12,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var friction = require( 'FRICTION/friction' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Shape = require( 'KITE/Shape' );
+  let inherit = require( 'PHET_CORE/inherit' );
+  let Node = require( 'SCENERY/nodes/Node' );
+  let friction = require( 'FRICTION/friction' );
+  let Path = require( 'SCENERY/nodes/Path' );
+  let Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  let Shape = require( 'KITE/Shape' );
 
   /**
    * @param {number} x
@@ -38,19 +38,19 @@ define( function( require ) {
 
     Node.call( this );
 
-    var rectangle = new Rectangle( 0, 0, width, height, cornerRadius, cornerRadius, {
+    let rectangle = new Rectangle( 0, 0, width, height, cornerRadius, cornerRadius, {
       stroke: options.stroke,
       lineWidth: 1
     } );
     this.addChild( rectangle );
-    var pathLeft = new Path( new Shape()
+    let pathLeft = new Path( new Shape()
       .moveToPoint( leftAnchor )
       .lineTo( x - width / 2, y ), {
       stroke: options.stroke,
       lineDash: [ 10, 10 ]
     } );
     this.addChild( pathLeft );
-    var pathRight = new Path( new Shape()
+    let pathRight = new Path( new Shape()
       .moveToPoint( rightAnchor )
       .lineTo( x + width / 2, y ), {
       stroke: options.stroke,

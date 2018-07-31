@@ -11,24 +11,24 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Shape = require( 'KITE/Shape' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var friction = require( 'FRICTION/friction' );
+  let FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  let inherit = require( 'PHET_CORE/inherit' );
+  let Node = require( 'SCENERY/nodes/Node' );
+  let Path = require( 'SCENERY/nodes/Path' );
+  let PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  let Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  let Shape = require( 'KITE/Shape' );
+  let Text = require( 'SCENERY/nodes/Text' );
+  let friction = require( 'FRICTION/friction' );
 
   // constants
-  var FONT = new PhetFont( 22 );
-  var WIDTH = 200;
-  var HEIGHT = 30;
-  var ROUND = 5;
-  var PAGES = 8;
-  var LENGTH = 75;
-  var ANGLE = Math.PI / 12;
+  let FONT = new PhetFont( 22 );
+  let WIDTH = 200;
+  let HEIGHT = 30;
+  let ROUND = 5;
+  let PAGES = 8;
+  let LENGTH = 75;
+  let ANGLE = Math.PI / 12;
 
   /**
    * @param {string} title
@@ -69,7 +69,7 @@ define( function( require ) {
       fill: options.color,
       stroke: options.stroke
     } ) );
-    var titleNode = new Text( title, {
+    let titleNode = new Text( title, {
       font: FONT,
       fill: FrictionConstants.BOOK_TEXT_COLOR,
       pickable: false
@@ -89,10 +89,10 @@ define( function( require ) {
     } ) );
 
     // add remaining pages
-    for ( var i = 0, dy = ( HEIGHT - ROUND ) / PAGES, dl = LENGTH / 5, offset = 5; i < PAGES; i++ ) {
-      var amplitude = ( LENGTH - offset + dl * ( Math.pow( 1 / 2 - i / PAGES, 2 ) - 1 / 4 ) );
-      var x2 = WIDTH + ROUND / 2 + Math.cos( ANGLE ) * amplitude;
-      var y2 = ROUND / 2 + dy * i - Math.sin( ANGLE ) * amplitude;
+    for ( let i = 0, dy = ( HEIGHT - ROUND ) / PAGES, dl = LENGTH / 5, offset = 5; i < PAGES; i++ ) {
+      let amplitude = ( LENGTH - offset + dl * ( Math.pow( 1 / 2 - i / PAGES, 2 ) - 1 / 4 ) );
+      let x2 = WIDTH + ROUND / 2 + Math.cos( ANGLE ) * amplitude;
+      let y2 = ROUND / 2 + dy * i - Math.sin( ANGLE ) * amplitude;
       this.addChild( new Path( new Shape()
           .moveTo( WIDTH + ROUND / 2, ROUND / 2 + dy * i )
           .lineTo( x2, y2 ), {

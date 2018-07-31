@@ -14,26 +14,26 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var FrictionKeyboardHelpContentPanel = require( 'FRICTION/friction/view/FrictionKeyboardHelpContentPanel' );
-  var FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
-  var FrictionScreenView = require( 'FRICTION/friction/view/FrictionScreenView' );
-  var Property = require( 'AXON/Property' );
-  var Screen = require( 'JOIST/Screen' );
-  var Sim = require( 'JOIST/Sim' );
-  var SimLauncher = require( 'JOIST/SimLauncher' );
-  var Tandem = require( 'TANDEM/Tandem' );
+  let Bounds2 = require( 'DOT/Bounds2' );
+  let FrictionKeyboardHelpContentPanel = require( 'FRICTION/friction/view/FrictionKeyboardHelpContentPanel' );
+  let FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
+  let FrictionScreenView = require( 'FRICTION/friction/view/FrictionScreenView' );
+  let Property = require( 'AXON/Property' );
+  let Screen = require( 'JOIST/Screen' );
+  let Sim = require( 'JOIST/Sim' );
+  let SimLauncher = require( 'JOIST/SimLauncher' );
+  let Tandem = require( 'TANDEM/Tandem' );
 
   // strings
-  var frictionTitleString = require( 'string!FRICTION/friction.title' );
+  let frictionTitleString = require( 'string!FRICTION/friction.title' );
 
   // constants
-  var LAYOUT_BOUNDS = new Bounds2( 0, 0, 768, 504 );
+  let LAYOUT_BOUNDS = new Bounds2( 0, 0, 768, 504 );
 
   SimLauncher.launch( function() {
 
-    var keyboardHelpContent = new FrictionKeyboardHelpContentPanel();
-    var simOptions = {
+    let keyboardHelpContent = new FrictionKeyboardHelpContentPanel();
+    let simOptions = {
       credits: {
         leadDesign: 'Michael Dubson, Noah Podolefsky',
         softwareDevelopment: 'Michael Dubson, John Blanco, Jonathan Olson',
@@ -46,7 +46,7 @@ define( function( require ) {
     };
 
     // Create and start the sim
-    var screenTandem = Tandem.rootTandem.createTandem( 'frictionScreen' );
+    let screenTandem = Tandem.rootTandem.createTandem( 'frictionScreen' );
     new Sim( frictionTitleString, [
       new Screen( function() {
           return new FrictionModel( LAYOUT_BOUNDS.width, LAYOUT_BOUNDS.height, screenTandem.createTandem( 'model' ) );

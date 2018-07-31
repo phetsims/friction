@@ -10,27 +10,27 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Color = require( 'SCENERY/util/Color' );
-  var friction = require( 'FRICTION/friction' );
-  var FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
+  let Color = require( 'SCENERY/util/Color' );
+  let friction = require( 'FRICTION/friction' );
+  let FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
 
   // // a11y strings
-  var breakAwayString = FrictionA11yStrings.breakAway.value;
-  var jiggleALotString = FrictionA11yStrings.jiggleALot.value;
-  var jiggleALittleString = FrictionA11yStrings.jiggleALittle.value;
-  var jiggleABitString = FrictionA11yStrings.jiggleABit.value;
-  // var amountOfAtomsString = FrictionA11yStrings.amountOfAtoms.value;
-  // var fewerString = FrictionA11yStrings.fewer.value;
-  // var farFewerString = FrictionA11yStrings.farFewer.value;
-  // var someString = FrictionA11yStrings.some.value;
-  // var manyString = FrictionA11yStrings.many.value;
+  let breakAwayString = FrictionA11yStrings.breakAway.value;
+  let jiggleALotString = FrictionA11yStrings.jiggleALot.value;
+  let jiggleALittleString = FrictionA11yStrings.jiggleALittle.value;
+  let jiggleABitString = FrictionA11yStrings.jiggleABit.value;
+  // let amountOfAtomsString = FrictionA11yStrings.amountOfAtoms.value;
+  // let fewerString = FrictionA11yStrings.fewer.value;
+  // let farFewerString = FrictionA11yStrings.farFewer.value;
+  // let someString = FrictionA11yStrings.some.value;
+  // let manyString = FrictionA11yStrings.many.value;
   //
-  var veryHotString = FrictionA11yStrings.veryHot.value;
-  var hotString = FrictionA11yStrings.hot.value;
-  var atWarmString = FrictionA11yStrings.atWarm.value;
-  var atCoolString = FrictionA11yStrings.atCool.value;
+  let veryHotString = FrictionA11yStrings.veryHot.value;
+  let hotString = FrictionA11yStrings.hot.value;
+  let atWarmString = FrictionA11yStrings.atWarm.value;
+  let atCoolString = FrictionA11yStrings.atCool.value;
 
-  var FrictionConstants = {
+  let FrictionConstants = {
     TOP_BOOK_COLOR_MACRO: new Color( 'rgb(125,226,249)' ), // color of the macroscopic view of the book
     TOP_BOOK_COLOR: new Color( 'rgb(125,226,249)' ), // color for the book in the magnified view
     TOP_BOOK_ATOMS_COLOR: new Color( 'rgb( 0, 255, 255 )' ), // color for the atoms in the magnified view

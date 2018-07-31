@@ -12,22 +12,22 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CoverNode = require( 'FRICTION/friction/view/book/CoverNode' );
-  var DragHandler = require( 'FRICTION/friction/view/DragHandler' );
-  var FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
-  var friction = require( 'FRICTION/friction' );
-  var FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
-  var FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
-  var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Shape = require( 'KITE/Shape' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  let CoverNode = require( 'FRICTION/friction/view/book/CoverNode' );
+  let DragHandler = require( 'FRICTION/friction/view/DragHandler' );
+  let FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
+  let friction = require( 'FRICTION/friction' );
+  let FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
+  let FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
+  let FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  let inherit = require( 'PHET_CORE/inherit' );
+  let Node = require( 'SCENERY/nodes/Node' );
+  let Shape = require( 'KITE/Shape' );
+  let StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // a11y strings
-  var bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
-  var moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
-  var bookHelpTextString = FrictionA11yStrings.bookHelpText.value;
+  let bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
+  let moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
+  let bookHelpTextString = FrictionA11yStrings.bookHelpText.value;
 
   /**
    * @param {FrictionModel} model
@@ -36,7 +36,7 @@ define( function( require ) {
    * @constructor
    */
   function BookNode( model, title, options ) {
-    var self = this;
+    let self = this;
 
     options = _.extend( {
 
@@ -57,8 +57,8 @@ define( function( require ) {
     if ( options.drag ) {
 
       // We want the focus highlight to be completely within the bounds of the book.
-      var focusHighlightRect = new FocusHighlightPath( null );
-      var focusHighlightLineWidth = focusHighlightRect.getOuterLineWidth( this );
+      let focusHighlightRect = new FocusHighlightPath( null );
+      let focusHighlightLineWidth = focusHighlightRect.getOuterLineWidth( this );
       focusHighlightRect.setShape( Shape.bounds( this.localBounds.eroded( focusHighlightLineWidth / 2 ) ) );
 
       this.addChild( focusHighlightRect );

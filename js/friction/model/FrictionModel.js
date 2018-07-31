@@ -11,38 +11,38 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Atom = require( 'FRICTION/friction/model/Atom' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var Emitter = require( 'AXON/Emitter' );
-  var friction = require( 'FRICTION/friction' );
-  var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var Property = require( 'AXON/Property' );
-  var PropertyIO = require( 'AXON/PropertyIO' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Vector2IO = require( 'DOT/Vector2IO' );
+  let Atom = require( 'FRICTION/friction/model/Atom' );
+  let BooleanProperty = require( 'AXON/BooleanProperty' );
+  let Emitter = require( 'AXON/Emitter' );
+  let friction = require( 'FRICTION/friction' );
+  let FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  let inherit = require( 'PHET_CORE/inherit' );
+  let NumberProperty = require( 'AXON/NumberProperty' );
+  let Property = require( 'AXON/Property' );
+  let PropertyIO = require( 'AXON/PropertyIO' );
+  let Vector2 = require( 'DOT/Vector2' );
+  let Vector2IO = require( 'DOT/Vector2IO' );
 
   // ifphetio
-  var BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
+  let BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
 
   // constants
-  var ATOM_RADIUS = FrictionConstants.ATOM_RADIUS; // radius of single atom
-  var ATOM_SPACING_Y = 20; // y-distance between neighbors (atoms)
-  var INITIAL_ATOM_SPACING_Y = 25; // initial distance between top and bottom atoms
-  var VIBRATION_AMPLITUDE_MIN = 1; // min amplitude for an atom
-  var AMPLITUDE_EVAPORATE = 7; // evaporation amplitude for an atom
-  var VIBRATION_AMPLITUDE_MAX = 12; // atom's max amplitude
-  var TOP_BOOK_ATOMS_COLOR = FrictionConstants.TOP_BOOK_ATOMS_COLOR; // color of top book
-  var BOTTOM_BOOK_ATOMS_COLOR = FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR; // color of bottom
-  var COOLING_RATE = 0.2; // proportion per second; adjust in order to change the cooling rate
-  var HEATING_MULTIPLIER = 0.0075; // multiplied by distance moved while in contact to control heating rate
-  var EVAPORATION_AMPLITUDE_REDUCTION = 0.01; // decrease in amplitude (a.k.a. temperature) when an atom evaporates
-  var MAX_X_DISPLACEMENT = 600; // max allowed distance from center x
-  var MIN_Y_POSITION = -70; // empirically determined such that top book can't be completely dragged out of frame
+  let ATOM_RADIUS = FrictionConstants.ATOM_RADIUS; // radius of single atom
+  let ATOM_SPACING_Y = 20; // y-distance between neighbors (atoms)
+  let INITIAL_ATOM_SPACING_Y = 25; // initial distance between top and bottom atoms
+  let VIBRATION_AMPLITUDE_MIN = 1; // min amplitude for an atom
+  let AMPLITUDE_EVAPORATE = 7; // evaporation amplitude for an atom
+  let VIBRATION_AMPLITUDE_MAX = 12; // atom's max amplitude
+  let TOP_BOOK_ATOMS_COLOR = FrictionConstants.TOP_BOOK_ATOMS_COLOR; // color of top book
+  let BOTTOM_BOOK_ATOMS_COLOR = FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR; // color of bottom
+  let COOLING_RATE = 0.2; // proportion per second; adjust in order to change the cooling rate
+  let HEATING_MULTIPLIER = 0.0075; // multiplied by distance moved while in contact to control heating rate
+  let EVAPORATION_AMPLITUDE_REDUCTION = 0.01; // decrease in amplitude (a.k.a. temperature) when an atom evaporates
+  let MAX_X_DISPLACEMENT = 600; // max allowed distance from center x
+  let MIN_Y_POSITION = -70; // empirically determined such that top book can't be completely dragged out of frame
 
   // atoms of top book, contains 5 rows, 4 of which can evaporate and 1 that can't
-  var TOP_BOOK_ATOM_STRUCTURE = [
+  let TOP_BOOK_ATOM_STRUCTURE = [
 
     /*
      * First row:
@@ -96,7 +96,7 @@ define( function( require ) {
   ];
 
   // atoms of bottom book (contains 3 rows that can not evaporate)
-  var BOTTOM_BOOK_ATOM_STRUCTURE = [
+  let BOTTOM_BOOK_ATOM_STRUCTURE = [
 
     /*
      * First row:
@@ -125,7 +125,7 @@ define( function( require ) {
   ];
 
   // information about the nature of the atoms that will be shown in the magnifier window
-  var MAGNIFIED_ATOMS_INFO = {
+  let MAGNIFIED_ATOMS_INFO = {
     radius: ATOM_RADIUS,
     distanceX: FrictionConstants.INITIAL_ATOM_SPACING_X,
     distanceY: FrictionConstants.INITIAL_ATOM_SPACING_Y,
@@ -152,7 +152,7 @@ define( function( require ) {
    * @constructor
    */
   function FrictionModel( width, height, tandem ) {
-    var self = this;
+    let self = this;
 
     // @public (read-only) {Number} - the width for the model in model coordinates
     this.width = width;
@@ -205,7 +205,7 @@ define( function( require ) {
     this.bookDraggingScaleFactor = 0.025;
 
     // group tandem for creating the atoms
-    var atomGroupTandem = tandem.createGroupTandem( 'atoms' );
+    let atomGroupTandem = tandem.createGroupTandem( 'atoms' );
 
     // @public (read-only) {Atom[]} - array of atoms that are visible to the user in the magnifier window
     this.atoms = [];
@@ -252,8 +252,8 @@ define( function( require ) {
       oldPosition = oldPosition || Vector2.ZERO;
       self.distanceBetweenBooksProperty.set( self.distanceBetweenBooksProperty.get() - ( newPosition.minus( oldPosition ) ).y );
       if ( self.contactProperty.get() ) {
-        var dx = Math.abs( newPosition.x - oldPosition.x );
-        var newValue = self.amplitudeProperty.get() + dx * HEATING_MULTIPLIER;
+        let dx = Math.abs( newPosition.x - oldPosition.x );
+        let newValue = self.amplitudeProperty.get() + dx * HEATING_MULTIPLIER;
         self.amplitudeProperty.set( Math.min( newValue, MAGNIFIED_ATOMS_INFO.vibrationAmplitude.max ) );
       }
     } );
@@ -269,14 +269,14 @@ define( function( require ) {
   // helper function to add a layer of atoms to the model
   function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, isTopAtom, atomGroupTandem ) {
 
-    var canEvaporate;
-    var evaporableAtomsRow = [];
+    let canEvaporate;
+    let evaporableAtomsRow = [];
 
-    for ( var i = 0; i < layerDescription.length; i++ ) {
-      var offset = layerDescription[ i ].offset || 0;
+    for ( let i = 0; i < layerDescription.length; i++ ) {
+      let offset = layerDescription[ i ].offset || 0;
       canEvaporate = layerDescription[ i ].canEvaporate || false;
-      for ( var n = 0; n < layerDescription[ i ].num; n++ ) {
-        var atom = new Atom(
+      for ( let n = 0; n < layerDescription[ i ].num; n++ ) {
+        let atom = new Atom(
           new Vector2( rowStartXPos + ( offset + n ) * MAGNIFIED_ATOMS_INFO.distanceX, rowYPos ),
           frictionModel,
           isTopAtom,
@@ -305,12 +305,12 @@ define( function( require ) {
     step: function( dt ) {
 
       // step the atoms, which is how they vibrate and move away if they evaporate
-      for ( var i = 0; i < this.atoms.length; i++ ) {
+      for ( let i = 0; i < this.atoms.length; i++ ) {
         this.atoms[ i ].step( dt );
       }
 
       // cool the atoms
-      var amplitude = this.amplitudeProperty.get() - this.scheduledEvaporationAmount;
+      let amplitude = this.amplitudeProperty.get() - this.scheduledEvaporationAmount;
       amplitude = Math.max( MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min, amplitude * ( 1 - dt * COOLING_RATE ) );
       this.amplitudeProperty.set( amplitude );
 
@@ -379,8 +379,8 @@ define( function( require ) {
       if ( this.atomRowsToEvaporateProperty.get() > 0 ) {
 
         // determine whether the current row is fully evaporated and, if so, move to the next row
-        var currentRowOfEvaporableAtoms = this.evaporableAtomsByRow[ this.atomRowsToEvaporateProperty.get() - 1 ];
-        var isCurrentRowFullyEvaporated = _.every( currentRowOfEvaporableAtoms, function( atom ) {
+        let currentRowOfEvaporableAtoms = this.evaporableAtomsByRow[ this.atomRowsToEvaporateProperty.get() - 1 ];
+        let isCurrentRowFullyEvaporated = _.every( currentRowOfEvaporableAtoms, function( atom ) {
           return atom.isEvaporated;
         } );
         if ( isCurrentRowFullyEvaporated ) {
@@ -403,7 +403,7 @@ define( function( require ) {
         if ( currentRowOfEvaporableAtoms ) {
 
           // make a list of all atoms in this row that have not yet evaporated
-          var unevaporatedAtoms = currentRowOfEvaporableAtoms.filter( function( atom ) {
+          let unevaporatedAtoms = currentRowOfEvaporableAtoms.filter( function( atom ) {
             return !atom.isEvaporated;
           } );
 
@@ -413,7 +413,7 @@ define( function( require ) {
           );
 
           // randomly choose an unevaporated atom and evaporate it
-          var atomToEvaporate = phet.joist.random.sample( unevaporatedAtoms );
+          let atomToEvaporate = phet.joist.random.sample( unevaporatedAtoms );
           atomToEvaporate.evaporate();
           this.evaporationEmitter.emit();
 

@@ -9,12 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var friction = require( 'FRICTION/friction' );
-  var FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
-  var Vector2 = require( 'DOT/Vector2' );
+  let Bounds2 = require( 'DOT/Bounds2' );
+  let friction = require( 'FRICTION/friction' );
+  let FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
+  let inherit = require( 'PHET_CORE/inherit' );
+  let KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
+  let Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {FrictionModel} model
@@ -22,7 +22,7 @@ define( function( require ) {
    */
   function FrictionKeyboardDragHandler( model ) {
 
-    var oldValue; // determines our delta for how the positionProperty changed every drag
+    let oldValue; // determines our delta for how the positionProperty changed every drag
 
     KeyboardDragListener.call( this, {
       downDelta: 10,
@@ -32,7 +32,7 @@ define( function( require ) {
         oldValue = model.topBookPositionProperty.get().copy();
       },
       drag: function() {
-        var newValue = model.topBookPositionProperty.get();
+        let newValue = model.topBookPositionProperty.get();
         model.move( new Vector2( newValue.x - oldValue.x, newValue.y - oldValue.y ) );
 
         // update the oldValue for the next onDrag

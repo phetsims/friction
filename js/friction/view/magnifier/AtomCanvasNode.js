@@ -9,22 +9,22 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
-  var friction = require( 'FRICTION/friction' );
-  var FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
+  let CanvasNode = require( 'SCENERY/nodes/CanvasNode' );
+  let friction = require( 'FRICTION/friction' );
+  let FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  let inherit = require( 'PHET_CORE/inherit' );
+  let ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
 
   // constants
-  var PARTICLE_IMAGE_SIZE = 32; // pixels, square
-  var ATOM_NODE_LINE_WIDTH = 2;
-  var HIGHLIGHT_FACTOR = 0.7;
-  var ATOM_STROKE = 'black';
+  let PARTICLE_IMAGE_SIZE = 32; // pixels, square
+  let ATOM_NODE_LINE_WIDTH = 2;
+  let HIGHLIGHT_FACTOR = 0.7;
+  let ATOM_STROKE = 'black';
 
   // image size - this is tweaked slightly to account for stroke and to get behavior that is consistent with
   // previous versions of the sim
-  var PARTICLE_IMAGE_SIZE_FOR_RENDERING = FrictionConstants.ATOM_RADIUS * 2 * 1.2;
-  var PARTICLE_RENDERING_OFFSET = -PARTICLE_IMAGE_SIZE_FOR_RENDERING / 2;
+  let PARTICLE_IMAGE_SIZE_FOR_RENDERING = FrictionConstants.ATOM_RADIUS * 2 * 1.2;
+  let PARTICLE_RENDERING_OFFSET = -PARTICLE_IMAGE_SIZE_FOR_RENDERING / 2;
 
   /**
    * @param {Object} [options]
@@ -32,11 +32,11 @@ define( function( require ) {
    */
   function AtomCanvasNode( atoms, options ) {
 
-    var self = this;
+    let self = this;
     CanvasNode.call( this, options );
 
     // create the Scenery image nodes that will be drawn onto the canvas in order to render the atoms
-    var topBookAtomNode = new ShadedSphereNode( PARTICLE_IMAGE_SIZE, {
+    let topBookAtomNode = new ShadedSphereNode( PARTICLE_IMAGE_SIZE, {
       mainColor: FrictionConstants.TOP_BOOK_ATOMS_COLOR,
       highlightColor: FrictionConstants.TOP_BOOK_ATOMS_COLOR.colorUtilsBrighter( HIGHLIGHT_FACTOR ),
       stroke: ATOM_STROKE,
@@ -46,7 +46,7 @@ define( function( require ) {
       self.topBookAtomImage = image;
     } );
 
-    var bottomBookAtomNode = new ShadedSphereNode( PARTICLE_IMAGE_SIZE, {
+    let bottomBookAtomNode = new ShadedSphereNode( PARTICLE_IMAGE_SIZE, {
       mainColor: FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR,
       highlightColor: FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR.colorUtilsBrighter( HIGHLIGHT_FACTOR ),
       stroke: ATOM_STROKE,
@@ -75,10 +75,10 @@ define( function( require ) {
     paintCanvas: function( context ) {
 
       // render each of the atoms to the canvas
-      for ( var i = 0; i < this.atoms.length; i++ ) {
-        var atom = this.atoms[ i ];
-        var atomPosition = atom.positionProperty.get();
-        var sourceImage = atom.isTopAtom ? this.topBookAtomImage : this.bottomBookAtomImage;
+      for ( let i = 0; i < this.atoms.length; i++ ) {
+        let atom = this.atoms[ i ];
+        let atomPosition = atom.positionProperty.get();
+        let sourceImage = atom.isTopAtom ? this.topBookAtomImage : this.bottomBookAtomImage;
         context.drawImage(
           sourceImage,
           atomPosition.x + PARTICLE_RENDERING_OFFSET,
