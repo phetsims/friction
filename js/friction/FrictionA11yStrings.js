@@ -117,8 +117,12 @@ define( function( require ) {
       value: 'Reset the sim to make more observations.'
     },
 
+    startingChemistryBookString: {
+      value: 'Chemistry book rests on top of a Physics book, and is ready to be rubbed against it.'
+    },
+
     summarySentencePattern: {
-      value: 'Chemistry book rests on top of a Physics book, and is ready to be rubbed against it. {{jiggleTemperatureScaleSentence}} ' +
+      value: '{{chemistryBookString}} {{jiggleTemperatureScaleSentence}} ' +
              '{{supplementarySentence}}'
     }
 

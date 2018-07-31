@@ -27,22 +27,22 @@ define( function( require ) {
   const BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
 
   // constants
-  let ATOM_RADIUS = FrictionConstants.ATOM_RADIUS; // radius of single atom
-  let ATOM_SPACING_Y = 20; // y-distance between neighbors (atoms)
-  let INITIAL_ATOM_SPACING_Y = 25; // initial distance between top and bottom atoms
-  let VIBRATION_AMPLITUDE_MIN = 1; // min amplitude for an atom
-  let AMPLITUDE_EVAPORATE = 7; // evaporation amplitude for an atom
-  let VIBRATION_AMPLITUDE_MAX = 12; // atom's max amplitude
-  let TOP_BOOK_ATOMS_COLOR = FrictionConstants.TOP_BOOK_ATOMS_COLOR; // color of top book
-  let BOTTOM_BOOK_ATOMS_COLOR = FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR; // color of bottom
-  let COOLING_RATE = 0.2; // proportion per second; adjust in order to change the cooling rate
-  let HEATING_MULTIPLIER = 0.0075; // multiplied by distance moved while in contact to control heating rate
-  let EVAPORATION_AMPLITUDE_REDUCTION = 0.01; // decrease in amplitude (a.k.a. temperature) when an atom evaporates
-  let MAX_X_DISPLACEMENT = 600; // max allowed distance from center x
-  let MIN_Y_POSITION = -70; // empirically determined such that top book can't be completely dragged out of frame
+  const ATOM_RADIUS = FrictionConstants.ATOM_RADIUS; // radius of single atom
+  const ATOM_SPACING_Y = 20; // y-distance between neighbors (atoms)
+  const INITIAL_ATOM_SPACING_Y = 25; // initial distance between top and bottom atoms
+  const VIBRATION_AMPLITUDE_MIN = 1; // min amplitude for an atom
+  const AMPLITUDE_EVAPORATE = 7; // evaporation amplitude for an atom
+  const VIBRATION_AMPLITUDE_MAX = 12; // atom's max amplitude
+  const TOP_BOOK_ATOMS_COLOR = FrictionConstants.TOP_BOOK_ATOMS_COLOR; // color of top book
+  const BOTTOM_BOOK_ATOMS_COLOR = FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR; // color of bottom
+  const COOLING_RATE = 0.2; // proportion per second; adjust in order to change the cooling rate
+  const HEATING_MULTIPLIER = 0.0075; // multiplied by distance moved while in contact to control heating rate
+  const EVAPORATION_AMPLITUDE_REDUCTION = 0.01; // decrease in amplitude (a.k.a. temperature) when an atom evaporates
+  const MAX_X_DISPLACEMENT = 600; // max allowed distance from center x
+  const MIN_Y_POSITION = -70; // empirically determined such that top book can't be completely dragged out of frame
 
   // atoms of top book, contains 5 rows, 4 of which can evaporate and 1 that can't
-  let TOP_BOOK_ATOM_STRUCTURE = [
+  const TOP_BOOK_ATOM_STRUCTURE = [
 
     /*
      * First row:
@@ -96,7 +96,7 @@ define( function( require ) {
   ];
 
   // atoms of bottom book (contains 3 rows that can not evaporate)
-  let BOTTOM_BOOK_ATOM_STRUCTURE = [
+  const BOTTOM_BOOK_ATOM_STRUCTURE = [
 
     /*
      * First row:
@@ -124,8 +124,22 @@ define( function( require ) {
     ]
   ];
 
+
+  let atoms = 0;
+  TOP_BOOK_ATOM_STRUCTURE.map( row => {
+    for ( let schema of row ) {
+      if ( schema.canEvaporate ) {
+        atoms += schema.num;
+      }
+    }
+  } );
+
+  // the number of evaporable atoms in the top book
+  const NUMBER_OF_EVAPORABLE_ATOMS = atoms;
+
+
   // information about the nature of the atoms that will be shown in the magnifier window
-  let MAGNIFIED_ATOMS_INFO = {
+  const MAGNIFIED_ATOMS_INFO = {
     radius: ATOM_RADIUS,
     distanceX: FrictionConstants.INITIAL_ATOM_SPACING_X,
     distanceY: FrictionConstants.INITIAL_ATOM_SPACING_Y,
@@ -429,6 +443,9 @@ define( function( require ) {
 
     // a11y - needed to get bounds for the keyboard drag handler, see https://github.com/phetsims/friction/issues/46
     MAX_X_DISPLACEMENT: MAX_X_DISPLACEMENT,
-    MIN_Y_POSITION: MIN_Y_POSITION
+    MIN_Y_POSITION: MIN_Y_POSITION,
+
+    // a11y
+    NUMBER_OF_EVAPORABLE_ATOMS: NUMBER_OF_EVAPORABLE_ATOMS
   } );
 } );

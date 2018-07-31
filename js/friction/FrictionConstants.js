@@ -19,12 +19,6 @@ define( function( require ) {
   let jiggleALotString = FrictionA11yStrings.jiggleALot.value;
   let jiggleALittleString = FrictionA11yStrings.jiggleALittle.value;
   let jiggleABitString = FrictionA11yStrings.jiggleABit.value;
-  // let amountOfAtomsString = FrictionA11yStrings.amountOfAtoms.value;
-  // let fewerString = FrictionA11yStrings.fewer.value;
-  // let farFewerString = FrictionA11yStrings.farFewer.value;
-  // let someString = FrictionA11yStrings.some.value;
-  // let manyString = FrictionA11yStrings.many.value;
-  //
   let veryHotString = FrictionA11yStrings.veryHot.value;
   let hotString = FrictionA11yStrings.hot.value;
   let atWarmString = FrictionA11yStrings.atWarm.value;

@@ -37,6 +37,12 @@ define( function( require ) {
   const thermometerTemperaturePatternString = FrictionA11yStrings.thermometerTemperaturePattern.value;
   const moveChemistryBookSentenceString = FrictionA11yStrings.moveChemistryBookSentence.value;
   const resetSimMoreObservationSentenceString = FrictionA11yStrings.resetSimMoreObservationSentence.value;
+  const startingChemistryBookStringString = FrictionA11yStrings.startingChemistryBookString.value;
+  let amountOfAtomsString = FrictionA11yStrings.amountOfAtoms.value;
+  let fewerString = FrictionA11yStrings.fewer.value;
+  let farFewerString = FrictionA11yStrings.farFewer.value;
+  let someString = FrictionA11yStrings.some.value;
+  let manyString = FrictionA11yStrings.many.value;
 
   // constants
   const THERMOMETER_FLUID_MAIN_COLOR = 'rgb(237,28,36)';
@@ -241,11 +247,34 @@ define( function( require ) {
         temperatureClause: tempString
       } );
 
-      // arbitrary number of atoms needed to evaporate before displaying different info in the PDOM
-      let NUMBER_OF_ATOMS_EVAPORATED_THRESHOLD = 15;
-      let supplementarySentence = model.numberOfAtomsEvaporated > NUMBER_OF_ATOMS_EVAPORATED_THRESHOLD ? resetSimMoreObservationSentenceString : moveChemistryBookSentenceString;
+      // There are three ranges based on how many atoms have evaporated
+      let supplementarySentence = moveChemistryBookSentenceString;
+      let chemistryBookString;
+      // "no evaporated atoms"
+      if ( model.numberOfAtomsEvaporated === 0 ) {
+        chemistryBookString = startingChemistryBookStringString;
+      }
+
+      // some evaporated atoms, describe the chemistry book with some atoms "broken away"
+      else if ( model.numberOfAtomsEvaporated < FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS / 2 ) {
+        chemistryBookString = StringUtils.fillIn( amountOfAtomsString, {
+          comparisonAmount: fewerString,
+          breakAwayAmount: someString
+        } );
+      }
+
+      // lots of evaporated atoms, queue to reset and describe many missing atoms
+      else {
+        supplementarySentence = resetSimMoreObservationSentenceString;
+
+        chemistryBookString = StringUtils.fillIn( amountOfAtomsString, {
+          comparisonAmount: farFewerString,
+          breakAwayAmount: manyString
+        } );
+      }
 
       this.frictionSummaryNode.innerContent = StringUtils.fillIn( summarySentencePatternString, {
+        chemistryBookString: chemistryBookString,
         jiggleTemperatureScaleSentence: jiggleTempSentence,
         supplementarySentence: supplementarySentence
       } );
