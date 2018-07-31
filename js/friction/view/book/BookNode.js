@@ -67,7 +67,7 @@ define( function( require ) {
       this.mutate( {
         tagName: 'div',
         ariaRole: 'application',
-        innerContent: StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } ),
+        ariaLabel: StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } ),
         helpText: bookHelpTextString,
         focusable: true,
         focusHighlightLayerable: true,

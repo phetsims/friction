@@ -146,7 +146,7 @@ define( function( require ) {
         focusHighlightLayerable: true,
 
         // Add the Accessible Name based on the name of the name of the book title.
-        innerContent: StringUtils.fillIn( zoomedInBookTitlePatternString, {
+        ariaLabel: StringUtils.fillIn( zoomedInBookTitlePatternString, {
           bookTitleString: StringUtils.fillIn( bookTitleStringPattern, {
             bookTitle: title
           } )
