@@ -84,7 +84,7 @@ define( function( require ) {
       let newTempString = self.amplitudeToTempString( amplitude );
       let newJiggleString = self.amplitudeToJiggleString( amplitude );
       if ( newTempString !== previousTempString || newJiggleString !== previousJiggleString ) {
-        this.updateSummaryString( model );
+        self.updateSummaryString( model );
         previousTempString = newTempString;
         previousJiggleString = newJiggleString;
       }
