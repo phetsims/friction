@@ -180,7 +180,7 @@ define( function( require ) {
       value: 'More'
     },
     frictionIncreasingVeryHotBreakAway: {
-      value: '{{temperature}}. {{A few}} atoms break away from chemistry book.'
+      value: '{{temperature}}. {{numberAtoms}} atoms break away from chemistry book.'
     }
 
   };

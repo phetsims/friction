@@ -26,7 +26,6 @@ define( function( require ) {
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const TemperatureZoneEnum = require( 'FRICTION/friction/model/TemperatureZoneEnum' );
   const ThermometerNode = require( 'SCENERY_PHET/ThermometerNode' );
 
   // strings
@@ -54,7 +53,7 @@ define( function( require ) {
   const THERMOMETER_MIN_TEMP = FrictionModel.MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min - 1.05; // about 0
   const THERMOMETER_MAX_TEMP = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit * 1.1; // 7.7???
 
-  const TEMPERATURE_ZONES = TemperatureZoneEnum.getOrdered();
+  const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
 
   /**
    * @param {FrictionModel} model
@@ -84,7 +83,11 @@ define( function( require ) {
     // a11y - update the screen summary when the model changes
     let previousTempString = this.amplitudeToTempString( model.amplitudeProperty.value );
     let previousJiggleString = this.amplitudeToJiggleString( model.amplitudeProperty.value );
+
+    // make a11y updates as the amplitude changes in the model
     model.amplitudeProperty.link( ( amplitude, oldAmplitude ) => {
+
+      // Update the summary string
       let newTempString = self.amplitudeToTempString( amplitude );
       let newJiggleString = self.amplitudeToJiggleString( amplitude );
       if ( newTempString !== previousTempString || newJiggleString !== previousJiggleString ) {
@@ -93,27 +96,14 @@ define( function( require ) {
         previousJiggleString = newJiggleString;
       }
 
-
-      let newZone = FrictionAlertManager.amplitudeToTempZone( amplitude );
-      let oldZone = FrictionAlertManager.amplitudeToTempZone( oldAmplitude );
-
-      if ( newZone === TemperatureZoneEnum.VERY_HOT && oldZone === TemperatureZoneEnum.VERY_HOT ) {
-        var clampMaxZone = true; // determine if the old alert was much higher
-        let unclampedMaxZone = FrictionAlertManager.amplitudeToTempZone( oldAmplitude, clampMaxZone );
-        if ( unclampedMaxZone === TemperatureZoneEnum.MORE_THAN_VERY_HOT ) {
-
-          // If we used to be more than very hot (so above the thermometer, and now we are very hot, alert this case
-          var alertStringsData = FrictionAlertManager.ALERT_SCHEMA[ TemperatureZoneEnum.VERY_HOT ][ FrictionAlertManager.MORE ];
-          FrictionAlertManager.alertTemperatureFromObject( alertStringsData );
-        }
-
-      }
-      // only alert in the link call on zone change and if the temp is decreasing
-      else if ( newZone !== oldZone &&
-                TEMPERATURE_ZONES.indexOf( newZone ) < TEMPERATURE_ZONES.indexOf( oldZone ) ) {
-        FrictionAlertManager.alertTemperatureFromAmplitude( amplitude, oldAmplitude );
+      // Handle the alert when amplitude is high enough to begin evaporating
+      if ( amplitude > EVAPORATION_LIMIT && oldAmplitude < EVAPORATION_LIMIT && // just hit evaporation limit
+           model.numberOfAtomsEvaporated < FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ) { // still atoms to evaporate
+        FrictionAlertManager.alertAtEvaporationThreshold();
       }
 
+      // Handle the automatic alerts as the temp decreases
+      FrictionAlertManager.handleDecreasingTemperatureAlert( amplitude, oldAmplitude );
 
     } );
 

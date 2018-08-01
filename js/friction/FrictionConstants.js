@@ -39,6 +39,7 @@ define( function( require ) {
     MAGNIFIER_WINDOW_WIDTH: 690,
 
     // a11y - the mappings work well divided into 9 sections (arbitrary, but @terracoda's design diagram fit into 9 well
+    // These are only used for the screen summary description in the PDOM, not alerts
     TEMPERATURE_STRINGS: [ atCoolString, atCoolString, atWarmString, atWarmString, atWarmString, hotString, hotString,
       hotString, veryHotString ],
     JIGGLE_STRINGS: [ jiggleABitString, jiggleABitString, jiggleALittleString, jiggleALittleString, jiggleALittleString,

@@ -20,6 +20,9 @@ define( function( require ) {
   const frictionIncreasingTemperatureClausePatternString = FrictionA11yStrings.frictionIncreasingTemperatureClausePattern.value;
   const frictionIncreasingAtomsJigglingTemperaturePatternString = FrictionA11yStrings.frictionIncreasingAtomsJigglingTemperaturePattern.value;
   const surfaceString = FrictionA11yStrings.surface.value;
+  const capitalizedVeryHotString = FrictionA11yStrings.capitalizedVeryHot.value;
+  const capitalizedAFewString = FrictionA11yStrings.capitalizedAFew.value;
+  const frictionIncreasingVeryHotBreakAwayString = FrictionA11yStrings.frictionIncreasingVeryHotBreakAway.value;
 
   // a11y strings interactive alerts
   const aTinyBitString = FrictionA11yStrings.aTinyBit.value;
@@ -52,9 +55,10 @@ define( function( require ) {
     new Range( 5 * DIVIDED_RANGE, 8 * DIVIDED_RANGE ),
     new Range( 8 * DIVIDED_RANGE, 9 * DIVIDED_RANGE )
   ];
+  const TEMPERATURE_ZONES = TemperatureZoneEnum.getOrdered();
 
   // sanity check to keep these in sync
-  assert && assert( AMPLITUDE_RANGES.length === TemperatureZoneEnum.getOrdered().length );
+  assert && assert( AMPLITUDE_RANGES.length === TEMPERATURE_ZONES.length );
 
 
   var FrictionAlertManager = {
@@ -87,7 +91,7 @@ define( function( require ) {
       }
       assert && assert( typeof rangeIndex === 'number' );
 
-      return TemperatureZoneEnum.getOrdered()[ rangeIndex ];
+      return TEMPERATURE_ZONES[ rangeIndex ];
     },
 
     /**
@@ -97,9 +101,8 @@ define( function( require ) {
      * @returns {MORE|LESS|SAME} - the relationship between the two temperature zone
      */
     getRelativeZonePosition: function( newZone, oldZone ) {
-      var zones = TemperatureZoneEnum.getOrdered();
-      var newZoneIndex = zones.indexOf( newZone );
-      var oldZoneIndex = zones.indexOf( oldZone );
+      var newZoneIndex = TEMPERATURE_ZONES.indexOf( newZone );
+      var oldZoneIndex = TEMPERATURE_ZONES.indexOf( oldZone );
 
       assert( newZoneIndex >= 0 );
       assert( oldZoneIndex >= 0 );
@@ -134,6 +137,33 @@ define( function( require ) {
     },
 
     /**
+     * This is not guaranteed to make an alert, only if the conditions are correct
+     * @param {number} newAmplitude
+     * @param {number} oldAmplitude
+     */
+    handleDecreasingTemperatureAlert: function( newAmplitude, oldAmplitude ) {
+      let newZone = this.amplitudeToTempZone( newAmplitude );
+      let oldZone = this.amplitudeToTempZone( oldAmplitude );
+
+      if ( newZone === TemperatureZoneEnum.VERY_HOT && oldZone === TemperatureZoneEnum.VERY_HOT ) {
+        var clampMaxZone = true; // determine if the old alert was much higher
+        let unclampedMaxZone = this.amplitudeToTempZone( oldAmplitude, clampMaxZone );
+        if ( unclampedMaxZone === TemperatureZoneEnum.MORE_THAN_VERY_HOT ) {
+
+          // If we used to be more than very hot (so above the thermometer, and now we are very hot, alert this case
+          var alertStringsData = this.ALERT_SCHEMA[ TemperatureZoneEnum.VERY_HOT ][ this.MORE ];
+          this.alertTemperatureFromObject( alertStringsData );
+        }
+
+      }
+      // only alert in the link call on zone change and if the temp is decreasing
+      else if ( newZone !== oldZone &&
+                TEMPERATURE_ZONES.indexOf( newZone ) < TEMPERATURE_ZONES.indexOf( oldZone ) ) {
+        this.alertTemperatureFromAmplitude( newAmplitude, oldAmplitude );
+      }
+    },
+
+    /**
      * @param {object} alertObject - data object holding strings for alert, see this.ALERT_SCHEMA
      */
     alertTemperatureFromObject: function( alertObject ) {
@@ -145,7 +175,22 @@ define( function( require ) {
     },
 
     /**
+     * Alert when the temperature has just reached the point where atoms begin to break away
+     * @public
+     */
+    alertAtEvaporationThreshold: function() {
+      var string = StringUtils.fillIn( frictionIncreasingVeryHotBreakAwayString, {
+        temperature: capitalizedVeryHotString,
+        numberAtoms: capitalizedAFewString
+      } );
+      utteranceQueue.addToFront( string );
+
+    },
+
+
+    /**
      * Add a temperature related alert to the utterance queue based on what the amplitude is, and what it was.
+     * This is not guaranteed to make an alert, only if there is a block in this.ALERT_SCHEMA to mathc the amplitude conditions
      * @param {number} newAmplitude
      * @param {number} oldAmplitude
      */
