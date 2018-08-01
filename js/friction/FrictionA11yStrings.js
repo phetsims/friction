@@ -124,6 +124,58 @@ define( function( require ) {
     summarySentencePattern: {
       value: '{{chemistryBookString}} {{jiggleTemperatureScaleSentence}} ' +
              '{{supplementarySentence}}'
+    },
+
+
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+    // Interactive Alerts strings
+    //--------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
+
+
+    //--------------------------------------------------------------------------
+    // Jiggling/Temperature strings
+    //--------------------------------------------------------------------------
+
+    // jiggling . . .
+    aTinyBit: { value: 'a tiny bit' },
+    aLittle: { value: 'a little' },
+    aLittleMore: { value: 'a little more' },
+    faster: { value: 'faster' },
+    evenFaster: { value: 'even faster' },
+    veryFast: { value: 'very fast' },
+
+    // temperature . . .
+    isCool: { value: 'is cool' },
+    getsWarmer: { value: 'gets warmer' },
+    nowWarm: { value: 'now warm' },
+    getsHotter: { value: 'gets hotter' },
+    nowHot: { value: 'now hot' },
+
+    // purposeful added space at the end, since it is sometimes optional
+    surface: { value: 'surface ' },
+
+    frictionIncreasingTemperatureClausePattern: {
+      value: '{{surface}}temperature {{temperature}}'
+    },
+    frictionIncreasingAtomsJigglingTemperaturePattern: {
+      value: 'Atoms jiggling {{jigglingAmount}}, {{temperatureClause}}'
+    },
+
+    // ----------------------------------------------
+    // very hot cases where we need another string pattern
+    capitalizedVeryHot: {
+      value: 'Very Hot'
+    },
+    capitalizedAFew: {
+      value: 'A few'
+    },
+    capitalizedMore: {
+      value: 'More'
+    },
+    frictionIncreasingVeryHotBreakAway: {
+      value: '{{temperature}}. {{A few}} atoms break away from chemistry book.'
     }
 
   };

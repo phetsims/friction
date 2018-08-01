@@ -11,7 +11,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const BookNode = require( 'FRICTION/friction/view/book/BookNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const ControlPanelNode = require( 'SCENERY_PHET/accessibility/nodes/ControlPanelNode' );
@@ -25,6 +24,7 @@ define( function( require ) {
   const PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const ThermometerNode = require( 'SCENERY_PHET/ThermometerNode' );
 
   // strings
@@ -38,11 +38,11 @@ define( function( require ) {
   const moveChemistryBookSentenceString = FrictionA11yStrings.moveChemistryBookSentence.value;
   const resetSimMoreObservationSentenceString = FrictionA11yStrings.resetSimMoreObservationSentence.value;
   const startingChemistryBookStringString = FrictionA11yStrings.startingChemistryBookString.value;
-  let amountOfAtomsString = FrictionA11yStrings.amountOfAtoms.value;
-  let fewerString = FrictionA11yStrings.fewer.value;
-  let farFewerString = FrictionA11yStrings.farFewer.value;
-  let someString = FrictionA11yStrings.some.value;
-  let manyString = FrictionA11yStrings.many.value;
+  const amountOfAtomsString = FrictionA11yStrings.amountOfAtoms.value;
+  const fewerString = FrictionA11yStrings.fewer.value;
+  const farFewerString = FrictionA11yStrings.farFewer.value;
+  const someString = FrictionA11yStrings.some.value;
+  const manyString = FrictionA11yStrings.many.value;
 
   // constants
   const THERMOMETER_FLUID_MAIN_COLOR = 'rgb(237,28,36)';
