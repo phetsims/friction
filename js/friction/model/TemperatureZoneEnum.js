@@ -9,7 +9,8 @@ define( function( require ) {
     COOL: 'COOL',
     WARM: 'WARM',
     HOT: 'HOT',
-    VERY_HOT: 'VERY_HOT'
+    VERY_HOT: 'VERY_HOT',
+    MORE_THAN_VERY_HOT: 'MORE_THAN_VERY_HOT' // used as an edge case when temp is above the thermometer range
   };
 
   /**

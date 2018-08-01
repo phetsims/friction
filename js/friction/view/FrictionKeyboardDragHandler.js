@@ -45,7 +45,7 @@ define( function( require ) {
       // send an alert based on the drag activity
       end: function() {
 
-        FrictionAlertManager.setTemperatureAlert( model.amplitudeProperty.value, oldAmplitude );
+        FrictionAlertManager.alertTemperatureFromAmplitude( model.amplitudeProperty.value, oldAmplitude );
         oldAmplitude = model.amplitudeProperty.value;
 
       },

@@ -16,6 +16,7 @@ define( function( require ) {
   const ControlPanelNode = require( 'SCENERY_PHET/accessibility/nodes/ControlPanelNode' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
+  const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const inherit = require( 'PHET_CORE/inherit' );
@@ -25,6 +26,7 @@ define( function( require ) {
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const TemperatureZoneEnum = require( 'FRICTION/friction/model/TemperatureZoneEnum' );
   const ThermometerNode = require( 'SCENERY_PHET/ThermometerNode' );
 
   // strings
@@ -51,6 +53,8 @@ define( function( require ) {
   const THERMOMETER_BACKGROUND_FILL_COLOR = 'white';
   const THERMOMETER_MIN_TEMP = FrictionModel.MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min - 1.05; // about 0
   const THERMOMETER_MAX_TEMP = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit * 1.1; // 7.7???
+
+  const TEMPERATURE_ZONES = TemperatureZoneEnum.getOrdered();
 
   /**
    * @param {FrictionModel} model
@@ -80,7 +84,7 @@ define( function( require ) {
     // a11y - update the screen summary when the model changes
     let previousTempString = this.amplitudeToTempString( model.amplitudeProperty.value );
     let previousJiggleString = this.amplitudeToJiggleString( model.amplitudeProperty.value );
-    model.amplitudeProperty.link( ( amplitude ) => {
+    model.amplitudeProperty.link( ( amplitude, oldAmplitude ) => {
       let newTempString = self.amplitudeToTempString( amplitude );
       let newJiggleString = self.amplitudeToJiggleString( amplitude );
       if ( newTempString !== previousTempString || newJiggleString !== previousJiggleString ) {
@@ -88,6 +92,29 @@ define( function( require ) {
         previousTempString = newTempString;
         previousJiggleString = newJiggleString;
       }
+
+
+      let newZone = FrictionAlertManager.amplitudeToTempZone( amplitude );
+      let oldZone = FrictionAlertManager.amplitudeToTempZone( oldAmplitude );
+
+      if ( newZone === TemperatureZoneEnum.VERY_HOT && oldZone === TemperatureZoneEnum.VERY_HOT ) {
+        var clampMaxZone = true; // determine if the old alert was much higher
+        let unclampedMaxZone = FrictionAlertManager.amplitudeToTempZone( oldAmplitude, clampMaxZone );
+        if ( unclampedMaxZone === TemperatureZoneEnum.MORE_THAN_VERY_HOT ) {
+
+          // If we used to be more than very hot (so above the thermometer, and now we are very hot, alert this case
+          var alertStringsData = FrictionAlertManager.ALERT_SCHEMA[ TemperatureZoneEnum.VERY_HOT ][ FrictionAlertManager.MORE ];
+          FrictionAlertManager.alertTemperatureFromObject( alertStringsData );
+        }
+
+      }
+      // only alert in the link call on zone change and if the temp is decreasing
+      else if ( newZone !== oldZone &&
+                TEMPERATURE_ZONES.indexOf( newZone ) < TEMPERATURE_ZONES.indexOf( oldZone ) ) {
+        FrictionAlertManager.alertTemperatureFromAmplitude( amplitude, oldAmplitude );
+      }
+
+
     } );
 
     // add physics book

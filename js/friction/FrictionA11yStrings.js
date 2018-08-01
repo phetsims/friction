@@ -146,12 +146,17 @@ define( function( require ) {
     evenFaster: { value: 'even faster' },
     veryFast: { value: 'very fast' },
 
+    less: { value: 'less' },
+    evenLess: { value: 'less' },
+
     // temperature . . .
     isCool: { value: 'is cool' },
     getsWarmer: { value: 'gets warmer' },
     nowWarm: { value: 'now warm' },
     getsHotter: { value: 'gets hotter' },
     nowHot: { value: 'now hot' },
+
+    dropping: { value: 'dropping' },
 
     // purposeful added space at the end, since it is sometimes optional
     surface: { value: 'surface ' },
