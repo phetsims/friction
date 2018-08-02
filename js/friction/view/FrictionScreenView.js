@@ -22,6 +22,7 @@ define( function( require ) {
   const inherit = require( 'PHET_CORE/inherit' );
   const MagnifierNode = require( 'FRICTION/friction/view/magnifier/MagnifierNode' );
   const Node = require( 'SCENERY/nodes/Node' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
@@ -83,6 +84,7 @@ define( function( require ) {
     // a11y - update the screen summary when the model changes
     let previousTempString = this.amplitudeToTempString( model.amplitudeProperty.value );
     let previousJiggleString = this.amplitudeToJiggleString( model.amplitudeProperty.value );
+    this.alertedAtomsBrokeAway = new BooleanProperty( false );
 
     // make a11y updates as the amplitude changes in the model
     model.amplitudeProperty.link( ( amplitude, oldAmplitude ) => {
@@ -98,13 +100,22 @@ define( function( require ) {
 
       // Handle the alert when amplitude is high enough to begin evaporating
       if ( amplitude > EVAPORATION_LIMIT && oldAmplitude < EVAPORATION_LIMIT && // just hit evaporation limit
-           model.numberOfAtomsEvaporated < FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ) { // still atoms to evaporate
+           model.numberOfAtomsEvaporated < FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS && // still atoms to evaporate
+           !self.alertedAtomsBrokeAway ) { // haven't alerted yet
         FrictionAlertManager.alertAtEvaporationThreshold();
+        self.alertedAtomsBrokeAway = true;
       }
 
       // Handle the automatic alerts as the temp decreases
       FrictionAlertManager.handleDecreasingTemperatureAlert( amplitude, oldAmplitude );
 
+    } );
+
+    model.evaporationEmitter.addListener( () => {
+      console.log( model.numberOfAtomsEvaporated );
+      if ( model.numberOfAtomsEvaporated === Math.floor( FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS / 2 ) ) {
+        FrictionAlertManager.alertManyAtomsEvaporated();
+      }
     } );
 
     // add physics book
@@ -195,6 +206,7 @@ define( function( require ) {
      * @private
      */
     reset: function() {
+      this.alertedAtomsBrokeAway.reset();
       this.updateSummaryString( this.model );
     },
 

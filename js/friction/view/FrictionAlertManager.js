@@ -22,6 +22,7 @@ define( function( require ) {
   const surfaceString = FrictionA11yStrings.surface.value;
   const capitalizedVeryHotString = FrictionA11yStrings.capitalizedVeryHot.value;
   const capitalizedAFewString = FrictionA11yStrings.capitalizedAFew.value;
+  const capitalizedMoreString = FrictionA11yStrings.capitalizedMore.value;
   const frictionIncreasingVeryHotBreakAwayString = FrictionA11yStrings.frictionIncreasingVeryHotBreakAway.value;
 
   // a11y strings interactive alerts
@@ -184,7 +185,18 @@ define( function( require ) {
         numberAtoms: capitalizedAFewString
       } );
       utteranceQueue.addToFront( string );
+    },
 
+    /**
+     * Alert when the many atoms have broken away from the book
+     * @public
+     */
+    alertManyAtomsEvaporated: function() {
+      var string = StringUtils.fillIn( frictionIncreasingVeryHotBreakAwayString, {
+        temperature: capitalizedVeryHotString,
+        numberAtoms: capitalizedMoreString
+      } );
+      utteranceQueue.addToFront( string );
     },
 
 
