@@ -111,8 +111,8 @@ define( function( require ) {
 
     } );
 
+    // add a listener to look at the number of atoms emitted
     model.evaporationEmitter.addListener( () => {
-      console.log( model.numberOfAtomsEvaporated );
       if ( model.numberOfAtomsEvaporated === Math.floor( FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS / 2 ) ) {
         FrictionAlertManager.alertManyAtomsEvaporated();
       }

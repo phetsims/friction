@@ -105,8 +105,8 @@ define( function( require ) {
       var newZoneIndex = TEMPERATURE_ZONES.indexOf( newZone );
       var oldZoneIndex = TEMPERATURE_ZONES.indexOf( oldZone );
 
-      assert( newZoneIndex >= 0 );
-      assert( oldZoneIndex >= 0 );
+      assert && assert( newZoneIndex >= 0 );
+      assert && assert( oldZoneIndex >= 0 );
 
       let relativePosition;
       if ( newZoneIndex === oldZoneIndex ) {
