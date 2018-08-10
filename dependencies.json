@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.4.2 Thu Aug 09 2018 20:28:56 GMT-0600 (MDT)",
+  "comment": "# friction 1.4.2 Thu Aug 09 2018 23:33:42 GMT-0600 (MDT)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -13,15 +13,15 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "2664f1bf9f77f58e4e45847c0b1b032e39df71a3",
-    "branch": "HEAD"
+    "sha": "4bccb2be89d8d40b36f92fe96acfaf0ff6eb23d9",
+    "branch": "friction-1.4"
   },
   "dot": {
     "sha": "f09e44aaec8d22d5b00c6871c48d11cd207e4564",
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "5a1932011518ca1a67c5fa0140d3c2fbe082a118",
+    "sha": "79d7dd87adebd38778fa4ec42d92b0b79ea72ec1",
     "branch": "1.4"
   },
   "joist": {
@@ -37,8 +37,8 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "f0288123d92aefd4c04387fabbed3ebb8ebbfc0a",
-    "branch": "HEAD"
+    "sha": "7315effc08c6e15c6aa011867753301eba7f3fd7",
+    "branch": "friction-1.4"
   },
   "query-string-machine": {
     "sha": "b8bdcc28a073345ce26df8b0f046752d96fa6f68",
@@ -46,7 +46,7 @@
   },
   "scenery": {
     "sha": "7b38222360aaefcf956d79d01e6e4f0a337cf83c",
-    "branch": "friction-1.4"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "59d2c2559bb45e4e7be33cc0eac1d29b6d0bcbe6",
