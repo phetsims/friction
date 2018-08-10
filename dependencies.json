@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.4.2 Thu Aug 09 2018 23:33:42 GMT-0600 (MDT)",
+  "comment": "# friction 1.4.3-rc.1 Fri Aug 10 2018 03:51:33 GMT-0600 (MDT)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -14,14 +14,14 @@
   },
   "chipper": {
     "sha": "4bccb2be89d8d40b36f92fe96acfaf0ff6eb23d9",
-    "branch": "friction-1.4"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "f09e44aaec8d22d5b00c6871c48d11cd207e4564",
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "79d7dd87adebd38778fa4ec42d92b0b79ea72ec1",
+    "sha": "91e628b9172ddd60c06077547f138ead6c90eff9",
     "branch": "1.4"
   },
   "joist": {
@@ -38,7 +38,7 @@
   },
   "phetcommon": {
     "sha": "7315effc08c6e15c6aa011867753301eba7f3fd7",
-    "branch": "friction-1.4"
+    "branch": "HEAD"
   },
   "query-string-machine": {
     "sha": "b8bdcc28a073345ce26df8b0f046752d96fa6f68",
