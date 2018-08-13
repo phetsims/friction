@@ -98,7 +98,7 @@ define( function( require ) {
       // Handle the alert when amplitude is high enough to begin evaporating
       if ( amplitude > EVAPORATION_LIMIT && oldAmplitude < EVAPORATION_LIMIT && // just hit evaporation limit
            model.numberOfAtomsEvaporated < FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS && // still atoms to evaporate
-           !self.alertedAtomsBrokeAway ) { // haven't alerted yet
+           !self.alertedAtomsBrokeAway.value ) { // haven't alerted yet
         FrictionAlertManager.alertAtEvaporationThreshold();
         self.alertedAtomsBrokeAway = true;
       }
