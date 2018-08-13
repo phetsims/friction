@@ -25,7 +25,7 @@ define( function( require ) {
       value: 'move in four directions'
     },
     bookHelpText: {
-      value: 'Arrow keys, or letter keys W, A, S, or D move book up, left, down, or right.'
+      value: 'Use arrow keys, or letter keys W, A, S, or D to move book or zoomed-in book up, left, down, or right.'
     },
     moveBookWith: {
       value: 'Move book up, left, down, or right with arrow keys or letter keys W, A, S, or D.'
