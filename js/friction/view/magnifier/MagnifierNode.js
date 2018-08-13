@@ -36,7 +36,6 @@ define( function( require ) {
   let bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
   let zoomedInBookTitlePatternString = FrictionA11yStrings.zoomedInBookTitlePattern.value;
   let moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
-  let bookHelpTextString = FrictionA11yStrings.bookHelpText.value;
 
   // constants
   let ARROW_LENGTH = 70;
@@ -141,7 +140,6 @@ define( function( require ) {
         // a11y - add accessibility to the rectangle that surrounds the top atoms.
         tagName: 'div',
         ariaRole: 'application',
-        helpText: bookHelpTextString,
         focusable: true,
         focusHighlightLayerable: true,
 
