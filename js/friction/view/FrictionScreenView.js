@@ -81,7 +81,7 @@ define( function( require ) {
     // a11y - update the screen summary when the model changes
     let previousTempString = this.amplitudeToTempString( model.amplitudeProperty.value );
     let previousJiggleString = this.amplitudeToJiggleString( model.amplitudeProperty.value );
-    this.alertedAtomsBrokeAway = new BooleanProperty( false );
+    this.alertedAtomsBrokeAwayProperty = new BooleanProperty( false );
 
     // make a11y updates as the amplitude changes in the model
     model.amplitudeProperty.link( ( amplitude, oldAmplitude ) => {
@@ -98,9 +98,9 @@ define( function( require ) {
       // Handle the alert when amplitude is high enough to begin evaporating
       if ( amplitude > EVAPORATION_LIMIT && oldAmplitude < EVAPORATION_LIMIT && // just hit evaporation limit
            model.numberOfAtomsEvaporated < FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS && // still atoms to evaporate
-           !self.alertedAtomsBrokeAway.value ) { // haven't alerted yet
+           !self.alertedAtomsBrokeAwayProperty.value ) { // haven't alerted yet
         FrictionAlertManager.alertAtEvaporationThreshold();
-        self.alertedAtomsBrokeAway = true;
+        self.alertedAtomsBrokeAwayProperty.set( true );
       }
 
       // Handle the automatic alerts as the temp decreases
@@ -205,7 +205,7 @@ define( function( require ) {
      * @private
      */
     reset: function() {
-      this.alertedAtomsBrokeAway.reset();
+      this.alertedAtomsBrokeAwayProperty.reset();
       this.updateSummaryString( this.model );
     },
 
