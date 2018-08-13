@@ -88,11 +88,11 @@ define( function( require ) {
 
     veryHot: { value: 'very hot' },
     hot: { value: 'hot' },
-    atWarm: { value: 'at warm' },
-    atCool: { value: 'at cool' },
+    atWarm: { value: 'warm' },
+    atCool: { value: 'cool' },
 
     thermometerTemperaturePattern: {
-      value: 'thermometer {{temp}}'
+      value: 'surface temperature thermometer is {{temp}}'
     },
 
     // if state has not settled yet
