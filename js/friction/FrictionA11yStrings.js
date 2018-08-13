@@ -114,7 +114,7 @@ define( function( require ) {
 
     },
     resetSimMoreObservationSentence: {
-      value: 'Reset the sim to make more observations.'
+      value: 'Reset sim to make more observations.'
     },
 
     startingChemistryBookString: {
