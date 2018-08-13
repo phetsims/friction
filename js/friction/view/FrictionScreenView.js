@@ -104,7 +104,9 @@ define( function( require ) {
       }
 
       // Handle the automatic alerts as the temp decreases
-      FrictionAlertManager.handleDecreasingTemperatureAlert( amplitude, oldAmplitude );
+      // NOTE: For now, we are removing the jiggle alerts for student testing. See
+      // // https://github.com/phetsims/friction/issues/89
+      // FrictionAlertManager.handleDecreasingTemperatureAlert( amplitude, oldAmplitude );
 
     } );
 
