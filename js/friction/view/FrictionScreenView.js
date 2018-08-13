@@ -71,15 +71,12 @@ define( function( require ) {
     // @private
     this.model = model;
 
-    // @private (a11y)
+    // @private (a11y) - will be updated later, see
     this.frictionSummaryNode = new Node( {
-      tagName: 'p',
-      innerContent: 'A Chemistry book rests on top of a Physics book, and is ready to be rubbed against it. ' +
-                    'In a zoomed-in view of where books meet, atoms jiggle {{a tiny bit}}, and a thermometer is ' +
-                    '{{at cool}}. Move Chemistry book to rub books together.'
+      tagName: 'p'
     } );
     this.screenSummaryNode.addChild( this.frictionSummaryNode );
-
+    this.updateSummaryString( model );
 
     // a11y - update the screen summary when the model changes
     let previousTempString = this.amplitudeToTempString( model.amplitudeProperty.value );

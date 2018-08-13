@@ -102,7 +102,7 @@ define( function( require ) {
 
     // Entire sentence for jiggling and temp
     jiggleTemperatureScaleSentence: {
-      value: 'In zoomed-in view of where books meet, atoms {{jigglingClause}}, {{temperatureClause}}.'
+      value: 'In zoomed-in view of where books meet, atoms {{jigglingClause}}, and {{temperatureClause}}.'
     },
 
     //--------------------------------------------------------------------------
