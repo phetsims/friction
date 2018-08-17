@@ -138,34 +138,43 @@ define( function( require ) {
     // Jiggling/Temperature strings
     //--------------------------------------------------------------------------
 
+    // TODO: implement this edge case on focus of a book (or magnified view)
+    atomsJiggleTinyBitTempCool: {
+      value: 'Atoms jiggle a tiny bit, temperature cool'
+    },
+
     // jiggling . . .
     aTinyBit: { value: 'a tiny bit' },
     aLittle: { value: 'a little' },
     aLittleMore: { value: 'a little more' },
+    more: { value: 'more' },
     faster: { value: 'faster' },
     evenFaster: { value: 'even faster' },
     veryFast: { value: 'very fast' },
 
     less: { value: 'less' },
-    evenLess: { value: 'less' },
+    evenLess: { value: 'even less' },
+    evenCooler: { value: 'even cooler' },
 
     // temperature . . .
-    isCool: { value: 'is cool' },
-    getsWarmer: { value: 'gets warmer' },
+    cooler: { value: 'cooler' },
+    jigglingLess: { value: 'jiggling less' },
+    nowCooler: { value: 'now cooler' },
+    warmer: { value: 'warmer' },
     nowWarm: { value: 'now warm' },
-    getsHotter: { value: 'gets hotter' },
+    evenHotter: { value: 'even hotter' },
     nowHot: { value: 'now hot' },
+    nowHotter: { value: 'now hotter' },
+    stillVeryHot: { value: 'still very hot' },
 
     dropping: { value: 'dropping' },
 
-    // purposeful added space at the end, since it is sometimes optional
-    surface: { value: 'surface ' },
-
-    frictionIncreasingTemperatureClausePattern: {
-      value: '{{surface}}temperature {{temperature}}'
-    },
     frictionIncreasingAtomsJigglingTemperaturePattern: {
-      value: 'Atoms jiggling {{jigglingAmount}}, {{temperatureClause}}'
+      value: 'Jiggling {{jigglingAmount}}, {{temperature}}'
+    },
+
+    frictionIncreasingAtomsJigglingTemperatureFirstPattern: {
+      value: 'Atoms {{jigglingAmount}}, temperature {{temperature}}'
     },
 
     // ----------------------------------------------
@@ -179,8 +188,11 @@ define( function( require ) {
     capitalizedMore: {
       value: 'More'
     },
-    frictionIncreasingVeryHotBreakAway: {
-      value: '{{temperature}}. {{numberAtoms}} atoms break away from chemistry book.'
+    breakAwaySentenceFirst: {
+      value: '{{temp}}. Atoms break away from chemistry book.'
+    },
+    breakAwaySentenceAgain: {
+      value: '{{temp}}. More atoms break away.'
     }
 
   };

@@ -15,31 +15,34 @@ define( function( require ) {
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const TemperatureZoneEnum = require( 'FRICTION/friction/model/TemperatureZoneEnum' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
+  const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
 
   // a11y strings
-  const frictionIncreasingTemperatureClausePatternString = FrictionA11yStrings.frictionIncreasingTemperatureClausePattern.value;
+  const frictionIncreasingAtomsJigglingTemperatureFirstPatternString = FrictionA11yStrings.frictionIncreasingAtomsJigglingTemperatureFirstPattern.value;
   const frictionIncreasingAtomsJigglingTemperaturePatternString = FrictionA11yStrings.frictionIncreasingAtomsJigglingTemperaturePattern.value;
-  const surfaceString = FrictionA11yStrings.surface.value;
   const capitalizedVeryHotString = FrictionA11yStrings.capitalizedVeryHot.value;
-  const capitalizedAFewString = FrictionA11yStrings.capitalizedAFew.value;
-  const capitalizedMoreString = FrictionA11yStrings.capitalizedMore.value;
-  const frictionIncreasingVeryHotBreakAwayString = FrictionA11yStrings.frictionIncreasingVeryHotBreakAway.value;
+  const moreString = FrictionA11yStrings.more.value;
+  const breakAwaySentenceFirstString = FrictionA11yStrings.breakAwaySentenceFirst.value;
+  const breakAwaySentenceAgainString = FrictionA11yStrings.breakAwaySentenceAgain.value;
 
   // a11y strings interactive alerts
-  const aTinyBitString = FrictionA11yStrings.aTinyBit.value;
   const aLittleString = FrictionA11yStrings.aLittle.value;
-  const aLittleMoreString = FrictionA11yStrings.aLittleMore.value;
+  const stillVeryHotString = FrictionA11yStrings.stillVeryHot.value;
   const fasterString = FrictionA11yStrings.faster.value;
+  const nowHotterString = FrictionA11yStrings.nowHotter.value;
   const evenFasterString = FrictionA11yStrings.evenFaster.value;
   const veryFastString = FrictionA11yStrings.veryFast.value;
-  const isCoolString = FrictionA11yStrings.isCool.value;
-  const getsWarmerString = FrictionA11yStrings.getsWarmer.value;
+  const jigglingLessString = FrictionA11yStrings.jigglingLess.value;
+  const coolerString = FrictionA11yStrings.cooler.value;
+  const warmerString = FrictionA11yStrings.warmer.value;
+  const nowCoolerString = FrictionA11yStrings.nowCooler.value;
   const nowWarmString = FrictionA11yStrings.nowWarm.value;
-  const getsHotterString = FrictionA11yStrings.getsHotter.value;
+  const evenHotterString = FrictionA11yStrings.evenHotter.value;
   const nowHotString = FrictionA11yStrings.nowHot.value;
   const veryHotString = FrictionA11yStrings.veryHot.value;
   const lessString = FrictionA11yStrings.less.value;
   const evenLessString = FrictionA11yStrings.evenLess.value;
+  const evenCoolerString = FrictionA11yStrings.evenCooler.value;
   const droppingString = FrictionA11yStrings.dropping.value;
 
   // constants
@@ -58,121 +61,43 @@ define( function( require ) {
   ];
   const TEMPERATURE_ZONES = TemperatureZoneEnum.getOrdered();
 
+  // Threshold that must be reached from initial temp to new temp to alert that the temperature changed, in amplitude (see model for more info)
+  const TEMPERATURE_ALERT_THRESHOLD = 1.5;
+
   // sanity check to keep these in sync
   assert && assert( AMPLITUDE_RANGES.length === TEMPERATURE_ZONES.length );
 
+  // break away sentences
+  const BREAK_AWAY_THRESHOLD_FIRST = StringUtils.fillIn( breakAwaySentenceFirstString, { temp: capitalizedVeryHotString } );
+  const BREAK_AWAY_THRESHOLD_AGAIN = StringUtils.fillIn( breakAwaySentenceAgainString, { temp: capitalizedVeryHotString } );
+
+  // TODO manage this with reset in mind
+  var alertedBreakAway = false;
 
   var FrictionAlertManager = {
 
     /**
-     * Get the temperature zone string based on the amplitude
-     * @param {number} amplitude
-     * @param {boolean} [clampMax] - if false, and the amplitude is above the thermometer range, then return the edge case "MORE_THAN_VERY_HOT"
-     * @returns {string}
-     */
-    amplitudeToTempZone: function( amplitude, clampMax ) {
-      clampMax = typeof clampMax === 'boolean' ? clampMax : true; // poor mans extend, normally do clamp it
-
-      var maxAmplitude = AMPLITUDE_RANGES[ AMPLITUDE_RANGES.length - 1 ].max;
-      if ( amplitude > maxAmplitude ) {
-        if ( clampMax ) {
-          amplitude = maxAmplitude;
-        }
-        else {
-          return TemperatureZoneEnum.MORE_THAN_VERY_HOT;
-        }
-      }
-      let rangeIndex;
-      for ( let i = AMPLITUDE_RANGES.length - 1; i >= 0; i-- ) {
-        let range = AMPLITUDE_RANGES[ i ];
-        if ( amplitude < range.max || // exclusive maximum
-             ( i === AMPLITUDE_RANGES.length - 1 && amplitude === range.max ) ) { // edge case for the larges possible value in ranges
-          rangeIndex = i;
-        }
-      }
-      assert && assert( typeof rangeIndex === 'number' );
-
-      return TEMPERATURE_ZONES[ rangeIndex ];
-    },
-
-    /**
-     * Get the zone releationship
-     * @param newZone
-     * @param oldZone
-     * @returns {MORE|LESS|SAME} - the relationship between the two temperature zone
-     */
-    getRelativeZonePosition: function( newZone, oldZone ) {
-      var newZoneIndex = TEMPERATURE_ZONES.indexOf( newZone );
-      var oldZoneIndex = TEMPERATURE_ZONES.indexOf( oldZone );
-
-      assert && assert( newZoneIndex >= 0 );
-      assert && assert( oldZoneIndex >= 0 );
-
-      let relativePosition;
-      if ( newZoneIndex === oldZoneIndex ) {
-        relativePosition = this.SAME;
-      }
-
-      // new zone is less than it was
-      if ( newZoneIndex < oldZoneIndex ) {
-        relativePosition = this.LESS;
-      }
-
-      // new zone is more than it was
-      if ( newZoneIndex > oldZoneIndex ) {
-        relativePosition = this.MORE;
-      }
-      return relativePosition;
-    },
-    /**
-     * @private
-     * @param tempString
-     * @param surface
-     * @returns {*|string}
-     */
-    getTemperatureClause: function( tempString, surface ) {
-      return StringUtils.fillIn( frictionIncreasingTemperatureClausePatternString, {
-        surface: surface ? surfaceString : '',
-        temperature: tempString
-      } );
-    },
-
-    /**
-     * This is not guaranteed to make an alert, only if the conditions are correct
-     * @param {number} newAmplitude
-     * @param {number} oldAmplitude
-     */
-    handleDecreasingTemperatureAlert: function( newAmplitude, oldAmplitude ) {
-      let newZone = this.amplitudeToTempZone( newAmplitude );
-      let oldZone = this.amplitudeToTempZone( oldAmplitude );
-
-      if ( newZone === TemperatureZoneEnum.VERY_HOT && oldZone === TemperatureZoneEnum.VERY_HOT ) {
-        var clampMaxZone = true; // determine if the old alert was much higher
-        let unclampedMaxZone = this.amplitudeToTempZone( oldAmplitude, clampMaxZone );
-        if ( unclampedMaxZone === TemperatureZoneEnum.MORE_THAN_VERY_HOT ) {
-
-          // If we used to be more than very hot (so above the thermometer, and now we are very hot, alert this case
-          var alertStringsData = this.ALERT_SCHEMA[ TemperatureZoneEnum.VERY_HOT ][ this.MORE ];
-          this.alertTemperatureFromObject( alertStringsData );
-        }
-
-      }
-      // only alert in the link call on zone change and if the temp is decreasing
-      else if ( newZone !== oldZone &&
-                TEMPERATURE_ZONES.indexOf( newZone ) < TEMPERATURE_ZONES.indexOf( oldZone ) ) {
-        this.alertTemperatureFromAmplitude( newAmplitude, oldAmplitude );
-      }
-    },
-
-    /**
      * @param {object} alertObject - data object holding strings for alert, see this.ALERT_SCHEMA
+     * @param {boolean} firstTimeAlerting - if it is the first time alerting this alert, there could be a special case in the data object
+     * @param {string} [typeId]
      */
-    alertTemperatureFromObject: function( alertObject ) {
-      var string = StringUtils.fillIn( frictionIncreasingAtomsJigglingTemperaturePatternString, {
-        temperatureClause: this.getTemperatureClause( alertObject.temp, alertObject.useSurface ),
+    alertTemperatureJiggleFromObject: function( alertObject, firstTimeAlerting, typeId ) {
+
+      let patternString = frictionIncreasingAtomsJigglingTemperaturePatternString;
+
+      // Use the "first time" pattern string if it is the first time.
+      if ( alertObject.firstTime && firstTimeAlerting ) {
+        patternString = frictionIncreasingAtomsJigglingTemperatureFirstPatternString;
+
+        // use the fill in values for the first time
+        alertObject = alertObject.firstTime;
+      }
+
+      var string = StringUtils.fillIn( patternString, {
+        temperature: alertObject.temp,
         jigglingAmount: alertObject.jiggle
       } );
-      utteranceQueue.addToBack( string );
+      utteranceQueue.addToBack( new Utterance( string, { typeId } ) );
     },
 
     /**
@@ -180,127 +105,133 @@ define( function( require ) {
      * @public
      */
     alertAtEvaporationThreshold: function() {
-      var string = StringUtils.fillIn( frictionIncreasingVeryHotBreakAwayString, {
-        temperature: capitalizedVeryHotString,
-        numberAtoms: capitalizedAFewString
-      } );
-      utteranceQueue.addToFront( string );
-    },
-
-    /**
-     * Alert when the many atoms have broken away from the book
-     * @public
-     */
-    alertManyAtomsEvaporated: function() {
-      var string = StringUtils.fillIn( frictionIncreasingVeryHotBreakAwayString, {
-        temperature: capitalizedVeryHotString,
-        numberAtoms: capitalizedMoreString
-      } );
-      utteranceQueue.addToFront( string );
+      utteranceQueue.addToFront( alertedBreakAway ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST );
+      alertedBreakAway = true;
     },
 
 
-    /**
-     * Add a temperature related alert to the utterance queue based on what the amplitude is, and what it was.
-     * This is not guaranteed to make an alert, only if there is a block in this.ALERT_SCHEMA to mathc the amplitude conditions
-     * @param {number} newAmplitude
-     * @param {number} oldAmplitude
-     */
-    alertTemperatureFromAmplitude: function( newAmplitude, oldAmplitude ) {
+    // TODO: this is a hack, the type should be more public and well documented
+    createIncreasingDescriber: function( model ) {
+      this.increasingDescriber = new IncreasingDescriber( model );
+    },
 
-      let newZone = this.amplitudeToTempZone( newAmplitude );
-      let oldZone = this.amplitudeToTempZone( oldAmplitude );
+    dispose: function() {
+      this.increasingDescriber && this.increasingDescriber.dispose();
+    },
 
-      assert && assert( TemperatureZoneEnum[ newZone ] );
-      assert && assert( TemperatureZoneEnum[ oldZone ] );
-
-      // determine the relationship between the new and old zones
-      var relativePosition = this.getRelativeZonePosition( newZone, oldZone );
-
-      // get the appropriate data about what alert we will give
-      let alertObject = this.ALERT_SCHEMA[ newZone ][ relativePosition ];
-
-      // some relationships don't have alerts to give out
-      if ( alertObject ) {
-
-        this.alertTemperatureFromObject( alertObject );
-
+    DECREASING: [
+      {
+        jiggle: lessString,
+        temp: nowCoolerString,
+        firstTime: {
+          jiggle: jigglingLessString,
+          temp: coolerString
+        }
+      },
+      {
+        jiggle: lessString,
+        temp: nowCoolerString
+      },
+      {
+        jiggle: evenLessString,
+        temp: evenCoolerString
       }
+    ],
 
-    },
-
-    // @public
-    // schema that describes the alerts based on the what the current temp is, and how it changed.
-    // Think of each relational word as "* Now", i.e. "COOL LESS NOW" because it used to be warmer.
-    // so ALERT_SCHEMA.WARM.LESS would be triggered when going from HOT to WARM on a drag.
-    ALERT_SCHEMA: {
-      COOL: {
-        SAME: {
-          temp: isCoolString,
-          useSurface: true,
-          jiggle: aTinyBitString
-        },
-        LESS: {
-          useSurface: true,
-          jiggle: aTinyBitString,
-          temp: isCoolString
-        }
+    INCREASING: [
+      {
+        jiggle: moreString,
+        temp: warmerString
       },
-      WARM: {
-        MORE: {
-          temp: getsWarmerString,
-          useSurface: true,
-          jiggle: aLittleString
-        },
-        SAME: {
-          temp: nowWarmString,
-          useSurface: false,
-          jiggle: aLittleMoreString
-        },
-        LESS: {
-          temp: nowWarmString,
-          useSurface: false,
-          jiggle: aLittleString
-        }
+      {
+        jiggle: fasterString,
+        temp: nowHotterString
       },
-      HOT: {
-        MORE: {
-          temp: getsHotterString,
-          useSurface: false,
-          jiggle: fasterString
-        },
-        SAME: {
-          temp: nowHotString,
-          useSurface: false,
-          jiggle: evenFasterString
-        },
-        LESS: {
-          temp: nowHotString,
-          useSurface: false,
-          jiggle: evenLessString
-        }
+      {
+        jiggle: evenFasterString,
+        temp: evenHotterString
       },
-      VERY_HOT: {
-
-        // when there are no more atoms to break away
-        MORE: {
-          temp: veryHotString,
-          useSurface: false,
-          jiggle: veryFastString
-        },
-        LESS: {
-          temp: droppingString,
-          useSurface: false,
-          jiggle: lessString
+      {
+        jiggle: veryFastString,
+        temp: stillVeryHotString,
+        firstTime: {
+          jiggle: veryFastString,
+          temp: veryHotString
         }
       }
+    ],
 
-    },
     LESS: 'LESS',
     SAME: 'SAME',
     MORE: 'MORE'
-
   };
+
+
+  /**
+   * Responsible for alerting when the temperature increases
+   */
+  class IncreasingDescriber {
+    constructor( model ) {
+      this.model = model;
+
+      // decides whether or not this describer is enabled basically.
+      // just manages whether or not we are checking to see if the threshold is increasing enough
+      this.tempIncreasing = false;
+
+      this.initialAmplitude = model.amplitudeProperty.value;
+
+      // zero indexed, so the first one is 0
+      this.alertIndex = -1;
+
+      this.increasingAlertSchema = FrictionAlertManager.INCREASING;
+
+      this.tooSoonForNextAlert = false;
+
+      this.amplitudeListener = ( amplitude ) => {
+        console.log( this.tempIncreasing, this.tooSoonForNextAlert, amplitude, this.initialAmplitude );
+        console.log();
+
+        if ( this.tempIncreasing && !this.tooSoonForNextAlert && amplitude - this.initialAmplitude > TEMPERATURE_ALERT_THRESHOLD ) {
+          this.alertIncrease();
+        }
+
+      };
+      this.model.amplitudeProperty.link( this.amplitudeListener );
+    }
+
+    // triggered on every keydown
+    dragStarted() {
+      console.log( 'drag started' );
+      this.initialAmplitude = this.model.amplitudeProperty.value;
+      this.tempIncreasing = true;
+    }
+
+    dragEnded() {
+      this.tempIncreasing = false;
+      this.alertIndex = -1; //reset
+    }
+
+    alertIncrease() {
+      this.alertIndex++;
+      var currentAlertIndex = Math.min( this.alertIndex, this.increasingAlertSchema.length - 1 );
+
+      // TODO manage the "first time" stuff
+      FrictionAlertManager.alertTemperatureJiggleFromObject( this.increasingAlertSchema[ currentAlertIndex ], false, 'increasing' );
+
+      console.log( this.alertIndex );
+      this.tooSoonForNextAlert = true;
+
+      // reset the "initialAmplitude" to the current amplitude, because then it will take another whole threshold level to alert again
+      this.initialAmplitude = this.model.amplitudeProperty.value;
+
+      // This is a bit buggy, we may want to tweak the threshold more, or find a better solution.
+      setTimeout( () => { this.tooSoonForNextAlert = false; }, 500 ); // 1 second delay, TODO: use Timer for seed.
+    }
+
+    dispose() {
+      this.model.amplitudeProperty.unlink( this.amplitudeListener );
+    }
+  }
 
   friction.register( 'FrictionAlertManager', FrictionAlertManager );
 

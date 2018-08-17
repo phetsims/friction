@@ -81,7 +81,9 @@ define( function( require ) {
     // a11y - update the screen summary when the model changes
     let previousTempString = this.amplitudeToTempString( model.amplitudeProperty.value );
     let previousJiggleString = this.amplitudeToJiggleString( model.amplitudeProperty.value );
-    this.alertedAtomsBrokeAwayProperty = new BooleanProperty( false );
+
+    // initialize the temp increasing describer
+    FrictionAlertManager.createIncreasingDescriber( model );
 
     // make a11y updates as the amplitude changes in the model
     model.amplitudeProperty.link( ( amplitude, oldAmplitude ) => {
@@ -97,23 +99,8 @@ define( function( require ) {
 
       // Handle the alert when amplitude is high enough to begin evaporating
       if ( amplitude > EVAPORATION_LIMIT && oldAmplitude < EVAPORATION_LIMIT && // just hit evaporation limit
-           model.numberOfAtomsEvaporated < FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS && // still atoms to evaporate
-           !self.alertedAtomsBrokeAwayProperty.value ) { // haven't alerted yet
+           model.numberOfAtomsEvaporated < FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ) { // still atoms to evaporate
         FrictionAlertManager.alertAtEvaporationThreshold();
-        self.alertedAtomsBrokeAwayProperty.set( true );
-      }
-
-      // Handle the automatic alerts as the temp decreases
-      // NOTE: For now, we are removing the jiggle alerts for student testing. See
-      // // https://github.com/phetsims/friction/issues/89
-      // FrictionAlertManager.handleDecreasingTemperatureAlert( amplitude, oldAmplitude );
-
-    } );
-
-    // add a listener to look at the number of atoms emitted
-    model.evaporationEmitter.addListener( () => {
-      if ( model.numberOfAtomsEvaporated === Math.floor( FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS / 2 ) ) {
-        FrictionAlertManager.alertManyAtomsEvaporated();
       }
     } );
 
@@ -205,7 +192,6 @@ define( function( require ) {
      * @private
      */
     reset: function() {
-      this.alertedAtomsBrokeAwayProperty.reset();
       this.updateSummaryString( this.model );
     },
 
