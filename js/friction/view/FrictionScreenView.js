@@ -12,6 +12,7 @@ define( function( require ) {
 
   // modules
   const BookNode = require( 'FRICTION/friction/view/book/BookNode' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const ControlPanelNode = require( 'SCENERY_PHET/accessibility/nodes/ControlPanelNode' );
   const friction = require( 'FRICTION/friction' );
@@ -70,6 +71,9 @@ define( function( require ) {
     // @private
     this.model = model;
 
+    // @private - (a11y) true if there has already been an alert about atoms breaking away
+    this.alertedBreakAwayProperty = new BooleanProperty( false );
+
     // @private (a11y) - will be updated later, see
     this.frictionSummaryNode = new Node( {
       tagName: 'p'
@@ -99,7 +103,9 @@ define( function( require ) {
       // Handle the alert when amplitude is high enough to begin evaporating
       if ( amplitude > EVAPORATION_LIMIT && oldAmplitude < EVAPORATION_LIMIT && // just hit evaporation limit
            model.numberOfAtomsEvaporated < FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ) { // still atoms to evaporate
-        FrictionAlertManager.alertAtEvaporationThreshold();
+        FrictionAlertManager.alertAtEvaporationThreshold( this.alertedBreakAwayProperty.value );
+        this.alertedBreakAwayProperty.value = true;
+
       }
     } );
 
@@ -191,6 +197,7 @@ define( function( require ) {
      * @private
      */
     reset: function() {
+      this.alertedBreakAwayProperty.reset();
       this.updateSummaryString( this.model );
     },
 

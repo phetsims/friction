@@ -67,9 +67,6 @@ define( function( require ) {
   const BREAK_AWAY_THRESHOLD_FIRST = StringUtils.fillIn( breakAwaySentenceFirstString, { temp: capitalizedVeryHotString } );
   const BREAK_AWAY_THRESHOLD_AGAIN = StringUtils.fillIn( breakAwaySentenceAgainString, { temp: capitalizedVeryHotString } );
 
-  // TODO manage this with reset in mind
-  var alertedBreakAway = false;
-
   var FrictionAlertManager = {
 
     /**
@@ -98,11 +95,11 @@ define( function( require ) {
 
     /**
      * Alert when the temperature has just reached the point where atoms begin to break away
+     * @param {boolean} alertedBreakAwayBefore - whether or not the alert has been said before
      * @public
      */
-    alertAtEvaporationThreshold: function() {
-      utteranceQueue.addToFront( alertedBreakAway ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST );
-      alertedBreakAway = true;
+    alertAtEvaporationThreshold: function( alertedBreakAwayBefore ) {
+      utteranceQueue.addToFront( alertedBreakAwayBefore ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST );
     },
 
 
