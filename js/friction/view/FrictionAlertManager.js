@@ -211,7 +211,6 @@ define( function( require ) {
       // TODO manage the "first time" stuff
       FrictionAlertManager.alertTemperatureJiggleFromObject( this.increasingAlertSchema[ currentAlertIndex ], false, 'increasing' );
 
-      console.log( this.alertIndex );
       this.tooSoonForNextAlert = true;
 
       // reset the "initialAmplitude" to the current amplitude, because then it will take another whole threshold level to alert again
