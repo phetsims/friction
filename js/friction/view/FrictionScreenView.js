@@ -22,7 +22,6 @@ define( function( require ) {
   const inherit = require( 'PHET_CORE/inherit' );
   const MagnifierNode = require( 'FRICTION/friction/view/magnifier/MagnifierNode' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );

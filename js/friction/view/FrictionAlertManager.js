@@ -26,7 +26,6 @@ define( function( require ) {
   const breakAwaySentenceAgainString = FrictionA11yStrings.breakAwaySentenceAgain.value;
 
   // a11y strings interactive alerts
-  const aLittleString = FrictionA11yStrings.aLittle.value;
   const stillVeryHotString = FrictionA11yStrings.stillVeryHot.value;
   const fasterString = FrictionA11yStrings.faster.value;
   const nowHotterString = FrictionA11yStrings.nowHotter.value;
@@ -36,14 +35,11 @@ define( function( require ) {
   const coolerString = FrictionA11yStrings.cooler.value;
   const warmerString = FrictionA11yStrings.warmer.value;
   const nowCoolerString = FrictionA11yStrings.nowCooler.value;
-  const nowWarmString = FrictionA11yStrings.nowWarm.value;
   const evenHotterString = FrictionA11yStrings.evenHotter.value;
-  const nowHotString = FrictionA11yStrings.nowHot.value;
   const veryHotString = FrictionA11yStrings.veryHot.value;
   const lessString = FrictionA11yStrings.less.value;
   const evenLessString = FrictionA11yStrings.evenLess.value;
   const evenCoolerString = FrictionA11yStrings.evenCooler.value;
-  const droppingString = FrictionA11yStrings.dropping.value;
 
   // constants
   //TODO duplicated min/max constants with the screen view
