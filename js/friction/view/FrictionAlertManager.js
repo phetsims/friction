@@ -184,8 +184,6 @@ define( function( require ) {
       this.tooSoonForNextAlert = false;
 
       this.amplitudeListener = ( amplitude ) => {
-        console.log( this.tempIncreasing, this.tooSoonForNextAlert, amplitude, this.initialAmplitude );
-        console.log();
 
         if ( this.tempIncreasing && !this.tooSoonForNextAlert && amplitude - this.initialAmplitude > TEMPERATURE_ALERT_THRESHOLD ) {
           this.alertIncrease();
@@ -197,7 +195,6 @@ define( function( require ) {
 
     // triggered on every keydown
     dragStarted() {
-      console.log( 'drag started' );
       this.initialAmplitude = this.model.amplitudeProperty.value;
       this.tempIncreasing = true;
     }
