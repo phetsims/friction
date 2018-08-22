@@ -12,9 +12,9 @@ define( function( require ) {
   const Bounds2 = require( 'DOT/Bounds2' );
   const friction = require( 'FRICTION/friction' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
-  const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const inherit = require( 'PHET_CORE/inherit' );
   const KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
+  const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
   const Vector2 = require( 'DOT/Vector2' );
 
 
@@ -33,7 +33,7 @@ define( function( require ) {
       start: function() {
         oldPositionValue = model.topBookPositionProperty.get().copy();
 
-        FrictionAlertManager.increasingDescriber.dragStarted();
+        TemperatureIncreasingDescriber.getDescriber().dragStarted();
       },
       drag: function() {
         let newValue = model.topBookPositionProperty.get();
@@ -43,7 +43,7 @@ define( function( require ) {
         oldPositionValue = model.topBookPositionProperty.get().copy();
       },
       end: function() {
-        FrictionAlertManager.increasingDescriber.dragEnded();
+        TemperatureIncreasingDescriber.getDescriber().dragEnded();
       },
       dragBounds: new Bounds2(
         -FrictionModel.MAX_X_DISPLACEMENT, // left bound

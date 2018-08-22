@@ -27,6 +27,7 @@ define( function( require ) {
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
   const ThermometerNode = require( 'SCENERY_PHET/ThermometerNode' );
 
   // strings
@@ -85,8 +86,8 @@ define( function( require ) {
     let previousTempString = this.amplitudeToTempString( model.amplitudeProperty.value );
     let previousJiggleString = this.amplitudeToJiggleString( model.amplitudeProperty.value );
 
-    // initialize the temp increasing describer
-    FrictionAlertManager.createIncreasingDescriber( model );
+    // a11y initialize the temp increasing describer by "getting" it, but we don't need it right now
+    TemperatureIncreasingDescriber.getDescriber( model );
 
     // make a11y updates as the amplitude changes in the model
     model.amplitudeProperty.link( ( amplitude, oldAmplitude ) => {
@@ -158,6 +159,8 @@ define( function( require ) {
 
     let playAreaNode = new PlayAreaNode();
     this.addChild( playAreaNode );
+
+    // a11y
     playAreaNode.accessibleOrder = [ chemistryBookNode, this.magnifierNode ];
 
     // add reset button
