@@ -24,14 +24,6 @@ define( function( require ) {
   const breakAwaySentenceFirstString = FrictionA11yStrings.breakAwaySentenceFirst.value;
   const breakAwaySentenceAgainString = FrictionA11yStrings.breakAwaySentenceAgain.value;
 
-  // a11y strings interactive alerts
-  const jigglingLessString = FrictionA11yStrings.jigglingLess.value;
-  const coolerString = FrictionA11yStrings.cooler.value;
-  const nowCoolerString = FrictionA11yStrings.nowCooler.value;
-  const lessString = FrictionA11yStrings.less.value;
-  const evenLessString = FrictionA11yStrings.evenLess.value;
-  const evenCoolerString = FrictionA11yStrings.evenCooler.value;
-
   // constants
   //TODO duplicated min/max constants with the screen view
   const THERMOMETER_MIN_TEMP = FrictionModel.MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min - 1.05; // about 0
@@ -89,26 +81,6 @@ define( function( require ) {
     alertAtEvaporationThreshold: function( alertedBreakAwayBefore ) {
       utteranceQueue.addToFront( alertedBreakAwayBefore ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST );
     },
-
-    DECREASING: [
-      {
-        jiggle: lessString,
-        temp: nowCoolerString,
-        firstTime: {
-          jiggle: jigglingLessString,
-          temp: coolerString
-        }
-      },
-      {
-        jiggle: lessString,
-        temp: nowCoolerString
-      },
-      {
-        jiggle: evenLessString,
-        temp: evenCoolerString
-      }
-    ],
-
 
     // Threshold that must be reached from initial temp to new temp to alert that the temperature changed, in amplitude (see model for more info)
     TEMPERATURE_ALERT_THRESHOLD: 1.5

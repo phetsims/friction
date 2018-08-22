@@ -10,8 +10,9 @@ define( ( require ) => {
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
-  const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  const Timer = require( 'PHET_CORE/Timer' );
 
+  // a11y strings
   const moreString = FrictionA11yStrings.more.value;
   const stillVeryHotString = FrictionA11yStrings.stillVeryHot.value;
   const fasterString = FrictionA11yStrings.faster.value;
@@ -66,8 +67,6 @@ define( ( require ) => {
       // zero indexed, so the first one is 0
       this.alertIndex = -1;
 
-      this.increasingAlertSchema = INCREASING;
-
       //
       this.tooSoonForNextAlert = false;
 
@@ -94,10 +93,10 @@ define( ( require ) => {
 
     alertIncrease() {
       this.alertIndex++;
-      var currentAlertIndex = Math.min( this.alertIndex, this.increasingAlertSchema.length - 1 );
+      var currentAlertIndex = Math.min( this.alertIndex, INCREASING.length - 1 );
 
       // TODO manage the "first time" stuff
-      FrictionAlertManager.alertTemperatureJiggleFromObject( this.increasingAlertSchema[ currentAlertIndex ], false, 'increasing' );
+      FrictionAlertManager.alertTemperatureJiggleFromObject( INCREASING[ currentAlertIndex ], false, 'increasing' );
 
       this.tooSoonForNextAlert = true;
 
@@ -105,9 +104,8 @@ define( ( require ) => {
       this.initialAmplitude = this.model.amplitudeProperty.value;
 
       // This is a bit buggy, we may want to tweak the threshold more, or find a better solution.
-      setTimeout( () => { this.tooSoonForNextAlert = false; }, 500 ); // 1 second delay, TODO: use Timer for seed.
+      Timer.setTimeout( () => { this.tooSoonForNextAlert = false; }, 500 );
     }
-
   }
 
   /**

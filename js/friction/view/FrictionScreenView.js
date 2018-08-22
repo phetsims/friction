@@ -27,6 +27,7 @@ define( function( require ) {
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const TemperatureDecreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureDecreasingDescriber' );
   const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
   const ThermometerNode = require( 'SCENERY_PHET/ThermometerNode' );
 
@@ -88,6 +89,7 @@ define( function( require ) {
 
     // a11y initialize the temp increasing describer by "getting" it, but we don't need it right now
     TemperatureIncreasingDescriber.getDescriber( model );
+    TemperatureDecreasingDescriber.getDescriber( model );
 
     // make a11y updates as the amplitude changes in the model
     model.amplitudeProperty.link( ( amplitude, oldAmplitude ) => {

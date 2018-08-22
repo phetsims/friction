@@ -15,6 +15,7 @@ define( function( require ) {
   const inherit = require( 'PHET_CORE/inherit' );
   const KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
   const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
+  const TemperatureDecreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureDecreasingDescriber' );
   const Vector2 = require( 'DOT/Vector2' );
 
 
@@ -44,6 +45,7 @@ define( function( require ) {
       },
       end: function() {
         TemperatureIncreasingDescriber.getDescriber().dragEnded();
+        TemperatureDecreasingDescriber.getDescriber().dragEnded();
       },
       dragBounds: new Bounds2(
         -FrictionModel.MAX_X_DISPLACEMENT, // left bound
