@@ -56,21 +56,22 @@ define( function( require ) {
      */
     alertTemperatureJiggleFromObject: function( alertObject, firstTimeAlerting, typeId ) {
 
-      let patternString = frictionIncreasingAtomsJigglingTemperaturePatternString;
-
-      // Use the "first time" pattern string if it is the first time.
-      if ( alertObject.firstTime && firstTimeAlerting ) {
-        patternString = frictionIncreasingAtomsJigglingTemperatureFirstPatternString;
-
-        // use the fill in values for the first time
-        alertObject = alertObject.firstTime;
-      }
-
-      var string = StringUtils.fillIn( patternString, {
-        temperature: alertObject.temp,
-        jigglingAmount: alertObject.jiggle
-      } );
-      utteranceQueue.addToBack( new Utterance( string, { typeId } ) );
+      // let patternString = frictionIncreasingAtomsJigglingTemperaturePatternString;
+      //
+      // // Use the "first time" pattern string if it is the first time.
+      // if ( alertObject.firstTime && firstTimeAlerting ) {
+      //   patternString = frictionIncreasingAtomsJigglingTemperatureFirstPatternString;
+      //
+      //   // use the fill in values for the first time
+      //   alertObject = alertObject.firstTime;
+      // }
+      //
+      // var string = StringUtils.fillIn( patternString, {
+      //   temperature: alertObject.temp,
+      //   jigglingAmount: alertObject.jiggle
+      // } );
+      // utteranceQueue.addToBack( new Utterance( string, { typeId } ) );
+      console.log( 'alertTemperatureJiggleFromObject stubbed, not doing anything' );
     },
 
     /**
