@@ -15,11 +15,11 @@ define( function( require ) {
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const TemperatureZoneEnum = require( 'FRICTION/friction/model/TemperatureZoneEnum' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
-  // const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
+  const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
 
   // a11y strings
-  // const frictionIncreasingAtomsJigglingTemperatureFirstPatternString = FrictionA11yStrings.frictionIncreasingAtomsJigglingTemperatureFirstPattern.value;
-  // const frictionIncreasingAtomsJigglingTemperaturePatternString = FrictionA11yStrings.frictionIncreasingAtomsJigglingTemperaturePattern.value;
+  const frictionIncreasingAtomsJigglingTemperatureFirstPatternString = FrictionA11yStrings.frictionIncreasingAtomsJigglingTemperatureFirstPattern.value;
+  const frictionIncreasingAtomsJigglingTemperaturePatternString = FrictionA11yStrings.frictionIncreasingAtomsJigglingTemperaturePattern.value;
   const capitalizedVeryHotString = FrictionA11yStrings.capitalizedVeryHot.value;
   const breakAwaySentenceFirstString = FrictionA11yStrings.breakAwaySentenceFirst.value;
   const breakAwaySentenceAgainString = FrictionA11yStrings.breakAwaySentenceAgain.value;
@@ -56,21 +56,21 @@ define( function( require ) {
      */
     alertTemperatureJiggleFromObject: function( alertObject, firstTimeAlerting, typeId ) {
 
-      // let patternString = frictionIncreasingAtomsJigglingTemperaturePatternString;
-      //
-      // // Use the "first time" pattern string if it is the first time.
-      // if ( alertObject.firstTime && firstTimeAlerting ) {
-      //   patternString = frictionIncreasingAtomsJigglingTemperatureFirstPatternString;
-      //
-      //   // use the fill in values for the first time
-      //   alertObject = alertObject.firstTime;
-      // }
-      //
-      // var string = StringUtils.fillIn( patternString, {
-      //   temperature: alertObject.temp,
-      //   jigglingAmount: alertObject.jiggle
-      // } );
-      // utteranceQueue.addToBack( new Utterance( string, { typeId } ) );
+      let patternString = frictionIncreasingAtomsJigglingTemperaturePatternString;
+
+      // Use the "first time" pattern string if it is the first time.
+      if ( alertObject.firstTime && firstTimeAlerting ) {
+        patternString = frictionIncreasingAtomsJigglingTemperatureFirstPatternString;
+
+        // use the fill in values for the first time
+        alertObject = alertObject.firstTime;
+      }
+
+      var string = StringUtils.fillIn( patternString, {
+        temperature: alertObject.temp,
+        jigglingAmount: alertObject.jiggle
+      } );
+      utteranceQueue.addToBack( new Utterance( string, { typeId } ) );
       console.log( 'alertTemperatureJiggleFromObject stubbed, not doing anything' );
     },
 

@@ -58,6 +58,9 @@ define( ( require ) => {
 
       this.alertPotentialStart = Date.now();
 
+      // zero indexed, so the first one is 0
+      this.alertIndex = -1;
+
       this.amplitudeListener = ( amplitude, oldAmplitude ) => {
 
         // manage which way th temp is going
