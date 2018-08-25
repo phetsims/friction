@@ -138,7 +138,6 @@ define( function( require ) {
     // Jiggling/Temperature strings
     //--------------------------------------------------------------------------
 
-    // TODO: implement this edge case on focus of a book (or magnified view)
     atomsJiggleTinyBitTempCool: {
       value: 'Atoms jiggle a tiny bit, temperature cool'
     },

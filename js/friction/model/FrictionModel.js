@@ -40,6 +40,7 @@ define( function( require ) {
   const EVAPORATION_AMPLITUDE_REDUCTION = 0.01; // decrease in amplitude (a.k.a. temperature) when an atom evaporates
   const MAX_X_DISPLACEMENT = 600; // max allowed distance from center x
   const MIN_Y_POSITION = -70; // empirically determined such that top book can't be completely dragged out of frame
+  const DEFAULT_ROW_START_X_POSITION = 50;
 
   // atoms of top book, contains 5 rows, 4 of which can evaporate and 1 that can't
   const TOP_BOOK_ATOM_STRUCTURE = [
@@ -237,7 +238,7 @@ define( function( require ) {
       addAtomRow(
         self,
         layerDescription,
-        50, // TODO: Should this be a shared constant somewhere?
+        DEFAULT_ROW_START_X_POSITION,
         FrictionConstants.MAGNIFIER_WINDOW_HEIGHT / 3 - INITIAL_ATOM_SPACING_Y + ATOM_SPACING_Y * i,
         true,
         atomGroupTandem
@@ -249,7 +250,7 @@ define( function( require ) {
       addAtomRow(
         self,
         layerDescription,
-        50, // TODO: Yes, this should definitely be a shared constant somewhere
+        DEFAULT_ROW_START_X_POSITION,
         2 * FrictionConstants.MAGNIFIER_WINDOW_HEIGHT / 3 + ATOM_SPACING_Y * i,
         false,
         atomGroupTandem
