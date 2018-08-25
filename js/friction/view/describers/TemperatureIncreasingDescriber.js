@@ -67,6 +67,9 @@ define( ( require ) => {
       // zero indexed, so the first one is 0
       this.alertIndex = -1;
 
+      // Different alert for the very first decrease alert we have for the lifetime of the sim
+      this.firstAlert = true;
+
       // {boolean} don't alert too many alerts all at once, this is only switched after a timeout, see alertIncrease
       this.tooSoonForNextAlert = false;
 
@@ -95,8 +98,15 @@ define( ( require ) => {
       this.alertIndex++;
       let currentAlertIndex = Math.min( this.alertIndex, INCREASING.length - 1 );
 
-      // TODO manage the "first time" stuff
-      FrictionAlertManager.alertTemperatureJiggleFromObject( INCREASING[ currentAlertIndex ], false, 'increasing' );
+      let alertObject = INCREASING[ currentAlertIndex ];
+      let firstTime = this.firstAlert;
+
+      // only set it to not be the "first time" if the object has a firstTime sub object. This is to support the fact
+      // that the only "first time" special alert is not the first alert that will be alerted (because its the "vert hot" alert
+      if ( this.firstAlert && alertObject.firstTime ) {
+        this.firstAlert = false;
+      }
+      FrictionAlertManager.alertTemperatureJiggleFromObject( alertObject, firstTime, 'increasing' );
 
       this.tooSoonForNextAlert = true;
 

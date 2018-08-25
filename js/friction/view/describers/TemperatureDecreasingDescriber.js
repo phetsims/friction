@@ -62,9 +62,13 @@ define( ( require ) => {
       // zero indexed, so the first one is 0
       this.alertIndex = -1;
 
+      // Different alert for the very first decrease alert we have for the lifetime of the sim
+      this.firstAlert = true;
+
       this.amplitudeListener = ( amplitude, oldAmplitude ) => {
 
         // manage which way th temp is going
+        // TODO set tempDecreasing based on a threshold value since the last time the amplitude increased
         this.tempDecreasing = oldAmplitude > amplitude;
 
         // If we meet criteria, then alert that temp/amplitude is decreasing
@@ -85,11 +89,14 @@ define( ( require ) => {
       this.alertIndex++;
       var currentAlertIndex = Math.min( this.alertIndex, DECREASING.length - 1 );
 
-      // TODO manage the "first time" stuff
-      FrictionAlertManager.alertTemperatureJiggleFromObject( DECREASING[ currentAlertIndex ], false, 'decreasing' );
+      let alertObject = DECREASING[ currentAlertIndex ];
+      let firstTime = this.firstAlert;
+      if ( this.firstAlert ) {
+        this.firstAlert = false;
+      }
+      FrictionAlertManager.alertTemperatureJiggleFromObject( alertObject, firstTime, 'decreasing' );
 
       this.alertPotentialStart = Date.now();
-
     }
 
   }
