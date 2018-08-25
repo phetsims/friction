@@ -53,10 +53,10 @@ define( function( require ) {
     /**
      * @param {object} alertObject - data object holding strings for alert, see this.ALERT_SCHEMA
      * @param {boolean} firstTimeAlerting - if it is the first time alerting this alert, there could be a special case in the data object
-     * @param {string} [typeId]
+     * @param {string} [typeID]
      * @public
      */
-    alertTemperatureJiggleFromObject: function( alertObject, firstTimeAlerting, typeId ) {
+    alertTemperatureJiggleFromObject: function( alertObject, firstTimeAlerting, typeID ) {
 
       let patternString = frictionIncreasingAtomsJigglingTemperaturePatternString;
 
@@ -72,7 +72,8 @@ define( function( require ) {
         temperature: alertObject.temp,
         jigglingAmount: alertObject.jiggle
       } );
-      utteranceQueue.addToBack( new Utterance( string, { typeId } ) );
+
+      utteranceQueue.addToBack( new Utterance( string, { typeId: typeID } ) );
     },
 
     /**

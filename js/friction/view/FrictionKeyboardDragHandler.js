@@ -35,6 +35,7 @@ define( function( require ) {
         oldPositionValue = model.topBookPositionProperty.get().copy();
 
         TemperatureIncreasingDescriber.getDescriber().dragStarted();
+        TemperatureDecreasingDescriber.getDescriber().dragStarted();
       },
       drag: function() {
         let newValue = model.topBookPositionProperty.get();
@@ -45,7 +46,6 @@ define( function( require ) {
       },
       end: function() {
         TemperatureIncreasingDescriber.getDescriber().dragEnded();
-        TemperatureDecreasingDescriber.getDescriber().dragEnded();
       },
       dragBounds: new Bounds2(
         -FrictionModel.MAX_X_DISPLACEMENT, // left bound

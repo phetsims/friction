@@ -93,7 +93,11 @@ define( ( require ) => {
       this.model.amplitudeProperty.link( this.amplitudeListener );
     }
 
-    dragEnded() {
+    /**
+     * Should be called when a drag starts
+     * @public
+     */
+    dragStarted() {
       this.alertIndex = -1; //reset
     }
 
