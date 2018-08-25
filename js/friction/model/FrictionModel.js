@@ -446,6 +446,9 @@ define( function( require ) {
     MIN_Y_POSITION: MIN_Y_POSITION,
 
     // a11y
-    NUMBER_OF_EVAPORABLE_ATOMS: NUMBER_OF_EVAPORABLE_ATOMS
+    NUMBER_OF_EVAPORABLE_ATOMS: NUMBER_OF_EVAPORABLE_ATOMS,
+
+    // a11y - empirically determined value of when the atoms are "pretty much cool and settled"
+    AMPLITUDE_SETTLED_THRESHOLD: VIBRATION_AMPLITUDE_MIN + .4
   } );
 } );

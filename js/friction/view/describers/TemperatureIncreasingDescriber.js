@@ -67,7 +67,7 @@ define( ( require ) => {
       // zero indexed, so the first one is 0
       this.alertIndex = -1;
 
-      //
+      // {boolean} don't alert too many alerts all at once, this is only switched after a timeout, see alertIncrease
       this.tooSoonForNextAlert = false;
 
       this.amplitudeListener = ( amplitude ) => {
@@ -93,7 +93,7 @@ define( ( require ) => {
 
     alertIncrease() {
       this.alertIndex++;
-      var currentAlertIndex = Math.min( this.alertIndex, INCREASING.length - 1 );
+      let currentAlertIndex = Math.min( this.alertIndex, INCREASING.length - 1 );
 
       // TODO manage the "first time" stuff
       FrictionAlertManager.alertTemperatureJiggleFromObject( INCREASING[ currentAlertIndex ], false, 'increasing' );

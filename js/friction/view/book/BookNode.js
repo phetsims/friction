@@ -17,8 +17,9 @@ define( function( require ) {
   const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
-  const FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
+  const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  const FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Shape = require( 'KITE/Shape' );
@@ -83,8 +84,17 @@ define( function( require ) {
       this.keyboardDragHandler = new FrictionKeyboardDragHandler( model );
       this.addAccessibleInputListener( this.keyboardDragHandler );
 
+      // alert the temperature state on focus
+      this.addAccessibleInputListener( {
+        focus() {
+          if ( model.amplitudeProperty.value === model.amplitudeProperty.initialValue ) {
+            FrictionAlertManager.alertSettledAndCool();
+          }
+        }
+      } );
+
       // add observer
-      model.topBookPositionProperty.link( function( position ) {
+      model.topBookPositionProperty.link( position => {
         self.setTranslation( options.x + position.x * model.bookDraggingScaleFactor, options.y + position.y * model.bookDraggingScaleFactor );
       } );
     }

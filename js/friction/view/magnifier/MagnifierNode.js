@@ -20,6 +20,7 @@ define( function( require ) {
   const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
+  const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
@@ -169,6 +170,15 @@ define( function( require ) {
     // a11y - add the keyboard drag listener to the top atoms
     this.keyboardDragHandler = new FrictionKeyboardDragHandler( model );
     dragArea.addAccessibleInputListener( this.keyboardDragHandler );
+
+    // alert the temperature state on focus
+    dragArea.addAccessibleInputListener( {
+      focus() {
+        if ( model.amplitudeProperty.value === model.amplitudeProperty.initialValue ) {
+          FrictionAlertManager.alertSettledAndCool();
+        }
+      }
+    } );
 
     addRowCircles(
       FrictionModel.MAGNIFIED_ATOMS_INFO.radius,

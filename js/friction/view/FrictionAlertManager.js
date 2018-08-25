@@ -23,6 +23,7 @@ define( function( require ) {
   const capitalizedVeryHotString = FrictionA11yStrings.capitalizedVeryHot.value;
   const breakAwaySentenceFirstString = FrictionA11yStrings.breakAwaySentenceFirst.value;
   const breakAwaySentenceAgainString = FrictionA11yStrings.breakAwaySentenceAgain.value;
+  const atomsJiggleTinyBitTempCoolString = FrictionA11yStrings.atomsJiggleTinyBitTempCool.value;
 
   // constants
   //TODO duplicated min/max constants with the screen view
@@ -53,6 +54,7 @@ define( function( require ) {
      * @param {object} alertObject - data object holding strings for alert, see this.ALERT_SCHEMA
      * @param {boolean} firstTimeAlerting - if it is the first time alerting this alert, there could be a special case in the data object
      * @param {string} [typeId]
+     * @public
      */
     alertTemperatureJiggleFromObject: function( alertObject, firstTimeAlerting, typeId ) {
 
@@ -71,7 +73,6 @@ define( function( require ) {
         jigglingAmount: alertObject.jiggle
       } );
       utteranceQueue.addToBack( new Utterance( string, { typeId } ) );
-      console.log( 'alertTemperatureJiggleFromObject stubbed, not doing anything' );
     },
 
     /**
@@ -81,6 +82,14 @@ define( function( require ) {
      */
     alertAtEvaporationThreshold: function( alertedBreakAwayBefore ) {
       utteranceQueue.addToFront( alertedBreakAwayBefore ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST );
+    },
+
+    /**
+     * Alert the state of the cool and settled atoms.
+     * @public
+     */
+    alertSettledAndCool: function() {
+      utteranceQueue.addToBack( atomsJiggleTinyBitTempCoolString );
     },
 
     // Threshold that must be reached from initial temp to new temp to alert that the temperature changed, in amplitude (see model for more info)

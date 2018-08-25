@@ -112,6 +112,13 @@ define( function( require ) {
       }
     } );
 
+    // lazyLink so that we do not hear the alert on startup
+    model.amplitudeProperty.lazyLink( amplitude => {
+      if ( amplitude === model.amplitudeProperty.initialValue ) {
+        FrictionAlertManager.alertSettledAndCool();
+      }
+    } );
+
     // add physics book
     this.addChild( new BookNode( model, physicsString, {
       x: 50,

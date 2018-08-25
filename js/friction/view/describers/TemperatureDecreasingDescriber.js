@@ -10,6 +10,7 @@ define( ( require ) => {
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
+  const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
 
   // a11y strings
   const jigglingLessString = FrictionA11yStrings.jigglingLess.value;
@@ -66,8 +67,10 @@ define( ( require ) => {
         // manage which way th temp is going
         this.tempDecreasing = oldAmplitude > amplitude;
 
-        if ( this.tempDecreasing &&
-             Date.now() - this.alertPotentialStart > ALERT_TIME_DELAY ) {
+        // If we meet criteria, then alert that temp/amplitude is decreasing
+        if ( this.tempDecreasing && // only if the temperature is decreasing
+             amplitude > FrictionModel.AMPLITUDE_SETTLED_THRESHOLD && // when amplitude is close enough to its settled state, don't alert anymore
+             Date.now() - this.alertPotentialStart > ALERT_TIME_DELAY ) { // If we have waited long enough
           this.alertDecrease();
         }
       };
