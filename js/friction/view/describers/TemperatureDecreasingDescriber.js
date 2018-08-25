@@ -41,6 +41,10 @@ define( ( require ) => {
 
   const ALERT_TIME_DELAY = 3000;
 
+  // The amount of amplitude that the model must decrease from the last point where it was increasing. This value
+  // is to help with minor fluctuations as the model "cools" itself every step even while friction is generally increasing.
+  const AMPLITUDE_DECREASING_THRESHOLD = .5;
+
   // the singleton instance of this describer, used for the entire instance of the sim.
   let describer = null;
 
@@ -62,14 +66,22 @@ define( ( require ) => {
       // zero indexed, so the first one is 0
       this.alertIndex = -1;
 
+      // Keep track of the last highest amplitude when it was increasing. This value is reset everytime the oldAmplitude
+      // is less that the new amplitude.
+      let lastAmplitudeWhenIncreasing = model.amplitudeProperty.value;
+
       // Different alert for the very first decrease alert we have for the lifetime of the sim
       this.firstAlert = true;
 
       this.amplitudeListener = ( amplitude, oldAmplitude ) => {
 
+        // if ever we increase amplitude, make it the new maximum to compare against when determining if we are "decreasing in temp"
+        if ( amplitude > oldAmplitude ) {
+          lastAmplitudeWhenIncreasing = amplitude;
+        }
+
         // manage which way th temp is going
-        // TODO set tempDecreasing based on a threshold value since the last time the amplitude increased
-        this.tempDecreasing = oldAmplitude > amplitude;
+        this.tempDecreasing = lastAmplitudeWhenIncreasing - amplitude > AMPLITUDE_DECREASING_THRESHOLD;
 
         // If we meet criteria, then alert that temp/amplitude is decreasing
         if ( this.tempDecreasing && // only if the temperature is decreasing
