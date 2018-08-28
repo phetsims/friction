@@ -58,6 +58,9 @@ define( function( require ) {
 
   const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
 
+  // Used for the screen summary sentence to compare how many atoms have evaporated
+  const SOME_ATOMS_EVAPORATED_THRESHOLD = FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS / 2;
+
   /**
    * @param {FrictionModel} model
    * @param {Tandem} tandem
@@ -191,6 +194,44 @@ define( function( require ) {
     controlAreaNode.accessibleOrder = [ resetAllButton ];
   }
 
+
+  /**
+   * Given the number of atoms that have evaporated from the model so far, get the first screen summary sentence,
+   * describing the chemistry book.
+   * @param {number} atomsEvaporated
+   * @returns {*}
+   */
+  function getFirstSummarySentence( atomsEvaporated ) {
+
+    // The first sentence describes the chemistry book.
+    let chemistryBookString;
+
+    // There are three ranges based on how many atoms have evaporated
+
+    // "no evaporated atoms"
+    if ( atomsEvaporated === 0 ) {
+      chemistryBookString = startingChemistryBookStringString;
+    }
+
+    // some evaporated atoms, describe the chemistry book with some atoms "broken away"
+    else if ( atomsEvaporated < SOME_ATOMS_EVAPORATED_THRESHOLD ) {
+      chemistryBookString = StringUtils.fillIn( amountOfAtomsString, {
+        comparisonAmount: fewerString,
+        breakAwayAmount: someString
+      } );
+    }
+
+    // lots of evaporated atoms, describe many missing atoms
+    else {
+      chemistryBookString = StringUtils.fillIn( amountOfAtomsString, {
+        comparisonAmount: farFewerString,
+        breakAwayAmount: manyString
+      } );
+    }
+
+    return chemistryBookString;
+  }
+
   friction.register( 'FrictionScreenView', FrictionScreenView );
 
   return inherit( ScreenView, FrictionScreenView, {
@@ -270,40 +311,23 @@ define( function( require ) {
      * @param {FrictionModel} model
      */
     updateSummaryString: function( model ) {
+
+      // FIRST SENTENCE
+      let chemistryBookString = getFirstSummarySentence( model.numberOfAtomsEvaporated );
+
+      // SECOND SENTENCE (ZOOMED-IN)
       let tempString = StringUtils.fillIn( thermometerTemperaturePatternString, {
         temp: this.amplitudeToTempString( model.amplitudeProperty.value )
       } );
-
       let jiggleTempSentence = StringUtils.fillIn( jiggleTemperatureScaleSentenceString, {
         jigglingClause: this.amplitudeToJiggleString( model.amplitudeProperty.value ),
         temperatureClause: tempString
       } );
 
-      // There are three ranges based on how many atoms have evaporated
-      let supplementarySentence = moveChemistryBookSentenceString;
-      let chemistryBookString;
-      // "no evaporated atoms"
-      if ( model.numberOfAtomsEvaporated === 0 ) {
-        chemistryBookString = startingChemistryBookStringString;
-      }
-
-      // some evaporated atoms, describe the chemistry book with some atoms "broken away"
-      else if ( model.numberOfAtomsEvaporated < FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS / 2 ) {
-        chemistryBookString = StringUtils.fillIn( amountOfAtomsString, {
-          comparisonAmount: fewerString,
-          breakAwayAmount: someString
-        } );
-      }
-
-      // lots of evaporated atoms, queue to reset and describe many missing atoms
-      else {
-        supplementarySentence = resetSimMoreObservationSentenceString;
-
-        chemistryBookString = StringUtils.fillIn( amountOfAtomsString, {
-          comparisonAmount: farFewerString,
-          breakAwayAmount: manyString
-        } );
-      }
+      // SUPPLEMENTARY THIRD SENTENCE
+      // Queue moving the book if there are still many atoms left, queue reset if there are many evaporated atoms
+      let supplementarySentence = model.numberOfAtomsEvaporated > SOME_ATOMS_EVAPORATED_THRESHOLD ?
+                                  resetSimMoreObservationSentenceString : moveChemistryBookSentenceString;
 
       this.frictionSummaryNode.innerContent = StringUtils.fillIn( summarySentencePatternString, {
         chemistryBookString: chemistryBookString,
@@ -312,4 +336,5 @@ define( function( require ) {
       } );
     }
   } );
-} );
+} )
+;

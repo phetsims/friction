@@ -92,7 +92,7 @@ define( function( require ) {
     atCool: { value: 'cool' },
 
     thermometerTemperaturePattern: {
-      value: 'surface temperature thermometer is {{temp}}'
+      value: 'surface temperature is {{temp}}'
     },
 
     // if state has not settled yet
