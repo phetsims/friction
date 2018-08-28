@@ -14,7 +14,7 @@ define( function( require ) {
   const BookNode = require( 'FRICTION/friction/view/book/BookNode' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Bounds2 = require( 'DOT/Bounds2' );
-  const ControlPanelNode = require( 'SCENERY_PHET/accessibility/nodes/ControlPanelNode' );
+  const ControlAreaNode = require( 'SCENERY_PHET/accessibility/nodes/ControlAreaNode' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
@@ -200,7 +200,7 @@ define( function( require ) {
     } );
     this.addChild( resetAllButton );
 
-    let controlAreaNode = new ControlPanelNode();
+    let controlAreaNode = new ControlAreaNode();
     this.addChild( controlAreaNode );
     controlAreaNode.accessibleOrder = [ resetAllButton ];
   }
