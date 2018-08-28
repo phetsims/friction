@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.5.0-dev.13 Tue Aug 28 2018 15:34:13 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# friction 1.5.0-dev.14 Tue Aug 28 2018 15:45:15 GMT-0800 (Alaskan Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "friction": {
-    "sha": "e075259ae03a0f662e52de8698c7e65d6b72c851",
+    "sha": "7535fce8e6e9bb2980aeca92259effdb10cdf1cf",
     "branch": "master"
   },
   "joist": {
