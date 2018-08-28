@@ -56,23 +56,31 @@ define( ( require ) => {
    */
   class TemperatureIncreasingDescriber {
     constructor( model ) {
+
+      // @private
       this.model = model;
 
       // decides whether or not this describer is enabled basically.
       // just manages whether or not we are checking to see if the threshold is increasing enough
+      // @private
       this.tempIncreasing = false;
 
+      // @private
       this.initialAmplitude = model.amplitudeProperty.value;
 
       // zero indexed, so the first one is 0
+      // @private
       this.alertIndex = -1;
 
       // Different alert for the very first decrease alert we have for the lifetime of the sim
+      // @private
       this.firstAlert = true;
 
       // {boolean} don't alert too many alerts all at once, this is only switched after a timeout, see alertIncrease
+      // @private
       this.tooSoonForNextAlert = false;
 
+      // @private
       this.amplitudeListener = ( amplitude ) => {
 
         if ( this.tempIncreasing && !this.tooSoonForNextAlert && amplitude - this.initialAmplitude > FrictionAlertManager.TEMPERATURE_ALERT_THRESHOLD ) {
@@ -84,16 +92,19 @@ define( ( require ) => {
     }
 
     // triggered on every keydown
+    // @public
     dragStarted() {
       this.initialAmplitude = this.model.amplitudeProperty.value;
       this.tempIncreasing = true;
     }
 
+    // @public
     dragEnded() {
       this.tempIncreasing = false;
       this.alertIndex = -1; //reset
     }
 
+    // @private
     alertIncrease() {
       this.alertIndex++;
       let currentAlertIndex = Math.min( this.alertIndex, INCREASING.length - 1 );
@@ -116,23 +127,27 @@ define( ( require ) => {
       // This is a bit buggy, we may want to tweak the threshold more, or find a better solution.
       Timer.setTimeout( () => { this.tooSoonForNextAlert = false; }, 500 );
     }
-  }
 
-  /**
-   * Uses the singleton pattern to keep one instance of this describer for the entire lifetime of the sim.
-   * @param {FrictionModel} [model]
-   * @returns {*}
-   */
-  TemperatureIncreasingDescriber.getDescriber = ( model ) => {
+    /**
+     * Uses the singleton pattern to keep one instance of this describer for the entire lifetime of the sim.
+     * @param {FrictionModel} [model] - if not present, then the describer must be initialized already
+     * @returns {TemperatureIncreasingDescriber}
+     */
+    static getDescriber( model ) {
 
-    if ( describer ) {
+      if ( describer ) {
+        return describer;
+      }
+      assert && assert( model, 'arg required to instantiate TemperatureIncreasingDescriber' );
+      describer = new TemperatureIncreasingDescriber( model );
       return describer;
     }
-    assert && assert( model, 'arg required to instantiate TemperatureIncreasingDescriber' );
-    describer = new TemperatureIncreasingDescriber( model );
-    return describer;
-  };
 
+    // "initialize" method for clarity
+    static initialize( model ) {
+      TemperatureIncreasingDescriber.getDescriber( model );
+    }
+  }
 
   return friction.register( 'TemperatureIncreasingDescriber', TemperatureIncreasingDescriber );
 } );

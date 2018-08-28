@@ -37,6 +37,9 @@ define( function( require ) {
 
   // a11y strings
   const summarySentencePatternString = FrictionA11yStrings.summarySentencePattern.value;
+  const droppingAsAtomsJiggleLessString = FrictionA11yStrings.droppingAsAtomsJiggleLess.value;
+  const atomsJigglePatternString = FrictionA11yStrings.atomsJigglePattern.value;
+  const jiggleClausePatternString = FrictionA11yStrings.jiggleClausePattern.value;
   const jiggleTemperatureScaleSentenceString = FrictionA11yStrings.jiggleTemperatureScaleSentence.value;
   const thermometerTemperaturePatternString = FrictionA11yStrings.thermometerTemperaturePattern.value;
   const moveChemistryBookSentenceString = FrictionA11yStrings.moveChemistryBookSentence.value;
@@ -84,15 +87,17 @@ define( function( require ) {
       tagName: 'p'
     } );
     this.screenSummaryNode.addChild( this.frictionSummaryNode );
+
+    // a11y initialize the temp increasing describer
+    TemperatureIncreasingDescriber.initialize( model );
+    TemperatureDecreasingDescriber.initialize( model );
+
+    // requires an init
     this.updateSummaryString( model );
 
     // a11y - update the screen summary when the model changes
     let previousTempString = this.amplitudeToTempString( model.amplitudeProperty.value );
     let previousJiggleString = this.amplitudeToJiggleString( model.amplitudeProperty.value );
-
-    // a11y initialize the temp increasing describer by "getting" it, but we don't need it right now
-    TemperatureIncreasingDescriber.getDescriber( model );
-    TemperatureDecreasingDescriber.getDescriber( model );
 
     // make a11y updates as the amplitude changes in the model
     model.amplitudeProperty.link( ( amplitude, oldAmplitude ) => {
@@ -100,7 +105,13 @@ define( function( require ) {
       // Update the summary string
       let newTempString = self.amplitudeToTempString( amplitude );
       let newJiggleString = self.amplitudeToJiggleString( amplitude );
-      if ( newTempString !== previousTempString || newJiggleString !== previousJiggleString ) {
+      if ( newTempString !== previousTempString || // temperature changed
+           newJiggleString !== previousJiggleString ||  // jiggle changed
+           TemperatureDecreasingDescriber.getDescriber().tempDecreasing || // the temperature is decreasing
+
+           // if it's settled then update, but not if it is completely cool, so we don't trigger the update too much.
+           ( amplitude < FrictionModel.AMPLITUDE_SETTLED_THRESHOLD && amplitude !== FrictionModel.VIBRATION_AMPLITUDE_MIN ) ) {
+
         self.updateSummaryString( model );
         previousTempString = newTempString;
         previousJiggleString = newJiggleString;
@@ -241,7 +252,7 @@ define( function( require ) {
      * @param {number} dt - delta time, in seconds
      * @public
      */
-    step: function( dt ) {
+    step( dt ) {
       this.magnifierNode.step( dt );
     },
 
@@ -249,7 +260,7 @@ define( function( require ) {
      * Reset the view
      * @private
      */
-    reset: function() {
+    reset() {
       this.alertedBreakAwayProperty.reset();
       this.updateSummaryString( this.model );
     },
@@ -262,7 +273,7 @@ define( function( require ) {
      * @param {Array.<string>} stringsList
      * @returns {number}
      */
-    amplitudeToIndex: function( amplitude, stringsList ) {
+    amplitudeToIndex( amplitude, stringsList ) {
       if ( amplitude > THERMOMETER_MAX_TEMP ) {
         amplitude = THERMOMETER_MAX_TEMP;
       }
@@ -287,7 +298,7 @@ define( function( require ) {
      * @param {number} amplitude
      * @returns {string} the temp string based on the amplitude of the model
      */
-    amplitudeToTempString: function( amplitude ) {
+    amplitudeToTempString( amplitude ) {
       let i = this.amplitudeToIndex( amplitude, FrictionConstants.TEMPERATURE_STRINGS );
       return FrictionConstants.TEMPERATURE_STRINGS[ i ];
     },
@@ -299,9 +310,45 @@ define( function( require ) {
      * @param {number} amplitude
      * @returns {string} the "jiggle" amount string based on the amplitude of the model
      */
-    amplitudeToJiggleString: function( amplitude ) {
+    amplitudeToJiggleString( amplitude ) {
       let i = this.amplitudeToIndex( amplitude, FrictionConstants.JIGGLE_STRINGS );
       return FrictionConstants.JIGGLE_STRINGS[ i ];
+    },
+
+    /**
+     * Construct the second screen summary sentence about the zoomed in chemistry book.
+     * @param amplitudeProperty
+     * @returns {*|string}
+     */
+    getSecondSummarySentence( amplitudeProperty ) {
+
+
+
+      // Default to describing the jiggling of the atoms
+      var jiggleAmount = StringUtils.fillIn( atomsJigglePatternString, {
+        amount: this.amplitudeToJiggleString( amplitudeProperty.value )
+      } );
+      var jiggleClause = StringUtils.fillIn( jiggleClausePatternString, {
+        jiggleAmount: jiggleAmount
+      } );
+
+      // If the temperature is decreasing, then describe the jiggling relatively
+      if ( TemperatureDecreasingDescriber.getDescriber().tempDecreasing ) {
+        jiggleClause = StringUtils.fillIn( jiggleClausePatternString, {
+          jiggleAmount: droppingAsAtomsJiggleLessString
+        } );
+      }
+
+      // Fill in the current temperature string
+      let tempString = StringUtils.fillIn( thermometerTemperaturePatternString, {
+        temp: this.amplitudeToTempString( amplitudeProperty.value )
+      } );
+
+      // Construct the final sentence from its parts
+      return StringUtils.fillIn( jiggleTemperatureScaleSentenceString, {
+        jigglingClause: jiggleClause,
+        temperatureClause: tempString
+      } );
     },
 
     /**
@@ -310,19 +357,13 @@ define( function( require ) {
      * @a11y
      * @param {FrictionModel} model
      */
-    updateSummaryString: function( model ) {
+    updateSummaryString( model ) {
 
       // FIRST SENTENCE
       let chemistryBookString = getFirstSummarySentence( model.numberOfAtomsEvaporated );
 
       // SECOND SENTENCE (ZOOMED-IN)
-      let tempString = StringUtils.fillIn( thermometerTemperaturePatternString, {
-        temp: this.amplitudeToTempString( model.amplitudeProperty.value )
-      } );
-      let jiggleTempSentence = StringUtils.fillIn( jiggleTemperatureScaleSentenceString, {
-        jigglingClause: this.amplitudeToJiggleString( model.amplitudeProperty.value ),
-        temperatureClause: tempString
-      } );
+      let jiggleTempSentence = this.getSecondSummarySentence( model.amplitudeProperty );
 
       // SUPPLEMENTARY THIRD SENTENCE
       // Queue moving the book if there are still many atoms left, queue reset if there are many evaporated atoms
@@ -336,5 +377,4 @@ define( function( require ) {
       } );
     }
   } );
-} )
-;
+} );

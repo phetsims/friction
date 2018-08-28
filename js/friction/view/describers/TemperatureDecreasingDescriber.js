@@ -55,12 +55,16 @@ define( ( require ) => {
    */
   class TemperatureDecreasingDescriber {
     constructor( model ) {
-      this.model = model;
 
       // decides whether or not this describer is enabled basically.
       // just manages whether or not we are checking to see if the threshold is increasing enough
+      // @public
       this.tempDecreasing = false;
 
+      // @private
+      this.model = model;
+
+      // @private
       this.alertPotentialStart = Date.now();
 
       // zero indexed, so the first one is 0
@@ -68,11 +72,14 @@ define( ( require ) => {
 
       // Keep track of the last highest amplitude when it was increasing. This value is reset everytime the oldAmplitude
       // is less that the new amplitude.
+      // @private
       let lastAmplitudeWhenIncreasing = model.amplitudeProperty.value;
 
       // Different alert for the very first decrease alert we have for the lifetime of the sim
+      // @private
       this.firstAlert = true;
 
+      // @private
       this.amplitudeListener = ( amplitude, oldAmplitude ) => {
 
         // if ever we increase amplitude, make it the new maximum to compare against when determining if we are "decreasing in temp"
@@ -82,6 +89,11 @@ define( ( require ) => {
 
         // manage which way th temp is going
         this.tempDecreasing = lastAmplitudeWhenIncreasing - amplitude > AMPLITUDE_DECREASING_THRESHOLD;
+
+        // we consider it "settled" at this threshold
+        if ( amplitude < FrictionModel.AMPLITUDE_SETTLED_THRESHOLD ) {
+          this.tempDecreasing = false;
+        }
 
         // If we meet criteria, then alert that temp/amplitude is decreasing
         if ( this.tempDecreasing && // only if the temperature is decreasing
@@ -115,23 +127,26 @@ define( ( require ) => {
       this.alertPotentialStart = Date.now();
     }
 
-  }
+    /**
+     * Uses the singleton pattern to keep one instance of this describer for the entire lifetime of the sim.
+     * @param {FrictionModel} [model]
+     * @returns {*}
+     */
+    static getDescriber( model ) {
 
-  /**
-   * Uses the singleton pattern to keep one instance of this describer for the entire lifetime of the sim.
-   * @param {FrictionModel} [model]
-   * @returns {*}
-   */
-  TemperatureDecreasingDescriber.getDescriber = ( model ) => {
-
-    if ( describer ) {
+      if ( describer ) {
+        return describer;
+      }
+      assert && assert( model, 'arg required to instantiate TemperatureDecreasingDescriber' );
+      describer = new TemperatureDecreasingDescriber( model );
       return describer;
     }
-    assert && assert( model, 'arg required to instantiate TemperatureDecreasingDescriber' );
-    describer = new TemperatureDecreasingDescriber( model );
-    return describer;
-  };
 
+    // "initialize" method for clarity
+    static initialize( model ) {
+      TemperatureDecreasingDescriber.getDescriber( model );
+    }
+  }
 
   return friction.register( 'TemperatureDecreasingDescriber', TemperatureDecreasingDescriber );
 } );

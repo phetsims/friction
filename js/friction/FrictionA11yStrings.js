@@ -100,9 +100,21 @@ define( function( require ) {
       value: 'temperature dropping'
     },
 
+    droppingAsAtomsJiggleLess: {
+      value: 'dropping as atoms jiggle less'
+    },
+
+    atomsJigglePattern: {
+      value: 'atoms jiggle {{amount}}'
+    },
+
+    jiggleClausePattern: {
+      value: 'and {{jiggleAmount}}'
+    },
+
     // Entire sentence for jiggling and temp
     jiggleTemperatureScaleSentence: {
-      value: 'In zoomed-in view of where books meet, atoms {{temperatureClause}}, and {{jigglingClause}}.'
+      value: 'In zoomed-in view of where books meet, atoms {{temperatureClause}}, {{jigglingClause}}.'
     },
 
     //--------------------------------------------------------------------------
