@@ -43,7 +43,7 @@ define( function( require ) {
     TEMPERATURE_STRINGS: [ atCoolString, atCoolString, atWarmString, atWarmString, atWarmString, hotString, hotString,
       hotString, veryHotString ],
     JIGGLE_STRINGS: [ jiggleABitString, jiggleABitString, jiggleALittleString, jiggleALittleString, jiggleALittleString,
-      jiggleALotString, jiggleALotString, jiggleALotString, breakAwayString ]
+      jiggleALotString, jiggleALotString, jiggleALotString, jiggleALotString ]
   };
 
   friction.register( 'FrictionConstants', FrictionConstants );
