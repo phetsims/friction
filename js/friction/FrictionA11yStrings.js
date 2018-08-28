@@ -60,11 +60,6 @@ define( function( require ) {
     // Jiggle scale strings
     //--------------------------------------------------------------------------
 
-
-    breakAway: {
-      value: 'break away'
-    },
-
     jiggleALot: {
       value: 'jiggle  a lot'
     },

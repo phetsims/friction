@@ -15,7 +15,6 @@ define( function( require ) {
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
 
   // a11y strings
-  const breakAwayString = FrictionA11yStrings.breakAway.value;
   const jiggleALotString = FrictionA11yStrings.jiggleALot.value;
   const jiggleALittleString = FrictionA11yStrings.jiggleALittle.value;
   const jiggleABitString = FrictionA11yStrings.jiggleABit.value;
