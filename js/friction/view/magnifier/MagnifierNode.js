@@ -129,6 +129,11 @@ define( function( require ) {
     this.topBookBackground.addChild( background );
 
     // init drag for drag area
+    let zoomedInTitle = StringUtils.fillIn( zoomedInBookTitlePatternString, {
+      bookTitleString: StringUtils.fillIn( bookTitleStringPattern, {
+        bookTitle: title
+      } )
+    } );
     let dragArea = new Rectangle(
       0.055 * WIDTH,
       0.175 * HEIGHT,
@@ -145,11 +150,8 @@ define( function( require ) {
         focusHighlightLayerable: true,
 
         // Add the Accessible Name based on the name of the name of the book title.
-        ariaLabel: StringUtils.fillIn( zoomedInBookTitlePatternString, {
-          bookTitleString: StringUtils.fillIn( bookTitleStringPattern, {
-            bookTitle: title
-          } )
-        } )
+        ariaLabel: zoomedInTitle,
+        innerContent: zoomedInTitle
       } );
 
     dragArea.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );

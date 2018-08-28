@@ -64,11 +64,14 @@ define( function( require ) {
 
       this.addChild( focusHighlightRect );
 
+      let bookTitle = StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } );
+
       // add a11y options for the interactive BookNode
       this.mutate( {
         tagName: 'div',
         ariaRole: 'application',
-        ariaLabel: StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } ),
+        ariaLabel: bookTitle,
+        innerContent: bookTitle,
         helpText: bookHelpTextString,
         focusable: true,
         focusHighlightLayerable: true,
