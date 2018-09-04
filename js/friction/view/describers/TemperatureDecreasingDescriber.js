@@ -43,7 +43,7 @@ define( ( require ) => {
 
   // The amount of amplitude that the model must decrease from the last point where it was increasing. This value
   // is to help with minor fluctuations as the model "cools" itself every step even while friction is generally increasing.
-  const AMPLITUDE_DECREASING_THRESHOLD = .5;
+  const AMPLITUDE_DECREASING_THRESHOLD = 1;
 
   // the singleton instance of this describer, used for the entire instance of the sim.
   let describer = null;
