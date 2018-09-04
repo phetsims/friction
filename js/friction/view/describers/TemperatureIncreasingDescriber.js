@@ -10,7 +10,7 @@ define( ( require ) => {
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
-  const Timer = require( 'PHET_CORE/Timer' );
+  const timer = require( 'PHET_CORE/timer' );
 
   // a11y strings
   const moreString = FrictionA11yStrings.more.value;
@@ -125,7 +125,7 @@ define( ( require ) => {
       this.initialAmplitude = this.model.amplitudeProperty.value;
 
       // This is a bit buggy, we may want to tweak the threshold more, or find a better solution.
-      Timer.setTimeout( () => { this.tooSoonForNextAlert = false; }, 500 );
+      timer.setTimeout( () => { this.tooSoonForNextAlert = false; }, 500 );
     }
 
     /**
