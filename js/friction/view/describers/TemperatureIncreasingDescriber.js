@@ -1,6 +1,15 @@
 // Copyright 2018, University of Colorado Boulder
 
 /**
+ * This singleton type is responsible for alerting all aria-live alerts that pertain to the model/amplitude/temperature
+ * increasing.
+ * The basic algorithm: There is a list of alerts, each later alert uses verbage describing a relatively hotter model.
+ * Each time you alert, you move up in the list, such that the next alert will alert with hotter verbage.
+ *
+ * The alert index restarts if there is enough time in between drags, signifying the end of the "drag session"
+ * A drag session can consist of more than one dragging instance, but is ended if the time between drags is greater than
+ * the "DRAG_SESSION_THRESHOLD"
+ *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 define( ( require ) => {
@@ -46,6 +55,12 @@ define( ( require ) => {
     }
   ];
 
+  // in ms, how long to wait until we consider this newest drag of a different "drag session"
+  const DRAG_SESSION_THRESHOLD = 1000;
+
+  // time in between each increasing alert
+  const ALERT_TIME_DELAY = 500;
+
   // the singleton instance of this describer, used for the entire instance of the sim.
   let describer = null;
 
@@ -60,10 +75,10 @@ define( ( require ) => {
       // @private
       this.model = model;
 
-      // decides whether or not this describer is enabled basically.
-      // just manages whether or not we are checking to see if the threshold is increasing enough
       // @private
-      this.tempIncreasing = false;
+      // Keep track of the time that the last drag ended. This is helpful to see if a new drag is within the same
+      // "drag session", meaning that the alertIndex doesn't reset back to the first alert.
+      this.timeOfLastDrag = 0;
 
       // @private
       this.initialAmplitude = model.amplitudeProperty.value;
@@ -81,9 +96,11 @@ define( ( require ) => {
       this.tooSoonForNextAlert = false;
 
       // @private
+      // TODO: performance: put in drag callback instead?
       this.amplitudeListener = ( amplitude ) => {
 
-        if ( this.tempIncreasing && !this.tooSoonForNextAlert && amplitude - this.initialAmplitude > FrictionAlertManager.TEMPERATURE_ALERT_THRESHOLD ) {
+        if ( !this.tooSoonForNextAlert &&
+             amplitude - this.initialAmplitude > FrictionAlertManager.TEMPERATURE_ALERT_THRESHOLD ) {
           this.alertIncrease();
         }
 
@@ -91,17 +108,20 @@ define( ( require ) => {
       this.model.amplitudeProperty.link( this.amplitudeListener );
     }
 
-    // triggered on every keydown
     // @public
+    // triggered on every keydown/mousedown
     dragStarted() {
-      this.initialAmplitude = this.model.amplitudeProperty.value;
-      this.tempIncreasing = true;
+
+      // If longer than threshold, treat as new "drag session"
+      if ( Date.now() - this.timeOfLastDrag > DRAG_SESSION_THRESHOLD ) {
+        this.alertIndex = -1; //reset
+        this.initialAmplitude = this.model.amplitudeProperty.value;
+      }
     }
 
     // @public
     dragEnded() {
-      this.tempIncreasing = false;
-      this.alertIndex = -1; //reset
+      this.timeOfLastDrag = Date.now();
     }
 
     // @private
@@ -125,7 +145,7 @@ define( ( require ) => {
       this.initialAmplitude = this.model.amplitudeProperty.value;
 
       // This is a bit buggy, we may want to tweak the threshold more, or find a better solution.
-      timer.setTimeout( () => { this.tooSoonForNextAlert = false; }, 500 );
+      timer.setTimeout( () => { this.tooSoonForNextAlert = false; }, ALERT_TIME_DELAY );
     }
 
     /**
