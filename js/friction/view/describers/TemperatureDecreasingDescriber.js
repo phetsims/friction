@@ -65,7 +65,7 @@ define( ( require ) => {
       this.model = model;
 
       // @private
-      this.alertPotentialStart = Date.now();
+      this.alertPotentialStart = phet.joist.elapsedTime;
 
       // zero indexed, so the first one is 0
       this.alertIndex = -1;
@@ -98,7 +98,7 @@ define( ( require ) => {
         // If we meet criteria, then alert that temp/amplitude is decreasing
         if ( this.tempDecreasing && // only if the temperature is decreasing
              amplitude > FrictionModel.AMPLITUDE_SETTLED_THRESHOLD && // when amplitude is close enough to its settled state, don't alert anymore
-             Date.now() - this.alertPotentialStart > ALERT_TIME_DELAY ) { // If we have waited long enough
+             phet.joist.elapsedTime - this.alertPotentialStart > ALERT_TIME_DELAY ) { // If we have waited long enough
           this.alertDecrease();
         }
       };
@@ -124,7 +124,7 @@ define( ( require ) => {
       }
       FrictionAlertManager.alertTemperatureJiggleFromObject( alertObject, firstTime, 'decreasing' );
 
-      this.alertPotentialStart = Date.now();
+      this.alertPotentialStart = phet.joist.elapsedTime;
     }
 
     /**

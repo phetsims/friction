@@ -113,7 +113,7 @@ define( ( require ) => {
     dragStarted() {
 
       // If longer than threshold, treat as new "drag session"
-      if ( Date.now() - this.timeOfLastDrag > DRAG_SESSION_THRESHOLD ) {
+      if ( phet.joist.elapsedTime - this.timeOfLastDrag > DRAG_SESSION_THRESHOLD ) {
         this.alertIndex = -1; //reset
         this.initialAmplitude = this.model.amplitudeProperty.value;
       }
@@ -121,7 +121,7 @@ define( ( require ) => {
 
     // @public
     dragEnded() {
-      this.timeOfLastDrag = Date.now();
+      this.timeOfLastDrag = phet.joist.elapsedTime;
     }
 
     // @private
