@@ -16,21 +16,35 @@ define( ( require ) => {
   'use strict';
 
   // modules
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
+  const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const timer = require( 'PHET_CORE/timer' );
 
   // a11y strings
   const moreString = FrictionA11yStrings.more.value;
-  const stillVeryHotString = FrictionA11yStrings.stillVeryHot.value;
   const fasterString = FrictionA11yStrings.faster.value;
   const nowHotterString = FrictionA11yStrings.nowHotter.value;
   const evenFasterString = FrictionA11yStrings.evenFaster.value;
-  const veryFastString = FrictionA11yStrings.veryFast.value;
   const warmerString = FrictionA11yStrings.warmer.value;
   const evenHotterString = FrictionA11yStrings.evenHotter.value;
+
+  const stillVeryHotString = FrictionA11yStrings.stillVeryHot.value;
+  const veryFastString = FrictionA11yStrings.veryFast.value;
   const veryHotString = FrictionA11yStrings.veryHot.value;
+
+  // alert object for the Maximum temp alert
+  const MAX_TEMP_OBJECT = {
+    jiggle: veryFastString,
+    temp: stillVeryHotString,
+    firstTime: {
+      jiggle: veryFastString,
+      temp: veryHotString
+    }
+  };
+
 
   const INCREASING = [
     {
@@ -44,16 +58,12 @@ define( ( require ) => {
     {
       jiggle: evenFasterString,
       temp: evenHotterString
-    },
-    {
-      jiggle: veryFastString,
-      temp: stillVeryHotString,
-      firstTime: {
-        jiggle: veryFastString,
-        temp: veryHotString
-      }
     }
   ];
+
+  // From model, the amplitude value when the atoms evaporate
+  const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
+
 
   // in ms, how long to wait until we consider this newest drag of a different "drag session"
   const DRAG_SESSION_THRESHOLD = 1000;
@@ -88,9 +98,9 @@ define( ( require ) => {
       // @private
       this.alertIndex = -1;
 
-      // Different alert for the very first decrease alert we have for the lifetime of the sim
+      // Whether or not the "maximum" temperature alert has been alerted yet, should reset on screen reset.
       // @private
-      this.firstAlert = true;
+      this.firstTimeAlertingMaxProperty = new BooleanProperty( true );
 
       // {boolean} don't alert too many alerts all at once, this is only switched after a timeout, see alertIncrease
       // @private
@@ -102,7 +112,13 @@ define( ( require ) => {
 
         if ( !this.tooSoonForNextAlert &&
              amplitude - this.initialAmplitude > FrictionAlertManager.TEMPERATURE_ALERT_THRESHOLD ) {
-          this.alertIncrease();
+
+          if ( amplitude < EVAPORATION_LIMIT ) {
+            this.alertIncrease();
+          }
+          else {
+            this.alertMaxTemp();
+          }
         }
 
       };
@@ -133,15 +149,32 @@ define( ( require ) => {
       let currentAlertIndex = Math.min( this.alertIndex, INCREASING.length - 1 );
 
       let alertObject = INCREASING[ currentAlertIndex ];
-      let firstTime = this.firstAlert;
 
-      // only set it to not be the "first time" if the object has a firstTime sub object. This is to support the fact
-      // that the only "first time" special alert is not the first alert that will be alerted (because its the "vert hot" alert
-      if ( this.firstAlert && alertObject.firstTime ) {
-        this.firstAlert = false;
-      }
+      this.alert( alertObject, false );
+
+    }
+
+    /**
+     * Alert the maximum temperate alert, varried based on if it is the first time alerting.
+     * @private
+     */
+    alertMaxTemp() {
+
+      this.alert( MAX_TEMP_OBJECT, this.firstTimeAlertingMaxProperty.value );
+      this.firstTimeAlertingMaxProperty.value = false;
+    }
+
+    /**
+     * General alert for this type, manages the timing and threshold values to make sure that alerts
+     * happen at the right moments.
+     * @param {Object} alertObject
+     * @param {boolean} firstTime - is it the first time alerting this object?
+     * @private
+     */
+    alert( alertObject, firstTime ) {
       FrictionAlertManager.alertTemperatureJiggleFromObject( alertObject, firstTime, 'increasing' );
 
+      // set to true to limit subsequent alerts firing rapidly
       this.tooSoonForNextAlert = true;
 
       // reset the "initialAmplitude" to the current amplitude, because then it will take another whole threshold level to alert again
@@ -149,6 +182,14 @@ define( ( require ) => {
 
       // This is a bit buggy, we may want to tweak the threshold more, or find a better solution.
       timer.setTimeout( () => { this.tooSoonForNextAlert = false; }, ALERT_TIME_DELAY );
+    }
+
+    /**
+     * Reset the Describer
+     * @public
+     */
+    reset() {
+      this.firstTimeAlertingMaxProperty.reset(); // we want the "First time" alert on each reset
     }
 
     /**

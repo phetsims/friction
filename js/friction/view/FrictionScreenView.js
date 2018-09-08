@@ -244,6 +244,7 @@ define( function( require ) {
      * @private
      */
     reset() {
+      TemperatureIncreasingDescriber.getDescriber().reset();
       BreakAwayDescriber.getDescriber().reset();
       this.updateSummaryString( this.model );
     },
