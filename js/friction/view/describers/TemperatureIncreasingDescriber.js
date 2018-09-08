@@ -78,6 +78,7 @@ define( ( require ) => {
       // @private
       // Keep track of the time that the last drag ended. This is helpful to see if a new drag is within the same
       // "drag session", meaning that the alertIndex doesn't reset back to the first alert.
+      // Default value is such that restart will always occur on first drag.
       this.timeOfLastDrag = 0;
 
       // @private

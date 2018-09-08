@@ -20,9 +20,6 @@ define( function( require ) {
   // a11y strings
   const frictionIncreasingAtomsJigglingTemperatureFirstPatternString = FrictionA11yStrings.frictionIncreasingAtomsJigglingTemperatureFirstPattern.value;
   const frictionIncreasingAtomsJigglingTemperaturePatternString = FrictionA11yStrings.frictionIncreasingAtomsJigglingTemperaturePattern.value;
-  const capitalizedVeryHotString = FrictionA11yStrings.capitalizedVeryHot.value;
-  const breakAwaySentenceFirstString = FrictionA11yStrings.breakAwaySentenceFirst.value;
-  const breakAwaySentenceAgainString = FrictionA11yStrings.breakAwaySentenceAgain.value;
   const atomsJiggleTinyBitTempCoolString = FrictionA11yStrings.atomsJiggleTinyBitTempCool.value;
 
   // constants
@@ -43,10 +40,6 @@ define( function( require ) {
 
   // sanity check to keep these in sync
   assert && assert( AMPLITUDE_RANGES.length === TEMPERATURE_ZONES.length );
-
-  // break away sentences
-  const BREAK_AWAY_THRESHOLD_FIRST = StringUtils.fillIn( breakAwaySentenceFirstString, { temp: capitalizedVeryHotString } );
-  const BREAK_AWAY_THRESHOLD_AGAIN = StringUtils.fillIn( breakAwaySentenceAgainString, { temp: capitalizedVeryHotString } );
 
   var FrictionAlertManager = {
 
@@ -74,15 +67,6 @@ define( function( require ) {
       } );
 
       utteranceQueue.addToBack( new Utterance( string, { typeId: typeID } ) );
-    },
-
-    /**
-     * Alert when the temperature has just reached the point where atoms begin to break away
-     * @param {boolean} alertedBreakAwayBefore - whether or not the alert has been said before
-     * @public
-     */
-    alertAtEvaporationThreshold: function( alertedBreakAwayBefore ) {
-      utteranceQueue.addToFront( alertedBreakAwayBefore ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST );
     },
 
     /**

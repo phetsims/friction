@@ -27,6 +27,7 @@ define( function( require ) {
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const BreakAwayDescriber = require( 'FRICTION/friction/view/describers/BreakAwayDescriber' );
   const TemperatureDecreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureDecreasingDescriber' );
   const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
   const ThermometerNode = require( 'SCENERY_PHET/ThermometerNode' );
@@ -59,8 +60,6 @@ define( function( require ) {
   const THERMOMETER_MIN_TEMP = FrictionModel.MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min - 1.05; // about 0
   const THERMOMETER_MAX_TEMP = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit * 1.1; // 7.7???
 
-  const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
-
   // Used for the screen summary sentence to compare how many atoms have evaporated
   const SOME_ATOMS_EVAPORATED_THRESHOLD = FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS / 2;
 
@@ -79,9 +78,6 @@ define( function( require ) {
     // @private
     this.model = model;
 
-    // @private - (a11y) true if there has already been an alert about atoms breaking away
-    this.alertedBreakAwayProperty = new BooleanProperty( false );
-
     // @private (a11y) - will be updated later, see
     this.frictionSummaryNode = new Node( {
       tagName: 'p'
@@ -91,6 +87,7 @@ define( function( require ) {
     // a11y initialize the temp increasing describer
     TemperatureIncreasingDescriber.initialize( model );
     TemperatureDecreasingDescriber.initialize( model );
+    BreakAwayDescriber.initialize( model );
 
     // requires an init
     this.updateSummaryString( model );
@@ -107,6 +104,8 @@ define( function( require ) {
       let newJiggleString = self.amplitudeToJiggleString( amplitude );
       if ( newTempString !== previousTempString || // temperature changed
            newJiggleString !== previousJiggleString ||  // jiggle changed
+
+           // TODO: test this first before calculating strings
            TemperatureDecreasingDescriber.getDescriber().tempDecreasing || // the temperature is decreasing
 
            // if it's settled then update, but not if it is completely cool, so we don't trigger the update too much.
@@ -115,21 +114,7 @@ define( function( require ) {
         self.updateSummaryString( model );
         previousTempString = newTempString;
         previousJiggleString = newJiggleString;
-      }
 
-      // Handle the alert when amplitude is high enough to begin evaporating
-      if ( amplitude > EVAPORATION_LIMIT && oldAmplitude < EVAPORATION_LIMIT && // just hit evaporation limit
-           model.numberOfAtomsEvaporated < FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ) { // still atoms to evaporate
-        FrictionAlertManager.alertAtEvaporationThreshold( this.alertedBreakAwayProperty.value );
-        this.alertedBreakAwayProperty.value = true;
-
-      }
-    } );
-
-    // lazyLink so that we do not hear the alert on startup
-    model.amplitudeProperty.lazyLink( amplitude => {
-      if ( amplitude === model.amplitudeProperty.initialValue ) {
-        FrictionAlertManager.alertSettledAndCool();
       }
     } );
 
@@ -261,7 +246,7 @@ define( function( require ) {
      * @private
      */
     reset() {
-      this.alertedBreakAwayProperty.reset();
+      BreakAwayDescriber.getDescriber().reset();
       this.updateSummaryString( this.model );
     },
 
