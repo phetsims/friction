@@ -12,6 +12,7 @@ define( ( require ) => {
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
+  const FrictionQueryParameters = require( 'FRICTION/friction/FrictionQueryParameters' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const timer = require( 'PHET_CORE/timer' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
@@ -29,7 +30,7 @@ define( ( require ) => {
 
   // time in between "break away sessions". This is the minimum amount of time to wait before hearing a subsequent break
   // away alert
-  const ALERT_TIME_DELAY = 2000;
+  const ALERT_TIME_DELAY = FrictionQueryParameters.breakAwayAlertTimeDelay;
 
   const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
 

@@ -10,6 +10,7 @@ define( ( require ) => {
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
+  const FrictionQueryParameters = require( 'FRICTION/friction/FrictionQueryParameters' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
 
   // a11y strings
@@ -39,15 +40,20 @@ define( ( require ) => {
     }
   ];
 
+  // remove the second less/now cooler string in the array
+  if ( FrictionQueryParameters.oneJigglingLessNowCoolerAlerts ) {
+    DECREASING.splice( 1, 1 );
+  }
+
   // From model, the amplitude value when the atoms evaporate
   const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
 
   // How long in between each subsequent decreasing alert
-  const ALERT_TIME_DELAY = 3000;
+  const ALERT_TIME_DELAY = FrictionQueryParameters.coolingAlertTimeDelay;
 
   // The amount of amplitude that the model must decrease from the last point where it was increasing. This value
   // is to help with minor fluctuations as the model "cools" itself every step even while friction is generally increasing.
-  const AMPLITUDE_DECREASING_THRESHOLD = 1;
+  const AMPLITUDE_DECREASING_THRESHOLD = FrictionQueryParameters.amplitudeDecreasingThreshold;
 
   // the singleton instance of this describer, used for the entire instance of the sim.
   let describer = null;

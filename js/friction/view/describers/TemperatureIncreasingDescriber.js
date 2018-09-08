@@ -21,6 +21,7 @@ define( ( require ) => {
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
+  const FrictionQueryParameters = require( 'FRICTION/friction/FrictionQueryParameters' );
   const timer = require( 'PHET_CORE/timer' );
 
   // a11y strings
@@ -66,10 +67,10 @@ define( ( require ) => {
 
 
   // in ms, how long to wait until we consider this newest drag of a different "drag session"
-  const DRAG_SESSION_THRESHOLD = 1000;
+  const DRAG_SESSION_THRESHOLD = FrictionQueryParameters.dragSessionThreshold;
 
   // time in between each increasing alert
-  const ALERT_TIME_DELAY = 500;
+  const ALERT_TIME_DELAY = FrictionQueryParameters.warmingAlertTimeDelay;
 
   // the singleton instance of this describer, used for the entire instance of the sim.
   let describer = null;
