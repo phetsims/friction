@@ -110,7 +110,9 @@ define( ( require ) => {
       // TODO: performance: put in drag callback instead?
       this.amplitudeListener = ( amplitude ) => {
 
-        if ( !this.tooSoonForNextAlert &&
+        if ( !this.tooSoonForNextAlert && // don't alert a subsequent alert too quickly
+
+             // the difference in amplitude has to be greater than the threshold to alert
              amplitude - this.initialAmplitude > FrictionAlertManager.TEMPERATURE_ALERT_THRESHOLD ) {
 
           if ( amplitude < EVAPORATION_LIMIT ) {
