@@ -116,6 +116,8 @@ define( ( require ) => {
           if ( amplitude < EVAPORATION_LIMIT ) {
             this.alertIncrease();
           }
+
+          // TODO: do we want a bit of a threshold hotter than the evap limit to hit to alert max?
           else {
             this.alertMaxTemp();
           }
