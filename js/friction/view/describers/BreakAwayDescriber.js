@@ -11,9 +11,9 @@ define( ( require ) => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
-  const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const timer = require( 'PHET_CORE/timer' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // a11y strings
@@ -27,11 +27,9 @@ define( ( require ) => {
   const BREAK_AWAY_THRESHOLD_FIRST = StringUtils.fillIn( breakAwaySentenceFirstString, { temp: capitalizedVeryHotString } );
   const BREAK_AWAY_THRESHOLD_AGAIN = StringUtils.fillIn( breakAwaySentenceAgainString, { temp: capitalizedVeryHotString } );
 
-  // const ALERT_TIME_DELAY = 3000;
-
-  // The amount of amplitude that the model must decrease from the last point where it was increasing. This value
-  // is to help with minor fluctuations as the model "cools" itself every step even while friction is generally increasing.
-  // const AMPLITUDE_DECREASING_THRESHOLD = 1;
+  // time in between "break away sessions". This is the minimum amount of time to wait before hearing a subsequent break
+  // away alert
+  const ALERT_TIME_DELAY = 2000;
 
   const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
 
@@ -54,43 +52,42 @@ define( ( require ) => {
       // @private - (a11y) true if there has already been an alert about atoms breaking away
       this.alertedBreakAwayProperty = new BooleanProperty( false );
 
+      // private
+      this.tooSoonForNextAlert = false;
 
       // @private
       this.amplitudeListener = ( amplitude, oldAmplitude ) => {
+
         // Handle the alert when amplitude is high enough to begin evaporating
-        if ( amplitude > EVAPORATION_LIMIT && oldAmplitude < EVAPORATION_LIMIT && // just hit evaporation limit
+        if ( !this.tooSoonForNextAlert && // alert only separate "break away events"
+             amplitude > EVAPORATION_LIMIT && oldAmplitude < EVAPORATION_LIMIT && // just hit evaporation limit
              model.numberOfAtomsEvaporated < FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ) { // still atoms to evaporate
-          this.alertAtEvaporationThreshold( this.alertedBreakAwayProperty.value );
-          this.alertedBreakAwayProperty.value = true;
+          this.alertAtEvaporationThreshold();
         }
       };
 
-
+      // exists for the lifetime of the sim, no need to dispose
       this.model.amplitudeProperty.link( this.amplitudeListener );
-
-// lazyLink so that we do not hear the alert on startup
-      model.amplitudeProperty.lazyLink( amplitude => {
-        if ( amplitude === model.amplitudeProperty.initialValue ) {
-          FrictionAlertManager.alertSettledAndCool();
-        }
-      } );
     }
 
 
     /**
      * Alert when the temperature has just reached the point where atoms begin to break away
-     * @param {boolean} alertedBreakAwayBefore - whether or not the alert has been said before
      * @public
      */
-    alertAtEvaporationThreshold( alertedBreakAwayBefore ) {
-      utteranceQueue.addToFront( alertedBreakAwayBefore ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST );
+    alertAtEvaporationThreshold() {
+      utteranceQueue.addToFront( this.alertedBreakAwayProperty.value ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST );
+
+      this.alertedBreakAwayProperty.value = true;
+      this.tooSoonForNextAlert = true;
+      timer.setTimeout( () => { this.tooSoonForNextAlert = false; }, ALERT_TIME_DELAY );
     }
 
     /**
      * @public
      */
     reset() {
-      this.alertedBreakAwayProperty.reset();
+      this.alertedBreakAwayProperty.reset(); // get the "first time" break away alert on reset
     }
 
 

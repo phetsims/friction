@@ -106,6 +106,8 @@ define( ( require ) => {
         }
 
       };
+
+      // exists for the lifetime of the sim, no need to dispose
       this.model.amplitudeProperty.link( this.amplitudeListener );
     }
 

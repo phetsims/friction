@@ -102,7 +102,18 @@ define( ( require ) => {
           this.alertDecrease();
         }
       };
+
+      // exists for the lifetime of the sim, no need to dispose
       this.model.amplitudeProperty.link( this.amplitudeListener );
+
+      // handle the "settled and cool" alert once temp is completely decreased.
+      // lazyLink so that we do not hear the alert on startup
+      // exists for the lifetime of the sim, no need to dispose
+      model.amplitudeProperty.lazyLink( amplitude => {
+        if ( amplitude === model.amplitudeProperty.initialValue ) {
+          FrictionAlertManager.alertSettledAndCool();
+        }
+      } );
     }
 
     /**
