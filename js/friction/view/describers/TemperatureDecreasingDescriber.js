@@ -39,6 +39,10 @@ define( ( require ) => {
     }
   ];
 
+  // From model, the amplitude value when the atoms evaporate
+  const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
+
+  // How long in between each subsequent decreasing alert
   const ALERT_TIME_DELAY = 3000;
 
   // The amount of amplitude that the model must decrease from the last point where it was increasing. This value
@@ -65,7 +69,8 @@ define( ( require ) => {
       this.model = model;
 
       // @private
-      this.alertPotentialStart = phet.joist.elapsedTime;
+      // This keeps track of the time since the last decreasing alert was made
+      this.timeOfLastAlert = 0;
 
       // zero indexed, so the first one is 0
       this.alertIndex = -1;
@@ -97,8 +102,9 @@ define( ( require ) => {
 
         // If we meet criteria, then alert that temp/amplitude is decreasing
         if ( this.tempDecreasing && // only if the temperature is decreasing
-             amplitude > FrictionModel.AMPLITUDE_SETTLED_THRESHOLD && // when amplitude is close enough to its settled state, don't alert anymore
-             phet.joist.elapsedTime - this.alertPotentialStart > ALERT_TIME_DELAY ) { // If we have waited long enough
+             amplitude > FrictionModel.AMPLITUDE_SETTLED_THRESHOLD && // when amplitude is close enough to its settled state, don't alert anymore\
+             amplitude < EVAPORATION_LIMIT && // don't alert cooling unless cooler than evaporation limit
+             phet.joist.elapsedTime - this.timeOfLastAlert > ALERT_TIME_DELAY ) { // If we have waited long enough
           this.alertDecrease();
         }
       };
@@ -135,7 +141,7 @@ define( ( require ) => {
       }
       FrictionAlertManager.alertTemperatureJiggleFromObject( alertObject, firstTime, 'decreasing' );
 
-      this.alertPotentialStart = phet.joist.elapsedTime;
+      this.timeOfLastAlert = phet.joist.elapsedTime;
     }
 
     /**
