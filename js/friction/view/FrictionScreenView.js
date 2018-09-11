@@ -95,26 +95,29 @@ define( function( require ) {
     let previousJiggleString = this.amplitudeToJiggleString( model.amplitudeProperty.value );
 
     // make a11y updates as the amplitude changes in the model
-    model.amplitudeProperty.link( ( amplitude, oldAmplitude ) => {
+    model.amplitudeProperty.link( ( amplitude ) => {
 
-      // Update the summary string
-      let newTempString = self.amplitudeToTempString( amplitude );
-      let newJiggleString = self.amplitudeToJiggleString( amplitude );
-      if ( newTempString !== previousTempString || // temperature changed
-           newJiggleString !== previousJiggleString ||  // jiggle changed
+        // the temperature is decreasing
+        var tempDecreasing = TemperatureDecreasingDescriber.getDescriber().tempDecreasing;
 
-           // TODO: test this first before calculating strings
-           TemperatureDecreasingDescriber.getDescriber().tempDecreasing || // the temperature is decreasing
+        // Not if it is completely cool, so we don't trigger the update too much.
+        var amplitudeSettledButNotMin = amplitude < FrictionModel.AMPLITUDE_SETTLED_THRESHOLD && // considered in a "settled" state
+                                        amplitude !== FrictionModel.VIBRATION_AMPLITUDE_MIN; // not the minimum amplitude
 
-           // if it's settled then update, but not if it is completely cool, so we don't trigger the update too much.
-           ( amplitude < FrictionModel.AMPLITUDE_SETTLED_THRESHOLD && amplitude !== FrictionModel.VIBRATION_AMPLITUDE_MIN ) ) {
+        // nested if statements so that we don't have to calculate these strings as much
+        if ( tempDecreasing ||
+             amplitudeSettledButNotMin ||
+             self.amplitudeToTempString( amplitude ) !== previousTempString ||
+             self.amplitudeToJiggleString( amplitude ) !== previousJiggleString ) {
 
-        self.updateSummaryString( model );
-        previousTempString = newTempString;
-        previousJiggleString = newJiggleString;
+          // if jiggle or temperature changed, update the string
+          self.updateSummaryString( model );
+          previousTempString = self.amplitudeToTempString( amplitude ); // compute this again for a more efficient if statement
+          previousJiggleString = self.amplitudeToJiggleString( amplitude ); // compute this again for a more efficient if statement
 
+        }
       }
-    } );
+    );
 
     // add physics book
     this.addChild( new BookNode( model, physicsString, {
