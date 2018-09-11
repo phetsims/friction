@@ -126,6 +126,8 @@ define( function( require ) {
   ];
 
 
+  // a11y
+  // iterate through the constant to determine the number of atoms that can evaporate from the top book structure
   let atoms = 0;
   TOP_BOOK_ATOM_STRUCTURE.map( row => {
     for ( let schema of row ) {
@@ -137,7 +139,6 @@ define( function( require ) {
 
   // the number of evaporable atoms in the top book
   const NUMBER_OF_EVAPORABLE_ATOMS = atoms;
-
 
   // information about the nature of the atoms that will be shown in the magnifier window
   const MAGNIFIED_ATOMS_INFO = {
@@ -240,7 +241,7 @@ define( function( require ) {
         layerDescription,
         DEFAULT_ROW_START_X_POSITION,
         FrictionConstants.MAGNIFIER_WINDOW_HEIGHT / 3 - INITIAL_ATOM_SPACING_Y + ATOM_SPACING_Y * i,
-        true,
+        true, // isTopAtom
         atomGroupTandem
       );
     } );
@@ -252,7 +253,7 @@ define( function( require ) {
         layerDescription,
         DEFAULT_ROW_START_X_POSITION,
         2 * FrictionConstants.MAGNIFIER_WINDOW_HEIGHT / 3 + ATOM_SPACING_Y * i,
-        false,
+        false, // isTopAtom
         atomGroupTandem
       );
     } );
@@ -391,31 +392,14 @@ define( function( require ) {
      */
     tryToEvaporate: function() {
 
+      // only if this value points to a proper index in evaporableAtomsByRow. If negative, there are likely no more evaporable rows
       if ( this.atomRowsToEvaporateProperty.get() > 0 ) {
 
         // determine whether the current row is fully evaporated and, if so, move to the next row
         let currentRowOfEvaporableAtoms = this.evaporableAtomsByRow[ this.atomRowsToEvaporateProperty.get() - 1 ];
-        let isCurrentRowFullyEvaporated = _.every( currentRowOfEvaporableAtoms, function( atom ) {
-          return atom.isEvaporated;
-        } );
-        if ( isCurrentRowFullyEvaporated ) {
-
-          this.atomRowsToEvaporateProperty.set( this.atomRowsToEvaporateProperty.get() - 1 );
-          this.distanceBetweenBooksProperty.set( this.distanceBetweenBooksProperty.get() + MAGNIFIED_ATOMS_INFO.distanceY );
-          if ( this.atomRowsToEvaporateProperty.get() > 0 ) {
-
-            // move to the next row
-            currentRowOfEvaporableAtoms = this.evaporableAtomsByRow[ this.atomRowsToEvaporateProperty.get() - 1 ];
-          }
-          else {
-
-            // no rows left
-            currentRowOfEvaporableAtoms = null;
-          }
-        }
 
         // if there are any rows of evaporable atoms left, evaporate one
-        if ( currentRowOfEvaporableAtoms ) {
+        if ( currentRowOfEvaporableAtoms.length > 0 ) {
 
           // make a list of all atoms in this row that have not yet evaporated
           let unevaporatedAtoms = currentRowOfEvaporableAtoms.filter( function( atom ) {
@@ -434,6 +418,21 @@ define( function( require ) {
 
           // cause some cooling due to evaporation
           this.scheduledEvaporationAmount = this.scheduledEvaporationAmount + EVAPORATION_AMPLITUDE_REDUCTION;
+        }
+
+        var isCurrentRowFullyEvaporated = _.every( currentRowOfEvaporableAtoms, function( atom ) {
+          return atom.isEvaporated;
+        } );
+
+        // if all atoms in this row are evaporated, move on to the next row
+        if ( isCurrentRowFullyEvaporated ) {
+
+          // point one row higher because all of the previous row is evaporated
+          this.atomRowsToEvaporateProperty.set( this.atomRowsToEvaporateProperty.get() - 1 );
+
+          // the current row is totally evaporated, so the distance between the books just increased "one row" worth.
+          this.distanceBetweenBooksProperty.set( this.distanceBetweenBooksProperty.get() + MAGNIFIED_ATOMS_INFO.distanceY );
+
         }
       }
     }
