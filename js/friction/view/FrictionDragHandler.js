@@ -19,7 +19,7 @@ define( function( require ) {
    * @param {Tandem} tandem
    * @constructor
    */
-  function DragHandler( model, tandem ) {
+  function FrictionDragHandler( model, tandem ) {
     SimpleDragHandler.call( this, {
       translate: function( e ) {
         model.move( new Vector2( e.delta.x, e.delta.y ) );
@@ -31,7 +31,7 @@ define( function( require ) {
     } );
   }
 
-  friction.register( 'DragHandler', DragHandler );
+  friction.register( 'FrictionDragHandler', FrictionDragHandler );
 
-  return inherit( SimpleDragHandler, DragHandler );
+  return inherit( SimpleDragHandler, FrictionDragHandler );
 } );

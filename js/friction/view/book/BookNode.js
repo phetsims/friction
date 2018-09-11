@@ -13,7 +13,7 @@ define( function( require ) {
 
   // modules
   const CoverNode = require( 'FRICTION/friction/view/book/CoverNode' );
-  const DragHandler = require( 'FRICTION/friction/view/DragHandler' );
+  const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
   const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
@@ -81,7 +81,7 @@ define( function( require ) {
 
       this.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
 
-      this.addInputListener( new DragHandler( model, options.tandem.createTandem( 'dragHandler' ) ) );
+      this.addInputListener( new FrictionDragHandler( model, options.tandem.createTandem( 'dragHandler' ) ) );
 
       // a11y - add a keyboard drag handler
       this.keyboardDragHandler = new FrictionKeyboardDragHandler( model );

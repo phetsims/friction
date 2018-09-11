@@ -16,7 +16,7 @@ define( function( require ) {
   const AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const Circle = require( 'SCENERY/nodes/Circle' );
-  const DragHandler = require( 'FRICTION/friction/view/DragHandler' );
+  const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
   const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
@@ -125,7 +125,7 @@ define( function( require ) {
         fill: FrictionConstants.TOP_BOOK_COLOR,
         cursor: 'pointer'
       } );
-    background.addInputListener( new DragHandler( model, tandem.createTandem( 'backgroundDragHandler' ) ) );
+    background.addInputListener( new FrictionDragHandler( model, tandem.createTandem( 'backgroundDragHandler' ) ) );
     this.topBookBackground.addChild( background );
 
     // init drag for drag area
@@ -156,7 +156,7 @@ define( function( require ) {
 
     dragArea.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
 
-    dragArea.addInputListener( new DragHandler( model, tandem.createTandem( 'dragAreaDragHandler' ) ) );
+    dragArea.addInputListener( new FrictionDragHandler( model, tandem.createTandem( 'dragAreaDragHandler' ) ) );
     this.topBookBackground.addChild( dragArea );
 
     // a11y - The focusHighlight of the top atoms. It also includes the place for the arrows so that it extends up into
