@@ -40,11 +40,6 @@ define( ( require ) => {
     }
   ];
 
-  // remove the second less/now cooler string in the array
-  if ( FrictionQueryParameters.oneJigglingLessNowCoolerAlerts ) {
-    DECREASING.splice( 1, 1 );
-  }
-
   // From model, the amplitude value when the atoms evaporate
   const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
 

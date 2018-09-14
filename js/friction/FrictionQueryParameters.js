@@ -20,10 +20,6 @@ define( function( require ) {
     // in same units as FrictionModel's amplitude
     amplitudeDecreasingThreshold: { type: 'number', defaultValue: 1 },
 
-    //  instead of hearing the "jiggling less now cooler" alert twice before hearing "even cooler", alert that only once.
-    // If parameter is omitted, then it will default back to alerting it twice.
-    oneJigglingLessNowCoolerAlerts: { type: 'flag' },
-
     // How long in between each subsequent decreasing alert
     // in ms
     coolingAlertTimeDelay: { type: 'number', defaultValue: 3000 },
