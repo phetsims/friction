@@ -247,6 +247,9 @@ define( function( require ) {
      * @private
      */
     reset() {
+
+      // a11y, reset PDOM and reset alerting types
+      TemperatureDecreasingDescriber.getDescriber().reset();
       TemperatureIncreasingDescriber.getDescriber().reset();
       BreakAwayDescriber.getDescriber().reset();
       this.updateSummaryString( this.model );

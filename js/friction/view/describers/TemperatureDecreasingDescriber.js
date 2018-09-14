@@ -136,16 +136,26 @@ define( ( require ) => {
       this.alertIndex = -1; //reset
     }
 
+    /**
+     * @public
+     */
+    reset() {
+      this.firstAlert = true;
+    }
+
+    /**
+     * @private
+     */
     alertDecrease() {
       this.alertIndex++;
       var currentAlertIndex = Math.min( this.alertIndex, DECREASING.length - 1 );
 
       let alertObject = DECREASING[ currentAlertIndex ];
-      let firstTime = this.firstAlert;
-      if ( this.firstAlert ) {
-        this.firstAlert = false;
-      }
-      FrictionAlertManager.alertTemperatureJiggleFromObject( alertObject, firstTime, 'decreasing' );
+
+      FrictionAlertManager.alertTemperatureJiggleFromObject( alertObject, this.firstAlert, 'decreasing' );
+
+      // it's not the first time anymore
+      this.firstAlert = false;
 
       this.timeOfLastAlert = phet.joist.elapsedTime;
     }
@@ -154,6 +164,7 @@ define( ( require ) => {
      * Uses the singleton pattern to keep one instance of this describer for the entire lifetime of the sim.
      * @param {FrictionModel} [model]
      * @returns {*}
+     * @public
      */
     static getDescriber( model ) {
 
@@ -166,6 +177,7 @@ define( ( require ) => {
     }
 
     // "initialize" method for clarity
+    // @public
     static initialize( model ) {
       TemperatureDecreasingDescriber.getDescriber( model );
     }
