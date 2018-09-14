@@ -24,7 +24,7 @@ define( ( require ) => {
   const DECREASING = [
     {
       jiggle: lessString,
-      temp: nowCoolerString,
+      temp: coolerString,
       firstTime: {
         jiggle: jigglingLessString,
         temp: coolerString
