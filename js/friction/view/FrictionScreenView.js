@@ -43,7 +43,8 @@ define( function( require ) {
   const thermometerTemperaturePatternString = FrictionA11yStrings.thermometerTemperaturePattern.value;
   const moveChemistryBookSentenceString = FrictionA11yStrings.moveChemistryBookSentence.value;
   const resetSimMoreObservationSentenceString = FrictionA11yStrings.resetSimMoreObservationSentence.value;
-  const startingChemistryBookStringString = FrictionA11yStrings.startingChemistryBookString.value;
+  const startingChemistryBookPatternString = FrictionA11yStrings.startingChemistryBookPattern.value;
+  const lightlyString = FrictionA11yStrings.lightly.value;
   const amountOfAtomsString = FrictionA11yStrings.amountOfAtoms.value;
   const fewerString = FrictionA11yStrings.fewer.value;
   const farFewerString = FrictionA11yStrings.farFewer.value;
@@ -118,6 +119,8 @@ define( function( require ) {
         }
       }
     );
+
+    model.contactProperty.link( () => {this.updateSummaryString( model );} );
 
     // add physics book
     this.addChild( new BookNode( model, physicsString, {
@@ -196,9 +199,10 @@ define( function( require ) {
    * Given the number of atoms that have evaporated from the model so far, get the first screen summary sentence,
    * describing the chemistry book.
    * @param {number} atomsEvaporated
-   * @returns {*}
+   * @param {BooleanProperty} contactProperty - see FrictionModel
+   * @returns {string} the first sentence of the screen summary
    */
-  function getFirstSummarySentence( atomsEvaporated ) {
+  function getFirstSummarySentence( atomsEvaporated, contactProperty ) {
 
     // The first sentence describes the chemistry book.
     let chemistryBookString;
@@ -207,7 +211,9 @@ define( function( require ) {
 
     // "no evaporated atoms"
     if ( atomsEvaporated === 0 ) {
-      chemistryBookString = startingChemistryBookStringString;
+      chemistryBookString = StringUtils.fillIn( startingChemistryBookPatternString, {
+        lightly: contactProperty.value ? '' : lightlyString
+      } );
     }
 
     // some evaporated atoms, describe the chemistry book with some atoms "broken away"
@@ -350,7 +356,7 @@ define( function( require ) {
     updateSummaryString( model ) {
 
       // FIRST SENTENCE
-      let chemistryBookString = getFirstSummarySentence( model.numberOfAtomsEvaporated );
+      let chemistryBookString = getFirstSummarySentence( model.numberOfAtomsEvaporated, model.contactProperty );
 
       // SECOND SENTENCE (ZOOMED-IN)
       let jiggleTempSentence = this.getSecondSummarySentence( model.amplitudeProperty );

@@ -124,8 +124,12 @@ define( function( require ) {
       value: 'Reset sim to make more observations.'
     },
 
-    startingChemistryBookString: {
-      value: 'Chemistry book rests on top of a Physics book, and is ready to be rubbed against it.'
+    startingChemistryBookPattern: {
+      value: 'Chemistry book rests {{lightly}}on top of a Physics book, and is ready to be rubbed against it.'
+    },
+
+    lightly: {
+      value: 'lighty '
     },
 
     summarySentencePattern: {
