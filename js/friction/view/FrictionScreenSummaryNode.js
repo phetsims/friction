@@ -216,6 +216,12 @@ define( require => {
       } );
     }
 
+    /**
+     * @private
+     * @param {BooleanProperty} contactProperty
+     * @param {number} numberOfAtomsEvaporated
+     * @returns {string}
+     */
     getThirdSupplementarySentence( contactProperty, numberOfAtomsEvaporated ) {
 
       // optional end to sentence based on if books are touching
