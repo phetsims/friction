@@ -100,7 +100,7 @@ define( function( require ) {
     },
 
     atomsJigglePattern: {
-      value: 'atoms jiggle {{amount}}'
+      value: 'atoms {{jiggleAmount}}'
     },
 
     jiggleClausePattern: {
@@ -109,7 +109,7 @@ define( function( require ) {
 
     // Entire sentence for jiggling and temp
     jiggleTemperatureScaleSentence: {
-      value: 'In zoomed-in view of where books meet, atoms {{temperatureClause}}, {{jigglingClause}}.'
+      value: 'In zoomed-in view of where books meet, {{temperatureClause}}, {{jigglingClause}}.'
     },
 
     //--------------------------------------------------------------------------

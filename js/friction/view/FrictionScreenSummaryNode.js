@@ -191,7 +191,7 @@ define( require => {
 
       // Default to describing the jiggling of the atoms
       var jiggleAmount = StringUtils.fillIn( atomsJigglePatternString, {
-        amount: this.amplitudeToJiggleString( amplitudeProperty.value )
+        jiggleAmount: this.amplitudeToJiggleString( amplitudeProperty.value )
       } );
       var jiggleClause = StringUtils.fillIn( jiggleClausePatternString, {
         jiggleAmount: jiggleAmount
