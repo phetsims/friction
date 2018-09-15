@@ -23,7 +23,8 @@ define( require => {
   const atomsJigglePatternString = FrictionA11yStrings.atomsJigglePattern.value;
   const jiggleClausePatternString = FrictionA11yStrings.jiggleClausePattern.value;
   const jiggleTemperatureScaleSentenceString = FrictionA11yStrings.jiggleTemperatureScaleSentence.value;
-  const thermometerTemperaturePatternString = FrictionA11yStrings.thermometerTemperaturePattern.value;
+  const thermometerString = FrictionA11yStrings.thermometer.value;
+  const temperaturePatternString = FrictionA11yStrings.temperaturePattern.value;
   const moveDownToRubHarderString = FrictionA11yStrings.moveDownToRubHarder.value;
   const moveChemistryBookSentencePatternString = FrictionA11yStrings.moveChemistryBookSentencePattern.value;
   const resetSimMoreObservationSentenceString = FrictionA11yStrings.resetSimMoreObservationSentence.value;
@@ -187,6 +188,8 @@ define( require => {
      */
     getSecondSummarySentence( amplitudeProperty ) {
 
+      // {{boolean}} is sim "in transition"? meaning it is changing, because it isn't settled (settled is the opposite of "in transition"
+      let inTransition = amplitudeProperty.value > FrictionModel.AMPLITUDE_SETTLED_THRESHOLD;
 
 
       // Default to describing the jiggling of the atoms
@@ -198,15 +201,16 @@ define( require => {
       } );
 
       // If the temperature is decreasing, then describe the jiggling relatively
-      if ( TemperatureDecreasingDescriber.getDescriber().tempDecreasing ) {
+      if ( inTransition ) {
         jiggleClause = StringUtils.fillIn( jiggleClausePatternString, {
           jiggleAmount: droppingAsAtomsJiggleLessString
         } );
       }
 
       // Fill in the current temperature string
-      let tempString = StringUtils.fillIn( thermometerTemperaturePatternString, {
-        temp: this.amplitudeToTempString( amplitudeProperty.value )
+      let tempString = StringUtils.fillIn( temperaturePatternString, {
+        temp: this.amplitudeToTempString( amplitudeProperty.value ),
+        thermometer: inTransition ? '' : thermometerString
       } );
 
       // Construct the final sentence from its parts
