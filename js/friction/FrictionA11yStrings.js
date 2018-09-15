@@ -40,7 +40,7 @@ define( function( require ) {
     //--------------------------------------------------------------------------
 
     amountOfAtoms: {
-      value: 'Chemistry book has {{comparisonAmount}} jiggling atoms as {{breakAwayAmount}} have broken away.'
+      value: 'Chemistry book has {{comparisonAmount}} jiggling atoms as {{breakAwayAmount}} have broken away. '
     },
     fewer: {
       value: 'fewer'
@@ -128,7 +128,7 @@ define( function( require ) {
     },
 
     startingChemistryBookPattern: {
-      value: 'Chemistry book rests {{lightly}}on top of a Physics book, and is ready to be rubbed against it.'
+      value: '{{relativeChemistryBookSentence}}Chemistry book rests {{lightly}}on top of a Physics book, and is ready to be rubbed against it.'
     },
 
     lightly: {

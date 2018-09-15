@@ -60,10 +60,9 @@ define( function( require ) {
     TemperatureDecreasingDescriber.initialize( model );
     BreakAwayDescriber.initialize( model );
 
-    // @private (a11y) - will be updated later, see
-    this.frictionSummaryNode = new FrictionScreenSummaryNode( model, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP );
-    this.screenSummaryNode.addChild( this.frictionSummaryNode );
-
+    // a11y
+    let frictionSummaryNode = new FrictionScreenSummaryNode( model, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP );
+    this.screenSummaryNode.addChild( frictionSummaryNode );
 
 
     // add physics book
@@ -136,6 +135,17 @@ define( function( require ) {
     let controlAreaNode = new ControlAreaNode();
     this.addChild( controlAreaNode );
     controlAreaNode.accessibleOrder = [ resetAllButton ];
+
+    // @private
+    this.resetFrictionScreenView = function() {
+
+      // a11y, reset PDOM and reset alerting types
+      TemperatureDecreasingDescriber.getDescriber().reset();
+      TemperatureIncreasingDescriber.getDescriber().reset();
+      BreakAwayDescriber.getDescriber().reset();
+      frictionSummaryNode.updateSummaryString();
+
+    };
   }
 
   friction.register( 'FrictionScreenView', FrictionScreenView );
@@ -156,12 +166,7 @@ define( function( require ) {
      * @private
      */
     reset() {
-
-      // a11y, reset PDOM and reset alerting types
-      TemperatureDecreasingDescriber.getDescriber().reset();
-      TemperatureIncreasingDescriber.getDescriber().reset();
-      BreakAwayDescriber.getDescriber().reset();
-      this.updateSummaryString( this.model );
+      this.resetFrictionScreenView();
     }
   } );
 } );

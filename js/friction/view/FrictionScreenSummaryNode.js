@@ -50,6 +50,8 @@ define( require => {
         tagName: 'p'
       } );
 
+      // @private
+      this.model = model;
       this.thermometerMinTemp = thermometerMinTemp;
       this.thermometerMaxTemp = thermometerMaxTemp;
 
@@ -94,26 +96,21 @@ define( require => {
      * Given the number of atoms that have evaporated from the model so far, get the first screen summary sentence,
      * describing the chemistry book.
      * @param {number} atomsEvaporated
-     * @param {BooleanProperty} contactProperty - see FrictionModel
      * @returns {string} the first sentence of the screen summary
      */
-    getFirstSummarySentence( atomsEvaporated, contactProperty ) {
-
-      // The first sentence describes the chemistry book.
-      let chemistryBookString;
+    getFirstSummarySentence( atomsEvaporated ) {
 
       // There are three ranges based on how many atoms have evaporated
 
+      let relativeChemistryBookSentence = null;
       // "no evaporated atoms"
       if ( atomsEvaporated === 0 ) {
-        chemistryBookString = StringUtils.fillIn( startingChemistryBookPatternString, {
-          lightly: contactProperty.value ? '' : lightlyString
-        } );
+        relativeChemistryBookSentence = ''; // blank initial sentence of "First Sentence"
       }
 
       // some evaporated atoms, describe the chemistry book with some atoms "broken away"
       else if ( atomsEvaporated < SOME_ATOMS_EVAPORATED_THRESHOLD ) {
-        chemistryBookString = StringUtils.fillIn( amountOfAtomsString, {
+        relativeChemistryBookSentence = StringUtils.fillIn( amountOfAtomsString, {
           comparisonAmount: fewerString,
           breakAwayAmount: someString
         } );
@@ -121,13 +118,16 @@ define( require => {
 
       // lots of evaporated atoms, describe many missing atoms
       else {
-        chemistryBookString = StringUtils.fillIn( amountOfAtomsString, {
+        relativeChemistryBookSentence = StringUtils.fillIn( amountOfAtomsString, {
           comparisonAmount: farFewerString,
           breakAwayAmount: manyString
         } );
       }
 
-      return chemistryBookString;
+      return StringUtils.fillIn( startingChemistryBookPatternString, {
+        lightly: this.model.contactProperty.value ? '' : lightlyString,
+        relativeChemistryBookSentence: relativeChemistryBookSentence
+      } );
     }
 
     /**
@@ -218,15 +218,14 @@ define( require => {
 
     /**
      * @private
-     * @param {BooleanProperty} contactProperty
      * @param {number} numberOfAtomsEvaporated
      * @returns {string}
      */
-    getThirdSupplementarySentence( contactProperty, numberOfAtomsEvaporated ) {
+    getThirdSupplementarySentence( numberOfAtomsEvaporated ) {
 
       // optional end to sentence based on if books are touching
       var moveChemistryBookSentence = StringUtils.fillIn( moveChemistryBookSentencePatternString, {
-        moveDownToRubHarder: contactProperty.get() ? '' : moveDownToRubHarderString
+        moveDownToRubHarder: this.model.contactProperty.get() ? '' : moveDownToRubHarderString
       } );
 
       // Queue moving the book if there are still many atoms left, queue reset if there are many evaporated atoms
@@ -238,18 +237,17 @@ define( require => {
      * Update the summary string in the PDOM
      * @private
      * @a11y
-     * @param {FrictionModel} model
      */
-    updateSummaryString( model ) {
+    updateSummaryString() {
 
       // FIRST SENTENCE
-      let chemistryBookString = this.getFirstSummarySentence( model.numberOfAtomsEvaporated, model.contactProperty );
+      let chemistryBookString = this.getFirstSummarySentence( this.model.numberOfAtomsEvaporated );
 
       // SECOND SENTENCE (ZOOMED-IN)
-      let jiggleTempSentence = this.getSecondSummarySentence( model.amplitudeProperty );
+      let jiggleTempSentence = this.getSecondSummarySentence( this.model.amplitudeProperty );
 
       // SUPPLEMENTARY THIRD SENTENCE
-      let supplementarySentence = this.getThirdSupplementarySentence( model.contactProperty, model.numberOfAtomsEvaporated );
+      let supplementarySentence = this.getThirdSupplementarySentence( this.model.numberOfAtomsEvaporated );
 
       this.innerContent = StringUtils.fillIn( summarySentencePatternString, {
         chemistryBookString: chemistryBookString,
