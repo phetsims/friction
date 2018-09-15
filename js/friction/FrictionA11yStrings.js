@@ -116,10 +116,13 @@ define( function( require ) {
     // Other summary sentence strings
     //--------------------------------------------------------------------------
 
-    moveChemistryBookSentence: {
-      value: 'Move Chemistry book to rub books together.'
-
+    moveChemistryBookSentencePattern: {
+      value: 'Move Chemistry book to rub books together{{moveDownToRubHarder}}.'
     },
+    moveDownToRubHarder: {
+      value: ', move down to rub harder'
+    },
+
     resetSimMoreObservationSentence: {
       value: 'Reset sim to make more observations.'
     },
