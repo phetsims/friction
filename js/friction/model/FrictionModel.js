@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   const Atom = require( 'FRICTION/friction/model/Atom' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const Bounds2 = require( 'DOT/Bounds2' );
   const Emitter = require( 'AXON/Emitter' );
   const friction = require( 'FRICTION/friction' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
@@ -452,6 +453,14 @@ define( function( require ) {
     VIBRATION_AMPLITUDE_MIN: VIBRATION_AMPLITUDE_MIN,
 
     // a11y - empirically determined value of when the atoms are "pretty much cool and settled"
-    AMPLITUDE_SETTLED_THRESHOLD: VIBRATION_AMPLITUDE_MIN + .4
+    AMPLITUDE_SETTLED_THRESHOLD: VIBRATION_AMPLITUDE_MIN + .4,
+
+    // The drag bounds for the magnified book view
+    MAGNIFIED_DRAG_BOUNDS: new Bounds2(
+      -MAX_X_DISPLACEMENT, // left bound
+      MIN_Y_POSITION, // top bound
+      MAX_X_DISPLACEMENT, // right bound
+      2000 ) // bottom, arbitrary because the model stops the motion when the top atoms collide with the bottom book
+
   } );
 } );

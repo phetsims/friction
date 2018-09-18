@@ -9,13 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  const Bounds2 = require( 'DOT/Bounds2' );
   const friction = require( 'FRICTION/friction' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const inherit = require( 'PHET_CORE/inherit' );
   const KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
-  const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
   const TemperatureDecreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureDecreasingDescriber' );
+  const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
   const Vector2 = require( 'DOT/Vector2' );
 
 
@@ -47,11 +46,7 @@ define( function( require ) {
       end: function() {
         TemperatureIncreasingDescriber.getDescriber().dragEnded();
       },
-      dragBounds: new Bounds2(
-        -FrictionModel.MAX_X_DISPLACEMENT, // left bound
-        FrictionModel.MIN_Y_POSITION, // top bound
-        FrictionModel.MAX_X_DISPLACEMENT, // right bound
-        2000 ) // bottom, arbitrary because the model stops the motion when the top atoms collide with the bottom book
+      dragBounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS
     } );
   }
 

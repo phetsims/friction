@@ -3,7 +3,7 @@
 /**
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
-define( ( require ) => {
+define( require => {
   'use strict';
 
   // modules

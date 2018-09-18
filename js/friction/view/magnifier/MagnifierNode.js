@@ -26,6 +26,7 @@ define( function( require ) {
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MagnifierTargetNode = require( 'FRICTION/friction/view/magnifier/MagnifierTargetNode' );
+  const MovementDescriber = require( 'FRICTION/friction/view/describers/MovementDescriber' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -247,6 +248,10 @@ define( function( require ) {
     // add the arrow at the end
     this.container.addChild( arrowIcon );
 
+    this.movementDescriber = new MovementDescriber( model.topBookPositionProperty, {
+      bounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS
+    } );
+
     // @private - Add the canvas where the atoms will be rendered. For better performance, particularly on iPad, we are
     // using CanvasNode to render the atoms instead of individual nodes.
     this.atomCanvasNode = new AtomCanvasNode( model.atoms, {
@@ -291,6 +296,13 @@ define( function( require ) {
      */
     step: function() {
       this.atomCanvasNode.invalidatePaint(); // tell the atom canvas to redraw itself on every step
+    },
+
+    /**
+     * @public
+     */
+    reset: function() {
+      this.movementDescriber.reset();
     }
 
   } );
