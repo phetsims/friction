@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.5.0-dev.15 Wed Sep 19 2018 11:04:46 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# friction 1.5.0-dev.16 Wed Sep 19 2018 15:15:05 GMT-0800 (Alaskan Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "friction": {
-    "sha": "e306056fbc0531fc8125fa9a7729de698cbad694",
+    "sha": "c8e55b3fd43f7bac45a6c9903f21ac4b2db591fa",
     "branch": "master"
   },
   "joist": {
@@ -73,7 +73,7 @@
     "branch": "master"
   },
   "sherpa": {
-    "sha": "e8793b142927b58a8f1301867ec30c44fa36a44a",
+    "sha": "f73d2e09d1969e7c42d284acf4cb7d7269efa7e0",
     "branch": "master"
   },
   "sun": {
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "tambo": {
-    "sha": "3d41afe1c940b741168d62ef6b480e770c9d9ffe",
+    "sha": "fa00a7a281ad619755da04d0a56c0f09f62837c8",
     "branch": "master"
   },
   "tandem": {
