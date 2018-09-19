@@ -113,20 +113,21 @@ define( require => {
     alertDirectionalMovement() {
 
       var newLocation = this.locationProperty.get();
-      assert && assert( newLocation !== this.lastAlertedLocation, 'we are just trying this out' );
+      if ( !newLocation.equals( this.lastAlertedLocation ) ) {
 
-      var directions = this.getDirections( newLocation, this.lastAlertedLocation );
+        var directions = this.getDirections( newLocation, this.lastAlertedLocation );
 
-      // make sure that these alerts exist
-      if ( assert ) {
-        directions.map( direction => { assert( this.movementAlerts[ direction ] && typeof this.movementAlerts[ direction ] === 'string' ); } );
+        // make sure that these alerts exist
+        if ( assert ) {
+          directions.map( direction => { assert( this.movementAlerts[ direction ] && typeof this.movementAlerts[ direction ] === 'string' ); } );
+        }
+
+        // support if an instance doesn't want to alert in all directions
+        directions.forEach( direction => {
+          utteranceQueue.addToBack( new Utterance( this.movementAlerts[ direction ], { typeId: 'directionalMovement' + direction } ) );
+        } );
+        this.lastAlertedLocation = newLocation;
       }
-
-      // support if an instance doesn't want to alert in all directions
-      directions.forEach( direction => {
-        utteranceQueue.addToBack( new Utterance( this.movementAlerts[ direction ], { typeId: 'directionalMovement' + direction } ) );
-      } );
-      this.lastAlertedLocation = newLocation;
     }
 
 
