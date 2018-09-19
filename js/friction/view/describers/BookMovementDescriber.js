@@ -9,6 +9,7 @@ define( require => {
   'use strict';
 
   // modules
+  const DirectionEnum = require( 'FRICTION/friction/view/describers/DirectionEnum' );
   const friction = require( 'FRICTION/friction' );
   const MovementDescriber = require( 'FRICTION/friction/view/describers/MovementDescriber' );
 
@@ -23,6 +24,54 @@ define( require => {
     constructor( model, options ) {
 
       super( model.topBookPositionProperty, options );
+
+      // @private
+      this.model = model;
+      this.contactedAlertedLeft = false;
+      this.contactedAlertedRight = false;
+
+      // reset these properties when the contactProperty changes to false.
+      model.contactProperty.link( ( newValue ) => {
+
+        // if the books were touching, and now they aren't, reset the ability for left/right alerts when contacted.
+        if ( !newValue ) {
+          this.contactedAlertedLeft = false;
+          this.contactedAlertedRight = false;
+        }
+      } );
+    }
+
+
+    /**
+     * Alert a movement direction. Overridden for specific alert features for Friction, i.e. the alerts change if
+     * the two books are in contact.
+     * @override
+     * @public
+     */
+    alertDirectionalMovement() {
+
+      var newLocation = this.locationProperty.get();
+      if ( !newLocation.equals( this.lastAlertedLocation ) ) {
+        var directions = this.getDirections( newLocation, this.lastAlertedLocation );
+
+
+        // If books aren't touching, then alert everything
+        if ( !this.model.contactProperty.get() ) {
+          this.alertDirections( directions );
+        }
+        else if ( directions.length === 1 && // only one direction
+                  directions.indexOf( DirectionEnum.RIGHT ) === 0 && // that direction is RIGHT
+                  !this.contactedAlertedRight ) { // haven't yet alerted RIGHT yet for this contact time
+          this.alertDirections( directions );
+          this.contactedAlertedRight = true;
+        }
+        else if ( directions.length === 1 && // only one direction
+                  directions.indexOf( DirectionEnum.LEFT ) === 0 && // that direction is LEFT
+                  !this.contactedAlertedLeft ) { // haven't yet alerted LEFT yet for this contact time
+          this.alertDirections( directions );
+          this.contactedAlertedLeft = true;
+        }
+      }
     }
 
     /**

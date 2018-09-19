@@ -105,6 +105,18 @@ define( require => {
       } );
     }
 
+    /**
+     * @protected
+     * @param {Array.<string>}directions
+     */
+    alertDirections( directions ) {
+
+      // support if an instance doesn't want to alert in all directions
+      directions.forEach( direction => {
+        utteranceQueue.addToBack( new Utterance( this.movementAlerts[ direction ], { typeId: 'directionalMovement' + direction } ) );
+      } );
+      this.lastAlertedLocation = this.locationProperty.get();
+    }
 
     /**
      * Alert a movement direction. The direction from this.lastAlertedLocation relative to the current value of the locationProperty
@@ -122,11 +134,7 @@ define( require => {
           directions.map( direction => { assert( this.movementAlerts[ direction ] && typeof this.movementAlerts[ direction ] === 'string' ); } );
         }
 
-        // support if an instance doesn't want to alert in all directions
-        directions.forEach( direction => {
-          utteranceQueue.addToBack( new Utterance( this.movementAlerts[ direction ], { typeId: 'directionalMovement' + direction } ) );
-        } );
-        this.lastAlertedLocation = newLocation;
+        this.alertDirections( directions );
       }
     }
 
