@@ -115,7 +115,7 @@ define( require => {
       var newLocation = this.locationProperty.get();
       assert( newLocation !== this.lastAlertedLocation, 'we are just trying this out' );
 
-      var directions = MovementDescriber.getDirections( newLocation, this.lastAlertedLocation );
+      var directions = this.getDirections( newLocation, this.lastAlertedLocation );
 
       // make sure that these alerts exist
       if ( assert ) {
@@ -151,7 +151,7 @@ define( require => {
      * @return {Array.<string>} - contains one or two of the values in DirectionEnum
      * @static
      */
-    static getDirections( pointA, pointB ) {
+    getDirections( pointA, pointB ) {
       var direction;
 
       var dx = pointA.x - pointB.x;
