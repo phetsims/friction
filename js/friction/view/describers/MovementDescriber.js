@@ -113,7 +113,7 @@ define( require => {
     alertDirectionalMovement() {
 
       var newLocation = this.locationProperty.get();
-      assert( newLocation !== this.lastAlertedLocation, 'we are just trying this out' );
+      assert && assert( newLocation !== this.lastAlertedLocation, 'we are just trying this out' );
 
       var directions = this.getDirections( newLocation, this.lastAlertedLocation );
 
