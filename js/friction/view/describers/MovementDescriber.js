@@ -63,6 +63,8 @@ define( require => {
           DOWN: 'down'
         },
 
+        // if false then diagonal alerts will be converted to two primary direction alerts that are alerted back to back
+        // i.e. UP_LEFT becomes "UP" and "LEFT"
         alertDiagonal: false,
 
         // the amount of movement change that must occur, units depend on that of the locationProperty
