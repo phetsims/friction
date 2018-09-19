@@ -291,13 +291,6 @@ define( function( require ) {
      */
     step: function() {
       this.atomCanvasNode.invalidatePaint(); // tell the atom canvas to redraw itself on every step
-    },
-
-    /**
-     * @public
-     */
-    reset: function() {
-      this.movementDescriber.reset();
     }
 
   } );

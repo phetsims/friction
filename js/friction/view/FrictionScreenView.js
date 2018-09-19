@@ -143,8 +143,6 @@ define( function( require ) {
     // @private
     this.resetFrictionScreenView = function() {
 
-      self.magnifierNode.reset();
-
       // a11y, reset PDOM and reset alerting types
       TemperatureDecreasingDescriber.getDescriber().reset();
       TemperatureIncreasingDescriber.getDescriber().reset();
