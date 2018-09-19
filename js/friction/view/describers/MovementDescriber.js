@@ -63,6 +63,8 @@ define( require => {
           DOWN: 'down'
         },
 
+        alertDiagonal: false,
+
         // the amount of movement change that must occur, units depend on that of the locationProperty
         movementThreshold: 50 // (totally arbitrary number)
 
@@ -72,6 +74,7 @@ define( require => {
       this.bounds = options.bounds;
       this.movementThreshold = options.movementThreshold;
       this.movementAlerts = options.movementAlerts;
+      this.alertDiagonal = options.alertDiagonal;
 
       // @protected
       this.locationProperty = locationProperty;
@@ -110,13 +113,18 @@ define( require => {
       var newLocation = this.locationProperty.get();
       assert( newLocation !== this.lastAlertedLocation, 'we are just trying this out' );
 
-      var direction = MovementDescriber.getDirection( newLocation, this.lastAlertedLocation );
+      var directions = MovementDescriber.getDirections( newLocation, this.lastAlertedLocation );
 
-      // support if an instance doesn't want to alert in all directions.
-      if ( this.movementAlerts[ direction ] ) {
-        utteranceQueue.addToBack( new Utterance( this.movementAlerts[ direction ], { typeId: 'directionalMovement' } ) );
-        this.lastAlertedLocation = newLocation;
+      // make sure that these alerts exist
+      if ( assert ) {
+        directions.map( direction => { assert( this.movementAlerts[ direction ] && typeof this.movementAlerts[ direction ] === 'string' ); } );
       }
+
+      // support if an instance doesn't want to alert in all directions
+      directions.forEach( direction => {
+        utteranceQueue.addToBack( new Utterance( this.movementAlerts[ direction ], { typeId: 'directionalMovement' + direction } ) );
+      } );
+      this.lastAlertedLocation = newLocation;
     }
 
 
@@ -138,10 +146,10 @@ define( require => {
      *
      * @param  {Vector2} pointA
      * @param  {Vector2} pointB
-     * @return {string} - one of DirectionEnum
+     * @return {Array.<string>} - contains one or two of the values in DirectionEnum
      * @static
      */
-    static getDirection( pointA, pointB ) {
+    static getDirections( pointA, pointB ) {
       var direction;
 
       var dx = pointA.x - pointB.x;
@@ -162,7 +170,14 @@ define( require => {
         }
       }
 
-      return direction;
+      // This includes directions like "UP_LEFT"
+      if ( this.alertDiagonal ) {
+        return [ direction ];
+      }
+      else {
+        return DirectionEnum.directionToRelativeDirections( direction );
+      }
+
     }
 
     reset() {

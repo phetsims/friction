@@ -30,10 +30,24 @@ define( function( require ) {
      * @return {Boolean}
      */
     isRelativeDirection: function( direction ) {
+      assert && assert( DirectionEnum.hasOwnProperty( direction ) );
       return direction === DirectionEnum.LEFT ||
              direction === DirectionEnum.RIGHT ||
              direction === DirectionEnum.UP ||
              direction === DirectionEnum.DOWN;
+    },
+
+    /**
+     * If the direction is a complex diagonal direction, break it up into its composite pieces
+     * @returns {Array.<string>}
+     */
+    directionToRelativeDirections: function( direction ) {
+      assert && assert( DirectionEnum.hasOwnProperty( direction ) );
+      return direction === DirectionEnum.UP_LEFT ? [ DirectionEnum.UP, DirectionEnum.LEFT ] :
+             direction === DirectionEnum.UP_RIGHT ? [ DirectionEnum.UP, DirectionEnum.RIGHT ] :
+             direction === DirectionEnum.DOWN_LEFT ? [ DirectionEnum.DOWN, DirectionEnum.LEFT ] :
+             direction === DirectionEnum.DOWN_RIGHT ? [ DirectionEnum.DOWN, DirectionEnum.RIGHT ] :
+               [ DirectionEnum[ direction ] ]; // primary relative direction, so return a single item in the array
     }
   };
 
