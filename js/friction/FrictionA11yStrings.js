@@ -28,10 +28,10 @@ define( function( require ) {
       value: 'Use arrow keys, or letter keys W, A, S, or D to move book or zoomed-in book up, left, down, or right.'
     },
     moveBookWith: {
-      value: 'Move book up, left, down, or right with arrow keys or letter keys W, A, S, or D.'
+      value: 'Move book up, left, down, and right with Arrow keys, or with letter keys W, A, S, or D'
     },
-    moveSlowerWith: {
-      value: 'Move slower with with shift plus arrow keys or shift plus letter keys W, A, S, or D.'
+    moveInSmallerStepsWith: {
+      value: 'Move in smaller steps with Shift plus Arrow keys, Shift plus  letter keys W, A, S, or D'
     },
 
 

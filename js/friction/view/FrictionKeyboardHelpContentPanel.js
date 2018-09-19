@@ -26,7 +26,7 @@ define( function( require ) {
 
   // a11y strings
   let moveBookWithString = FrictionA11yStrings.moveBookWith.value;
-  let moveSlowerWithString = FrictionA11yStrings.moveSlowerWith.value;
+  let moveInSmallerStepsWithString = FrictionA11yStrings.moveInSmallerStepsWith.value;
 
   // constants
   let DEFAULT_LABEL_OPTIONS = {
@@ -78,7 +78,7 @@ define( function( require ) {
     let moveInSmallerStepsText = new RichText( moveInSmallerStepsString, DEFAULT_LABEL_OPTIONS );
     let shiftPlusArrowKeys = HelpContent.shiftPlusIcon( HelpContent.arrowKeysRowIcon() );
     let shiftPlusWASDKeys = HelpContent.shiftPlusIcon( HelpContent.wasdRowIcon() );
-    let row = HelpContent.labelWithIconList( moveInSmallerStepsText, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], moveSlowerWithString );
+    let row = HelpContent.labelWithIconList( moveInSmallerStepsText, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], moveInSmallerStepsWithString );
 
     HelpContent.call( this, moveBookHeaderString, [ moveBookRow, row ], options );
   }
