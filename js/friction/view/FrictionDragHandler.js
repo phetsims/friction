@@ -9,11 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  const BookMovementDescriber = require( 'FRICTION/friction/view/describers/BookMovementDescriber' );
   const friction = require( 'FRICTION/friction' );
   const inherit = require( 'PHET_CORE/inherit' );
   const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
   const TemperatureDecreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureDecreasingDescriber' );
+  const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
   const Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -37,6 +38,7 @@ define( function( require ) {
 
         // a11y
         TemperatureIncreasingDescriber.getDescriber().dragEnded();
+        BookMovementDescriber.getDescriber().alertDirectionalMovement();
       },
       tandem: tandem
     } );

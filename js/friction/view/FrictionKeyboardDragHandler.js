@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  const BookMovementDescriber = require( 'FRICTION/friction/view/describers/BookMovementDescriber' );
   const friction = require( 'FRICTION/friction' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const inherit = require( 'PHET_CORE/inherit' );
@@ -45,6 +46,7 @@ define( function( require ) {
       },
       end: function() {
         TemperatureIncreasingDescriber.getDescriber().dragEnded();
+        BookMovementDescriber.getDescriber().alertDirectionalMovement();
       },
       dragBounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS
     } );

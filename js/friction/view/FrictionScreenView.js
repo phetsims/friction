@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   const BookNode = require( 'FRICTION/friction/view/book/BookNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
+  const BookMovementDescriber = require( 'FRICTION/friction/view/describers/BookMovementDescriber' );
   const BreakAwayDescriber = require( 'FRICTION/friction/view/describers/BreakAwayDescriber' );
   const ControlAreaNode = require( 'SCENERY_PHET/accessibility/nodes/ControlAreaNode' );
   const friction = require( 'FRICTION/friction' );
@@ -59,6 +60,9 @@ define( function( require ) {
     TemperatureIncreasingDescriber.initialize( model );
     TemperatureDecreasingDescriber.initialize( model );
     BreakAwayDescriber.initialize( model );
+    BookMovementDescriber.initialize( model, {
+      bounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS
+    } );
 
     // a11y
     let frictionSummaryNode = new FrictionScreenSummaryNode( model, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP );

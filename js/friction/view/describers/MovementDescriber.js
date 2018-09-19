@@ -72,7 +72,10 @@ define( require => {
       this.bounds = options.bounds;
       this.movementThreshold = options.movementThreshold;
       this.movementAlerts = options.movementAlerts;
-      this.lastAlertedLocation = locationProperty.get();
+
+      // @protected
+      this.locationProperty = locationProperty;
+      this.lastAlertedLocation = locationProperty.get(); // initial value of the locationProperty
 
       locationProperty.link( ( newValue, oldValue ) => {
 
@@ -93,18 +96,18 @@ define( require => {
           utteranceQueue.addToBack( options.borderAlerts.top );
         }
 
-        this.potentiallyAlertMovement( newValue );
+        // this.potentiallyAlertMovement();
       } );
     }
 
 
     /**
-     * Alert a movement direction. The direction from this.lastAlertedLocation
+     * Alert a movement direction. The direction from this.lastAlertedLocation relative to the current value of the locationProperty
      * @public
-     * @param {Vector2} newLocation
      */
-    alertMovement( newLocation ) {
+    alertDirectionalMovement() {
 
+      var newLocation = this.locationProperty.get();
       assert( newLocation !== this.lastAlertedLocation, 'we are just trying this out' );
 
       var direction = MovementDescriber.getDirection( newLocation, this.lastAlertedLocation );
@@ -120,12 +123,11 @@ define( require => {
     /**
      * Alert a movement direction if and only if the alert has passed a threshold.
      * @public
-     * @param {Vector2} newLocation
      */
-    potentiallyAlertMovement( newLocation ) {
+    potentiallyAlertMovement() {
 
-      if ( Math.abs( this.lastAlertedLocation.distance( newLocation ) ) > this.movementThreshold ) {
-        this.alertMovement( newLocation );
+      if ( Math.abs( this.lastAlertedLocation.distance( this.locationProperty.get() ) ) > this.movementThreshold ) {
+        this.alertDirectionalMovement();
       }
     }
 
