@@ -31,10 +31,10 @@ define( require => {
       this.contactedAlertedRight = false;
 
       // reset these properties when the contactProperty changes to false.
-      model.contactProperty.link( ( newValue ) => {
+      model.contactProperty.link( ( newValue, oldValue ) => {
 
         // if the books were touching, and now they aren't, reset the ability for left/right alerts when contacted.
-        if ( !newValue ) {
+        if ( !newValue && oldValue ) {
           this.contactedAlertedLeft = false;
           this.contactedAlertedRight = false;
         }
