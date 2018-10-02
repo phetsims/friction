@@ -32,18 +32,13 @@ define( ( require ) => {
   const warmerString = FrictionA11yStrings.warmer.value;
   const evenHotterString = FrictionA11yStrings.evenHotter.value;
 
-  const stillVeryHotString = FrictionA11yStrings.stillVeryHot.value;
-  const veryFastString = FrictionA11yStrings.veryFast.value;
-  const veryHotString = FrictionA11yStrings.veryHot.value;
+  const superFastString = FrictionA11yStrings.superFast.value;
+  const superHotString = FrictionA11yStrings.superHot.value;
 
   // alert object for the Maximum temp alert
   const MAX_TEMP_OBJECT = {
-    jiggle: veryFastString,
-    temp: stillVeryHotString,
-    firstTime: {
-      jiggle: veryFastString,
-      temp: veryHotString
-    }
+    jiggle: superFastString,
+    temp: superHotString
   };
 
 

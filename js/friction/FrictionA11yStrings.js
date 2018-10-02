@@ -81,6 +81,7 @@ define( function( require ) {
     // Temp scale strings
     //--------------------------------------------------------------------------
 
+    superHot: { value: 'super hot' },
     veryHot: { value: 'very hot' },
     hot: { value: 'hot' },
     atWarm: { value: 'warm' },
@@ -166,7 +167,7 @@ define( function( require ) {
     more: { value: 'more' },
     faster: { value: 'faster' },
     evenFaster: { value: 'even faster' },
-    veryFast: { value: 'very fast' },
+    superFast: { value: 'super fast' },
 
     less: { value: 'less' },
     evenLess: { value: 'even less' },
@@ -181,7 +182,6 @@ define( function( require ) {
     evenHotter: { value: 'even hotter' },
     nowHot: { value: 'now hot' },
     nowHotter: { value: 'now hotter' },
-    stillVeryHot: { value: 'still very hot' },
 
     dropping: { value: 'dropping' },
 
