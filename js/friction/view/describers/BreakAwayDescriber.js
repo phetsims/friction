@@ -21,12 +21,14 @@ define( ( require ) => {
   const capitalizedVeryHotString = FrictionA11yStrings.capitalizedVeryHot.value;
   const breakAwaySentenceFirstString = FrictionA11yStrings.breakAwaySentenceFirst.value;
   const breakAwaySentenceAgainString = FrictionA11yStrings.breakAwaySentenceAgain.value;
+  const breakAwayNoneLeftString = FrictionA11yStrings.breakAwayNoneLeft.value;
 
   // constants
 
   // break away sentences
   const BREAK_AWAY_THRESHOLD_FIRST = StringUtils.fillIn( breakAwaySentenceFirstString, { temp: capitalizedVeryHotString } );
   const BREAK_AWAY_THRESHOLD_AGAIN = StringUtils.fillIn( breakAwaySentenceAgainString, { temp: capitalizedVeryHotString } );
+  const BREAK_AWAY_NONE_LEFT = StringUtils.fillIn( breakAwayNoneLeftString, { temp: capitalizedVeryHotString } );
 
   // time in between "break away sessions". This is the minimum amount of time to wait before hearing a subsequent break
   // away alert
@@ -61,8 +63,7 @@ define( ( require ) => {
 
         // Handle the alert when amplitude is high enough to begin evaporating
         if ( !this.tooSoonForNextAlert && // alert only separate "break away events"
-             amplitude > EVAPORATION_LIMIT && oldAmplitude < EVAPORATION_LIMIT && // just hit evaporation limit
-             model.numberOfAtomsEvaporated < FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ) { // still atoms to evaporate
+             amplitude > EVAPORATION_LIMIT && oldAmplitude < EVAPORATION_LIMIT ) { // just hit evaporation limit
           this.alertAtEvaporationThreshold();
         }
       };
@@ -77,7 +78,15 @@ define( ( require ) => {
      * @public
      */
     alertAtEvaporationThreshold() {
-      utteranceQueue.addToFront( this.alertedBreakAwayProperty.value ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST );
+
+      // If there aren't any more atoms to break away
+      if ( this.model.numberOfAtomsEvaporated >= FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ) {
+        assert && assert( this.alertedBreakAwayProperty.value, 'If this is the first alert, then we have problems' );
+        utteranceQueue.addToFront( BREAK_AWAY_NONE_LEFT );
+      }
+      else {
+        utteranceQueue.addToFront( this.alertedBreakAwayProperty.value ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST );
+      }
 
       this.alertedBreakAwayProperty.value = true;
       this.tooSoonForNextAlert = true;

@@ -209,8 +209,10 @@ define( function( require ) {
     },
     breakAwaySentenceAgain: {
       value: '{{temp}}. More atoms break away.'
+    },
+    breakAwayNoneLeft: {
+      value: '{{temp}}. Atoms jiggling very fast.'
     }
-
   };
 
   // TODO: This seems it should be factored out, see https://github.com/phetsims/tasks/issues/917
