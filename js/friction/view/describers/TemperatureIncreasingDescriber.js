@@ -16,13 +16,13 @@ define( ( require ) => {
   'use strict';
 
   // modules
-  const BooleanProperty = require( 'AXON/BooleanProperty' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const FrictionQueryParameters = require( 'FRICTION/friction/FrictionQueryParameters' );
   const timer = require( 'PHET_CORE/timer' );
+  const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // a11y strings
   const moreString = FrictionA11yStrings.more.value;
@@ -34,6 +34,8 @@ define( ( require ) => {
 
   const superFastString = FrictionA11yStrings.superFast.value;
   const superHotString = FrictionA11yStrings.superHot.value;
+
+  const resetSimMoreObservationSentenceString = FrictionA11yStrings.resetSimMoreObservationSentence.value;
 
   // alert object for the Maximum temp alert
   const MAX_TEMP_OBJECT = {
@@ -60,6 +62,8 @@ define( ( require ) => {
   // From model, the amplitude value when the atoms evaporate
   const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
 
+  // Number of times to alert normal "maximum temp" alert until queueing reset, see this.numberOfMaxAlerts
+  const MAX_ALERTS_UNTIL_RESET = 3;
 
   // in ms, how long to wait until we consider this newest drag of a different "drag session"
   const DRAG_SESSION_THRESHOLD = FrictionQueryParameters.dragSessionThreshold;
@@ -94,13 +98,14 @@ define( ( require ) => {
       // @private
       this.alertIndex = -1;
 
-      // Whether or not the "maximum" temperature alert has been alerted yet, should reset on screen reset.
-      // @private
-      this.firstTimeAlertingMaxProperty = new BooleanProperty( true );
-
       // {boolean} don't alert too many alerts all at once, this is only switched after a timeout, see alertIncrease
       // @private
       this.tooSoonForNextAlert = false;
+
+      // @private {number} - keep track of the number of times we have alerted that we are at maximum temperature. If
+      // we are more than the MAX_ALERTS_UNTIL_RESET, we will instead alert to reset rather than continuing to alert
+      // the normal max temp, see https://github.com/phetsims/friction/issues/119#issuecomment-425488492.
+      this.numberOfMaxAlerts = 0;
 
       // @private
       // TODO: performance: put in drag callback instead?
@@ -150,8 +155,9 @@ define( ( require ) => {
 
       let alertObject = INCREASING[ currentAlertIndex ];
 
-      this.alert( alertObject, false );
-
+      this.alert( () => {
+        FrictionAlertManager.alertTemperatureJiggleFromObject( alertObject, false, 'increasing' );
+      } );
     }
 
     /**
@@ -159,20 +165,28 @@ define( ( require ) => {
      * @private
      */
     alertMaxTemp() {
+      this.numberOfMaxAlerts++;
 
-      this.alert( MAX_TEMP_OBJECT, this.firstTimeAlertingMaxProperty.value );
-      this.firstTimeAlertingMaxProperty.value = false;
+      if ( this.numberOfMaxAlerts > MAX_ALERTS_UNTIL_RESET ) {
+        this.alert( () => {
+          utteranceQueue.addToBack( resetSimMoreObservationSentenceString );
+        } );
+      }
+      else {
+        this.alert( () => {
+          FrictionAlertManager.alertTemperatureJiggleFromObject( MAX_TEMP_OBJECT, false, 'increasing' );
+        } );
+      }
     }
 
     /**
      * General alert for this type, manages the timing and threshold values to make sure that alerts
      * happen at the right moments.
-     * @param {Object} alertObject
-     * @param {boolean} firstTime - is it the first time alerting this object?
+     * @param {function} alertFunction
      * @private
      */
-    alert( alertObject, firstTime ) {
-      FrictionAlertManager.alertTemperatureJiggleFromObject( alertObject, firstTime, 'increasing' );
+    alert( alertFunction ) {
+      alertFunction();
 
       // set to true to limit subsequent alerts firing rapidly
       this.tooSoonForNextAlert = true;
@@ -189,7 +203,7 @@ define( ( require ) => {
      * @public
      */
     reset() {
-      this.firstTimeAlertingMaxProperty.reset(); // we want the "First time" alert on each reset
+      this.numberOfMaxAlerts = 0; // reset the maximum alerts
     }
 
     /**

@@ -53,7 +53,7 @@ define( function( require ) {
 
       let patternString = frictionIncreasingAtomsJigglingTemperaturePatternString;
 
-      // Use the "first time" pattern string if it is the first time.
+      // Use the "first time" pattern string if it is the first time. Gracefully handle if there isn't a first time alert
       if ( alertObject.firstTime && firstTimeAlerting ) {
         patternString = frictionIncreasingAtomsJigglingTemperatureFirstPatternString;
 
