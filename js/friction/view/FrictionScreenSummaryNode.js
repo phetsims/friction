@@ -48,11 +48,13 @@ define( require => {
     constructor( model, thermometerMinTemp, thermometerMaxTemp ) {
 
       super( {
-        tagName: 'p'
+        tagName: 'div'
       } );
 
       // @private
       this.model = model;
+      this.booksParagraph = new Node( { tagName: 'p' } );
+      this.interactionHintParagraph = new Node( { tagName: 'p' } );
       this.thermometerMinTemp = thermometerMinTemp;
       this.thermometerMaxTemp = thermometerMaxTemp;
 
@@ -90,6 +92,10 @@ define( require => {
 
       // exists for the lifetime of the sim, no need to unlink
       model.contactProperty.link( () => { this.updateSummaryString( model );} );
+
+      this.mutate( {
+        children: [ this.booksParagraph, this.interactionHintParagraph ]
+      } );
     }
 
 
@@ -253,11 +259,13 @@ define( require => {
       // SUPPLEMENTARY THIRD SENTENCE
       let supplementarySentence = this.getThirdSupplementarySentence( this.model.numberOfAtomsEvaporated );
 
-      this.innerContent = StringUtils.fillIn( summarySentencePatternString, {
+      this.booksParagraph.innerContent = StringUtils.fillIn( summarySentencePatternString, {
         chemistryBookString: chemistryBookString,
-        jiggleTemperatureScaleSentence: jiggleTempSentence,
-        supplementarySentence: supplementarySentence
+        jiggleTemperatureScaleSentence: jiggleTempSentence
       } );
+
+      this.interactionHintParagraph.innerContent = supplementarySentence;
+
     }
   }
 

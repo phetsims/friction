@@ -140,8 +140,7 @@ define( function( require ) {
     },
 
     summarySentencePattern: {
-      value: '{{chemistryBookString}} {{jiggleTemperatureScaleSentence}} ' +
-             '{{supplementarySentence}}'
+      value: '{{chemistryBookString}} {{jiggleTemperatureScaleSentence}}'
     },
 
 
