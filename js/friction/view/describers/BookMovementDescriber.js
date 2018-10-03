@@ -20,6 +20,9 @@ define( require => {
   const moveDownToRubHarderSentenceString = FrictionA11yStrings.moveDownToRubHarderSentence.value;
   const downRubFastOrSlowString = FrictionA11yStrings.downRubFastOrSlow.value;
 
+  // constants
+  const NUMBER_OF_DOWN_EDGE_ALERTS = 2;
+
   // the singleton instance of this describer, used for the entire instance of the sim.
   let describer = null;
 
@@ -41,6 +44,9 @@ define( require => {
       // @private
       this.model = model;
 
+      // @private - keep track of the number of times the bottom edge alert occurs.
+      this.numberOfTimesAlertedAtBottom = 0;
+
       // {LeftRightAlertPair} - alert pairs to monitor if both left and right alerts have been triggered.
       this.contactedAlertPair = new LeftRightAlertPair();
       this.separatedAlertPair = new LeftRightAlertPair();
@@ -55,9 +61,12 @@ define( require => {
         else {
           // The books weren't touching, and now they are
 
-          // We need to handle our own "edge" alert here for the bottom because our model doesn't support MovementDescriber's
-          // bottom for its Bounds2
-          utteranceQueue.addToBack( downRubFastOrSlowString );
+          if ( this.numberOfTimesAlertedAtBottom < NUMBER_OF_DOWN_EDGE_ALERTS ) {
+            // We need to handle our own "edge" alert here for the bottom because our model doesn't support MovementDescriber's
+            // bottom for its Bounds2
+            utteranceQueue.addToBack( downRubFastOrSlowString );
+            this.numberOfTimesAlertedAtBottom++;
+          }
 
           // reset the pair monitoring the alerts when not contacted.
           this.separatedAlertPair.reset();
@@ -105,6 +114,11 @@ define( require => {
           this.contactedAlertPair.updateFromDirections( directions );
         }
       }
+    }
+
+    reset() {
+      super.reset();
+      this.numberOfTimesAlertedAtBottom = 0;
     }
 
     /**
