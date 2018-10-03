@@ -147,8 +147,8 @@ define( function( require ) {
       TemperatureDecreasingDescriber.getDescriber().reset();
       TemperatureIncreasingDescriber.getDescriber().reset();
       BreakAwayDescriber.getDescriber().reset();
+      BookMovementDescriber.getDescriber().reset();
       frictionSummaryNode.updateSummaryString();
-
     };
   }
 
