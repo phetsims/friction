@@ -131,6 +131,10 @@ define( function( require ) {
       value: 'Move down to rub harder.'
     },
 
+    downRubFastOrSlow: {
+      value: 'Down. Rub fast or slow.'
+    },
+
     resetSimMoreObservationSentence: {
       value: 'Reset sim to make more observations.'
     },

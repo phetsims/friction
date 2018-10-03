@@ -48,12 +48,11 @@ define( require => {
         // {Bounds2}
         bounds: new Bounds2( Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY ),
 
-        // {Object.<{direction},{string}>} - left, right, top, with values to alert if you reach that bound
-        borderAlerts: {
-          left: 'At left edge',
-          right: 'At right edge',
-          top: 'At top'
-        },
+        // {string|null} left, right, top, with values to alert if you reach that bound null if you don't want it alerted.
+        leftBorderAlert: 'At left edge',
+        rightBorderAlert: 'At right edge',
+        topBorderAlert: 'At top',
+        bottomBorderAlert: 'At bottom',
 
         // see DirectionEnum for allowed keys. Any missing keys will not be alerted.
         movementAlerts: {
@@ -72,11 +71,22 @@ define( require => {
 
       }, options );
 
+      assert && assert( options.leftBorderAlert === null || typeof options.leftBorderAlert === 'string' );
+      assert && assert( options.rightBorderAlert === null || typeof options.rightBorderAlert === 'string' );
+      assert && assert( options.topBorderAlert === null || typeof options.topBorderAlert === 'string' );
+      assert && assert( options.bottomBorderAlert === null || typeof options.bottomBorderAlert === 'string' );
+
       // @private
       this.bounds = options.bounds;
       this.movementThreshold = options.movementThreshold;
       this.movementAlerts = options.movementAlerts;
       this.alertDiagonal = options.alertDiagonal;
+      this.borderAlerts = {
+        left: options.leftBorderAlert,
+        right: options.rightBorderAlert,
+        top: options.topBorderAlert,
+        bottom: options.bottomBorderAlert
+      };
 
       // @protected
       this.locationProperty = locationProperty;
@@ -85,23 +95,25 @@ define( require => {
       locationProperty.link( ( newValue, oldValue ) => {
 
         // at left now, but wasn't last location
-        if ( newValue.x === this.bounds.getLeft() && oldValue.x !== this.bounds.getLeft() ) {
-          utteranceQueue.addToBack( options.borderAlerts.left );
+        if ( newValue.x === this.bounds.left && oldValue.x !== this.bounds.left ) {
+          utteranceQueue.addToBackIfDefined( this.borderAlerts.left );
         }
 
 
         // at right now, but wasn't last location
-        if ( newValue.x === this.bounds.getRight() && oldValue.x !== this.bounds.getRight() ) {
-          utteranceQueue.addToBack( options.borderAlerts.right );
+        if ( newValue.x === this.bounds.right && oldValue.x !== this.bounds.right ) {
+          utteranceQueue.addToBackIfDefined( this.borderAlerts.right );
         }
 
         // at top now, but wasn't last location
-        if ( newValue.y === this.bounds.getTop() && oldValue.y !== this.bounds.getTop() ) {
-
-          utteranceQueue.addToBack( options.borderAlerts.top );
+        if ( newValue.y === this.bounds.top && oldValue.y !== this.bounds.top ) {
+          utteranceQueue.addToBackIfDefined( this.borderAlerts.top );
         }
 
-        // this.potentiallyAlertMovement();
+        // at bottom now, but wasn't last location
+        if ( newValue.y === this.bounds.bottom && oldValue.y !== this.bounds.bottom ) {
+          utteranceQueue.addToBackIfDefined( this.borderAlerts.bottom );
+        }
       } );
     }
 
@@ -120,6 +132,12 @@ define( require => {
 
     /**
      * Alert a movement direction. The direction from this.lastAlertedLocation relative to the current value of the locationProperty
+     * Call this from a listener or when the locationProperty has changed enough.
+     * Can be overridden. Easy to implement method with the following schema:
+     * (1) get the current value of the location property, and make sure it has changed enough from the lastAlertedLocation
+     * (2) get the directions from the difference,
+     * (3) alert those directions,
+     * see friction/view/describers/BookMovementDescriber.
      * @public
      */
     alertDirectionalMovement() {
@@ -133,20 +151,7 @@ define( require => {
         if ( assert ) {
           directions.map( direction => { assert( this.movementAlerts[ direction ] && typeof this.movementAlerts[ direction ] === 'string' ); } );
         }
-
         this.alertDirections( directions );
-      }
-    }
-
-
-    /**
-     * Alert a movement direction if and only if the alert has passed a threshold.
-     * @public
-     */
-    potentiallyAlertMovement() {
-
-      if ( Math.abs( this.lastAlertedLocation.distance( this.locationProperty.get() ) ) > this.movementThreshold ) {
-        this.alertDirectionalMovement();
       }
     }
 
@@ -157,7 +162,8 @@ define( require => {
      *
      * @param  {Vector2} pointA
      * @param  {Vector2} pointB
-     * @return {Array.<string>} - contains one or two of the values in DirectionEnum
+     * @returns {Array.<string>} - contains one or two of the values in DirectionEnum, depending on whether or no you get
+     *                            diagonal directions or their composite. See options.alertDiagonal for more info
      * @static
      */
     getDirections( pointA, pointB ) {
@@ -181,7 +187,7 @@ define( require => {
         }
       }
 
-      // This includes directions like "UP_LEFT"
+      // This includes complex directions like "UP_LEFT"
       if ( this.alertDiagonal ) {
         return [ direction ];
       }

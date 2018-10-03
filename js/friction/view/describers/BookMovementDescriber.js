@@ -18,6 +18,7 @@ define( require => {
 
   // a11y strings
   const moveDownToRubHarderSentenceString = FrictionA11yStrings.moveDownToRubHarderSentence.value;
+  const downRubFastOrSlowString = FrictionA11yStrings.downRubFastOrSlow.value;
 
   // the singleton instance of this describer, used for the entire instance of the sim.
   let describer = null;
@@ -29,6 +30,12 @@ define( require => {
   class BookMovementDescriber extends MovementDescriber {
     constructor( model, options ) {
 
+      options = _.extend( {
+
+        // don't alert the bottom border alert because the model isn't set up to have that work based on the bounds
+        bottomBorderAlert: null
+      }, options );
+
       super( model.topBookPositionProperty, options );
 
       // @private
@@ -39,14 +46,21 @@ define( require => {
       this.separatedAlertPair = new LeftRightAlertPair();
 
       // reset these properties when the contactProperty changes to false.
-      model.contactProperty.link( ( newValue, oldValue ) => {
+      model.contactProperty.lazyLink( ( newValue, oldValue ) => {
 
         // if the books were touching, and now they aren't, reset the ability for left/right alerts when contacted.
         if ( !newValue && oldValue ) {
           this.contactedAlertPair.reset(); // reset the pair monitoring the alerts when contacted.
         }
         else {
-          this.separatedAlertPair.reset(); // reset the pair monitoring the alerts when not contacted.
+          // The books weren't touching, and now they are
+
+          // We need to handle our own "edge" alert here for the bottom because our model doesn't support MovementDescriber's
+          // bottom for its Bounds2
+          utteranceQueue.addToBack( downRubFastOrSlowString );
+
+          // reset the pair monitoring the alerts when not contacted.
+          this.separatedAlertPair.reset();
         }
       } );
     }
