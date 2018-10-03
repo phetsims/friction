@@ -9,17 +9,18 @@ define( require => {
 
   // modules
   const Bounds2 = require( 'DOT/Bounds2' );
-  const friction = require( 'FRICTION/friction' );
   const DirectionEnum = require( 'FRICTION/friction/view/describers/DirectionEnum' );
+  const friction = require( 'FRICTION/friction' );
   const Range = require( 'DOT/Range' );
+  const Util = require( 'DOT/Util' );
   const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // threshold for diagonal movement is +/- 15 degrees from diagonals
-  var DIAGONAL_MOVEMENT_THRESHOLD = 15 * Math.PI / 180;
+  let DIAGONAL_MOVEMENT_THRESHOLD = 15 * Math.PI / 180;
 
   // mapping from alerting direction to the radian range that fills that space in the unit circle.
-  var DIRECTION_MAP = {
+  let DIRECTION_MAP = {
     UP: new Range( -3 * Math.PI / 4 + DIAGONAL_MOVEMENT_THRESHOLD, -Math.PI / 4 - DIAGONAL_MOVEMENT_THRESHOLD ),
     DOWN: new Range( Math.PI / 4 + DIAGONAL_MOVEMENT_THRESHOLD, 3 * Math.PI / 4 - DIAGONAL_MOVEMENT_THRESHOLD ),
     RIGHT: new Range( -Math.PI / 4 + DIAGONAL_MOVEMENT_THRESHOLD, Math.PI / 4 - DIAGONAL_MOVEMENT_THRESHOLD ),
@@ -32,11 +33,9 @@ define( require => {
     UP_RIGHT: new Range( -Math.PI / 4 - DIAGONAL_MOVEMENT_THRESHOLD, -Math.PI / 4 + DIAGONAL_MOVEMENT_THRESHOLD ),
     DOWN_RIGHT: new Range( Math.PI / 4 - DIAGONAL_MOVEMENT_THRESHOLD, Math.PI / 4 + DIAGONAL_MOVEMENT_THRESHOLD )
   };
-  var DIRECTION_MAP_KEYS = Object.keys( DIRECTION_MAP );
-
+  let DIRECTION_MAP_KEYS = Object.keys( DIRECTION_MAP );
 
   /**
-   * TODO: support bottom alerts for general type
    * @param {Object} [options]
    * @constructor
    */
@@ -48,7 +47,9 @@ define( require => {
         // {Bounds2}
         bounds: new Bounds2( Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY ),
 
-        // {string|null} left, right, top, with values to alert if you reach that bound null if you don't want it alerted.
+        // {string|null|Array.<string>} left, right, top, with values to alert if you reach that bound null if you don't want it alerted.
+        // If an array of string, each alert in the array will be read each new time that alert occurs. The last alert in
+        // the list will be read out each subsequent time if the alert occurs more than the number of items in the list.
         leftBorderAlert: 'At left edge',
         rightBorderAlert: 'At right edge',
         topBorderAlert: 'At top',
@@ -71,10 +72,22 @@ define( require => {
 
       }, options );
 
-      assert && assert( options.leftBorderAlert === null || typeof options.leftBorderAlert === 'string' );
-      assert && assert( options.rightBorderAlert === null || typeof options.rightBorderAlert === 'string' );
-      assert && assert( options.topBorderAlert === null || typeof options.topBorderAlert === 'string' );
-      assert && assert( options.bottomBorderAlert === null || typeof options.bottomBorderAlert === 'string' );
+      assert && assert( Array.isArray( options.leftBorderAlert ) ||
+                        options.leftBorderAlert === null ||
+                        typeof options.leftBorderAlert === 'string' );
+
+      assert && assert( Array.isArray( options.rightBorderAlert ) ||
+                        options.rightBorderAlert === null ||
+                        typeof options.rightBorderAlert === 'string' );
+
+      assert && assert( Array.isArray( options.topBorderAlert ) ||
+                        options.topBorderAlert === null ||
+                        typeof options.topBorderAlert === 'string' );
+
+      assert && assert( Array.isArray( options.bottomBorderAlert ) ||
+                        options.bottomBorderAlert === null ||
+                        typeof options.bottomBorderAlert === 'string' );
+
 
       // @private
       this.bounds = options.bounds;
@@ -82,10 +95,22 @@ define( require => {
       this.movementAlerts = options.movementAlerts;
       this.alertDiagonal = options.alertDiagonal;
       this.borderAlerts = {
-        left: options.leftBorderAlert,
-        right: options.rightBorderAlert,
-        top: options.topBorderAlert,
-        bottom: options.bottomBorderAlert
+        left: {
+          alert: options.leftBorderAlert,
+          numberOfTimesAlerted: 0
+        },
+        right: {
+          alert: options.rightBorderAlert,
+          numberOfTimesAlerted: 0
+        },
+        top: {
+          alert: options.topBorderAlert,
+          numberOfTimesAlerted: 0
+        },
+        bottom: {
+          alert: options.bottomBorderAlert,
+          numberOfTimesAlerted: 0
+        }
       };
 
       // @protected
@@ -96,23 +121,23 @@ define( require => {
 
         // at left now, but wasn't last location
         if ( newValue.x === this.bounds.left && oldValue.x !== this.bounds.left ) {
-          utteranceQueue.addToBackIfDefined( this.borderAlerts.left );
+          utteranceQueue.addToBackIfDefined( this.getAlertFromBorderAlertsObject( 'left' ) );
         }
 
 
         // at right now, but wasn't last location
         if ( newValue.x === this.bounds.right && oldValue.x !== this.bounds.right ) {
-          utteranceQueue.addToBackIfDefined( this.borderAlerts.right );
+          utteranceQueue.addToBackIfDefined( this.getAlertFromBorderAlertsObject( 'right' ) );
         }
 
         // at top now, but wasn't last location
         if ( newValue.y === this.bounds.top && oldValue.y !== this.bounds.top ) {
-          utteranceQueue.addToBackIfDefined( this.borderAlerts.top );
+          utteranceQueue.addToBackIfDefined( this.getAlertFromBorderAlertsObject( 'top' ) );
         }
 
         // at bottom now, but wasn't last location
         if ( newValue.y === this.bounds.bottom && oldValue.y !== this.bounds.bottom ) {
-          utteranceQueue.addToBackIfDefined( this.borderAlerts.bottom );
+          utteranceQueue.addToBackIfDefined( this.getAlertFromBorderAlertsObject( 'bottom' ) );
         }
       } );
     }
@@ -142,10 +167,10 @@ define( require => {
      */
     alertDirectionalMovement() {
 
-      var newLocation = this.locationProperty.get();
+      let newLocation = this.locationProperty.get();
       if ( !newLocation.equals( this.lastAlertedLocation ) ) {
 
-        var directions = this.getDirections( newLocation, this.lastAlertedLocation );
+        let directions = this.getDirections( newLocation, this.lastAlertedLocation );
 
         // make sure that these alerts exist
         if ( assert ) {
@@ -167,11 +192,11 @@ define( require => {
      * @static
      */
     getDirections( pointA, pointB ) {
-      var direction;
+      let direction;
 
-      var dx = pointA.x - pointB.x;
-      var dy = pointA.y - pointB.y;
-      var angle = Math.atan2( dy, dx );
+      let dx = pointA.x - pointB.x;
+      let dy = pointA.y - pointB.y;
+      let angle = Math.atan2( dy, dx );
 
       // atan2 wraps around Math.PI, so special check for moving left from absolute value
       if ( DIRECTION_MAP.LEFT.contains( Math.abs( angle ) ) ) {
@@ -179,8 +204,8 @@ define( require => {
       }
 
       // otherwise, angle will be in one of the ranges in DIRECTION_MAP
-      for ( var i = 0; i < DIRECTION_MAP_KEYS.length; i++ ) {
-        var entry = DIRECTION_MAP[ DIRECTION_MAP_KEYS[ i ] ];
+      for ( let i = 0; i < DIRECTION_MAP_KEYS.length; i++ ) {
+        let entry = DIRECTION_MAP[ DIRECTION_MAP_KEYS[ i ] ];
         if ( entry.contains( angle ) ) {
           direction = DirectionEnum[ DIRECTION_MAP_KEYS[ i ] ];
           break;
@@ -197,8 +222,30 @@ define( require => {
 
     }
 
+    /**
+     * A borderAlertObject is defined in the constructor, and has two properties: "alert" and "numberOfTimesALerted"
+     * The goal of this function is to get the appropriate alert from that object given the number
+     * of times it has been alerted.
+     * @param {string} whichBorder - the key cooresponding to which border alert needs to be retrieved
+     * @returns {string|Array.<string>|null} - same type as what is permitted by border alert options
+     */
+    getAlertFromBorderAlertsObject( whichBorder ) {
+      const borderAlertObject = this.borderAlerts[ whichBorder ];
+      if ( Array.isArray( borderAlertObject.alert ) ) {
+        let index = Util.clamp( borderAlertObject.numberOfTimesAlerted, 0, borderAlertObject.alert.length - 1 );
+        borderAlertObject.numberOfTimesAlerted++;
+        return borderAlertObject.alert[ index ];
+      }
+
+      // If not an array, then just return the alert
+      return borderAlertObject.alert;
+    }
+
     reset() {
-      // resetting will be needed
+      this.borderAlerts.left.numberOfTimesAlerted = 0;
+      this.borderAlerts.right.numberOfTimesAlerted = 0;
+      this.borderAlerts.top.numberOfTimesAlerted = 0;
+      this.borderAlerts.bottom.numberOfTimesAlerted = 0;
     }
   }
 

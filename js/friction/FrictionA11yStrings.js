@@ -131,6 +131,11 @@ define( function( require ) {
       value: 'Move down to rub harder.'
     },
 
+
+    positionMoveDownPattern: {
+      value: '{{position}} {{moveDownToRubHarder}}'
+    },
+
     downRubFastOrSlow: {
       value: 'Down. Rub fast or slow.'
     },

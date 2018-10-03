@@ -10,18 +10,26 @@ define( require => {
 
   // modules
   const DirectionEnum = require( 'FRICTION/friction/view/describers/DirectionEnum' );
-  const LeftRightAlertPair = require( 'FRICTION/friction/view/describers/LeftRightAlertPair' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
+  const LeftRightAlertPair = require( 'FRICTION/friction/view/describers/LeftRightAlertPair' );
   const MovementDescriber = require( 'FRICTION/friction/view/describers/MovementDescriber' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // a11y strings
   const moveDownToRubHarderSentenceString = FrictionA11yStrings.moveDownToRubHarderSentence.value;
   const downRubFastOrSlowString = FrictionA11yStrings.downRubFastOrSlow.value;
+  const positionMoveDownPatternString = FrictionA11yStrings.positionMoveDownPattern.value;
+
+  const atTop = 'At top'; // TODO factor string
 
   // constants
   const NUMBER_OF_DOWN_EDGE_ALERTS = 2;
+  const AT_TOP_MOVE_DOWN_STRING = StringUtils.fillIn( positionMoveDownPatternString, {
+    moveDownToRubHarder: moveDownToRubHarderSentenceString,
+    position: atTop
+  } );
 
   // the singleton instance of this describer, used for the entire instance of the sim.
   let describer = null;
@@ -36,7 +44,9 @@ define( require => {
       options = _.extend( {
 
         // don't alert the bottom border alert because the model isn't set up to have that work based on the bounds
-        bottomBorderAlert: null
+        bottomBorderAlert: null,
+
+        topBorderAlert: [ AT_TOP_MOVE_DOWN_STRING, AT_TOP_MOVE_DOWN_STRING, atTop ]
       }, options );
 
       super( model.topBookPositionProperty, options );
