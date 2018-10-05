@@ -43,10 +43,13 @@ define( require => {
 
       options = _.extend( {
 
-        // don't alert the bottom border alert because the model isn't set up to have that work based on the bounds
-        bottomBorderAlert: null,
+        borderAlertsOptions: {
 
-        topBorderAlert: [ AT_TOP_MOVE_DOWN_STRING, AT_TOP_MOVE_DOWN_STRING, atTop ]
+          // don't alert the bottom border alert because the model isn't set up to have that work based on the bounds
+          bottomAlert: null,
+
+          topAlert: [ AT_TOP_MOVE_DOWN_STRING, AT_TOP_MOVE_DOWN_STRING, atTop ]
+        }
       }, options );
 
       super( model.topBookPositionProperty, options );
