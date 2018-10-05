@@ -55,7 +55,7 @@ define( require => {
         topBorderAlert: 'At top',
         bottomBorderAlert: 'At bottom',
 
-        // see DirectionEnum for allowed keys. Any missing keys will not be alerted.
+        // see DirectionEnum for allowed keys. Any missing keys will not be alerted. Use `{}` to omit movementAlerts
         movementAlerts: {
           LEFT: 'left',
           RIGHT: 'right',
@@ -65,11 +65,7 @@ define( require => {
 
         // if false then diagonal alerts will be converted to two primary direction alerts that are alerted back to back
         // i.e. UP_LEFT becomes "UP" and "LEFT"
-        alertDiagonal: false,
-
-        // the amount of movement change that must occur, units depend on that of the locationProperty
-        movementThreshold: 50 // (totally arbitrary number)
-
+        alertDiagonal: false
       }, options );
 
       assert && assert( Array.isArray( options.leftBorderAlert ) ||
@@ -88,10 +84,19 @@ define( require => {
                         options.bottomBorderAlert === null ||
                         typeof options.bottomBorderAlert === 'string' );
 
+      assert && assert( options.movementAlerts instanceof Object );
+      assert && assert( !Array.isArray( options.movementAlerts ) ); // should not be an Array
+      if ( assert ) {
+        const movementAlertKeys = Object.keys( options.movementAlerts );
+
+        for ( let i = 0; i < movementAlertKeys.length; i++ ) {
+          let key = movementAlertKeys[ i ];
+          assert( DirectionEnum.keys.indexOf( key ) >= 0, `unexpected key: ${key}. Keys should be the same as those in DirectionEnum` );
+        }
+      }
 
       // @private
       this.bounds = options.bounds;
-      this.movementThreshold = options.movementThreshold;
       this.movementAlerts = options.movementAlerts;
       this.alertDiagonal = options.alertDiagonal;
       this.borderAlerts = {
