@@ -103,22 +103,22 @@ define( ( require ) => {
 
     /**
      * Uses the singleton pattern to keep one instance of this describer for the entire lifetime of the sim.
-     * @param {FrictionModel} [model]
-     * @returns {*}
+     * @returns {BreakAwayDescriber}
      */
-    static getDescriber( model ) {
-
-      if ( describer ) {
-        return describer;
-      }
-      assert && assert( model, 'arg required to instantiate BreakAwayDescriber' );
-      describer = new BreakAwayDescriber( model );
+    static getDescriber() {
+      assert && assert( describer, 'describer has not yet been initialized' );
       return describer;
     }
 
-    // "initialize" method for clarity
+
+    /**
+     * Initialize the describer singleton
+     * @param {FrictionModel} model
+     * @returns {BreakAwayDescriber}
+     */
     static initialize( model ) {
-      BreakAwayDescriber.getDescriber( model );
+      describer = new BreakAwayDescriber( model );
+      return describer;
     }
   }
 

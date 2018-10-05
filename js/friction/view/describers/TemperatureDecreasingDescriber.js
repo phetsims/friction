@@ -157,24 +157,22 @@ define( require => {
 
     /**
      * Uses the singleton pattern to keep one instance of this describer for the entire lifetime of the sim.
-     * @param {FrictionModel} [model]
-     * @returns {*}
-     * @public
+     * @returns {TemperatureDecreasingDescriber}
      */
-    static getDescriber( model ) {
-
-      if ( describer ) {
-        return describer;
-      }
-      assert && assert( model, 'arg required to instantiate TemperatureDecreasingDescriber' );
-      describer = new TemperatureDecreasingDescriber( model );
+    static getDescriber() {
+      assert && assert( describer, 'describer has not yet been initialized' );
       return describer;
     }
 
-    // "initialize" method for clarity
-    // @public
+
+    /**
+     * Initialize the describer singleton
+     * @param {FrictionModel} model
+     * @returns {TemperatureDecreasingDescriber}
+     */
     static initialize( model ) {
-      TemperatureDecreasingDescriber.getDescriber( model );
+      describer = new TemperatureDecreasingDescriber( model );
+      return describer;
     }
   }
 

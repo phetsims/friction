@@ -56,7 +56,7 @@ define( function( require ) {
     // @private
     this.model = model;
 
-    // a11y initialize the temp increasing describer
+    // a11y initialize the describers for auditory descriptions and alerts.
     TemperatureIncreasingDescriber.initialize( model );
     TemperatureDecreasingDescriber.initialize( model );
     BreakAwayDescriber.initialize( model );

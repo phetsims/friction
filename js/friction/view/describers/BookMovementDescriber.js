@@ -136,18 +136,20 @@ define( require => {
      * @returns {BookMovementDescriber}
      */
     static getDescriber() {
-
-      if ( describer ) {
-        return describer;
-      }
-      assert && assert( arguments.length > 0, 'arg required to instantiate BreakAwayDescriber' );
-      describer = new BookMovementDescriber( ...arguments ); // pass through all args despite through singleton boilerplate
+      assert && assert( describer, 'describer has not yet been initialized' );
       return describer;
     }
 
-    // "initialize" method for clarity
-    static initialize() {
-      BookMovementDescriber.getDescriber( ...arguments ); // pass through all args despite through singleton boilerplate
+
+    /**
+     * Initialize the describer singleton
+     * @param {FrictionModel} model
+     * @param {Object} [options]
+     * @returns {BookMovementDescriber}
+     */
+    static initialize( model, options ) {
+      describer = new BookMovementDescriber( model, options );
+      return describer;
     }
   }
 
