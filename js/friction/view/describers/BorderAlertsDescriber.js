@@ -251,5 +251,4 @@ define( ( require ) => {
   friction.register( 'BorderAlert', BorderAlert );
 
   return friction.register( 'BorderAlertsDescriber', BorderAlertsDescriber );
-
 } );
