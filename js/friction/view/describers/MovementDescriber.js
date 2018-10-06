@@ -1,15 +1,16 @@
 // Copyright 2018, University of Colorado Boulder
 
 /**
- * A generic accessibility  type that will alert positional alerts based on a locationProperty and a Bounds2 encapsulating the draggable area.
+ * A generic accessibility type that will alert positional alerts based on a locationProperty and bounds (see
+ * BorderAlertsDescriber) encapsulating the draggable area.
+ *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 define( require => {
   'use strict';
 
   // modules
-  const BorderAlerts = require( 'FRICTION/friction/view/describers/BorderAlerts' );
-  const Bounds2 = require( 'DOT/Bounds2' );
+  const BorderAlertsDescriber = require( 'FRICTION/friction/view/describers/BorderAlertsDescriber' );
   const DirectionEnum = require( 'FRICTION/friction/view/describers/DirectionEnum' );
   const friction = require( 'FRICTION/friction' );
   const Range = require( 'DOT/Range' );
@@ -44,12 +45,8 @@ define( require => {
 
       options = _.extend( {
 
-        // {Bounds2}
-        bounds: new Bounds2( Number.NEGATIVE_INFINITY, Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY ),
-
-        // see BorderAlerts
+        // see BorderAlertsDescriber
         borderAlertsOptions: null,
-        repeatBorderAlerts: false,
 
         // see DirectionEnum for allowed keys. Any missing keys will not be alerted. Use `{}` to omit movementAlerts
         movementAlerts: {
@@ -76,36 +73,21 @@ define( require => {
       }
 
       // @private
-      this.bounds = options.bounds;
       this.movementAlerts = options.movementAlerts;
       this.alertDiagonal = options.alertDiagonal;
-      this.borderAlerts = new BorderAlerts( options.borderAlertsOptions );
+
+      // This sub-describer handles the logic for alerting when an item is on the edge of the movement space
+      this.borderAlertsDescriber = new BorderAlertsDescriber( options.borderAlertsOptions );
 
       // @protected
       this.locationProperty = locationProperty;
       this.lastAlertedLocation = locationProperty.get(); // initial value of the locationProperty
 
-      locationProperty.link( ( newValue, oldValue ) => {
+      locationProperty.lazyLink( ( newValue, oldValue ) => {
 
-        // at left now, but wasn't last location
-        if ( newValue.x === this.bounds.left && oldValue.x !== this.bounds.left ) {
-          utteranceQueue.addToBackIfDefined( this.borderAlerts.getAlert( 'left' ) );
-        }
-
-
-        // at right now, but wasn't last location
-        if ( newValue.x === this.bounds.right && oldValue.x !== this.bounds.right ) {
-          utteranceQueue.addToBackIfDefined( this.borderAlerts.getAlert( 'right' ) );
-        }
-
-        // at top now, but wasn't last location
-        if ( newValue.y === this.bounds.top && oldValue.y !== this.bounds.top ) {
-          utteranceQueue.addToBackIfDefined( this.borderAlerts.getAlert( 'top' ) );
-        }
-
-        // at bottom now, but wasn't last location
-        if ( newValue.y === this.bounds.bottom && oldValue.y !== this.bounds.bottom ) {
-          utteranceQueue.addToBackIfDefined( this.borderAlerts.getAlert( 'bottom' ) );
+        // whenever the value changes, potentially start monitoring
+        if ( !newValue.equals( oldValue ) ) {
+          this.borderAlertsDescriber.startBorderAlertMonitoring( newValue );
         }
       } );
     }
@@ -131,6 +113,9 @@ define( require => {
      * (2) get the directions from the difference,
      * (3) alert those directions,
      * see friction/view/describers/BookMovementDescriber.
+     *
+     * NOTE: This is called on drag end.
+     *
      * @public
      */
     alertDirectionalMovement() {
@@ -190,12 +175,33 @@ define( require => {
 
     }
 
-    reset() {
-      this.borderAlerts.reset();
+    /**
+     * @public
+     */
+    drag() {
+      this.borderAlertsDescriber.drag();
     }
 
-    step() {
+    /**
+     * public
+     */
+    startDrag() {
+      this.borderAlertsDescriber.startDrag( this.locationProperty.get() );
+    }
 
+    /**
+     * @public
+     */
+    endDrag() {
+      this.borderAlertsDescriber.endDrag();
+      this.alertDirectionalMovement();
+    }
+
+    /**
+     * @public
+     */
+    reset() {
+      this.borderAlertsDescriber.reset();
     }
   }
 

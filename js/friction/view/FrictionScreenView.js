@@ -60,9 +60,7 @@ define( function( require ) {
     TemperatureIncreasingDescriber.initialize( model );
     TemperatureDecreasingDescriber.initialize( model );
     BreakAwayDescriber.initialize( model );
-    BookMovementDescriber.initialize( model, {
-      bounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS
-    } );
+    BookMovementDescriber.initialize( model );
 
     // a11y
     let frictionSummaryNode = new FrictionScreenSummaryNode( model, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP );

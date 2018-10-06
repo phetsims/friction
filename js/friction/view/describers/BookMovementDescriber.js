@@ -12,6 +12,7 @@ define( require => {
   const DirectionEnum = require( 'FRICTION/friction/view/describers/DirectionEnum' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
+  const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const LeftRightAlertPair = require( 'FRICTION/friction/view/describers/LeftRightAlertPair' );
   const MovementDescriber = require( 'FRICTION/friction/view/describers/MovementDescriber' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -39,20 +40,20 @@ define( require => {
    * @constructor
    */
   class BookMovementDescriber extends MovementDescriber {
-    constructor( model, options ) {
+    constructor( model ) {
 
-      options = _.extend( {
-
+      super( model.topBookPositionProperty, {
         borderAlertsOptions: {
 
           // don't alert the bottom border alert because the model isn't set up to have that work based on the bounds
           bottomAlert: null,
+          topAlert: [ AT_TOP_MOVE_DOWN_STRING, AT_TOP_MOVE_DOWN_STRING, atTop ],
 
-          topAlert: [ AT_TOP_MOVE_DOWN_STRING, AT_TOP_MOVE_DOWN_STRING, atTop ]
+          bounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS,
+
+          repeatBorderAlerts: true
         }
-      }, options );
-
-      super( model.topBookPositionProperty, options );
+      } );
 
       // @private
       this.model = model;

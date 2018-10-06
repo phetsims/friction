@@ -31,22 +31,27 @@ define( function( require ) {
       downDelta: 10,
       shiftDownDelta: 5,
       locationProperty: model.topBookPositionProperty,
-      start: function() {
+      start: () => {
         oldPositionValue = model.topBookPositionProperty.get().copy();
 
         TemperatureIncreasingDescriber.getDescriber().dragStarted();
         TemperatureDecreasingDescriber.getDescriber().dragStarted();
+        BookMovementDescriber.getDescriber().startDrag();
+
       },
-      drag: function() {
+      drag: () => {
         let newValue = model.topBookPositionProperty.get();
         model.move( new Vector2( newValue.x - oldPositionValue.x, newValue.y - oldPositionValue.y ) );
 
         // update the oldPositionValue for the next onDrag
         oldPositionValue = model.topBookPositionProperty.get().copy();
+
+        BookMovementDescriber.getDescriber().drag();
       },
-      end: function() {
+      end: () => {
         TemperatureIncreasingDescriber.getDescriber().dragEnded();
-        BookMovementDescriber.getDescriber().alertDirectionalMovement();
+        BookMovementDescriber.getDescriber().endDrag();
+
       },
       dragBounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS
     } );

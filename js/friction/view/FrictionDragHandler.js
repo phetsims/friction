@@ -38,7 +38,7 @@ define( function( require ) {
 
         // a11y
         TemperatureIncreasingDescriber.getDescriber().dragEnded();
-        BookMovementDescriber.getDescriber().alertDirectionalMovement();
+        BookMovementDescriber.getDescriber().endDrag();
       },
       tandem: tandem
     } );
