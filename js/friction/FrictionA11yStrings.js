@@ -133,7 +133,7 @@ define( function( require ) {
 
 
     positionMoveDownPattern: {
-      value: '{{position}} {{moveDownToRubHarder}}'
+      value: '{{position}}. {{moveDownToRubHarder}}'
     },
 
     downRubFastOrSlow: {
