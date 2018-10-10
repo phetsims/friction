@@ -100,7 +100,7 @@ define( require => {
 
       // support if an instance doesn't want to alert in all directions
       directions.forEach( direction => {
-        utteranceQueue.addToBack( new Utterance( this.movementAlerts[ direction ], { typeId: 'directionalMovement' + direction } ) );
+        utteranceQueue.addToBack( new Utterance( this.movementAlerts[ direction ], { uniqueGroupId: 'directionalMovement' + direction } ) );
       } );
       this.lastAlertedLocation = this.locationProperty.get();
     }

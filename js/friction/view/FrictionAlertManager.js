@@ -66,7 +66,7 @@ define( function( require ) {
         jigglingAmount: alertObject.jiggle
       } );
 
-      utteranceQueue.addToBack( new Utterance( string, { typeId: typeID } ) );
+      utteranceQueue.addToBack( new Utterance( string, { uniqueGroupId: typeID } ) );
     },
 
     /**
