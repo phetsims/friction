@@ -73,14 +73,6 @@ define( require => {
           this.contactedAlertPair.reset(); // reset the pair monitoring the alerts when contacted.
         }
         else {
-          // The books weren't touching, and now they are
-
-          if ( this.numberOfTimesAlertedAtBottom < NUMBER_OF_DOWN_EDGE_ALERTS ) {
-            // We need to handle our own "edge" alert here for the bottom because our model doesn't support MovementDescriber's
-            // bottom for its Bounds2
-            utteranceQueue.addToBack( downRubFastOrSlowString );
-            this.numberOfTimesAlertedAtBottom++;
-          }
 
           // reset the pair monitoring the alerts when not contacted.
           this.separatedAlertPair.reset();
@@ -131,8 +123,20 @@ define( require => {
         else if ( directions.length === 1 && // only one direction
                   directions.indexOf( DirectionEnum.DOWN ) === 0 ) { // that direction is down
 
+          // We need to handle our own "edge" alert here for the bottom because our model doesn't support MovementDescriber's
+          // bottom for its Bounds2
+          if ( this.numberOfTimesAlertedAtBottom < NUMBER_OF_DOWN_EDGE_ALERTS ) {
+
+            // special verbose alert for the first N times.
+            utteranceQueue.addToBack( downRubFastOrSlowString );
+            this.numberOfTimesAlertedAtBottom++;
+          }
+
           // still alert down even if moving down caused us to hit the book
-          this.alertDirections( directions );
+          else {
+            this.alertDirections( directions );
+
+          }
         }
       }
     }
