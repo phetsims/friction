@@ -96,7 +96,6 @@ define( require => {
      * @public
      */
     alertDirectionalMovement() {
-
       var newLocation = this.locationProperty.get();
       if ( !newLocation.equals( this.lastAlertedLocation ) ) {
         var directions = this.getDirections( newLocation, this.lastAlertedLocation );
@@ -126,6 +125,14 @@ define( require => {
                   !this.contactedAlertPair.left ) { // haven't yet alerted LEFT yet for this contact time
           this.alertDirections( directions );
           this.contactedAlertPair.updateFromDirections( directions );
+        }
+
+        // Still alert down, even if contacted
+        else if ( directions.length === 1 && // only one direction
+                  directions.indexOf( DirectionEnum.DOWN ) === 0 ) { // that direction is down
+
+          // still alert down even if moving down caused us to hit the book
+          this.alertDirections( directions );
         }
       }
     }
