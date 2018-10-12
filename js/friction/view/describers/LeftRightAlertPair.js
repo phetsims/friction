@@ -9,7 +9,7 @@ define( require => {
   'use strict';
 
   // modules
-  const DirectionEnum = require( 'FRICTION/friction/view/describers/DirectionEnum' );
+  const DirectionEnum = require( 'SCENERY_PHET/accessibility/describers/DirectionEnum' );
   const friction = require( 'FRICTION/friction' );
 
   class LeftRightAlertPair {

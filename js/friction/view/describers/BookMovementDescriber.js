@@ -9,12 +9,12 @@ define( require => {
   'use strict';
 
   // modules
-  const DirectionEnum = require( 'FRICTION/friction/view/describers/DirectionEnum' );
+  const DirectionEnum = require( 'SCENERY_PHET/accessibility/describers/DirectionEnum' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const LeftRightAlertPair = require( 'FRICTION/friction/view/describers/LeftRightAlertPair' );
-  const MovementDescriber = require( 'FRICTION/friction/view/describers/MovementDescriber' );
+  const MovementDescriber = require( 'SCENERY_PHET/accessibility/describers/MovementDescriber' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
