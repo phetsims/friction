@@ -127,7 +127,7 @@ define( require => {
      * Should be called when a drag starts
      * @public
      */
-    dragStarted() {
+    startDrag() {
       this.alertIndex = -1; //reset
     }
 

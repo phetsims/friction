@@ -27,8 +27,8 @@ define( function( require ) {
       start: function() {
 
         // a11y
-        TemperatureIncreasingDescriber.getDescriber().dragStarted();
-        TemperatureDecreasingDescriber.getDescriber().dragStarted();
+        TemperatureIncreasingDescriber.getDescriber().startDrag();
+        TemperatureDecreasingDescriber.getDescriber().startDrag();
       },
       translate: function( e ) {
         model.move( new Vector2( e.delta.x, e.delta.y ) );
@@ -37,7 +37,7 @@ define( function( require ) {
         model.bottomOffsetProperty.set( 0 );
 
         // a11y
-        TemperatureIncreasingDescriber.getDescriber().dragEnded();
+        TemperatureIncreasingDescriber.getDescriber().endDrag();
         BookMovementDescriber.getDescriber().endDrag();
       },
       tandem: tandem

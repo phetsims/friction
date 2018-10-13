@@ -132,7 +132,7 @@ define( ( require ) => {
 
     // @public
     // triggered on every keydown/mousedown
-    dragStarted() {
+    startDrag() {
 
       // If longer than threshold, treat as new "drag session"
       if ( phet.joist.elapsedTime - this.timeOfLastDrag > DRAG_SESSION_THRESHOLD ) {
@@ -142,7 +142,7 @@ define( ( require ) => {
     }
 
     // @public
-    dragEnded() {
+    endDrag() {
       this.timeOfLastDrag = phet.joist.elapsedTime;
     }
 

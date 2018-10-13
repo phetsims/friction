@@ -34,8 +34,8 @@ define( function( require ) {
       start: () => {
         oldPositionValue = model.topBookPositionProperty.get().copy();
 
-        TemperatureIncreasingDescriber.getDescriber().dragStarted();
-        TemperatureDecreasingDescriber.getDescriber().dragStarted();
+        TemperatureIncreasingDescriber.getDescriber().startDrag();
+        TemperatureDecreasingDescriber.getDescriber().startDrag();
       },
       drag: () => {
         let newValue = model.topBookPositionProperty.get();
@@ -45,7 +45,7 @@ define( function( require ) {
         oldPositionValue = model.topBookPositionProperty.get().copy();
       },
       end: ( event ) => {
-        TemperatureIncreasingDescriber.getDescriber().dragEnded();
+        TemperatureIncreasingDescriber.getDescriber().endDrag();
         BookMovementDescriber.getDescriber().endDrag( event );
 
       },
