@@ -108,7 +108,6 @@ define( ( require ) => {
       } );
 
       // @private
-      // TODO: performance: put in drag callback instead?
       this.amplitudeListener = ( amplitude ) => {
 
         if ( !this.tooSoonForNextAlert && // don't alert a subsequent alert too quickly
@@ -163,7 +162,6 @@ define( ( require ) => {
      * @private
      */
     alertMaxTemp() {
-
       this.alert( () => { utteranceQueue.addToBack( this.maxTempUtterance ); } );
     }
 
