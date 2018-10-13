@@ -39,13 +39,13 @@ define( require => {
     /**
      * Update the values of this type based on the directions moved by the book
      * @public
-     * @param {Array.<DirectionEnum>} directions - An array of possible key (same as values) of DirectionEnum.
+     * @param {DirectionEnum} direction - possible key (same as values) of DirectionEnum.
      */
-    updateFromDirections( directions ) {
-      if ( directions.indexOf( DirectionEnum.LEFT ) >= 0 ) {
+    updateFromDirection( direction ) {
+      if ( direction === DirectionEnum.LEFT ) {
         this.left = true;
       }
-      if ( directions.indexOf( DirectionEnum.RIGHT ) >= 0 ) {
+      if ( direction === DirectionEnum.RIGHT ) {
         this.right = true;
       }
     }

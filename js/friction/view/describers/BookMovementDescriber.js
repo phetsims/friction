@@ -9,6 +9,7 @@ define( require => {
   'use strict';
 
   // modules
+  const BorderAlertsDescriber = require( 'SCENERY_PHET/accessibility/describers/BorderAlertsDescriber' );
   const DirectionEnum = require( 'SCENERY_PHET/accessibility/describers/DirectionEnum' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
@@ -16,20 +17,19 @@ define( require => {
   const LeftRightAlertPair = require( 'FRICTION/friction/view/describers/LeftRightAlertPair' );
   const MovementDescriber = require( 'SCENERY_PHET/accessibility/describers/MovementDescriber' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
+  const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
 
   // a11y strings
   const moveDownToRubHarderSentenceString = FrictionA11yStrings.moveDownToRubHarderSentence.value;
   const downRubFastOrSlowString = FrictionA11yStrings.downRubFastOrSlow.value;
   const positionMoveDownPatternString = FrictionA11yStrings.positionMoveDownPattern.value;
 
-  const atTop = 'At top'; // TODO factor string
-
   // constants
-  const NUMBER_OF_DOWN_EDGE_ALERTS = 2;
+  const DEFAULT_AT_TOP_ALERT = BorderAlertsDescriber.getDefaultTopAlert();
+  const DEFAULT_MOVEMENT_ALERTS = MovementDescriber.getDefaultMovementAlerts();
   const AT_TOP_MOVE_DOWN_STRING = StringUtils.fillIn( positionMoveDownPatternString, {
     moveDownToRubHarder: moveDownToRubHarderSentenceString,
-    position: atTop
+    position: DEFAULT_AT_TOP_ALERT
   } );
 
   // the singleton instance of this describer, used for the entire instance of the sim.
@@ -47,7 +47,9 @@ define( require => {
 
           // don't alert the bottom border alert because the model isn't set up to have that work based on the bounds
           bottomAlert: null,
-          topAlert: [ AT_TOP_MOVE_DOWN_STRING, AT_TOP_MOVE_DOWN_STRING, atTop ],
+          topAlert: new Utterance( {
+            alert: [ AT_TOP_MOVE_DOWN_STRING, AT_TOP_MOVE_DOWN_STRING, DEFAULT_AT_TOP_ALERT ]
+          } ),
 
           bounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS,
 
@@ -58,8 +60,10 @@ define( require => {
       // @private
       this.model = model;
 
-      // @private - keep track of the number of times the bottom edge alert occurs.
-      this.numberOfTimesAlertedAtBottom = 0;
+      // @private - special verbose alert for the first 2 times, then use the default
+      this.bottomUtterance = new Utterance( {
+        alert: [ downRubFastOrSlowString, downRubFastOrSlowString, DEFAULT_MOVEMENT_ALERTS.DOWN ]
+      } );
 
       // {LeftRightAlertPair} - alert pairs to monitor if both left and right alerts have been triggered.
       this.contactedAlertPair = new LeftRightAlertPair();
@@ -80,6 +84,55 @@ define( require => {
       } );
     }
 
+    /**
+     * alert for a specific direction
+     * @param {DirectionEnum} direction
+     */
+    alertForDirection( direction ) {
+
+      console.log( 'direction', direction );
+
+      // A horizontal direction
+      if ( DirectionEnum.isHorizontalDirection( direction ) ) {
+
+        // are the books touching
+        if ( this.model.contactProperty.get() ) {
+
+          // if both the left and right alerts haven't yet been alerted yet while contacted
+          if ( !this.contactedAlertPair.bothAlerted() ) {
+            this.alertDirections( direction );
+            this.contactedAlertPair.updateFromDirection( direction );
+          }
+        }
+
+        // The books aren't touching
+        else {
+
+          // if both the left and right alerts haven't yet been alerted while separated
+          if ( !this.separatedAlertPair.bothAlerted() ) {
+            this.alertDirections( direction );
+            this.separatedAlertPair.updateFromDirection( direction );
+          }
+
+          // If they have, then cue an movement and reset the alertPair
+          // This means that we will get left/right alerts again after a "move down" cue
+          else {
+            this.alert( moveDownToRubHarderSentenceString );
+            this.separatedAlertPair.reset();
+          }
+        }
+      }
+
+      // if contacted and DOWN, we have a special alert
+      else if ( this.model.contactProperty.get() && direction === DirectionEnum.DOWN ) {
+        this.alert( this.bottomUtterance );
+      }
+
+      // base case
+      else {
+        this.alertDirections( direction );
+      }
+    }
 
     /**
      * Alert a movement direction. Overridden for specific alert features for Friction, i.e. the alerts change if
@@ -92,58 +145,15 @@ define( require => {
       if ( !newLocation.equals( this.lastAlertedLocation ) ) {
         var directions = this.getDirections( newLocation, this.lastAlertedLocation );
 
-        // If books aren't touching, then alert everything
-        if ( !this.model.contactProperty.get() ) {
-
-          if ( !this.separatedAlertPair.bothAlerted() ) {
-            this.alertDirections( directions );
-            this.separatedAlertPair.updateFromDirections( directions );
-          }
-          else {
-            utteranceQueue.addToBack( moveDownToRubHarderSentenceString );
-
-            // This means that we will get left/right alerts again after a "move down" cue
-            this.separatedAlertPair.reset(); // reset the cueing to only get this every other pair
-          }
-        }
-        else if ( directions.length === 1 && // only one direction
-                  directions.indexOf( DirectionEnum.RIGHT ) === 0 && // that direction is RIGHT
-                  !this.contactedAlertPair.right ) { // haven't yet alerted RIGHT yet for this contact time
-          this.alertDirections( directions );
-          this.contactedAlertPair.updateFromDirections( directions );
-        }
-        else if ( directions.length === 1 && // only one direction
-                  directions.indexOf( DirectionEnum.LEFT ) === 0 && // that direction is LEFT
-                  !this.contactedAlertPair.left ) { // haven't yet alerted LEFT yet for this contact time
-          this.alertDirections( directions );
-          this.contactedAlertPair.updateFromDirections( directions );
-        }
-
-        // Still alert down, even if contacted
-        else if ( directions.length === 1 && // only one direction
-                  directions.indexOf( DirectionEnum.DOWN ) === 0 ) { // that direction is down
-
-          // We need to handle our own "edge" alert here for the bottom because our model doesn't support MovementDescriber's
-          // bottom for its Bounds2
-          if ( this.numberOfTimesAlertedAtBottom < NUMBER_OF_DOWN_EDGE_ALERTS ) {
-
-            // special verbose alert for the first N times.
-            utteranceQueue.addToBack( downRubFastOrSlowString );
-            this.numberOfTimesAlertedAtBottom++;
-          }
-
-          // still alert down even if moving down caused us to hit the book
-          else {
-            this.alertDirections( directions );
-
-          }
-        }
+        directions.forEach( ( direction ) => {
+          this.alertForDirection( direction );
+        } );
       }
     }
 
     reset() {
       super.reset();
-      this.numberOfTimesAlertedAtBottom = 0;
+      this.bottomUtterance.reset();
     }
 
     /**
@@ -154,7 +164,6 @@ define( require => {
       assert && assert( describer, 'describer has not yet been initialized' );
       return describer;
     }
-
 
     /**
      * Initialize the describer singleton
