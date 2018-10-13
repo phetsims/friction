@@ -90,8 +90,6 @@ define( require => {
      */
     alertForDirection( direction ) {
 
-      console.log( 'direction', direction );
-
       // A horizontal direction
       if ( DirectionEnum.isHorizontalDirection( direction ) ) {
 
