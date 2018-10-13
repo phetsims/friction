@@ -21,7 +21,9 @@ define( ( require ) => {
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const FrictionQueryParameters = require( 'FRICTION/friction/FrictionQueryParameters' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const timer = require( 'PHET_CORE/timer' );
+  const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // a11y strings
@@ -36,13 +38,13 @@ define( ( require ) => {
   const superHotString = FrictionA11yStrings.superHot.value;
 
   const resetSimMoreObservationSentenceString = FrictionA11yStrings.resetSimMoreObservationSentence.value;
+  const frictionIncreasingAtomsJigglingTemperaturePatternString = FrictionA11yStrings.frictionIncreasingAtomsJigglingTemperaturePattern.value;
 
   // alert object for the Maximum temp alert
-  const MAX_TEMP_OBJECT = {
-    jiggle: superFastString,
-    temp: superHotString
-  };
-
+  const MAX_TEMP_STRING = StringUtils.fillIn( frictionIncreasingAtomsJigglingTemperaturePatternString, {
+    jigglingAmount: superFastString,
+    temperature: superHotString
+  } );
 
   const INCREASING = [
     {
@@ -61,9 +63,6 @@ define( ( require ) => {
 
   // From model, the amplitude value when the atoms evaporate
   const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
-
-  // Number of times to alert normal "maximum temp" alert until queueing reset, see this.numberOfMaxAlerts
-  const MAX_ALERTS_UNTIL_RESET = 3;
 
   // in ms, how long to wait until we consider this newest drag of a different "drag session"
   const DRAG_SESSION_THRESHOLD = FrictionQueryParameters.dragSessionThreshold;
@@ -102,10 +101,11 @@ define( ( require ) => {
       // @private
       this.tooSoonForNextAlert = false;
 
-      // @private {number} - keep track of the number of times we have alerted that we are at maximum temperature. If
-      // we are more than the MAX_ALERTS_UNTIL_RESET, we will instead alert to reset rather than continuing to alert
-      // the normal max temp, see https://github.com/phetsims/friction/issues/119#issuecomment-425488492.
-      this.numberOfMaxAlerts = 0;
+      this.maxTempUtterance = new Utterance( {
+        alert: [ MAX_TEMP_STRING, MAX_TEMP_STRING, resetSimMoreObservationSentenceString ],
+        uniqueGroupId: 'increasing',
+        loopAlerts: true
+      } );
 
       // @private
       // TODO: performance: put in drag callback instead?
@@ -119,8 +119,6 @@ define( ( require ) => {
           if ( amplitude < EVAPORATION_LIMIT ) {
             this.alertIncrease();
           }
-
-          // TODO: do we want a bit of a threshold hotter than the evap limit to hit to alert max?
           else {
             this.alertMaxTemp();
           }
@@ -165,18 +163,8 @@ define( ( require ) => {
      * @private
      */
     alertMaxTemp() {
-      this.numberOfMaxAlerts++;
 
-      if ( this.numberOfMaxAlerts > MAX_ALERTS_UNTIL_RESET ) {
-        this.alert( () => {
-          utteranceQueue.addToBack( resetSimMoreObservationSentenceString );
-        } );
-      }
-      else {
-        this.alert( () => {
-          FrictionAlertManager.alertTemperatureJiggleFromObject( MAX_TEMP_OBJECT, false, 'increasing' );
-        } );
-      }
+      this.alert( () => { utteranceQueue.addToBack( this.maxTempUtterance ); } );
     }
 
     /**
@@ -203,7 +191,7 @@ define( ( require ) => {
      * @public
      */
     reset() {
-      this.numberOfMaxAlerts = 0; // reset the maximum alerts
+      this.maxTempUtterance.reset(); // reset the maximum alerts
     }
 
     /**
