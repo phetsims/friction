@@ -31,13 +31,11 @@ define( function( require ) {
       downDelta: 10,
       shiftDownDelta: 5,
       locationProperty: model.topBookPositionProperty,
-      start: ( event ) => {
+      start: () => {
         oldPositionValue = model.topBookPositionProperty.get().copy();
 
         TemperatureIncreasingDescriber.getDescriber().dragStarted();
         TemperatureDecreasingDescriber.getDescriber().dragStarted();
-        BookMovementDescriber.getDescriber().startDrag( event );
-
       },
       drag: () => {
         let newValue = model.topBookPositionProperty.get();
@@ -45,12 +43,10 @@ define( function( require ) {
 
         // update the oldPositionValue for the next onDrag
         oldPositionValue = model.topBookPositionProperty.get().copy();
-
-        BookMovementDescriber.getDescriber().drag();
       },
-      end: () => {
+      end: ( event ) => {
         TemperatureIncreasingDescriber.getDescriber().dragEnded();
-        BookMovementDescriber.getDescriber().endDrag();
+        BookMovementDescriber.getDescriber().endDrag( event );
 
       },
       dragBounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS

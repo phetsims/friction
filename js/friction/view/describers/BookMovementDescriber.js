@@ -47,6 +47,8 @@ define( require => {
 
           // don't alert the bottom border alert because the model isn't set up to have that work based on the bounds
           bottomAlert: null,
+
+          // override the default with an alert that will give two "verbose alerts" before repeating the basic default "at top"
           topAlert: new Utterance( {
             alert: [ AT_TOP_MOVE_DOWN_STRING, AT_TOP_MOVE_DOWN_STRING, DEFAULT_AT_TOP_ALERT ]
           } ),
