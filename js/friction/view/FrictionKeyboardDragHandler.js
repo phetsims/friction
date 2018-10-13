@@ -31,12 +31,12 @@ define( function( require ) {
       downDelta: 10,
       shiftDownDelta: 5,
       locationProperty: model.topBookPositionProperty,
-      start: () => {
+      start: ( event ) => {
         oldPositionValue = model.topBookPositionProperty.get().copy();
 
         TemperatureIncreasingDescriber.getDescriber().dragStarted();
         TemperatureDecreasingDescriber.getDescriber().dragStarted();
-        BookMovementDescriber.getDescriber().startDrag();
+        BookMovementDescriber.getDescriber().startDrag( event );
 
       },
       drag: () => {
