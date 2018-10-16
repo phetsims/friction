@@ -170,5 +170,9 @@ define( function( require ) {
     reset() {
       this.resetFrictionScreenView();
     }
+  }, {
+
+    // @public - exported for other view code
+    THERMOMETER_MAX_TEMP: THERMOMETER_MAX_TEMP
   } );
 } );

@@ -118,7 +118,7 @@ define( ( require ) => {
           if ( amplitude < EVAPORATION_LIMIT ) {
             this.alertIncrease();
           }
-          else {
+          else if ( amplitude > phet.friction.FrictionScreenView.THERMOMETER_MAX_TEMP ) {
             this.alertMaxTemp();
           }
         }
