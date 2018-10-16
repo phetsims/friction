@@ -20,6 +20,7 @@ define( function( require ) {
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const FrictionScreenSummaryNode = require( 'FRICTION/friction/view/FrictionScreenSummaryNode' );
+  const GrabButtonNode = require( 'SCENERY_PHET/accessibility/nodes/GrabButtonNode' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MagnifierNode = require( 'FRICTION/friction/view/magnifier/MagnifierNode' );
   const PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
@@ -82,7 +83,13 @@ define( function( require ) {
       drag: true,
       tandem: tandem.createTandem( 'chemistryBookNode' )
     } );
-    this.addChild( chemistryBookNode );
+
+    // a11y
+    var grabButton = new GrabButtonNode( chemistryBookNode, {
+      thingToGrab: 'Chemistry Book' // TODO: factor out string
+    } );
+
+    this.addChild( grabButton );
 
     // @private - add magnifier
     this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, tandem.createTandem( 'magnifierNode' ), {
@@ -118,7 +125,7 @@ define( function( require ) {
     this.addChild( playAreaNode );
 
     // a11y
-    playAreaNode.accessibleOrder = [ chemistryBookNode, this.magnifierNode ];
+    playAreaNode.accessibleOrder = [ grabButton, this.magnifierNode ];
 
     // add reset button
     let resetAllButton = new ResetAllButton( {
