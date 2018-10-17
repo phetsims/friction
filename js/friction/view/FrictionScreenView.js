@@ -38,6 +38,7 @@ define( function( require ) {
 
   // a11y strings
   let zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
+  let grabButtonHelpTextString = FrictionA11yStrings.grabButtonHelpText.value;
 
   // constants
   const THERMOMETER_FLUID_MAIN_COLOR = 'rgb(237,28,36)';
@@ -91,7 +92,9 @@ define( function( require ) {
 
     // a11y
     var grabButtonForBook = new GrabButtonNode( chemistryBookNode, {
-      thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } )
+      thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
+      descriptionContent: grabButtonHelpTextString,
+      appendDescription: true
     } );
 
     this.addChild( grabButtonForBook );

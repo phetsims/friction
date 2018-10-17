@@ -33,6 +33,9 @@ define( function( require ) {
     bookHelpText: {
       value: 'Use arrow keys, or letter keys W, A, S, or D to move book or zoomed-in book up, left, down, or right.'
     },
+    grabButtonHelpText:{
+      value: 'Look for grab buttons. Once grabbed, use letter keys W, A, S, or D to move book or zoomed-in book up, left, down, or right.'
+    },
     moveBookWith: {
       value: 'Move book up, left, down, and right with Arrow keys, or with letter keys W, A, S, or D'
     },
@@ -127,10 +130,10 @@ define( function( require ) {
     //--------------------------------------------------------------------------
 
     moveChemistryBookSentencePattern: {
-      value: 'Move Chemistry book to rub books together{{moveDownToRubHarder}}.'
+      value: 'Grab Chemistry book then rub books together fast or slow{{moveDownToRubHarder}}.'
     },
     moveDownToRubHarder: {
-      value: ', move down to rub harder'
+      value: ', and move down to rub harder'
     },
 
     moveDownToRubHarderSentence: {
