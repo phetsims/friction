@@ -22,9 +22,9 @@ define( function( require ) {
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
+  const FrictionGrabButton = require( 'FRICTION/friction/view/FrictionGrabButton' );
   const FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
-  const GrabButtonNode = require( 'SCENERY_PHET/accessibility/nodes/GrabButtonNode' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MagnifierTargetNode = require( 'FRICTION/friction/view/magnifier/MagnifierTargetNode' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -185,7 +185,7 @@ define( function( require ) {
     } );
 
     // a11y
-    var grabButtonForMagnifiedAtoms = new GrabButtonNode( dragArea, {
+    var grabButtonForMagnifiedAtoms = new FrictionGrabButton( model.contactProperty, dragArea, {
       thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: zoomedInString } )
     } );
 

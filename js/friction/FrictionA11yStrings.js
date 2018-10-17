@@ -33,7 +33,7 @@ define( function( require ) {
     bookHelpText: {
       value: 'Use arrow keys, or letter keys W, A, S, or D to move book or zoomed-in book up, left, down, or right.'
     },
-    grabButtonHelpText:{
+    grabButtonHelpText: {
       value: 'Look for grab buttons. Once grabbed, use letter keys W, A, S, or D to move book or zoomed-in book up, left, down, or right.'
     },
     moveBookWith: {
@@ -41,6 +41,18 @@ define( function( require ) {
     },
     moveInSmallerStepsWith: {
       value: 'Move in smaller steps with Shift plus Arrow keys, Shift plus  letter keys W, A, S, or D'
+    },
+
+    initialGrabbed: {
+      value: 'Grabbed. Chemistry book rests lightly on Physics book. Use W, A, S, or D keys to move book. Space to release.'
+    },
+
+    grabbedLighlyOnBook: {
+      value: 'Grabbed. Lightly on Physics book.'
+    },
+
+    grabbedOnBook: {
+      value: 'Grabbed. On Physics book.'
     },
 
 

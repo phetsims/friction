@@ -21,7 +21,7 @@ define( function( require ) {
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const FrictionScreenSummaryNode = require( 'FRICTION/friction/view/FrictionScreenSummaryNode' );
-  const GrabButtonNode = require( 'SCENERY_PHET/accessibility/nodes/GrabButtonNode' );
+  const FrictionGrabButton = require( 'FRICTION/friction/view/FrictionGrabButton' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MagnifierNode = require( 'FRICTION/friction/view/magnifier/MagnifierNode' );
   const PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
@@ -91,7 +91,7 @@ define( function( require ) {
     } );
 
     // a11y
-    var grabButtonForBook = new GrabButtonNode( chemistryBookNode, {
+    var grabButtonForBook = new FrictionGrabButton( model.contactProperty, chemistryBookNode, {
       thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
       descriptionContent: grabButtonHelpTextString,
       appendDescription: true
@@ -155,6 +155,9 @@ define( function( require ) {
 
     // @private
     this.resetFrictionScreenView = function() {
+
+      // if this is changed, make sure that the Utterance is reset for magnifier's grabButton too.
+      grabButtonForBook.reset();
 
       // a11y, reset PDOM and reset alerting types
       TemperatureDecreasingDescriber.getDescriber().reset();
