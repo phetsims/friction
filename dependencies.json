@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.5.0-grabButton.1 Tue Oct 16 2018 16:43:44 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# friction 1.5.0-grabButton.2 Tue Oct 16 2018 17:37:19 GMT-0800 (Alaskan Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "friction": {
-    "sha": "f41a50d84d745d7115cafb68545cb86d529b6be1",
+    "sha": "fb5c655f954cacfee9424b5e6f5cd447cf9ee4f6",
     "branch": "grabButton"
   },
   "joist": {
@@ -69,7 +69,7 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "c6f4b9b7b0acd80025eb1ee4babe99a1f1772ae0",
+    "sha": "c0e139f748bd94d54825821a776f9a96d522073b",
     "branch": "master"
   },
   "sherpa": {
@@ -77,7 +77,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "46ee1492b041ca1be7395d35a28e13ebfb4ed102",
+    "sha": "8e41410bb9fa1174bf17af2037b6d87e76277fc2",
     "branch": "master"
   },
   "tambo": {
