@@ -21,6 +21,12 @@ define( function( require ) {
     zoomedInBookTitlePattern: {
       value: 'Zoomed-in {{bookTitleString}}'
     },
+    zoomedIn: {
+      value: 'zoomed-in '
+    },
+    zoomedInChemistryBookPattern: {
+      value: '{{zoomedIn}}Chemistry book'
+    },
     moveInFourDirections: {
       value: 'move in four directions'
     },

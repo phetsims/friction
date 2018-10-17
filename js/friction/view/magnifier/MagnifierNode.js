@@ -38,6 +38,8 @@ define( function( require ) {
   let bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
   let zoomedInBookTitlePatternString = FrictionA11yStrings.zoomedInBookTitlePattern.value;
   let moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
+  let zoomedInString = FrictionA11yStrings.zoomedIn.value;
+  let zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
 
   // constants
   let ARROW_LENGTH = 70;
@@ -184,7 +186,7 @@ define( function( require ) {
 
     // a11y
     var grabButtonForMagnifiedAtoms = new GrabButtonNode( dragArea, {
-      thingToGrab: 'zoomed-in Chemistry book' // TODO: factor out string
+      thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: zoomedInString } )
     } );
 
     this.topBookBackground.addChild( grabButtonForMagnifiedAtoms );

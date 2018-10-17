@@ -11,12 +11,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  const BookMovementDescriber = require( 'FRICTION/friction/view/describers/BookMovementDescriber' );
   const BookNode = require( 'FRICTION/friction/view/book/BookNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
-  const BookMovementDescriber = require( 'FRICTION/friction/view/describers/BookMovementDescriber' );
   const BreakAwayDescriber = require( 'FRICTION/friction/view/describers/BreakAwayDescriber' );
   const ControlAreaNode = require( 'SCENERY_PHET/accessibility/nodes/ControlAreaNode' );
   const friction = require( 'FRICTION/friction' );
+  const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const FrictionScreenSummaryNode = require( 'FRICTION/friction/view/FrictionScreenSummaryNode' );
@@ -26,6 +27,7 @@ define( function( require ) {
   const PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const TemperatureDecreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureDecreasingDescriber' );
   const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
   const ThermometerNode = require( 'SCENERY_PHET/ThermometerNode' );
@@ -33,6 +35,9 @@ define( function( require ) {
   // strings
   const chemistryString = require( 'string!FRICTION/chemistry' );
   const physicsString = require( 'string!FRICTION/physics' );
+
+  // a11y strings
+  let zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
 
   // constants
   const THERMOMETER_FLUID_MAIN_COLOR = 'rgb(237,28,36)';
@@ -86,7 +91,7 @@ define( function( require ) {
 
     // a11y
     var grabButtonForBook = new GrabButtonNode( chemistryBookNode, {
-      thingToGrab: 'Chemistry Book' // TODO: factor out string
+      thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } )
     } );
 
     this.addChild( grabButtonForBook );
