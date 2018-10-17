@@ -16,14 +16,15 @@ define( function( require ) {
   const AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const Circle = require( 'SCENERY/nodes/Circle' );
-  const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
   const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
   const FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
+  const GrabButtonNode = require( 'SCENERY_PHET/accessibility/nodes/GrabButtonNode' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MagnifierTargetNode = require( 'FRICTION/friction/view/magnifier/MagnifierTargetNode' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -157,7 +158,6 @@ define( function( require ) {
     dragArea.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
 
     dragArea.addInputListener( new FrictionDragHandler( model, tandem.createTandem( 'dragAreaDragHandler' ) ) );
-    this.topBookBackground.addChild( dragArea );
 
     // a11y - The focusHighlight of the top atoms. It also includes the place for the arrows so that it extends up into
     // the book "background." Dilated to get around the arrows fully. See `atomRowsToEvaporateProperty.link()` below
@@ -181,6 +181,13 @@ define( function( require ) {
         }
       }
     } );
+
+    // a11y
+    var grabButtonForMagnifiedAtoms = new GrabButtonNode( dragArea, {
+      thingToGrab: 'zoomed-in Chemistry book' // TODO: factor out string
+    } );
+
+    this.topBookBackground.addChild( grabButtonForMagnifiedAtoms );
 
     addRowCircles(
       FrictionModel.MAGNIFIED_ATOMS_INFO.radius,

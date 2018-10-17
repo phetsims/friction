@@ -85,11 +85,11 @@ define( function( require ) {
     } );
 
     // a11y
-    var grabButton = new GrabButtonNode( chemistryBookNode, {
+    var grabButtonForBook = new GrabButtonNode( chemistryBookNode, {
       thingToGrab: 'Chemistry Book' // TODO: factor out string
     } );
 
-    this.addChild( grabButton );
+    this.addChild( grabButtonForBook );
 
     // @private - add magnifier
     this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, tandem.createTandem( 'magnifierNode' ), {
@@ -125,7 +125,7 @@ define( function( require ) {
     this.addChild( playAreaNode );
 
     // a11y
-    playAreaNode.accessibleOrder = [ grabButton, this.magnifierNode ];
+    playAreaNode.accessibleOrder = [ grabButtonForBook, this.magnifierNode ];
 
     // add reset button
     let resetAllButton = new ResetAllButton( {
