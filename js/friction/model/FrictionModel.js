@@ -25,7 +25,7 @@ define( function( require ) {
   const Vector2IO = require( 'DOT/Vector2IO' );
 
   // ifphetio
-  const BooleanIO = require( 'ifphetio!PHET_IO/types/BooleanIO' );
+  const BooleanIO = require( 'TANDEM/types/BooleanIO' );
 
   // constants
   const ATOM_RADIUS = FrictionConstants.ATOM_RADIUS; // radius of single atom
