@@ -11,6 +11,12 @@
   "moveBookHeader": {
     "value": "Move Book or Zoomed-in Book"
   },
+  "bookTitle": {
+    "value": "Book or Zoomed-in Book"
+  },
+  "bookLabel": {
+    "value": "book or zoomed-in Book"
+  },
   "moveBook": {
     "value": "Move book"
   },

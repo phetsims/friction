@@ -18,9 +18,12 @@ define( function( require ) {
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const RichText = require( 'SCENERY/nodes/RichText' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
   const moveBookHeaderString = require( 'string!FRICTION/moveBookHeader' );
+  const bookTitleString = require( 'string!FRICTION/bookTitle' );
+  const bookLabelString = require( 'string!FRICTION/bookLabel' );
   const moveBookString = require( 'string!FRICTION/moveBook' );
   const moveInSmallerStepsString = require( 'string!FRICTION/moveInSmallerSteps' );
 
@@ -39,11 +42,16 @@ define( function( require ) {
    */
   function FrictionKeyboardHelpContentPanel() {
 
+    let grabReleaseHelpContent = HelpContent.getGrabReleaseHelpContent( bookTitleString, bookLabelString );
     let moveBookHelpContent = new MoveBookHelpNode();
     let generalNavigationHelpContent = new GeneralNavigationHelpContent();
 
     let content = new HBox( {
-      children: [ moveBookHelpContent, generalNavigationHelpContent ],
+      children: [
+        // TODO: manage spacing
+        new VBox( { children: [ grabReleaseHelpContent, moveBookHelpContent ], spacing: 10 } ),
+        generalNavigationHelpContent
+      ],
       align: 'top',
       spacing: 30
     } );
