@@ -52,7 +52,7 @@ define( function( require ) {
     },
 
     grabbedOnBook: {
-      value: 'Grabbed. On Physics book.'
+      value: 'Grabbed. Rub fast or slow.'
     },
 
 
