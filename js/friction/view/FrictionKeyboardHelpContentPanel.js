@@ -48,8 +48,7 @@ define( function( require ) {
 
     let content = new HBox( {
       children: [
-        // TODO: manage spacing
-        new VBox( { children: [ grabReleaseHelpContent, moveBookHelpContent ], spacing: 10 } ),
+        new VBox( { children: [ grabReleaseHelpContent, moveBookHelpContent ], spacing: 10, align: 'left' } ),
         generalNavigationHelpContent
       ],
       align: 'top',
