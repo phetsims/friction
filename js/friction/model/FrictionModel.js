@@ -12,6 +12,7 @@ define( function( require ) {
 
   // modules
   const Atom = require( 'FRICTION/friction/model/Atom' );
+  const BooleanIO = require( 'TANDEM/types/BooleanIO' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const Emitter = require( 'AXON/Emitter' );
@@ -23,9 +24,6 @@ define( function( require ) {
   const PropertyIO = require( 'AXON/PropertyIO' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2IO = require( 'DOT/Vector2IO' );
-
-  // ifphetio
-  const BooleanIO = require( 'TANDEM/types/BooleanIO' );
 
   // constants
   const ATOM_RADIUS = FrictionConstants.ATOM_RADIUS; // radius of single atom
