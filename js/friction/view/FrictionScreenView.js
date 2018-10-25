@@ -11,9 +11,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  const BookMovementDescriber = require( 'FRICTION/friction/view/describers/BookMovementDescriber' );
   const BookNode = require( 'FRICTION/friction/view/book/BookNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
-  const BookMovementDescriber = require( 'FRICTION/friction/view/describers/BookMovementDescriber' );
   const BreakAwayDescriber = require( 'FRICTION/friction/view/describers/BreakAwayDescriber' );
   const ControlAreaNode = require( 'SCENERY_PHET/accessibility/nodes/ControlAreaNode' );
   const friction = require( 'FRICTION/friction' );

@@ -10,8 +10,8 @@ define( require => {
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
-  const FrictionQueryParameters = require( 'FRICTION/friction/FrictionQueryParameters' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
+  const FrictionQueryParameters = require( 'FRICTION/friction/FrictionQueryParameters' );
 
   // a11y strings
   const jigglingLessString = FrictionA11yStrings.jigglingLess.value;

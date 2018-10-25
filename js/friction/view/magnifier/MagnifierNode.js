@@ -16,12 +16,12 @@ define( function( require ) {
   const AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const Circle = require( 'SCENERY/nodes/Circle' );
-  const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
   const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
   const FrictionKeyboardDragListener = require( 'FRICTION/friction/view/FrictionKeyboardDragListener' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const inherit = require( 'PHET_CORE/inherit' );
