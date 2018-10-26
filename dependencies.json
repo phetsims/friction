@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.5.0-dev.20 Thu Oct 25 2018 17:36:34 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# friction 1.5.0-dev.21 Thu Oct 25 2018 17:52:49 GMT-0800 (Alaskan Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "friction": {
-    "sha": "3e16b98b773ab34db13002aca9af56e7a317196c",
+    "sha": "b6a399cf025a5a4fa9618de8b1377850acc18bdf",
     "branch": "master"
   },
   "joist": {
@@ -69,7 +69,7 @@
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "678a85829bd96cf9076ca3723b3a257c3d0bfaef",
+    "sha": "21275c93f4d9e1c88a4666a27bacaf9bfbf6be9a",
     "branch": "master"
   },
   "sherpa": {
