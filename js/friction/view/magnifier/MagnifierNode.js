@@ -22,6 +22,7 @@ define( function( require ) {
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
+  const FrictionGrabButton = require( 'FRICTION/friction/view/FrictionGrabButton' );
   const FrictionKeyboardDragListener = require( 'FRICTION/friction/view/FrictionKeyboardDragListener' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const inherit = require( 'PHET_CORE/inherit' );
