@@ -12,9 +12,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  const friction = require( 'FRICTION/friction' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const friction = require( 'FRICTION/friction' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Shape = require( 'KITE/Shape' );

@@ -12,6 +12,7 @@ define( function( require ) {
 
   // modules
   const Atom = require( 'FRICTION/friction/model/Atom' );
+  const BooleanIO = require( 'TANDEM/types/BooleanIO' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const Emitter = require( 'AXON/Emitter' );
@@ -21,11 +22,9 @@ define( function( require ) {
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Property = require( 'AXON/Property' );
   const PropertyIO = require( 'AXON/PropertyIO' );
+  const Range = require( 'DOT/Range' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2IO = require( 'DOT/Vector2IO' );
-
-  // ifphetio
-  const BooleanIO = require( 'TANDEM/types/BooleanIO' );
 
   // constants
   const ATOM_RADIUS = FrictionConstants.ATOM_RADIUS; // radius of single atom
@@ -147,10 +146,7 @@ define( function( require ) {
     distanceX: FrictionConstants.INITIAL_ATOM_SPACING_X,
     distanceY: FrictionConstants.INITIAL_ATOM_SPACING_Y,
     distance: INITIAL_ATOM_SPACING_Y,
-    vibrationAmplitude: {
-      min: VIBRATION_AMPLITUDE_MIN,
-      max: VIBRATION_AMPLITUDE_MAX
-    },
+    vibrationAmplitude: new Range( VIBRATION_AMPLITUDE_MIN, VIBRATION_AMPLITUDE_MAX ),
     evaporationLimit: AMPLITUDE_EVAPORATE,
     top: {
       color: TOP_BOOK_ATOMS_COLOR,

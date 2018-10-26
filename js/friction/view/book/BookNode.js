@@ -13,13 +13,13 @@ define( function( require ) {
 
   // modules
   const CoverNode = require( 'FRICTION/friction/view/book/CoverNode' );
-  const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
   const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
-  const FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
+  const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
+  const FrictionKeyboardDragListener = require( 'FRICTION/friction/view/FrictionKeyboardDragListener' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Shape = require( 'KITE/Shape' );
@@ -84,7 +84,7 @@ define( function( require ) {
       this.addInputListener( new FrictionDragHandler( model, options.tandem.createTandem( 'dragHandler' ) ) );
 
       // a11y - add a keyboard drag handler
-      this.keyboardDragHandler = new FrictionKeyboardDragHandler( model );
+      this.keyboardDragHandler = new FrictionKeyboardDragListener( model );
       this.addAccessibleInputListener( this.keyboardDragHandler );
 
       // alert the temperature state on focus

@@ -23,7 +23,7 @@ define( function( require ) {
    * @param {FrictionModel} model
    * @constructor
    */
-  function FrictionKeyboardDragHandler( model ) {
+  function FrictionKeyboardDragListener( model ) {
 
     let oldPositionValue; // determines our delta for how the positionProperty changed every drag
 
@@ -53,7 +53,7 @@ define( function( require ) {
     } );
   }
 
-  friction.register( 'FrictionKeyboardDragHandler', FrictionKeyboardDragHandler );
+  friction.register( 'FrictionKeyboardDragListener', FrictionKeyboardDragListener );
 
-  return inherit( KeyboardDragListener, FrictionKeyboardDragHandler );
+  return inherit( KeyboardDragListener, FrictionKeyboardDragListener );
 } );

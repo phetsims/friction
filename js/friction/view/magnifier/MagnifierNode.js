@@ -22,8 +22,7 @@ define( function( require ) {
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
-  const FrictionGrabButton = require( 'FRICTION/friction/view/FrictionGrabButton' );
-  const FrictionKeyboardDragHandler = require( 'FRICTION/friction/view/FrictionKeyboardDragHandler' );
+  const FrictionKeyboardDragListener = require( 'FRICTION/friction/view/FrictionKeyboardDragListener' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MagnifierTargetNode = require( 'FRICTION/friction/view/magnifier/MagnifierTargetNode' );
@@ -172,7 +171,7 @@ define( function( require ) {
     dragArea.setFocusHighlight( focusHighlightPath );
 
     // a11y - add the keyboard drag listener to the top atoms
-    this.keyboardDragHandler = new FrictionKeyboardDragHandler( model );
+    this.keyboardDragHandler = new FrictionKeyboardDragListener( model );
     dragArea.addAccessibleInputListener( this.keyboardDragHandler );
 
     // alert the temperature state on focus

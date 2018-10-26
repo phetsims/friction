@@ -168,7 +168,7 @@ define( ( require ) => {
     /**
      * General alert for this type, manages the timing and threshold values to make sure that alerts
      * happen at the right moments.
-     * @param {function} alertFunction
+     * @param {function} alertFunction - when called, this function should alert.
      * @private
      */
     alert( alertFunction ) {

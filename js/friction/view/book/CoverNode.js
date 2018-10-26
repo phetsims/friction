@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  const friction = require( 'FRICTION/friction' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -19,7 +20,6 @@ define( function( require ) {
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Shape = require( 'KITE/Shape' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const friction = require( 'FRICTION/friction' );
 
   // constants
   let FONT = new PhetFont( 22 );
