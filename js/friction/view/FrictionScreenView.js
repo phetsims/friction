@@ -94,7 +94,8 @@ define( function( require ) {
     var grabButtonForBook = new FrictionGrabButton( model.contactProperty, chemistryBookNode, {
       thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
       descriptionContent: grabButtonHelpTextString,
-      appendDescription: true
+      appendDescription: true,
+      tandem: tandem.createTandem( 'chemistryBookNodeGrabButton' )
     } );
 
     this.addChild( grabButtonForBook );

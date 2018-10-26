@@ -186,7 +186,8 @@ define( function( require ) {
 
     // a11y
     var grabButtonForMagnifiedAtoms = new FrictionGrabButton( model.contactProperty, dragArea, {
-      thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: zoomedInString } )
+      thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: zoomedInString } ),
+      tandem: tandem.createTandem( 'magnifierNodeGrabButton' )
     } );
 
     this.topBookBackground.addChild( grabButtonForMagnifiedAtoms );
