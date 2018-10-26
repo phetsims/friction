@@ -37,10 +37,10 @@ define( function( require ) {
       value: 'Look for grab buttons. Once grabbed, use letter keys W, A, S, or D to move book or zoomed-in book up, left, down, or right.'
     },
     moveBookWith: {
-      value: 'Move book up, left, down, and right with Arrow keys, or with letter keys W, A, S, or D'
+      value: 'Move grabbed book up, left, down, or right with Arrow keys, or with letter keys W, A, S, or D'
     },
     moveInSmallerStepsWith: {
-      value: 'Move in smaller steps with Shift plus Arrow keys, Shift plus  letter keys W, A, S, or D'
+      value: 'Move slower with Shift plus Arrow keys, or Shift plus letter keys W, A, S, or D'
     },
 
     initialGrabbed: {
