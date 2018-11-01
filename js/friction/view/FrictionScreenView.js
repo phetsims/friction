@@ -19,9 +19,9 @@ define( function( require ) {
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
+  const FrictionGrabButton = require( 'FRICTION/friction/view/FrictionGrabButton' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const FrictionScreenSummaryNode = require( 'FRICTION/friction/view/FrictionScreenSummaryNode' );
-  const FrictionGrabButton = require( 'FRICTION/friction/view/FrictionGrabButton' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MagnifierNode = require( 'FRICTION/friction/view/magnifier/MagnifierNode' );
   const PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );

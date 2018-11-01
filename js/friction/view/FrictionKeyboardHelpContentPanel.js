@@ -21,9 +21,9 @@ define( function( require ) {
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  const moveBookHeaderString = require( 'string!FRICTION/moveBookHeader' );
-  const bookTitleString = require( 'string!FRICTION/bookTitle' );
   const bookLabelString = require( 'string!FRICTION/bookLabel' );
+  const bookTitleString = require( 'string!FRICTION/bookTitle' );
+  const moveBookHeaderString = require( 'string!FRICTION/moveBookHeader' );
   const moveBookString = require( 'string!FRICTION/moveBook' );
   const moveInSmallerStepsString = require( 'string!FRICTION/moveInSmallerSteps' );
 
