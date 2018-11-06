@@ -281,7 +281,7 @@ define( function( require ) {
     // @private
     this.resetMagnifierNode = function() {
       grabButtonForMagnifiedAtoms.reset();
-    }
+    };
   }
 
   friction.register( 'MagnifierNode', MagnifierNode );
