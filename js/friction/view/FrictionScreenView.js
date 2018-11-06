@@ -160,7 +160,8 @@ define( function( require ) {
     // @private
     this.resetFrictionScreenView = function() {
 
-      // if this is changed, make sure that the Utterance is reset for magnifier's grabButton too.
+      // a11y - among other things, this will reset the grab button cueing.
+      this.magnifierNode.reset();
       grabButtonForBook.reset();
 
       // a11y, reset PDOM and reset alerting types

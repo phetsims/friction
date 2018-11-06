@@ -277,6 +277,11 @@ define( function( require ) {
       // Update the size of the focus highlight accordingly
       focusHighlightPath.setShape( Shape.bounds( arrowAndTopAtomsForFocusHighlight.bounds ) );
     } );
+
+    // @private
+    this.resetMagnifierNode = function() {
+      grabButtonForMagnifiedAtoms.reset();
+    }
   }
 
   friction.register( 'MagnifierNode', MagnifierNode );
@@ -301,6 +306,13 @@ define( function( require ) {
      */
     step: function() {
       this.atomCanvasNode.invalidatePaint(); // tell the atom canvas to redraw itself on every step
+    },
+
+    /**
+     * @public
+     */
+    reset: function() {
+      this.resetMagnifierNode();
     }
 
   } );

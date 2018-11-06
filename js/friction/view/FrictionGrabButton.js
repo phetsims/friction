@@ -49,8 +49,10 @@ define( function( require ) {
     /**
      * Reset the utterance singleton
      * @public
+     * @override
      */
     reset() {
+      super.reset();
       BOOK_GRABBED_UTTERANCE.reset();
     }
   }
