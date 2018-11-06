@@ -164,7 +164,7 @@ define( function( require ) {
     // a11y - The focusHighlight of the top atoms. It also includes the place for the arrows so that it extends up into
     // the book "background." Dilated to get around the arrows fully. See `atomRowsToEvaporateProperty.link()` below
     let arrowAndTopAtomsForFocusHighlight = new Node();
-    arrowAndTopAtomsForFocusHighlight.children = [ dragArea, Rectangle.bounds( arrowIcon.bounds.dilated( 3 ) ) ];
+    arrowAndTopAtomsForFocusHighlight.children = [ dragArea ]; // TODO: this is overly complicated, fix this
 
     // a11y - custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
     let focusHighlightShape = Shape.bounds( dragArea.bounds );
@@ -187,7 +187,10 @@ define( function( require ) {
     // a11y
     var grabButtonForMagnifiedAtoms = new FrictionGrabButton( model.contactProperty, dragArea, {
       thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: zoomedInString } ),
-      tandem: tandem.createTandem( 'magnifierNodeGrabButton' )
+      tandem: tandem.createTandem( 'magnifierNodeGrabButton' ),
+      grabCueOptions: {
+        center: dragArea.center.minusXY( 0, 73 )
+      }
     } );
 
     this.topBookBackground.addChild( grabButtonForMagnifiedAtoms );
@@ -212,7 +215,7 @@ define( function( require ) {
     // Add the red border around the magnified area, and add a white shape below it to block out the clipped area.
     let topPadding = 500;
     let sidePadding = 800;
-    let bottomPadding = 60;
+    let bottomPadding = 10; // don't go too far below the magnifier
     let rightX = WIDTH + sidePadding;
     let leftX = -sidePadding;
     let topY = -topPadding;
@@ -253,9 +256,6 @@ define( function( require ) {
       new Vector2( WIDTH - ROUND, HEIGHT ),
     );
     this.addChild( magnifierTargetNode );
-
-    // add the arrow at the end
-    this.container.addChild( arrowIcon );
 
     // @private - Add the canvas where the atoms will be rendered. For better performance, particularly on iPad, we are
     // using CanvasNode to render the atoms instead of individual nodes.

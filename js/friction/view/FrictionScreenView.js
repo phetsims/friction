@@ -95,7 +95,10 @@ define( function( require ) {
       thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
       descriptionContent: grabButtonHelpTextString,
       appendDescription: true,
-      tandem: tandem.createTandem( 'chemistryBookNodeGrabButton' )
+      tandem: tandem.createTandem( 'chemistryBookNodeGrabButton' ),
+      grabCueOptions: {
+        center: chemistryBookNode.center.minusXY( 0, 50 )
+      }
     } );
 
     this.addChild( grabButtonForBook );
