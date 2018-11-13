@@ -46,7 +46,8 @@ define( function( require ) {
     // @public {Property.<Vector2>} - the position of the atom
     this.positionProperty = new Property( initialPosition, {
       phetioType: PropertyIO( Vector2IO ),
-      tandem: tandem.createTandem( 'positionProperty' )
+      tandem: tandem.createTandem( 'positionProperty' ),
+      phetioHighFrequency: true
     } );
 
     // @private {Vector2} - the center position, around which oscillations occur
