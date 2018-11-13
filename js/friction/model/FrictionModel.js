@@ -187,13 +187,15 @@ define( function( require ) {
 
     // @public (read-only) {NumberProperty} - atoms temperature = amplitude of oscillation
     this.amplitudeProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min, {
-      tandem: tandem.createTandem( 'amplitudeProperty' )
+      tandem: tandem.createTandem( 'amplitudeProperty' ),
+      phetioHighFrequency: true
     } );
 
     // @public (read-only) {Property.<Vector2>} - position of top book, can by dragged the user
     this.topBookPositionProperty = new Property( new Vector2( 0, 0 ), {
       phetioType: PropertyIO( Vector2IO ),
-      tandem: tandem.createTandem( 'topBookPositionProperty' )
+      tandem: tandem.createTandem( 'topBookPositionProperty' ),
+      phetioHighFrequency: true
     } );
 
     // @public {NumberProperty} - distance between books
