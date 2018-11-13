@@ -16,6 +16,7 @@ define( function( require ) {
   const Bounds2 = require( 'DOT/Bounds2' );
   const BreakAwayDescriber = require( 'FRICTION/friction/view/describers/BreakAwayDescriber' );
   const ControlAreaNode = require( 'SCENERY_PHET/accessibility/nodes/ControlAreaNode' );
+  const CueArrow = require( 'FRICTION/friction/view/CueArrow' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
@@ -24,6 +25,7 @@ define( function( require ) {
   const FrictionScreenSummaryNode = require( 'FRICTION/friction/view/FrictionScreenSummaryNode' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MagnifierNode = require( 'FRICTION/friction/view/magnifier/MagnifierNode' );
+  const Node = require( 'SCENERY/nodes/Node' );
   const PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
@@ -90,12 +92,29 @@ define( function( require ) {
       tandem: tandem.createTandem( 'chemistryBookNode' )
     } );
 
+
+    // cueing arrows for the book
+    const bookCueArrow1 = new CueArrow( { rotation: Math.PI } );
+    const bookCueArrow2 = new CueArrow( { x: chemistryBookNode.width } );
+    const bookCueArrow3 = new CueArrow( {
+      rotation: Math.PI / 2,
+      x: chemistryBookNode.width / 2,
+      y: chemistryBookNode.height / 2 + 5 // empirical
+    } );
+    const arrows = new Node( {
+      visible: false, children: [ bookCueArrow1, bookCueArrow2, bookCueArrow3 ],
+      x: 65, y: 209 // TODO, for JO, I'm adding these to chemistry Book, why do I need to repeat them here?
+    } );
+
+    chemistryBookNode.addChild( arrows );
+
     // a11y
     var grabButtonForBook = new FrictionGrabButton( model.contactProperty, chemistryBookNode, {
       thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
       descriptionContent: grabButtonHelpTextString,
       appendDescription: true,
       tandem: tandem.createTandem( 'chemistryBookNodeGrabButton' ),
+      supplementaryCueNode: arrows,
       grabCueOptions: {
         center: chemistryBookNode.center.minusXY( 0, 50 )
       }
