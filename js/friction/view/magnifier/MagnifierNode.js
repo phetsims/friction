@@ -161,14 +161,8 @@ define( function( require ) {
 
     dragArea.addInputListener( new FrictionDragHandler( model, tandem.createTandem( 'dragAreaDragHandler' ) ) );
 
-    // a11y - The focusHighlight of the top atoms. It also includes the place for the arrows so that it extends up into
-    // the book "background." Dilated to get around the arrows fully. See `atomRowsToEvaporateProperty.link()` below
-    let arrowAndTopAtomsForFocusHighlight = new Node();
-    arrowAndTopAtomsForFocusHighlight.children = [ dragArea ]; // TODO: this is overly complicated, fix this
-
     // a11y - custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
-    let focusHighlightShape = Shape.bounds( dragArea.bounds );
-    let focusHighlightPath = new FocusHighlightPath( focusHighlightShape );
+    let focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
     dragArea.setFocusHighlight( focusHighlightPath );
 
     // a11y - add the keyboard drag listener to the top atoms
@@ -275,7 +269,7 @@ define( function( require ) {
       dragArea.setRectHeight( ( number + 2 ) * FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY );
 
       // Update the size of the focus highlight accordingly
-      focusHighlightPath.setShape( Shape.bounds( arrowAndTopAtomsForFocusHighlight.bounds ) );
+      focusHighlightPath.setShape( getFocusHighlightShape( dragArea ) );
     } );
 
     // @private
@@ -296,6 +290,15 @@ define( function( require ) {
         x: options.x + xSpacing * i
       } ) );
     }
+  }
+
+  /**
+   *
+   * @param {Node} dragArea
+   * @returns {Shape}
+   */
+  function getFocusHighlightShape( dragArea ) {
+    return Shape.bounds( dragArea.bounds.withOffsets( 0, 40, 0, 0 ) );
   }
 
   return inherit( Node, MagnifierNode, {
