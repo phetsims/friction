@@ -16,14 +16,12 @@ define( function( require ) {
   const Bounds2 = require( 'DOT/Bounds2' );
   const BreakAwayDescriber = require( 'FRICTION/friction/view/describers/BreakAwayDescriber' );
   const ControlAreaNode = require( 'SCENERY_PHET/accessibility/nodes/ControlAreaNode' );
-  const CueArrow = require( 'FRICTION/friction/view/CueArrow' );
   const friction = require( 'FRICTION/friction' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const FrictionScreenSummaryNode = require( 'FRICTION/friction/view/FrictionScreenSummaryNode' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MagnifierNode = require( 'FRICTION/friction/view/magnifier/MagnifierNode' );
-  const Node = require( 'SCENERY/nodes/Node' );
   const PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
@@ -86,21 +84,6 @@ define( function( require ) {
       tandem: tandem.createTandem( 'chemistryBookNode' )
     } );
 
-
-    // cueing arrows for the book
-    const bookCueArrow1 = new CueArrow( { rotation: Math.PI } );
-    const bookCueArrow2 = new CueArrow( { x: chemistryBookNode.width } );
-    const bookCueArrow3 = new CueArrow( {
-      rotation: Math.PI / 2,
-      x: chemistryBookNode.width / 2,
-      y: chemistryBookNode.height / 2 + 5 // empirical
-    } );
-    const arrows = new Node( {
-      visible: false, children: [ bookCueArrow1, bookCueArrow2, bookCueArrow3 ]
-    } );
-
-    chemistryBookNode.addChild( arrows );
-
     this.addChild( chemistryBookNode );
 
     // @private - add magnifier
@@ -162,9 +145,7 @@ define( function( require ) {
 
       // a11y - among other things, this will reset the grab button cueing.
       this.magnifierNode.reset();
-
-      // TODO: reset this soon
-      // grabButtonForBook.reset();
+      chemistryBookNode.reset();
 
       // a11y, reset PDOM and reset alerting types
       TemperatureDecreasingDescriber.getDescriber().reset();
