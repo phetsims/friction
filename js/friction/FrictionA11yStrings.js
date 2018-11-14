@@ -43,15 +43,19 @@ define( function( require ) {
       value: 'Move slower with Shift plus Arrow keys, or Shift plus letter keys W, A, S, or D'
     },
 
-    initialGrabbed: {
-      value: 'Grabbed. Chemistry book rests lightly on Physics book. Use W, A, S, or D keys to move book. Space to release.'
+    initialGrabbedNotTouching: {
+      value: 'Grabbed. Lightly on Physics book. Use W, A, S, or D keys to move book. Space to release.'
     },
 
-    grabbedLighlyOnBook: {
-      value: 'Grabbed. Lightly on Physics book.'
+    grabbedNotTouching: {
+      value: 'Grabbed. Lightly on Physics book. Move down to rub harder.'
     },
 
-    grabbedOnBook: {
+    initialGrabbedTouching: {
+      value: 'Grabbed. Rub fast or slow with A or D keys. Space to release.'
+    },
+
+    grabbedTouching: {
       value: 'Grabbed. Rub fast or slow.'
     },
 

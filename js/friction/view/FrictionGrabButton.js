@@ -14,15 +14,16 @@ define( function( require ) {
   const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
-  const initialGrabbedString = FrictionA11yStrings.initialGrabbed.value;
-  const grabbedLighlyOnBookString = FrictionA11yStrings.grabbedLighlyOnBook.value;
-  const grabbedOnBookString = FrictionA11yStrings.grabbedOnBook.value;
+  const initialGrabbedNotTouchingString = FrictionA11yStrings.initialGrabbedNotTouching.value;
+  const grabbedNotTouchingString = FrictionA11yStrings.grabbedNotTouching.value;
+  const initialGrabbedTouchingString = FrictionA11yStrings.initialGrabbedTouching.value;
+  const grabbedTouchingString = FrictionA11yStrings.grabbedTouching.value;
 
   // this is a constant because we all grabButtons to use the same set of alerts. We don't want to hear the initial alert
   // once for each book view.
-  const BOOK_GRABBED_UTTERANCE = new Utterance( {
-    alert: [ initialGrabbedString, grabbedLighlyOnBookString ]
-  } );
+
+  const touchingAlerts = [ initialGrabbedTouchingString, grabbedTouchingString ];
+  const notTouchingAlerts = [ initialGrabbedNotTouchingString, grabbedNotTouchingString ];
 
   /**
    * @param {BooleanProperty} contactProperty
@@ -33,17 +34,29 @@ define( function( require ) {
   class FrictionGrabButton extends GrabButtonNode {
 
     constructor( contactProperty, wrappedNode, options ) {
+
+      const bookUtterance = new Utterance( {
+        alert: notTouchingAlerts
+      } );
       super( wrappedNode, _.extend( {
 
         onGrab: function() {
+
+          // update the proper alerts according to whether we are touching or not. This will work because the
+          // Utterance.numberOfTimesAlerted still won't change until reset
           if ( contactProperty.get() ) {
-            utteranceQueue.addToBack( grabbedOnBookString );
+            bookUtterance.alert = touchingAlerts;
           }
           else {
-            utteranceQueue.addToBack( BOOK_GRABBED_UTTERANCE );
+
+            bookUtterance.alert = notTouchingAlerts;
           }
+          utteranceQueue.addToBack( bookUtterance );
         }
       }, options ) );
+
+      // @private
+      this.bookUtterance = bookUtterance;
     }
 
     /**
@@ -53,7 +66,7 @@ define( function( require ) {
      */
     reset() {
       super.reset();
-      BOOK_GRABBED_UTTERANCE.reset();
+      this.bookUtterance.reset();
     }
   }
 
