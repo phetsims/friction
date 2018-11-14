@@ -13,7 +13,7 @@ define( function( require ) {
 
   // modules
   const CoverNode = require( 'FRICTION/friction/view/book/CoverNode' );
-  const CueArrow = require( 'FRICTION/friction/view/CueArrow' );
+  // const CueArrow = require( 'FRICTION/friction/view/CueArrow' );
   const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
@@ -66,22 +66,23 @@ define( function( require ) {
       let focusHighlightLineWidth = focusHighlightRect.getOuterLineWidth( this );
       focusHighlightRect.setShape( Shape.bounds( this.localBounds.eroded( focusHighlightLineWidth / 2 ) ) );
 
-
       let bookTitle = StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } );
 
+      // // cueing arrows for the book
+      // const bookCueArrow1 = new CueArrow( { rotation: Math.PI } );
+      // const bookCueArrow2 = new CueArrow( { x: this.width } );
+      // const bookCueArrow3 = new CueArrow( {
+      //   rotation: Math.PI / 2,
+      //   x: this.width / 2,
+      //   y: this.height / 2 + 5 // empirical
+      // } );
+      // const arrows = new Node( {
+      //   children: [ bookCueArrow1, bookCueArrow2, bookCueArrow3 ]
+      //   // center: this.center
+      // } );
 
-      // cueing arrows for the book
-      const bookCueArrow1 = new CueArrow( { rotation: Math.PI } );
-      const bookCueArrow2 = new CueArrow( { x: this.width } );
-      const bookCueArrow3 = new CueArrow( {
-        rotation: Math.PI / 2,
-        x: this.width / 2,
-        y: this.height / 2 + 5 // empirical
-      } );
-      const arrows = new Node( {
-        visible: false,
-        children: [ bookCueArrow1, bookCueArrow2, bookCueArrow3 ]
-      } );
+      // TODO: this would be nice
+      // focusHighlightRect.addChild( arrows );
 
 
       // a11y
@@ -89,12 +90,7 @@ define( function( require ) {
         thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
         appendDescription: true,
         // tandem: tandem.createTandem( 'chemistryBookNodeGrabButton' ), // TODO: handle this
-        supplementaryCueNode: arrows,
 
-        grabCueOptions: {
-          center: this.center.minusXY( 0, 50 ),
-
-        },
         // add a11y options for the interactive BookNode
         a11yDraggableNodeOptions: {
           descriptionContent: grabButtonHelpTextString,
@@ -109,9 +105,9 @@ define( function( require ) {
           focusHighlightLayerable: true
         }
       } );
-      this.a11yGrabDragInteractionNode.addChild( focusHighlightRect );
 
       this.addChild( this.a11yGrabDragInteractionNode );
+      this.addChild( focusHighlightRect );
 
       this.a11yGrabDragInteractionNode.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
 

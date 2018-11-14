@@ -204,6 +204,7 @@ define( function( require ) {
     );
 
     // a11y - add the focus highlight on top of the row circles
+    // TODO: why not add it to the dragArea?
     this.topBookBackground.addChild( focusHighlightPath );
 
     this.container.addChild( this.topBookBackground );
