@@ -20,7 +20,7 @@ define( function( require ) {
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
-  const FrictionGrabButton = require( 'FRICTION/friction/view/FrictionGrabButton' );
+  const FrictionA11yGrabDragNode = require( 'FRICTION/friction/view/FrictionA11yGrabDragNode' );
   const FrictionKeyboardDragListener = require( 'FRICTION/friction/view/FrictionKeyboardDragListener' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -85,7 +85,7 @@ define( function( require ) {
 
 
       // a11y
-      this.a11yGrabDragInteractionNode = new FrictionGrabButton( model.contactProperty, this, {
+      this.a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model.contactProperty, this, {
         thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
         // tandem: tandem.createTandem( 'chemistryBookNodeGrabButton' ), // TODO: handle this
 

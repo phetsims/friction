@@ -1,7 +1,7 @@
 // Copyright 2018, University of Colorado Boulder
 
 /**
- * A wrapping type around GrabButtonNode that handles the alerts consistently for both book grab buttons.
+ * A wrapping type around A11yGrabDragNode that handles the alerts consistently for both book grab buttons.
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 define( function( require ) {
@@ -10,7 +10,7 @@ define( function( require ) {
   // modules
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
-  const GrabButtonNode = require( 'SCENERY_PHET/accessibility/nodes/GrabButtonNode' );
+  const A11yGrabDragNode = require( 'SCENERY_PHET/accessibility/nodes/A11yGrabDragNode' );
   const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
@@ -31,7 +31,7 @@ define( function( require ) {
    * @param {Object} options
    * @constructor
    */
-  class FrictionGrabButton extends GrabButtonNode {
+  class FrictionA11yGrabDragNode extends A11yGrabDragNode {
 
     constructor( contactProperty, wrappedNode, options ) {
 
@@ -70,5 +70,5 @@ define( function( require ) {
     }
   }
 
-  return friction.register( 'FrictionGrabButton', FrictionGrabButton );
+  return friction.register( 'FrictionA11yGrabDragNode', FrictionA11yGrabDragNode );
 } );

@@ -22,7 +22,7 @@ define( function( require ) {
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
-  const FrictionGrabButton = require( 'FRICTION/friction/view/FrictionGrabButton' );
+  const FrictionA11yGrabDragNode = require( 'FRICTION/friction/view/FrictionA11yGrabDragNode' );
   const FrictionKeyboardDragListener = require( 'FRICTION/friction/view/FrictionKeyboardDragListener' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const inherit = require( 'PHET_CORE/inherit' );
@@ -153,7 +153,7 @@ define( function( require ) {
     let focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
 
     // a11y
-    var grabButtonForMagnifiedAtoms = new FrictionGrabButton( model.contactProperty, dragArea, {
+    var a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model.contactProperty, dragArea, {
       thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: zoomedInString } ),
       tandem: tandem.createTandem( 'magnifierNodeGrabButton' ),
       grabCueOptions: {
@@ -174,10 +174,10 @@ define( function( require ) {
 
     // a11y - add the keyboard drag listener to the top atoms
     this.keyboardDragHandler = new FrictionKeyboardDragListener( model );
-    grabButtonForMagnifiedAtoms.addAccessibleInputListener( this.keyboardDragHandler );
+    a11yGrabDragInteractionNode.addAccessibleInputListener( this.keyboardDragHandler );
 
     // alert the temperature state on focus
-    grabButtonForMagnifiedAtoms.addAccessibleInputListener( {
+    a11yGrabDragInteractionNode.addAccessibleInputListener( {
       focus() {
         if ( model.amplitudeProperty.value === model.amplitudeProperty.initialValue ) {
           FrictionAlertManager.alertSettledAndCool();
@@ -185,9 +185,9 @@ define( function( require ) {
       }
     } );
 
-    grabButtonForMagnifiedAtoms.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
+    a11yGrabDragInteractionNode.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
 
-    dragArea.addChild( grabButtonForMagnifiedAtoms );
+    dragArea.addChild( a11yGrabDragInteractionNode );
 
     this.topBookBackground.addChild( dragArea );
 
@@ -277,7 +277,7 @@ define( function( require ) {
 
     // @private
     this.resetMagnifierNode = function() {
-      grabButtonForMagnifiedAtoms.reset();
+      a11yGrabDragInteractionNode.reset();
     };
   }
 
