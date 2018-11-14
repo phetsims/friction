@@ -30,7 +30,6 @@ define( function( require ) {
   // a11y strings
   let bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
   let moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
-  let bookHelpTextString = FrictionA11yStrings.bookHelpText.value;
   let zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
   let grabButtonHelpTextString = FrictionA11yStrings.grabButtonHelpText.value;
 
@@ -92,15 +91,13 @@ define( function( require ) {
 
         // add a11y options for the interactive BookNode
         a11yDraggableNodeOptions: {
-          helpText: bookHelpTextString,
-
           ariaLabel: bookTitle,
           innerContent: bookTitle,
           focusHighlightLayerable: true
         },
         grabButtonOptions: {
           appendDescription: true,
-          descriptionContent: grabButtonHelpTextString,
+          helpText: grabButtonHelpTextString,
           focusHighlight: focusHighlightRect,
           focusHighlightLayerable: true
         }

@@ -30,9 +30,6 @@ define( function( require ) {
     moveInFourDirections: {
       value: 'move in four directions'
     },
-    bookHelpText: {
-      value: 'Use arrow keys, or letter keys W, A, S, or D to move book or zoomed-in book up, left, down, or right.'
-    },
     grabButtonHelpText: {
       value: 'Look for grab buttons. Once grabbed, use letter keys W, A, S, or D to move book or zoomed-in book up, left, down, or right.'
     },
