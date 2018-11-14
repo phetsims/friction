@@ -144,39 +144,13 @@ define( function( require ) {
       FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY * 6, {
         fill: null,
         cursor: 'pointer',
-        tandem: tandem,
-
-        // a11y - add accessibility to the rectangle that surrounds the top atoms.
-        tagName: 'div',
-        ariaRole: 'application',
-        focusable: true,
-        focusHighlightLayerable: true,
-
-        // Add the Accessible Name based on the name of the name of the book title.
-        ariaLabel: zoomedInTitle,
-        innerContent: zoomedInTitle
+        tandem: tandem
       } );
-
-    dragArea.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
 
     dragArea.addInputListener( new FrictionDragHandler( model, tandem.createTandem( 'dragAreaDragHandler' ) ) );
 
     // a11y - custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
     let focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
-    dragArea.setFocusHighlight( focusHighlightPath );
-
-    // a11y - add the keyboard drag listener to the top atoms
-    this.keyboardDragHandler = new FrictionKeyboardDragListener( model );
-    dragArea.addAccessibleInputListener( this.keyboardDragHandler );
-
-    // alert the temperature state on focus
-    dragArea.addAccessibleInputListener( {
-      focus() {
-        if ( model.amplitudeProperty.value === model.amplitudeProperty.initialValue ) {
-          FrictionAlertManager.alertSettledAndCool();
-        }
-      }
-    } );
 
     // a11y
     var grabButtonForMagnifiedAtoms = new FrictionGrabButton( model.contactProperty, dragArea, {
@@ -184,10 +158,38 @@ define( function( require ) {
       tandem: tandem.createTandem( 'magnifierNodeGrabButton' ),
       grabCueOptions: {
         center: dragArea.center.minusXY( 0, 73 )
+      },
+      a11yDraggableNodeOptions: {
+        // a11y - add accessibility to the rectangle that surrounds the top atoms.
+        focusHighlightLayerable: true,
+
+        // Add the Accessible Name based on the name of the name of the book title.
+        ariaLabel: zoomedInTitle,
+        innerContent: zoomedInTitle
+      },
+      grabButtonOptions: {
+        focusHighlight: focusHighlightPath
       }
     } );
 
-    this.topBookBackground.addChild( grabButtonForMagnifiedAtoms );
+    // a11y - add the keyboard drag listener to the top atoms
+    this.keyboardDragHandler = new FrictionKeyboardDragListener( model );
+    grabButtonForMagnifiedAtoms.addAccessibleInputListener( this.keyboardDragHandler );
+
+    // alert the temperature state on focus
+    grabButtonForMagnifiedAtoms.addAccessibleInputListener( {
+      focus() {
+        if ( model.amplitudeProperty.value === model.amplitudeProperty.initialValue ) {
+          FrictionAlertManager.alertSettledAndCool();
+        }
+      }
+    } );
+
+    grabButtonForMagnifiedAtoms.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
+
+    dragArea.addChild( grabButtonForMagnifiedAtoms );
+
+    this.topBookBackground.addChild( dragArea );
 
     addRowCircles(
       FrictionModel.MAGNIFIED_ATOMS_INFO.radius,
