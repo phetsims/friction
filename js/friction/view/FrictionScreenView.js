@@ -18,9 +18,7 @@ define( function( require ) {
   const ControlAreaNode = require( 'SCENERY_PHET/accessibility/nodes/ControlAreaNode' );
   const CueArrow = require( 'FRICTION/friction/view/CueArrow' );
   const friction = require( 'FRICTION/friction' );
-  const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
-  const FrictionGrabButton = require( 'FRICTION/friction/view/FrictionGrabButton' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const FrictionScreenSummaryNode = require( 'FRICTION/friction/view/FrictionScreenSummaryNode' );
   const inherit = require( 'PHET_CORE/inherit' );
@@ -29,7 +27,6 @@ define( function( require ) {
   const PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
-  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const TemperatureDecreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureDecreasingDescriber' );
   const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
   const ThermometerNode = require( 'SCENERY_PHET/ThermometerNode' );
@@ -38,9 +35,6 @@ define( function( require ) {
   const chemistryString = require( 'string!FRICTION/chemistry' );
   const physicsString = require( 'string!FRICTION/physics' );
 
-  // a11y strings
-  let zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
-  let grabButtonHelpTextString = FrictionA11yStrings.grabButtonHelpText.value;
 
   // constants
   const THERMOMETER_FLUID_MAIN_COLOR = 'rgb(237,28,36)';
@@ -102,25 +96,12 @@ define( function( require ) {
       y: chemistryBookNode.height / 2 + 5 // empirical
     } );
     const arrows = new Node( {
-      visible: false, children: [ bookCueArrow1, bookCueArrow2, bookCueArrow3 ],
-      x: 65, y: 209 // TODO, for JO, I'm adding these to chemistry Book, why do I need to repeat them here?
+      visible: false, children: [ bookCueArrow1, bookCueArrow2, bookCueArrow3 ]
     } );
 
     chemistryBookNode.addChild( arrows );
 
-    // a11y
-    var grabButtonForBook = new FrictionGrabButton( model.contactProperty, chemistryBookNode, {
-      thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
-      descriptionContent: grabButtonHelpTextString,
-      appendDescription: true,
-      tandem: tandem.createTandem( 'chemistryBookNodeGrabButton' ),
-      supplementaryCueNode: arrows,
-      grabCueOptions: {
-        center: chemistryBookNode.center.minusXY( 0, 50 )
-      }
-    } );
-
-    this.addChild( grabButtonForBook );
+    this.addChild( chemistryBookNode );
 
     // @private - add magnifier
     this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, tandem.createTandem( 'magnifierNode' ), {
@@ -156,7 +137,7 @@ define( function( require ) {
     this.addChild( playAreaNode );
 
     // a11y
-    playAreaNode.accessibleOrder = [ grabButtonForBook, this.magnifierNode ];
+    playAreaNode.accessibleOrder = [ chemistryBookNode, this.magnifierNode ];
 
     // add reset button
     let resetAllButton = new ResetAllButton( {
@@ -181,7 +162,9 @@ define( function( require ) {
 
       // a11y - among other things, this will reset the grab button cueing.
       this.magnifierNode.reset();
-      grabButtonForBook.reset();
+
+      // TODO: reset this soon
+      // grabButtonForBook.reset();
 
       // a11y, reset PDOM and reset alerting types
       TemperatureDecreasingDescriber.getDescriber().reset();

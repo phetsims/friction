@@ -19,6 +19,7 @@ define( function( require ) {
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
+  const FrictionGrabButton = require( 'FRICTION/friction/view/FrictionGrabButton' );
   const FrictionKeyboardDragListener = require( 'FRICTION/friction/view/FrictionKeyboardDragListener' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -29,6 +30,8 @@ define( function( require ) {
   let bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
   let moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
   let bookHelpTextString = FrictionA11yStrings.bookHelpText.value;
+  let zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
+  let grabButtonHelpTextString = FrictionA11yStrings.grabButtonHelpText.value;
 
   /**
    * @param {FrictionModel} model
@@ -62,39 +65,55 @@ define( function( require ) {
       let focusHighlightLineWidth = focusHighlightRect.getOuterLineWidth( this );
       focusHighlightRect.setShape( Shape.bounds( this.localBounds.eroded( focusHighlightLineWidth / 2 ) ) );
 
-      this.addChild( focusHighlightRect );
 
       let bookTitle = StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } );
 
-      // add a11y options for the interactive BookNode
       this.mutate( {
-        tagName: 'div',
-        ariaRole: 'application',
-        ariaLabel: bookTitle,
-        innerContent: bookTitle,
-        helpText: bookHelpTextString,
-        focusable: true,
-        focusHighlightLayerable: true,
-        focusHighlight: focusHighlightRect,
         cursor: 'pointer'
       } );
 
-      this.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
+      // a11y
+      // TODO: rename as the grab and drag a11y interaction
+      var grabButtonForBook = new FrictionGrabButton( model.contactProperty, this, {
+        thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
+        appendDescription: true,
+        // tandem: tandem.createTandem( 'chemistryBookNodeGrabButton' ), // TODO: handle this
+        // supplementaryCueNode: arrows, // TODO: handle this
 
-      this.addInputListener( new FrictionDragHandler( model, options.tandem.createTandem( 'dragHandler' ) ) );
+        // add a11y options for the interactive BookNode
+        a11yDraggableNodeOptions: {
+          descriptionContent: grabButtonHelpTextString,
+
+          ariaLabel: bookTitle,
+          innerContent: bookTitle,
+          focusHighlightLayerable: true
+        },
+        grabButtonOptions: {
+          helpText: bookHelpTextString,
+          focusHighlight: focusHighlightRect,
+          focusHighlightLayerable: true
+        }
+      } );
+      grabButtonForBook.addChild( focusHighlightRect );
+
+      this.addChild( grabButtonForBook );
+
+      grabButtonForBook.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
 
       // a11y - add a keyboard drag handler
       this.keyboardDragHandler = new FrictionKeyboardDragListener( model );
-      this.addAccessibleInputListener( this.keyboardDragHandler );
+      grabButtonForBook.addAccessibleInputListener( this.keyboardDragHandler );
 
       // alert the temperature state on focus
-      this.addAccessibleInputListener( {
+      grabButtonForBook.addAccessibleInputListener( {
         focus() {
           if ( model.amplitudeProperty.value === model.amplitudeProperty.initialValue ) {
             FrictionAlertManager.alertSettledAndCool();
           }
         }
       } );
+
+      this.addInputListener( new FrictionDragHandler( model, options.tandem.createTandem( 'dragHandler' ) ) );
 
       // add observer
       model.topBookPositionProperty.link( position => {
