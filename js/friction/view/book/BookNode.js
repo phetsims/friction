@@ -88,19 +88,19 @@ define( function( require ) {
       // a11y
       this.a11yGrabDragInteractionNode = new FrictionGrabButton( model.contactProperty, this, {
         thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
-        appendDescription: true,
         // tandem: tandem.createTandem( 'chemistryBookNodeGrabButton' ), // TODO: handle this
 
         // add a11y options for the interactive BookNode
         a11yDraggableNodeOptions: {
-          descriptionContent: grabButtonHelpTextString,
+          helpText: bookHelpTextString,
 
           ariaLabel: bookTitle,
           innerContent: bookTitle,
           focusHighlightLayerable: true
         },
         grabButtonOptions: {
-          helpText: bookHelpTextString,
+          appendDescription: true,
+          descriptionContent: grabButtonHelpTextString,
           focusHighlight: focusHighlightRect,
           focusHighlightLayerable: true
         }
