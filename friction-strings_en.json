@@ -9,18 +9,18 @@
     "value": "Chemistry"
   },
   "moveBookHeader": {
-    "value": "Move Book or Zoomed-in Book"
+    "value": "Move Book"
   },
   "bookTitle": {
-    "value": "Book or Zoomed-in Book"
+    "value": "Book"
   },
   "bookLabel": {
-    "value": "book"
+    "value": "book or zoomed-in book"
   },
   "moveBook": {
-    "value": "Move book"
+    "value": "Move grabbed book or zoomed-in book"
   },
   "moveInSmallerSteps": {
-    "value": "Move in smaller steps"
+    "value": "Move slower"
   }
 }
