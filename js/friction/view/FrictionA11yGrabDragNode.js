@@ -8,10 +8,10 @@ define( function( require ) {
   'use strict';
 
   // modules
+  const A11yGrabDragNode = require( 'SCENERY_PHET/accessibility/nodes/A11yGrabDragNode' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
-  const A11yGrabDragNode = require( 'SCENERY_PHET/accessibility/nodes/A11yGrabDragNode' );
-  const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
+  const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   const initialGrabbedNotTouchingString = FrictionA11yStrings.initialGrabbedNotTouching.value;
@@ -19,44 +19,42 @@ define( function( require ) {
   const initialGrabbedTouchingString = FrictionA11yStrings.initialGrabbedTouching.value;
   const grabbedTouchingString = FrictionA11yStrings.grabbedTouching.value;
 
-  // this is a constant because we all grabButtons to use the same set of alerts. We don't want to hear the initial alert
-  // once for each book view.
-
-  const touchingAlerts = [ initialGrabbedTouchingString, grabbedTouchingString ];
-  const notTouchingAlerts = [ initialGrabbedNotTouchingString, grabbedNotTouchingString ];
+  const touchingAlerts = { initial: initialGrabbedTouchingString, subsequent: grabbedTouchingString };
+  const notTouchingAlerts = { initial: initialGrabbedNotTouchingString, subsequent: grabbedNotTouchingString };
 
   /**
-   * @param {BooleanProperty} contactProperty
+   * @param {FrictionModel} model
    * @param {Node} wrappedNode
    * @param {Object} options
    * @constructor
    */
   class FrictionA11yGrabDragNode extends A11yGrabDragNode {
 
-    constructor( contactProperty, wrappedNode, options ) {
+    constructor( model, wrappedNode, options ) {
 
-      const bookUtterance = new Utterance( {
-        alert: notTouchingAlerts
-      } );
       super( wrappedNode, _.extend( {
 
-        onGrab: function() {
+        onGrab: () => {
 
-          // update the proper alerts according to whether we are touching or not. This will work because the
-          // Utterance.numberOfTimesAlerted still won't change until reset
-          if ( contactProperty.get() ) {
-            bookUtterance.alert = touchingAlerts;
-          }
-          else {
+          let alerts = model.contactProperty.get() ? touchingAlerts : notTouchingAlerts;
 
-            bookUtterance.alert = notTouchingAlerts;
+          let alert = alerts.initial;
+          if ( this.successfullyInteracted ) {
+            alert = alerts.subsequent;
           }
-          utteranceQueue.addToBack( bookUtterance );
+          utteranceQueue.addToBack( alert );
         }
       }, options ) );
 
       // @private
-      this.bookUtterance = bookUtterance;
+      this.successfullyInteracted = false; // Keep track when an interaction has successfully occurred.
+      this.model = model;
+      this.amplitudeListener = amplitude => {
+        if ( !this.successfullyInteracted && amplitude > FrictionModel.AMPLITUDE_SETTLED_THRESHOLD ) {
+          this.successfullyInteracted = true;
+        }
+      };
+      model.amplitudeProperty.link( this.amplitudeListener );
     }
 
     /**
@@ -66,7 +64,15 @@ define( function( require ) {
      */
     reset() {
       super.reset();
-      this.bookUtterance.reset();
+      this.successfullyInteracted = false;
+    }
+
+    /**
+     * @public
+     * @override
+     */
+    dispose() {
+      this.model.amplitudeProperty.unlink( this.amplitudeListener );
     }
   }
 

@@ -153,7 +153,7 @@ define( function( require ) {
     let focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
 
     // a11y
-    var a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model.contactProperty, dragArea, {
+    var a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model, dragArea, {
       thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: zoomedInString } ),
       tandem: tandem.createTandem( 'magnifierNodeGrabButton' ),
       grabCueOptions: {

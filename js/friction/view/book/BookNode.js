@@ -85,7 +85,7 @@ define( function( require ) {
 
 
       // a11y
-      this.a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model.contactProperty, this, {
+      this.a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model, this, {
         thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
         // tandem: tandem.createTandem( 'chemistryBookNodeGrabButton' ), // TODO: handle this
 
