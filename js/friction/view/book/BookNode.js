@@ -89,6 +89,11 @@ define( function( require ) {
         thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
         // tandem: tandem.createTandem( 'chemistryBookNodeGrabButton' ), // TODO: handle this
 
+        // Empircally determined values to place the cue above the book.
+        grabCueOptions: {
+          x: 60,
+          y: -55
+        },
         // add a11y options for the interactive BookNode
         a11yDraggableNodeOptions: {
           ariaLabel: bookTitle,
