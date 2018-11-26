@@ -32,7 +32,8 @@ define( require => {
         tailWidth: 15,
         fill: FocusHighlightPath.INNER_FOCUS_COLOR,
         stroke: 'black',
-        lineWidth: 2
+        lineWidth: 2,
+        scale:.75
       }, options );
 
       super( INTER_ARROW_SPACING / 2, 0, ARROW_LENGTH, 0, options );

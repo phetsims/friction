@@ -13,7 +13,7 @@ define( function( require ) {
 
   // modules
   const CoverNode = require( 'FRICTION/friction/view/book/CoverNode' );
-  // const CueArrow = require( 'FRICTION/friction/view/CueArrow' );
+  const CueArrow = require( 'FRICTION/friction/view/CueArrow' );
   const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
@@ -68,21 +68,16 @@ define( function( require ) {
       let bookTitle = StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } );
 
       // // cueing arrows for the book
-      // const bookCueArrow1 = new CueArrow( { rotation: Math.PI } );
-      // const bookCueArrow2 = new CueArrow( { x: this.width } );
-      // const bookCueArrow3 = new CueArrow( {
-      //   rotation: Math.PI / 2,
-      //   x: this.width / 2,
-      //   y: this.height / 2 + 5 // empirical
-      // } );
-      // const arrows = new Node( {
-      //   children: [ bookCueArrow1, bookCueArrow2, bookCueArrow3 ]
-      //   // center: this.center
-      // } );
-
-      // TODO: this would be nice
-      // focusHighlightRect.addChild( arrows );
-
+      const bookCueArrow1 = new CueArrow( { rotation: Math.PI } );
+      const bookCueArrow2 = new CueArrow( { x: this.width } );
+      const bookCueArrow3 = new CueArrow( {
+        rotation: Math.PI / 2,
+        x: this.width / 2,
+        y: this.height / 2 + 2 // a little futher down on the screen, empirical
+      } );
+      const arrows = new Node( {
+        children: [ bookCueArrow1, bookCueArrow2, bookCueArrow3 ]
+      } );
 
       // a11y
       this.a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model, this, {
@@ -105,7 +100,8 @@ define( function( require ) {
           helpText: grabButtonHelpTextString,
           focusHighlight: focusHighlightRect,
           focusHighlightLayerable: true
-        }
+        },
+        supplementaryCueNode: arrows
       } );
 
       this.addChild( this.a11yGrabDragInteractionNode );
