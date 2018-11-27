@@ -32,6 +32,8 @@ define( function( require ) {
   const Path = require( 'SCENERY/nodes/Path' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Shape = require( 'KITE/Shape' );
+  const SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
+  const soundManager = require( 'TAMBO/soundManager' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Vector2 = require( 'DOT/Vector2' );
 
@@ -41,6 +43,10 @@ define( function( require ) {
   let moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
   let zoomedInString = FrictionA11yStrings.zoomedIn.value;
   let zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
+
+  // sounds
+  const harpPickupSound = require( 'sound!FRICTION/harp-pickup.mp3' );
+  const harpDropSound = require( 'sound!FRICTION/harp-drop.mp3' );
 
   // constants
   let ARROW_LENGTH = 70;
@@ -60,6 +66,7 @@ define( function( require ) {
   let HEIGHT = FrictionConstants.MAGNIFIER_WINDOW_HEIGHT;
   let ROUND = 30;
   let SCALE = 0.05;
+  let SOUND_LEVEL = 0.5;
 
   /**
    * @param {FrictionModel} model
@@ -85,6 +92,12 @@ define( function( require ) {
     arrowIcon.addChild( new ArrowNode( INTER_ARROW_SPACING / 2, 0, ARROW_LENGTH, 0, ARROW_OPTIONS ) );
     arrowIcon.addChild( new ArrowNode( -INTER_ARROW_SPACING / 2, 0, -ARROW_LENGTH, 0, ARROW_OPTIONS ) );
     arrowIcon.mutate( { centerX: WIDTH / 2, top: 20 } );
+
+    // create and register the sound generators that will be used when the top book is picked up and dropped
+    const bookPickupSoundClip = new SoundClip( harpPickupSound, { initialOutputLevel: SOUND_LEVEL } );
+    soundManager.addSoundGenerator( bookPickupSoundClip );
+    const bookDropSoundClip = new SoundClip( harpDropSound, { initialOutputLevel: SOUND_LEVEL } );
+    soundManager.addSoundGenerator( bookDropSoundClip );
 
     // @private - add bottom book
     this.bottomBookBackground = new Node( {
@@ -125,11 +138,16 @@ define( function( require ) {
       3.25 * WIDTH,
       4 * HEIGHT / 3 - FrictionModel.MAGNIFIED_ATOMS_INFO.distance,
       ROUND,
-      ROUND, {
+      ROUND,
+      {
         fill: FrictionConstants.TOP_BOOK_COLOR,
         cursor: 'pointer'
-      } );
-    background.addInputListener( new FrictionDragHandler( model, tandem.createTandem( 'backgroundDragHandler' ) ) );
+      }
+    );
+    background.addInputListener( new FrictionDragHandler( model, tandem.createTandem( 'backgroundDragHandler' ), {
+      startSound: bookPickupSoundClip,
+      endSound: bookDropSoundClip
+    } ) );
     this.topBookBackground.addChild( background );
 
     // init drag for drag area
@@ -148,12 +166,15 @@ define( function( require ) {
         tandem: tandem
       } );
 
-    dragArea.addInputListener( new FrictionDragHandler( model, tandem.createTandem( 'dragAreaDragHandler' ) ) );
+    dragArea.addInputListener( new FrictionDragHandler( model, tandem.createTandem( 'dragAreaDragHandler' ), {
+      startSound: bookPickupSoundClip,
+      endSound: bookDropSoundClip
+    } ) );
 
     // a11y - custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
     let focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
 
-    // cueing arrows for the book
+    // cuing arrows for the book
     let arrowHeight = 3 * this.height / 7 - 20;
     const bookCueArrow1 = new CueArrow( {
       rotation: Math.PI,

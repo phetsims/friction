@@ -25,13 +25,22 @@ define( function( require ) {
   const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Shape = require( 'KITE/Shape' );
+  const SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
+  const soundManager = require( 'TAMBO/soundManager' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+
+  // sounds
+  const simplePickupSound = require( 'sound!FRICTION/simple-pickup.mp3' );
+  const simpleDropSound = require( 'sound!FRICTION/simple-drop.mp3' );
 
   // a11y strings
   let bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
   let moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
   let zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
   let grabButtonHelpTextString = FrictionA11yStrings.grabButtonHelpText.value;
+
+  // constants
+  let SOUND_LEVEL = 0.5;
 
   /**
    * @param {FrictionModel} model
@@ -67,7 +76,7 @@ define( function( require ) {
 
       let bookTitle = StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } );
 
-      // // cueing arrows for the book
+      // cuing arrows for the book
       const bookCueArrow1 = new CueArrow( { rotation: Math.PI } );
       const bookCueArrow2 = new CueArrow( { x: this.width } );
       const bookCueArrow3 = new CueArrow( {
@@ -78,6 +87,12 @@ define( function( require ) {
       const arrows = new Node( {
         children: [ bookCueArrow1, bookCueArrow2, bookCueArrow3 ]
       } );
+
+      // sounds used when the book is picked up or dropped
+      const bookPickupSoundClip = new SoundClip( simplePickupSound, { initialOutputLevel: SOUND_LEVEL } );
+      soundManager.addSoundGenerator( bookPickupSoundClip );
+      const bookDropSoundClip = new SoundClip( simpleDropSound, { initialOutputLevel: SOUND_LEVEL } );
+      soundManager.addSoundGenerator( bookDropSoundClip );
 
       // a11y
       this.a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model, this, {
@@ -121,7 +136,10 @@ define( function( require ) {
         }
       } );
 
-      this.addInputListener( new FrictionDragHandler( model, options.tandem.createTandem( 'dragHandler' ) ) );
+      this.addInputListener( new FrictionDragHandler( model, options.tandem.createTandem( 'dragHandler' ), {
+        startSound: bookPickupSoundClip,
+        endSound: bookDropSoundClip
+      } ) );
 
       // add observer
       model.topBookPositionProperty.link( position => {

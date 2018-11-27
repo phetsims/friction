@@ -22,9 +22,20 @@ define( function( require ) {
    * @param {Tandem} tandem
    * @constructor
    */
-  function FrictionDragHandler( model, tandem ) {
+  function FrictionDragHandler( model, tandem, options ) {
+
+    options = _.extend( {
+
+      // {SoundClip} - sounds to be played at start and end of drag
+      startSound: null,
+      endSound: null
+    }, options );
+
     SimpleDragHandler.call( this, {
       start: function() {
+
+        // sound
+        options.startSound && options.startSound.play();
 
         // a11y
         TemperatureIncreasingDescriber.getDescriber().startDrag();
@@ -35,6 +46,9 @@ define( function( require ) {
       },
       end: function() {
         model.bottomOffsetProperty.set( 0 );
+
+        // sound
+        options.endSound && options.endSound.play();
 
         // a11y
         TemperatureIncreasingDescriber.getDescriber().endDrag();
