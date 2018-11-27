@@ -217,6 +217,9 @@ define( function( require ) {
     // TODO: likely this should be removed
     this.hintProperty = new BooleanProperty( true );
 
+    // @public (read-only) {BooleanProperty} - true when a reset is in progress, false otherwise
+    this.resetInProgressProperty = new BooleanProperty( false );
+
     // @public {Number} (read-only) - drag and drop book coordinates conversion coefficient
     this.bookDraggingScaleFactor = 0.025;
 
@@ -338,6 +341,7 @@ define( function( require ) {
      * @public
      */
     reset: function() {
+      this.resetInProgressProperty.set( true );
       this.amplitudeProperty.reset();
       this.topBookPositionProperty.reset();
       this.distanceBetweenBooksProperty.reset();
@@ -349,6 +353,7 @@ define( function( require ) {
         atom.reset();
       } );
       this.numberOfAtomsEvaporated = 0;
+      this.resetInProgressProperty.set( false );
     },
 
     /**

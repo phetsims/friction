@@ -24,7 +24,9 @@ define( function( require ) {
   const MagnifierNode = require( 'FRICTION/friction/view/magnifier/MagnifierNode' );
   const PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const ResetAllSoundGenerator = require( 'TAMBO/sound-generators/ResetAllSoundGenerator' );
   const ScreenView = require( 'JOIST/ScreenView' );
+  const soundManager = require( 'TAMBO/soundManager' );
   const TemperatureDecreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureDecreasingDescriber' );
   const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
   const ThermometerNode = require( 'SCENERY_PHET/ThermometerNode' );
@@ -32,7 +34,6 @@ define( function( require ) {
   // strings
   const chemistryString = require( 'string!FRICTION/chemistry' );
   const physicsString = require( 'string!FRICTION/physics' );
-
 
   // constants
   const THERMOMETER_FLUID_MAIN_COLOR = 'rgb(237,28,36)';
@@ -135,6 +136,11 @@ define( function( require ) {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( resetAllButton );
+
+    // add sound generator for reset
+    soundManager.addSoundGenerator( new ResetAllSoundGenerator( model.resetInProgressProperty, {
+      initialOutputLevel: 0.7
+    } ) );
 
     let controlAreaNode = new ControlAreaNode();
     this.addChild( controlAreaNode );
