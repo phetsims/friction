@@ -34,7 +34,8 @@ define( function( require ) {
   // constants
   let DEFAULT_LABEL_OPTIONS = {
     font: HelpContent.DEFAULT_LABEL_FONT,
-    maxWidth: HelpContent.DEFAULT_TEXT_MAX_WIDTH
+    maxWidth: HelpContent.DEFAULT_TEXT_MAX_WIDTH,
+    lineWrap: HelpContent.DEFAULT_TEXT_MAX_WIDTH
   };
 
   /**

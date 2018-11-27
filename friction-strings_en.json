@@ -18,7 +18,7 @@
     "value": "book or zoomed-in book"
   },
   "moveBook": {
-    "value": "Move grabbed book or zoomed-in book"
+    "value": "Move grabbed book or grabbed zoomed-in book"
   },
   "moveInSmallerSteps": {
     "value": "Move slower"
