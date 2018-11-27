@@ -16,13 +16,14 @@ define( function( require ) {
   const AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const Circle = require( 'SCENERY/nodes/Circle' );
+  const CueArrow = require( 'FRICTION/friction/view/CueArrow' );
   const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   const friction = require( 'FRICTION/friction' );
+  const FrictionA11yGrabDragNode = require( 'FRICTION/friction/view/FrictionA11yGrabDragNode' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
-  const FrictionA11yGrabDragNode = require( 'FRICTION/friction/view/FrictionA11yGrabDragNode' );
   const FrictionKeyboardDragListener = require( 'FRICTION/friction/view/FrictionKeyboardDragListener' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const inherit = require( 'PHET_CORE/inherit' );
@@ -152,6 +153,26 @@ define( function( require ) {
     // a11y - custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
     let focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
 
+    // cueing arrows for the book
+    let arrowHeight = 3 * this.height / 7 - 20;
+    const bookCueArrow1 = new CueArrow( {
+      rotation: Math.PI,
+      x: this.width / 2 - 10,
+      y: arrowHeight
+    } );
+    const bookCueArrow2 = new CueArrow( { x: this.width / 2 + 10, y: arrowHeight } );
+    const bookCueArrow3 = new CueArrow( {
+      rotation: Math.PI / 2,
+      x: this.width / 2,
+      y: arrowHeight - 10 // a little further down on the screen, empirical
+    } );
+    const cueArrows = new Node( {
+      children: [ bookCueArrow1, bookCueArrow2, bookCueArrow3 ]
+    } );
+    let unscaledCenter = cueArrows.center;
+    cueArrows.setScaleMagnitude( .9 );
+    cueArrows.center = unscaledCenter;
+
     // a11y
     var a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model, dragArea, {
       thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: zoomedInString } ),
@@ -159,17 +180,17 @@ define( function( require ) {
       grabCueOptions: {
         center: dragArea.center.minusXY( 0, 73 )
       },
-      a11yDraggableNodeOptions: {
-        // a11y - add accessibility to the rectangle that surrounds the top atoms.
-        focusHighlightLayerable: true,
-
-        // Add the Accessible Name based on the name of the name of the book title.
-        ariaLabel: zoomedInTitle,
-        innerContent: zoomedInTitle
-      },
       grabButtonOptions: {
         focusHighlight: focusHighlightPath
-      }
+      },
+      dragCueNode: cueArrows,
+
+      // a11y - add accessibility to the rectangle that surrounds the top atoms.
+      focusHighlightLayerable: true,
+
+      // Add the Accessible Name based on the name of the name of the book title.
+      ariaLabel: zoomedInTitle,
+      innerContent: zoomedInTitle
     } );
 
     // a11y - add the keyboard drag listener to the top atoms

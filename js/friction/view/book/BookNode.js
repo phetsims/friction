@@ -89,19 +89,18 @@ define( function( require ) {
           x: 60,
           y: -55
         },
-        // add a11y options for the interactive BookNode
-        a11yDraggableNodeOptions: {
-          ariaLabel: bookTitle,
-          innerContent: bookTitle,
-          focusHighlightLayerable: true
-        },
         grabButtonOptions: {
           appendDescription: true,
           helpText: grabButtonHelpTextString,
           focusHighlight: focusHighlightRect,
           focusHighlightLayerable: true
         },
-        supplementaryCueNode: arrows
+        dragCueNode: arrows,
+
+        // add a11y options for the interactive BookNode
+        ariaLabel: bookTitle,
+        innerContent: bookTitle,
+        focusHighlightLayerable: true
       } );
 
       this.addChild( this.a11yGrabDragInteractionNode );

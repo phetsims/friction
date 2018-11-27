@@ -214,6 +214,7 @@ define( function( require ) {
     } );
 
     // @public (read-only) {BooleanProperty} - show hint icon
+    // TODO: likely this should be removed
     this.hintProperty = new BooleanProperty( true );
 
     // @public {Number} (read-only) - drag and drop book coordinates conversion coefficient

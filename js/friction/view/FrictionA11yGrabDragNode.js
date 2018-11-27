@@ -43,6 +43,11 @@ define( function( require ) {
             alert = alerts.subsequent;
           }
           utteranceQueue.addToBack( alert );
+        },
+
+        // function that returns whether or not the drag cue should be shown
+        successfulDrag: () => {
+          return !model.topBookPositionProperty.value.equals( model.topBookPositionProperty.initialValue );
         }
       }, options ) );
 
