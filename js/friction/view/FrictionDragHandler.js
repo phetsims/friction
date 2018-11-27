@@ -20,6 +20,7 @@ define( function( require ) {
   /**
    * @param {FrictionModel} model
    * @param {Tandem} tandem
+   * @param {Object} [options]
    * @constructor
    */
   function FrictionDragHandler( model, tandem, options ) {

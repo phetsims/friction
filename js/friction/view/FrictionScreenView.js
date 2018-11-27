@@ -26,6 +26,7 @@ define( function( require ) {
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ResetAllSoundGenerator = require( 'TAMBO/sound-generators/ResetAllSoundGenerator' );
   const ScreenView = require( 'JOIST/ScreenView' );
+  const SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
   const soundManager = require( 'TAMBO/soundManager' );
   const TemperatureDecreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureDecreasingDescriber' );
   const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
@@ -34,6 +35,9 @@ define( function( require ) {
   // strings
   const chemistryString = require( 'string!FRICTION/chemistry' );
   const physicsString = require( 'string!FRICTION/physics' );
+
+  // sounds
+  const bookContactSound = require( 'sound!FRICTION/contact-lower.mp3' );
 
   // constants
   const THERMOMETER_FLUID_MAIN_COLOR = 'rgb(237,28,36)';
@@ -49,6 +53,7 @@ define( function( require ) {
    * @constructor
    */
   function FrictionScreenView( model, tandem ) {
+
     const self = this;
     ScreenView.call( this, {
       layoutBounds: new Bounds2( 0, 0, model.width, model.height ),
@@ -67,7 +72,6 @@ define( function( require ) {
     // a11y
     let frictionSummaryNode = new FrictionScreenSummaryNode( model, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP );
     this.screenSummaryNode.addChild( frictionSummaryNode );
-
 
     // add physics book
     this.addChild( new BookNode( model, physicsString, {
@@ -142,6 +146,16 @@ define( function( require ) {
       initialOutputLevel: 0.7
     } ) );
 
+    // set up the sound that will be produced when the books come into contact
+    const bookContactSoundClip = new SoundClip( bookContactSound, { initialOutputLevel: 0.5 } );
+    soundManager.addSoundGenerator( bookContactSoundClip );
+    model.contactProperty.link( contact => {
+      if ( contact ) {
+        bookContactSoundClip.play();
+      }
+    } );
+
+    // add a node that creates a "play area" accessible section in the PDOM
     let controlAreaNode = new ControlAreaNode();
     this.addChild( controlAreaNode );
     controlAreaNode.accessibleOrder = [ resetAllButton ];
@@ -149,7 +163,7 @@ define( function( require ) {
     // @private
     this.resetFrictionScreenView = function() {
 
-      // a11y - among other things, this will reset the grab button cueing.
+      // a11y - among other things, this will reset the grab button cuing.
       this.magnifierNode.reset();
       chemistryBookNode.reset();
 
