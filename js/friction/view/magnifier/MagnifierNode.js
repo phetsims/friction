@@ -194,6 +194,19 @@ define( function( require ) {
     cueArrows.setScaleMagnitude( .9 );
     cueArrows.center = unscaledCenter;
 
+
+    // a11y - add the keyboard drag listener to the top atoms
+    this.keyboardDragHandler = new FrictionKeyboardDragListener( model );
+
+    // alert the temperature state on focus
+    let focusListener = {
+      focus() {
+        if ( model.amplitudeProperty.value === model.amplitudeProperty.initialValue ) {
+          FrictionAlertManager.alertSettledAndCool();
+        }
+      }
+    };
+
     // a11y
     var a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model, dragArea, {
       thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: zoomedInString } ),
@@ -202,34 +215,30 @@ define( function( require ) {
         center: dragArea.center.minusXY( 0, 73 )
       },
       grabButtonOptions: {
-        focusHighlight: focusHighlightPath
+        focusHighlight: focusHighlightPath,
+        focusHighlightLayerable: true,// TODO: ??
+
       },
       dragCueNode: cueArrows,
 
       // a11y - add accessibility to the rectangle that surrounds the top atoms.
-      focusHighlightLayerable: true,
 
-      // Add the Accessible Name based on the name of the name of the book title.
-      ariaLabel: zoomedInTitle,
-      innerContent: zoomedInTitle
+      dragDivOptions: {
+        // Add the Accessible Name based on the name of the name of the book title.
+        ariaLabel: zoomedInTitle,
+        innerContent: zoomedInTitle,
+        focusHighlightLayerable: true // TODO: needed?
+
+      },
+
+      listenersForDrag: [ this.keyboardDragHandler, focusListener ]
     } );
 
-    // a11y - add the keyboard drag listener to the top atoms
-    this.keyboardDragHandler = new FrictionKeyboardDragListener( model );
-    a11yGrabDragInteractionNode.addAccessibleInputListener( this.keyboardDragHandler );
 
-    // alert the temperature state on focus
-    a11yGrabDragInteractionNode.addAccessibleInputListener( {
-      focus() {
-        if ( model.amplitudeProperty.value === model.amplitudeProperty.initialValue ) {
-          FrictionAlertManager.alertSettledAndCool();
-        }
-      }
-    } );
+    // TODO: what to do about this?
+    // a11yGrabDragInteractionNode.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
 
-    a11yGrabDragInteractionNode.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
-
-    dragArea.addChild( a11yGrabDragInteractionNode );
+    // dragArea.addChild( a11yGrabDragInteractionNode );
 
     this.topBookBackground.addChild( dragArea );
 

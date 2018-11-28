@@ -94,6 +94,18 @@ define( function( require ) {
       const bookDropSoundClip = new SoundClip( simpleDropSound, { initialOutputLevel: SOUND_LEVEL } );
       soundManager.addSoundGenerator( bookDropSoundClip );
 
+      // a11y - add a keyboard drag handler
+      this.keyboardDragHandler = new FrictionKeyboardDragListener( model );
+
+      // alert the temperature state on focus
+      const focusListener = {
+        focus() {
+          if ( model.amplitudeProperty.value === model.amplitudeProperty.initialValue ) {
+            FrictionAlertManager.alertSettledAndCool();
+          }
+        }
+      };
+
       // a11y
       this.a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model, this, {
         thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
@@ -112,29 +124,21 @@ define( function( require ) {
         },
         dragCueNode: arrows,
 
-        // add a11y options for the interactive BookNode
-        ariaLabel: bookTitle,
-        innerContent: bookTitle,
-        focusHighlightLayerable: true
+        dragDivOptions: {
+
+          // add a11y options for the interactive BookNode
+          ariaLabel: bookTitle,
+          innerContent: bookTitle,
+          focusHighlightLayerable: true
+        },
+
+        listenersForDrag: [ this.keyboardDragHandler, focusListener ]
       } );
 
-      this.addChild( this.a11yGrabDragInteractionNode );
       this.addChild( focusHighlightRect );
 
-      this.a11yGrabDragInteractionNode.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
-
-      // a11y - add a keyboard drag handler
-      this.keyboardDragHandler = new FrictionKeyboardDragListener( model );
-      this.a11yGrabDragInteractionNode.addAccessibleInputListener( this.keyboardDragHandler );
-
-      // alert the temperature state on focus
-      this.a11yGrabDragInteractionNode.addAccessibleInputListener( {
-        focus() {
-          if ( model.amplitudeProperty.value === model.amplitudeProperty.initialValue ) {
-            FrictionAlertManager.alertSettledAndCool();
-          }
-        }
-      } );
+      // TODO: manage aria-roledescription
+      // this.a11yGrabDragInteractionNode.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
 
       this.addInputListener( new FrictionDragHandler( model, options.tandem.createTandem( 'dragHandler' ), {
         startSound: bookPickupSoundClip,
