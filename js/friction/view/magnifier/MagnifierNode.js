@@ -40,7 +40,7 @@ define( function( require ) {
   // a11y strings
   let bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
   let zoomedInBookTitlePatternString = FrictionA11yStrings.zoomedInBookTitlePattern.value;
-  let moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
+  // let moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
   let zoomedInString = FrictionA11yStrings.zoomedIn.value;
   let zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
 
@@ -216,7 +216,7 @@ define( function( require ) {
       },
       grabButtonOptions: {
         focusHighlight: focusHighlightPath,
-        focusHighlightLayerable: true,// TODO: ??
+        focusHighlightLayerable: true// TODO: ??
 
       },
       dragCueNode: cueArrows,
