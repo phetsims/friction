@@ -38,10 +38,9 @@ define( function( require ) {
   function MoleculeMotionSoundGenerator( moleculeAmplitudeProperty, options ) {
 
     options = _.extend( {
-      maxOutputLevel: 0.25 // max gain for this sound generator, sets the overall output of this sound generator
+      overallOutputLevel: 0.25 // max gain for this sound generator, sets the overall output of this sound generator
     }, options );
 
-    const self = this;
     SoundGenerator.call( this, options );
 
     // create several instances of the sound clip at different volume levels to allow more variation in the sound
@@ -53,18 +52,18 @@ define( function( require ) {
     ];
 
     // connect up the sound clips
-    motionSoundClips.forEach( function( motionSoundClip ) {
-      motionSoundClip.connect( self.masterGainNode );
+    motionSoundClips.forEach( motionSoundClip => {
+      motionSoundClip.connect( this.masterGainNode );
     } );
 
-    moleculeAmplitudeProperty.lazyLink( function( amplitude ) {
+    moleculeAmplitudeProperty.lazyLink( amplitude => {
 
       // normalize the amplitude value
       const normalizedAmplitude = ( amplitude - 1 ) / FrictionModel.VIBRATION_AMPLITUDE_MAX;
 
       // map normalized amplitude to volume
       const moleculeMotionSoundVolume = Math.pow( normalizedAmplitude, 1.5 );
-      self.setOutputLevel( options.maxOutputLevel * moleculeMotionSoundVolume );
+      this.setOutputLevel( options.overallOutputLevel * moleculeMotionSoundVolume );
 
       // choose a sound clip (this creates variation in the output level for each play operation)
       const soundClip = _.sample( motionSoundClips );
@@ -78,12 +77,11 @@ define( function( require ) {
 
       soundClip.play();
     } );
-
   }
 
   friction.register( 'MoleculeMotionSoundGenerator', MoleculeMotionSoundGenerator );
 
   inherit( SoundGenerator, MoleculeMotionSoundGenerator );
 
-  return MoleculeMotionSoundGenerator;
+  return inherit( SoundGenerator, MoleculeMotionSoundGenerator );
 } );
