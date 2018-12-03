@@ -22,6 +22,7 @@ define( function( require ) {
   const FrictionScreenSummaryNode = require( 'FRICTION/friction/view/FrictionScreenSummaryNode' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MagnifierNode = require( 'FRICTION/friction/view/magnifier/MagnifierNode' );
+  const MoleculeMotionSoundGenerator = require( 'FRICTION/friction/view/MoleculeMotionSoundGenerator' );
   const PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ResetAllSoundGenerator = require( 'TAMBO/sound-generators/ResetAllSoundGenerator' );
@@ -154,6 +155,9 @@ define( function( require ) {
         bookContactSoundClip.play();
       }
     } );
+
+    // set up the sound that will be played to indicate changes to the rate of molecule motion
+    soundManager.addSoundGenerator( new MoleculeMotionSoundGenerator( model.amplitudeProperty ) );
 
     // add a node that creates a "play area" accessible section in the PDOM
     let controlAreaNode = new ControlAreaNode();
