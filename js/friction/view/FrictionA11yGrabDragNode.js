@@ -32,24 +32,31 @@ define( function( require ) {
 
     constructor( model, wrappedNode, options ) {
 
-      super( wrappedNode, _.extend( {
+      options = _.extend( {
 
-        onGrab: () => {
-
-          let alerts = model.contactProperty.get() ? touchingAlerts : notTouchingAlerts;
-
-          let alert = alerts.initial;
-          if ( this.successfullyInteracted ) {
-            alert = alerts.subsequent;
-          }
-          utteranceQueue.addToBack( alert );
-        },
-
-        // function that returns whether or not the drag cue should be shown
+        // Function that returns whether or not the drag cue should be shown.
         successfulDrag: () => {
           return !model.topBookPositionProperty.value.equals( model.topBookPositionProperty.initialValue );
         }
-      }, options ) );
+      }, options );
+
+      // Keep track of the passed in grab listener, to add to it below
+      let oldGrab = options.onGrab;
+
+      // Wrap the onGrab option in default functionality for al of the type in Friction
+      options.onGrab = () => {
+        oldGrab && oldGrab();
+
+        let alerts = model.contactProperty.get() ? touchingAlerts : notTouchingAlerts;
+
+        let alert = alerts.initial;
+        if ( this.successfullyInteracted ) {
+          alert = alerts.subsequent;
+        }
+        utteranceQueue.addToBack( alert );
+      };
+
+      super( wrappedNode, options );
 
       // @private
       this.successfullyInteracted = false; // Keep track when an interaction has successfully occurred.

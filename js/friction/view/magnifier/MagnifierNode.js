@@ -91,7 +91,7 @@ define( function( require ) {
     let arrowIcon = new Node();
     arrowIcon.addChild( new ArrowNode( INTER_ARROW_SPACING / 2, 0, ARROW_LENGTH, 0, ARROW_OPTIONS ) );
     arrowIcon.addChild( new ArrowNode( -INTER_ARROW_SPACING / 2, 0, -ARROW_LENGTH, 0, ARROW_OPTIONS ) );
-    arrowIcon.mutate( { centerX: WIDTH / 2, top: 20 } );
+    arrowIcon.mutate( { centerX: WIDTH / 2, top: 22 } );
 
     // create and register the sound generators that will be used when the top book is picked up and dropped
     const bookPickupSoundClip = new SoundClip( harpPickupSound, { initialOutputLevel: SOUND_LEVEL } );
@@ -219,6 +219,10 @@ define( function( require ) {
         focusHighlightLayerable: true// TODO: ??
 
       },
+
+      // Hide the visual cue arrows
+      onGrab: () => { model.hintProperty.set( false ); },
+
       dragCueNode: cueArrows,
 
       // a11y - add accessibility to the rectangle that surrounds the top atoms.
@@ -234,11 +238,11 @@ define( function( require ) {
       listenersForDrag: [ this.keyboardDragHandler, focusListener ]
     } );
 
-
-    // TODO: what to do about this?
+    // TODO: what to do about this? https://github.com/phetsims/friction/issues/152
     // a11yGrabDragInteractionNode.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
 
-    // dragArea.addChild( a11yGrabDragInteractionNode );
+    // add arrows before the drag area, then the grab cue hides the arrows
+    this.topBookBackground.addChild( arrowIcon );
 
     this.topBookBackground.addChild( dragArea );
 

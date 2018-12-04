@@ -213,8 +213,7 @@ define( function( require ) {
       phetioType: PropertyIO( BooleanIO )
     } );
 
-    // @public (read-only) {BooleanProperty} - show hint icon
-    // TODO: likely this should be removed
+    // @public {BooleanProperty} - Show hint icon. Only set by model and on a11y grab interaction.
     this.hintProperty = new BooleanProperty( true );
 
     // @public (read-only) {BooleanProperty} - true when a reset is in progress, false otherwise
