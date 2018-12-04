@@ -12,7 +12,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const AtomCanvasNode = require( 'FRICTION/friction/view/magnifier/AtomCanvasNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const Circle = require( 'SCENERY/nodes/Circle' );
@@ -26,6 +25,7 @@ define( function( require ) {
   const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
   const FrictionKeyboardDragListener = require( 'FRICTION/friction/view/FrictionKeyboardDragListener' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MagnifierTargetNode = require( 'FRICTION/friction/view/magnifier/MagnifierTargetNode' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -45,28 +45,16 @@ define( function( require ) {
   let zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
 
   // sounds
-  const harpPickupSound = require( 'sound!FRICTION/harp-pickup.mp3' );
   const harpDropSound = require( 'sound!FRICTION/harp-drop.mp3' );
+  const harpPickupSound = require( 'sound!FRICTION/harp-pickup.mp3' );
 
-  // constants
-  let ARROW_LENGTH = 70;
-  let INTER_ARROW_SPACING = 20;
-  let ARROW_OPTIONS = {
-
-    // these values were empirically determined based on visual appearance
-    headHeight: 32,
-    headWidth: 30,
-    tailWidth: 15,
-    fill: 'white',
-    stroke: 'black',
-    lineWidth: 2
-  };
 
   let WIDTH = FrictionConstants.MAGNIFIER_WINDOW_WIDTH;
   let HEIGHT = FrictionConstants.MAGNIFIER_WINDOW_HEIGHT;
   let ROUND = 30;
   let SCALE = 0.05;
   let SOUND_LEVEL = 0.5;
+  let ARROW_TOP = 22;
 
   /**
    * @param {FrictionModel} model
@@ -88,10 +76,14 @@ define( function( require ) {
     this.topAtomsLayer = new Node();
 
     // arrow icon
-    let arrowIcon = new Node();
-    arrowIcon.addChild( new ArrowNode( INTER_ARROW_SPACING / 2, 0, ARROW_LENGTH, 0, ARROW_OPTIONS ) );
-    arrowIcon.addChild( new ArrowNode( -INTER_ARROW_SPACING / 2, 0, -ARROW_LENGTH, 0, ARROW_OPTIONS ) );
-    arrowIcon.mutate( { centerX: WIDTH / 2, top: 22 } );
+    let leftArrow = new CueArrow( { rotation: Math.PI, fill: 'white' } );
+    let rightArrow = new CueArrow( { fill: 'white' } );
+    let visualArrowIcon = new HBox( {
+      children: [ leftArrow, rightArrow ],
+      spacing: 20,
+      centerX: WIDTH / 2,
+      top: ARROW_TOP
+    } );
 
     // create and register the sound generators that will be used when the top book is picked up and dropped
     const bookPickupSoundClip = new SoundClip( harpPickupSound, { initialOutputLevel: SOUND_LEVEL } );
@@ -175,25 +167,31 @@ define( function( require ) {
     let focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
 
     // cuing arrows for the book
-    let arrowHeight = 3 * this.height / 7 - 20;
-    const bookCueArrow1 = new CueArrow( {
-      rotation: Math.PI,
-      x: this.width / 2 - 10,
-      y: arrowHeight
+    const bookCueArrowLeft = new CueArrow( {
+      rotation: Math.PI
     } );
-    const bookCueArrow2 = new CueArrow( { x: this.width / 2 + 10, y: arrowHeight } );
-    const bookCueArrow3 = new CueArrow( {
+    const bookCueArrowRight = new CueArrow();
+
+    let horizontalCueArrows = new HBox( {
+      children: [ bookCueArrowLeft, bookCueArrowRight ],
+      spacing: 30, // to be scaled down below
+      centerX: WIDTH / 2,
+      top: ARROW_TOP
+    } );
+
+    const bookCueArrowVertical = new CueArrow( {
+      top: horizontalCueArrows.centerY,
+      arrowLength: 55,
       rotation: Math.PI / 2,
-      x: this.width / 2,
-      y: arrowHeight - 10 // a little further down on the screen, empirical
+      centerX: WIDTH / 2
+
     } );
     const cueArrows = new Node( {
-      children: [ bookCueArrow1, bookCueArrow2, bookCueArrow3 ]
+      children: [ horizontalCueArrows, bookCueArrowVertical ],
+      scale: .6,
+      centerX: WIDTH / 2,
+      top: ARROW_TOP
     } );
-    let unscaledCenter = cueArrows.center;
-    cueArrows.setScaleMagnitude( .9 );
-    cueArrows.center = unscaledCenter;
-
 
     // a11y - add the keyboard drag listener to the top atoms
     this.keyboardDragHandler = new FrictionKeyboardDragListener( model );
@@ -242,7 +240,7 @@ define( function( require ) {
     // a11yGrabDragInteractionNode.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
 
     // add arrows before the drag area, then the grab cue hides the arrows
-    this.topBookBackground.addChild( arrowIcon );
+    this.topBookBackground.addChild( visualArrowIcon );
 
     this.topBookBackground.addChild( dragArea );
 
@@ -259,7 +257,6 @@ define( function( require ) {
     );
 
     // a11y - add the focus highlight on top of the row circles
-    // TODO: why not add it to the dragArea?
     this.topBookBackground.addChild( focusHighlightPath );
 
     this.container.addChild( this.topBookBackground );
@@ -317,7 +314,7 @@ define( function( require ) {
     this.container.addChild( this.atomCanvasNode );
 
     // add observers
-    model.hintProperty.linkAttribute( arrowIcon, 'visible' );
+    model.hintProperty.linkAttribute( visualArrowIcon, 'visible' );
     model.topBookPositionProperty.linkAttribute( this.topBookBackground, 'translation' );
     model.topBookPositionProperty.linkAttribute( this.topAtomsLayer, 'translation' );
 

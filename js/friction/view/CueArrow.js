@@ -12,11 +12,6 @@ define( require => {
   const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   const friction = require( 'FRICTION/friction' );
 
-
-  // constants
-  let ARROW_LENGTH = 70;
-  let INTER_ARROW_SPACING = 20;
-
   /**
    *
    * @param {Object} [options]
@@ -25,18 +20,18 @@ define( require => {
   class CueArrow extends ArrowNode {
     constructor( options ) {
 
+      // these values were empirically determined based on visual appearance
       options = _.extend( {
-        // these values were empirically determined based on visual appearance
         headHeight: 32,
         headWidth: 30,
         tailWidth: 15,
-        fill: FocusHighlightPath.INNER_FOCUS_COLOR,
         stroke: 'black',
+        fill: FocusHighlightPath.INNER_FOCUS_COLOR,
         lineWidth: 2,
-        scale:.75
+        arrowLength: 70
       }, options );
 
-      super( INTER_ARROW_SPACING / 2, 0, ARROW_LENGTH, 0, options );
+      super( 0, 0, options.arrowLength, 0, options );
     }
   }
 
