@@ -23,10 +23,10 @@ define( function( require ) {
   const STILLNESS_TIME = 0.064; // in seconds, time used to determine when the book becomes still
 
   /**
-   * @constructor
    * {Property.<Vector2>} topBookPositionProperty - location of the top book
    * {BooleanProperty} contactProperty - whether the books are in contact with one another
    * {Object} [options] - options, see parent classes for more information
+   * @constructor
    */
   function BookRubSoundGenerator( topBookPositionProperty, contactProperty, options ) {
 

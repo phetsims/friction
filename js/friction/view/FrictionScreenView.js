@@ -14,6 +14,7 @@ define( function( require ) {
   const BookMovementDescriber = require( 'FRICTION/friction/view/describers/BookMovementDescriber' );
   const BookNode = require( 'FRICTION/friction/view/book/BookNode' );
   const BookRubSoundGenerator = require( 'FRICTION/friction/view/BookRubSoundGenerator' );
+  const CoolingSoundGenerator = require( 'FRICTION/friction/view/CoolingSoundGenerator' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const BreakAwayDescriber = require( 'FRICTION/friction/view/describers/BreakAwayDescriber' );
   const ControlAreaNode = require( 'SCENERY_PHET/accessibility/nodes/ControlAreaNode' );
@@ -29,6 +30,7 @@ define( function( require ) {
   const ResetAllSoundGenerator = require( 'TAMBO/sound-generators/ResetAllSoundGenerator' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
+  const SoundLevelEnum = require( 'TAMBO/SoundLevelEnum' );
   const soundManager = require( 'TAMBO/soundManager' );
   const TemperatureDecreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureDecreasingDescriber' );
   const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
@@ -93,7 +95,7 @@ define( function( require ) {
     } );
     this.addChild( chemistryBookNode );
 
-    // create and hook up the sound that will be produced when the books come into contact
+    // create and hook up the sound that will be produced when the books come into contact with one another
     const bookContactSoundClip = new SoundClip( bookContactSound, { initialOutputLevel: 0.5 } );
     soundManager.addSoundGenerator( bookContactSoundClip );
     model.contactProperty.link( contact => {
@@ -182,6 +184,12 @@ define( function( require ) {
       }
     } );
 
+    // @private {CoolingSoundGenerator} - sound generator that produces the "cooling off" sound
+    this.coolingSoundGenerator = new CoolingSoundGenerator( model.amplitudeProperty );
+    soundManager.addSoundGenerator( this.coolingSoundGenerator, {
+      sonificationLevel: SoundLevelEnum.ENHANCED
+    } );
+
     // add a node that creates a "play area" accessible section in the PDOM
     let controlAreaNode = new ControlAreaNode();
     this.addChild( controlAreaNode );
@@ -215,6 +223,7 @@ define( function( require ) {
     step( dt ) {
       this.magnifierNode.step( dt );
       this.bookRubSoundGenerator.step( dt );
+      this.coolingSoundGenerator.step( dt );
     },
 
     /**
