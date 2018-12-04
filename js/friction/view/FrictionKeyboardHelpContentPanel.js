@@ -47,6 +47,8 @@ define( function( require ) {
     let moveBookHelpContent = new MoveBookHelpNode();
     let generalNavigationHelpContent = new GeneralNavigationHelpContent();
 
+    HelpContent.alignHelpContentIcons( [ grabReleaseHelpContent, moveBookHelpContent ] );
+
     let content = new HBox( {
       children: [
         new VBox( { children: [ grabReleaseHelpContent, moveBookHelpContent ], spacing: 10, align: 'left' } ),
