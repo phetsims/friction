@@ -40,6 +40,7 @@ define( function( require ) {
 
   // sounds
   const bookContactSound = require( 'sound!FRICTION/contact-lower.mp3' );
+  const moleculeBreakOffSound = require( 'sound!FRICTION/break-off-autosinfonie-spatialized.mp3' );
 
   // constants
   const THERMOMETER_FLUID_MAIN_COLOR = 'rgb(237,28,36)';
@@ -90,8 +91,22 @@ define( function( require ) {
       drag: true,
       tandem: tandem.createTandem( 'chemistryBookNode' )
     } );
-
     this.addChild( chemistryBookNode );
+
+    // create and hook up the sound that will be produced when the books come into contact
+    const bookContactSoundClip = new SoundClip( bookContactSound, { initialOutputLevel: 0.5 } );
+    soundManager.addSoundGenerator( bookContactSoundClip );
+    model.contactProperty.link( contact => {
+      if ( contact ) {
+        bookContactSoundClip.play();
+      }
+    } );
+
+    // @private {BookRubSoundGenerator} - sound generator for when the books rub together
+    this.bookRubSoundGenerator = new BookRubSoundGenerator( model.topBookPositionProperty, model.contactProperty, {
+      maxOutputLevel: 0.4
+    } );
+    soundManager.addSoundGenerator( this.bookRubSoundGenerator );
 
     // @private - add magnifier
     this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, tandem.createTandem( 'magnifierNode' ), {
@@ -148,23 +163,24 @@ define( function( require ) {
       initialOutputLevel: 0.7
     } ) );
 
-    // set up the sound that will be produced when the books come into contact
-    const bookContactSoundClip = new SoundClip( bookContactSound, { initialOutputLevel: 0.5 } );
-    soundManager.addSoundGenerator( bookContactSoundClip );
-    model.contactProperty.link( contact => {
-      if ( contact ) {
-        bookContactSoundClip.play();
-      }
-    } );
-
-    // set up the sound that will be played to indicate changes to the rate of molecule motion
+    // create and register the sound that will be played to indicate changes to the rate of molecule motion
     soundManager.addSoundGenerator( new MoleculeMotionSoundGenerator( model.amplitudeProperty ) );
 
-    // @private {BookRubSoundGenerator}
-    this.bookRubSoundGenerator = new BookRubSoundGenerator( model.topBookPositionProperty, model.contactProperty, {
-      maxOutputLevel: 0.4
+    // create and hook up the sound that is played when molecules break off from the top book
+    const moleculeBreakOffSoundClip = new SoundClip( moleculeBreakOffSound, { initialOutputLevel: 0.5 } );
+    soundManager.addSoundGenerator( moleculeBreakOffSoundClip );
+    model.evaporationEmitter.addListener( () => {
+
+      // don't play for every evaporated molecule or it's too noisy
+      if ( model.numberOfAtomsEvaporated % 4 === 0 ) {
+
+        // choose a playback rate
+        moleculeBreakOffSoundClip.playbackRate = FrictionConstants.GET_RANDOM_PENTATONIC_PLAYBACK_RATE();
+
+        // play the sound
+        moleculeBreakOffSoundClip.play();
+      }
     } );
-    soundManager.addSoundGenerator( this.bookRubSoundGenerator );
 
     // add a node that creates a "play area" accessible section in the PDOM
     let controlAreaNode = new ControlAreaNode();

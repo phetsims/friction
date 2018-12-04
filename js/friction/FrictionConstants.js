@@ -14,6 +14,11 @@ define( function( require ) {
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
 
+  // constants
+  const MAJOR_PENTATONIC_PLAYBACK_RATES = [
+    1, Math.pow( 2, 2 / 12 ), Math.pow( 2, 4 / 12 ), Math.pow( 2, 7 / 12 ), Math.pow( 2, 9 / 12 )
+  ];
+
   // a11y strings
   const jiggleALotString = FrictionA11yStrings.jiggleALot.value;
   const jiggleALittleString = FrictionA11yStrings.jiggleALittle.value;
@@ -36,6 +41,11 @@ define( function( require ) {
     INITIAL_ATOM_SPACING_Y: 20, // y-distance between neighboring atoms in the books
     MAGNIFIER_WINDOW_HEIGHT: 300,
     MAGNIFIER_WINDOW_WIDTH: 690,
+
+    // sound - a function for choosing a random playback rate from a one-octave pentatonic scale
+    GET_RANDOM_PENTATONIC_PLAYBACK_RATE: function() {
+      return phet.joist.random.sample( MAJOR_PENTATONIC_PLAYBACK_RATES );
+    },
 
     // a11y - the mappings work well divided into 9 sections (arbitrary, but @terracoda's design diagram fit into 9 well
     // These are only used for the screen summary description in the PDOM, not alerts

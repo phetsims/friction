@@ -20,15 +20,13 @@ define( function( require ) {
   // modules
   const inherit = require( 'PHET_CORE/inherit' );
   const friction = require( 'FRICTION/friction' );
+  const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
   const SoundGenerator = require( 'TAMBO/sound-generators/SoundGenerator' );
 
   // sounds
   const bounceMarimbaSound = require( 'sound!FRICTION/bounce-marimba.mp3' );
-
-  // constants
-  const PENTATONIC_SCALE_DEGREES = [ 0, 2, 4, 7, 9 ];
 
   /**
    * @constructor
@@ -66,14 +64,11 @@ define( function( require ) {
       this.setOutputLevel( options.overallOutputLevel * moleculeMotionSoundVolume );
 
       // choose a sound clip (this creates variation in the output level for each play operation)
-      const soundClip = _.sample( motionSoundClips );
+      const soundClip = phet.joist.random.sample( motionSoundClips );
 
-      // Choose a random pitch from the pentatonic major scale, create the corresponding rate
-      const rate = Math.pow( 2, PENTATONIC_SCALE_DEGREES[ Math.floor( Math.random() * 5 ) ] / 12 );
-
-      // shift the rate up by a perfect 5th
+      // set the playback rate in a way that sounds good with other sounds that are playing
       // TODO: Why can't I just do the pitch shift in the original sound clip?  Try it.
-      soundClip.playbackRate = 1.5 * rate;
+      soundClip.playbackRate = 1.5 * FrictionConstants.GET_RANDOM_PENTATONIC_PLAYBACK_RATE();
 
       soundClip.play();
     } );
