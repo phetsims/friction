@@ -77,12 +77,20 @@ define( function( require ) {
       let bookTitle = StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } );
 
       // cuing arrows for the book
-      const bookCueArrow1 = new CueArrow( { rotation: Math.PI } );
-      const bookCueArrow2 = new CueArrow( { x: this.width } );
+      const bookCueArrow1 = new CueArrow( {
+        rotation: Math.PI,
+        right: -10,
+        scale: .7
+      } );
+      const bookCueArrow2 = new CueArrow( {
+        left: this.width + 12,
+        scale: .7
+      } );
       const bookCueArrow3 = new CueArrow( {
         rotation: Math.PI / 2,
-        x: this.width / 2,
-        y: this.height / 2 + 2 // a little futher down on the screen, empirical
+        centerX: this.width / 2,
+        y: this.height / 2 + 10, // a little further down on the screen, empirical
+        scale: .7
       } );
       const arrows = new Node( {
         children: [ bookCueArrow1, bookCueArrow2, bookCueArrow3 ]

@@ -20,7 +20,6 @@ define( ( require ) => {
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
-  const FrictionQueryParameters = require( 'FRICTION/friction/FrictionQueryParameters' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const timer = require( 'PHET_CORE/timer' );
   const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
@@ -64,11 +63,13 @@ define( ( require ) => {
   // From model, the amplitude value when the atoms evaporate
   const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
 
-  // in ms, how long to wait until we consider this newest drag of a different "drag session"
-  const DRAG_SESSION_THRESHOLD = FrictionQueryParameters.dragSessionThreshold;
+  // how long to wait until we consider this newest drag of a different "drag session", such
+  // that the warming alert progression will start over back at "warmer" alerts.
+  // in ms
+  const DRAG_SESSION_THRESHOLD = 1000;
 
-  // time in between each increasing alert
-  const ALERT_TIME_DELAY = FrictionQueryParameters.warmingAlertTimeDelay;
+  // in ms, time in between each increasing alert
+  const ALERT_TIME_DELAY = 500;
 
   // the singleton instance of this describer, used for the entire instance of the sim.
   let describer = null;

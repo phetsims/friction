@@ -157,6 +157,8 @@ define( require => {
     reset() {
       super.reset();
       this.bottomUtterance.reset();
+      this.contactedAlertPair.reset();
+      this.separatedAlertPair.reset();
     }
 
     /**
