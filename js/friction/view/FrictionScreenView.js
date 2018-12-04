@@ -96,7 +96,8 @@ define( function( require ) {
     this.addChild( chemistryBookNode );
 
     // create and hook up the sound that will be produced when the books come into contact with one another
-    const bookContactSoundClip = new SoundClip( bookContactSound, { initialOutputLevel: 0.5 } );
+    // TODO: Ashton - review and modify level if needed
+    const bookContactSoundClip = new SoundClip( bookContactSound, { initialOutputLevel: 0.3 } );
     soundManager.addSoundGenerator( bookContactSoundClip );
     model.contactProperty.link( contact => {
       if ( contact ) {
@@ -105,8 +106,9 @@ define( function( require ) {
     } );
 
     // @private {BookRubSoundGenerator} - sound generator for when the books rub together
+    // TODO: Ashton - review and modify level if needed
     this.bookRubSoundGenerator = new BookRubSoundGenerator( model.topBookPositionProperty, model.contactProperty, {
-      maxOutputLevel: 0.4
+      maxOutputLevel: 0.2
     } );
     soundManager.addSoundGenerator( this.bookRubSoundGenerator );
 
@@ -166,10 +168,14 @@ define( function( require ) {
     } ) );
 
     // create and register the sound that will be played to indicate changes to the rate of molecule motion
-    soundManager.addSoundGenerator( new MoleculeMotionSoundGenerator( model.amplitudeProperty ) );
+    // TODO: Ashton - review and modify level if needed
+    soundManager.addSoundGenerator( new MoleculeMotionSoundGenerator( model.amplitudeProperty, {
+      maxOutputLevel: 0.2
+    } ) );
 
     // create and hook up the sound that is played when molecules break off from the top book
-    const moleculeBreakOffSoundClip = new SoundClip( moleculeBreakOffSound, { initialOutputLevel: 0.5 } );
+    // TODO: Ashton - review and modify level if needed
+    const moleculeBreakOffSoundClip = new SoundClip( moleculeBreakOffSound, { initialOutputLevel: 0.05 } );
     soundManager.addSoundGenerator( moleculeBreakOffSoundClip );
     model.evaporationEmitter.addListener( () => {
 
@@ -185,7 +191,10 @@ define( function( require ) {
     } );
 
     // @private {CoolingSoundGenerator} - sound generator that produces the "cooling off" sound
-    this.coolingSoundGenerator = new CoolingSoundGenerator( model.amplitudeProperty );
+    // TODO: Ashton - review and modify level if needed
+    this.coolingSoundGenerator = new CoolingSoundGenerator( model.amplitudeProperty, {
+      maxOutputLevel: 0.75
+    } );
     soundManager.addSoundGenerator( this.coolingSoundGenerator, {
       sonificationLevel: SoundLevelEnum.ENHANCED
     } );

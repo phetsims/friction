@@ -36,7 +36,7 @@ define( function( require ) {
   function MoleculeMotionSoundGenerator( moleculeAmplitudeProperty, options ) {
 
     options = _.extend( {
-      overallOutputLevel: 0.25 // max gain for this sound generator, sets the overall output of this sound generator
+      maxOutputLevel: 1 // max gain for this sound generator, sets the overall output of this sound generator
     }, options );
 
     SoundGenerator.call( this, options );
@@ -61,7 +61,7 @@ define( function( require ) {
 
       // map normalized amplitude to volume
       const moleculeMotionSoundVolume = Math.pow( normalizedAmplitude, 1.5 );
-      this.setOutputLevel( options.overallOutputLevel * moleculeMotionSoundVolume );
+      this.setOutputLevel( options.maxOutputLevel * moleculeMotionSoundVolume );
 
       // choose a sound clip (this creates variation in the output level for each play operation)
       const soundClip = phet.joist.random.sample( motionSoundClips );

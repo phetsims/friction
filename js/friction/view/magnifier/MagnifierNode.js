@@ -48,12 +48,12 @@ define( function( require ) {
   const harpDropSound = require( 'sound!FRICTION/harp-drop.mp3' );
   const harpPickupSound = require( 'sound!FRICTION/harp-pickup.mp3' );
 
-
+  // constants
   let WIDTH = FrictionConstants.MAGNIFIER_WINDOW_WIDTH;
   let HEIGHT = FrictionConstants.MAGNIFIER_WINDOW_HEIGHT;
   let ROUND = 30;
   let SCALE = 0.05;
-  let SOUND_LEVEL = 0.5;
+  let SOUND_LEVEL = 0.1; // TODO: Ashton - level for magnified book pickup and drop, review and modify if needed
   let ARROW_TOP = 22;
 
   /**
