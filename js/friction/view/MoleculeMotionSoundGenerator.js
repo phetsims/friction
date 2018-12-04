@@ -67,8 +67,7 @@ define( function( require ) {
       const soundClip = phet.joist.random.sample( motionSoundClips );
 
       // set the playback rate in a way that sounds good with other sounds that are playing
-      // TODO: Why can't I just do the pitch shift in the original sound clip?  Try it.
-      soundClip.playbackRate = 1.5 * FrictionConstants.GET_RANDOM_PENTATONIC_PLAYBACK_RATE();
+      soundClip.playbackRate = FrictionConstants.GET_RANDOM_PENTATONIC_PLAYBACK_RATE();
 
       soundClip.play();
     } );
