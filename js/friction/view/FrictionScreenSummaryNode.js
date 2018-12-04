@@ -25,8 +25,7 @@ define( require => {
   const jiggleTemperatureScaleSentenceString = FrictionA11yStrings.jiggleTemperatureScaleSentence.value;
   const thermometerString = FrictionA11yStrings.thermometer.value;
   const temperaturePatternString = FrictionA11yStrings.temperaturePattern.value;
-  const moveDownToRubHarderString = FrictionA11yStrings.moveDownToRubHarder.value;
-  const moveChemistryBookSentencePatternString = FrictionA11yStrings.moveChemistryBookSentencePattern.value;
+  const moveChemistryBookSentenceString = FrictionA11yStrings.moveChemistryBookSentence.value;
   const resetSimMoreObservationSentenceString = FrictionA11yStrings.resetSimMoreObservationSentence.value;
   const startingChemistryBookPatternString = FrictionA11yStrings.startingChemistryBookPattern.value;
   const lightlyString = FrictionA11yStrings.lightly.value;
@@ -233,14 +232,9 @@ define( require => {
      */
     getThirdSupplementarySentence( numberOfAtomsEvaporated ) {
 
-      // optional end to sentence based on if books are touching
-      var moveChemistryBookSentence = StringUtils.fillIn( moveChemistryBookSentencePatternString, {
-        moveDownToRubHarder: this.model.contactProperty.get() ? '' : moveDownToRubHarderString
-      } );
-
       // Queue moving the book if there are still many atoms left, queue reset if there are many evaporated atoms
       return numberOfAtomsEvaporated > SOME_ATOMS_EVAPORATED_THRESHOLD ?
-             resetSimMoreObservationSentenceString : moveChemistryBookSentence;
+             resetSimMoreObservationSentenceString : moveChemistryBookSentenceString;
     }
 
     /**
