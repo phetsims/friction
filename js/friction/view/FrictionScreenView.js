@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   const BookMovementDescriber = require( 'FRICTION/friction/view/describers/BookMovementDescriber' );
   const BookNode = require( 'FRICTION/friction/view/book/BookNode' );
+  const BookRubSoundGenerator = require( 'FRICTION/friction/view/BookRubSoundGenerator' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const BreakAwayDescriber = require( 'FRICTION/friction/view/describers/BreakAwayDescriber' );
   const ControlAreaNode = require( 'SCENERY_PHET/accessibility/nodes/ControlAreaNode' );
@@ -159,6 +160,12 @@ define( function( require ) {
     // set up the sound that will be played to indicate changes to the rate of molecule motion
     soundManager.addSoundGenerator( new MoleculeMotionSoundGenerator( model.amplitudeProperty ) );
 
+    // @private {BookRubSoundGenerator}
+    this.bookRubSoundGenerator = new BookRubSoundGenerator( model.topBookPositionProperty, model.contactProperty, {
+      maxOutputLevel: 0.4
+    } );
+    soundManager.addSoundGenerator( this.bookRubSoundGenerator );
+
     // add a node that creates a "play area" accessible section in the PDOM
     let controlAreaNode = new ControlAreaNode();
     this.addChild( controlAreaNode );
@@ -191,6 +198,7 @@ define( function( require ) {
      */
     step( dt ) {
       this.magnifierNode.step( dt );
+      this.bookRubSoundGenerator.step( dt );
     },
 
     /**
