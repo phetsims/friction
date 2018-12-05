@@ -29,6 +29,7 @@ define( function( require ) {
         noiseType: 'pink',
         centerFrequency: 6000,
         qFactor: 4,
+        initialOutputLevel: 0,
         maxOutputLevel: 1
       },
       options

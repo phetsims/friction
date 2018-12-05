@@ -90,7 +90,8 @@ define( function( require ) {
         else {
           this.setOutputLevel( 0 );
         }
-      } );
+      }
+    );
   }
 
   friction.register( 'BookRubSoundGenerator', BookRubSoundGenerator );
