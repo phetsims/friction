@@ -38,11 +38,15 @@ define( function( require ) {
         leadDesign: 'Michael Dubson, Noah Podolefsky',
         softwareDevelopment: 'Michael Dubson, John Blanco, Jonathan Olson',
         team: 'Wendy Adams, Mindy Gratny, Emily B. Moore, Ariel Paul, Katherine Perkins, Carl Wieman',
-        qualityAssurance: 'Steele Dalton, Kerrie Dochen, Bryce Griebenow, Ethan Johnson, Elise Morgan, Liam Mulhall, Oliver Orejola, Ben Roberts, Bryan Yoelin',
+        soundDesign: 'Ashton Morris, Mike Winters',
+        qualityAssurance: 'Steele Dalton, Kerrie Dochen, Bryce Griebenow, Ethan Johnson, Elise Morgan, Liam Mulhall, ' +
+                          'Oliver Orejola, Ben Roberts, Bryan Yoelin',
         thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation to HTML5.'
       },
       keyboardHelpNode: keyboardHelpContent,
-      accessibility: true
+      accessibility: true,
+      supportsEnhancedSound: true,
+      supportsSound: true
     };
 
     // Create and start the sim
