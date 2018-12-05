@@ -108,7 +108,7 @@ define( function( require ) {
     // @private {BookRubSoundGenerator} - sound generator for when the books rub together
     // TODO: Ashton - review and modify level if needed
     this.bookRubSoundGenerator = new BookRubSoundGenerator( model.topBookPositionProperty, model.contactProperty, {
-      maxOutputLevel: 0.2
+      maxOutputLevel: 0.5
     } );
     soundManager.addSoundGenerator( this.bookRubSoundGenerator );
 

@@ -84,7 +84,7 @@ define( function( require ) {
         if ( contact && Math.abs( topBookXVelocity ) > 0 && !rubSoundLockedOut ) {
 
           // set the output level based on the velocity of the book
-          let noiseAmplitude = options.maxOutputLevel * Math.pow( Math.abs( topBookXVelocity ), 0.25 );
+          let noiseAmplitude = options.maxOutputLevel * Math.min( Math.pow( Math.abs( topBookXVelocity ), 0.25 ), 1 );
           this.setOutputLevel( noiseAmplitude, 0.05 );
         }
         else {
