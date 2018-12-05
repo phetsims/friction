@@ -46,7 +46,7 @@ define( function( require ) {
       },
       end: ( event ) => {
         TemperatureIncreasingDescriber.getDescriber().endDrag();
-        BookMovementDescriber.getDescriber().endDrag( event );
+        BookMovementDescriber.getDescriber().endDrag( event.domEvent );
 
       },
       dragBounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS
