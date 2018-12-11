@@ -10,7 +10,6 @@ define( function( require ) {
   // modules
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
-  const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
