@@ -14,9 +14,7 @@ define( function( require ) {
   const friction = require( 'FRICTION/friction' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Property = require( 'AXON/Property' );
-  const PropertyIO = require( 'AXON/PropertyIO' );
   const Vector2 = require( 'DOT/Vector2' );
-  const Vector2IO = require( 'DOT/Vector2IO' );
 
   // constants
   let EVAPORATED_SPEED = 400; // speed that particles travel during evaporation, in model units per second
@@ -44,11 +42,7 @@ define( function( require ) {
     this.isEvaporated = false;
 
     // @public {Property.<Vector2>} - the position of the atom
-    this.positionProperty = new Property( initialPosition, {
-      phetioType: PropertyIO( Vector2IO ),
-      tandem: tandem.createTandem( 'positionProperty' ),
-      phetioHighFrequency: true
-    } );
+    this.positionProperty = new Property( initialPosition );
 
     // @private {Vector2} - the center position, around which oscillations occur
     this.centerPosition = new Vector2( initialPosition.x, initialPosition.y );
