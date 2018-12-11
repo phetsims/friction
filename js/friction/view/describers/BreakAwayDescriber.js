@@ -32,9 +32,7 @@ define( ( require ) => {
   // time in between "break away sessions". This is the minimum amount of time to wait before hearing a subsequent break
   // away alert
   const ALERT_TIME_DELAY = 2000;
-
   const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
-
 
   // the singleton instance of this describer, used for the entire instance of the sim.
   let describer = null;

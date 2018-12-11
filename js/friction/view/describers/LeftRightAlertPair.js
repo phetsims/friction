@@ -1,7 +1,6 @@
 // Copyright 2018, University of Colorado Boulder
 
 /**
- *
  * Data structure type that keeps track of when the book has moved both left and right
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */

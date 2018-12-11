@@ -89,6 +89,7 @@ define( require => {
     /**
      * alert for a specific direction
      * @param {DirectionEnum} direction
+     * @private
      */
     alertForDirection( direction ) {
 
@@ -159,6 +160,10 @@ define( require => {
       }
     }
 
+    /**
+     * @override
+     * @public
+     */
     reset() {
       super.reset();
       this.bottomUtterance.reset();
@@ -176,7 +181,7 @@ define( require => {
     }
 
     /**
-     * Initialize the describer singleton
+     * Initialize the describer singleton, we do it this way because we need a reference to the model.
      * @param {FrictionModel} model
      * @param {Object} [options]
      * @returns {BookMovementDescriber}
