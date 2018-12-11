@@ -14,11 +14,14 @@ define( function( require ) {
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
+  // a11y strings
   const initialGrabbedNotTouchingString = FrictionA11yStrings.initialGrabbedNotTouching.value;
   const grabbedNotTouchingString = FrictionA11yStrings.grabbedNotTouching.value;
   const initialGrabbedTouchingString = FrictionA11yStrings.initialGrabbedTouching.value;
   const grabbedTouchingString = FrictionA11yStrings.grabbedTouching.value;
+  const moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
 
+  // constants
   const touchingAlerts = { initial: initialGrabbedTouchingString, subsequent: grabbedTouchingString };
   const notTouchingAlerts = { initial: initialGrabbedNotTouchingString, subsequent: grabbedNotTouchingString };
 
@@ -37,6 +40,12 @@ define( function( require ) {
         // Function that returns whether or not the drag cue should be shown.
         successfulDrag: () => {
           return !model.topBookPositionProperty.value.equals( model.topBookPositionProperty.initialValue );
+        },
+
+        // set the role description on the grabbable
+        onRelease: () => {
+          wrappedNode.removeAccessibleAttribute( 'aria-roledescription' );
+
         }
       }, options );
 
@@ -45,6 +54,8 @@ define( function( require ) {
 
       // Wrap the onGrab option in default functionality for al of the type in Friction
       options.onGrab = () => {
+        wrappedNode.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
+
         oldGrab && oldGrab();
 
         let alerts = model.contactProperty.get() ? touchingAlerts : notTouchingAlerts;

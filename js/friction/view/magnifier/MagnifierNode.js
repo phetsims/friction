@@ -40,7 +40,6 @@ define( function( require ) {
   // a11y strings
   let bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
   let zoomedInBookTitlePatternString = FrictionA11yStrings.zoomedInBookTitlePattern.value;
-  // let moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
   let zoomedInString = FrictionA11yStrings.zoomedIn.value;
   let zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
 
@@ -235,9 +234,6 @@ define( function( require ) {
 
       listenersForDrag: [ this.keyboardDragHandler, focusListener ]
     } );
-
-    // TODO: what to do about this? https://github.com/phetsims/friction/issues/152
-    // a11yGrabDragInteractionNode.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
 
     // add arrows before the drag area, then the grab cue hides the arrows
     this.topBookBackground.addChild( visualArrowIcon );

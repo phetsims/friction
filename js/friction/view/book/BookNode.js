@@ -35,7 +35,6 @@ define( function( require ) {
 
   // a11y strings
   let bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
-  // let moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
   let zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
   let grabButtonHelpTextString = FrictionA11yStrings.grabButtonHelpText.value;
 
@@ -144,9 +143,6 @@ define( function( require ) {
       } );
 
       this.addChild( focusHighlightRect );
-
-      // TODO: manage aria-roledescription
-      // this.a11yGrabDragInteractionNode.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
 
       this.addInputListener( new FrictionDragHandler( model, options.tandem.createTandem( 'dragHandler' ), {
         startSound: bookPickupSoundClip,
