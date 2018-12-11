@@ -125,7 +125,7 @@ define( function( require ) {
         grabButtonOptions: {
           appendDescription: true,
           helpText: grabButtonHelpTextString,
-          focusHighlight: focusHighlightRect,
+          focusHighlight: focusHighlightRect
         },
         dragCueNode: arrows,
 
@@ -133,7 +133,7 @@ define( function( require ) {
 
           // add a11y options for the interactive BookNode
           ariaLabel: bookTitle,
-          innerContent: bookTitle,
+          innerContent: bookTitle
         },
 
         listenersForDrag: [ this.keyboardDragHandler, focusListener ]
