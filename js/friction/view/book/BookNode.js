@@ -122,14 +122,14 @@ define( function( require ) {
           x: 60,
           y: -55
         },
-        grabButtonOptions: {
+        grabbableOptions: {
           appendDescription: true,
           helpText: grabButtonHelpTextString,
           focusHighlight: focusHighlightRect
         },
         dragCueNode: arrows,
 
-        dragDivOptions: {
+        draggableOptions: {
 
           // add a11y options for the interactive BookNode
           ariaLabel: bookTitle,

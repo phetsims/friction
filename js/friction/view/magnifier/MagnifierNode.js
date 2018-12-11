@@ -214,7 +214,7 @@ define( function( require ) {
       grabCueOptions: {
         center: dragArea.center.minusXY( 0, 73 )
       },
-      grabButtonOptions: {
+      grabbableOptions: {
         focusHighlight: focusHighlightPath
       },
 
@@ -225,7 +225,7 @@ define( function( require ) {
 
       // a11y - add accessibility to the rectangle that surrounds the top atoms.
 
-      dragDivOptions: {
+      draggableOptions: {
         // Add the Accessible Name based on the name of the name of the book title.
         ariaLabel: zoomedInTitle,
         innerContent: zoomedInTitle
