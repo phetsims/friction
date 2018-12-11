@@ -444,6 +444,8 @@ define( function( require ) {
 
     // statics
     MAGNIFIED_ATOMS_INFO: MAGNIFIED_ATOMS_INFO,
+    THERMOMETER_MIN_TEMP: MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min - 1.05, // about 0
+    THERMOMETER_MAX_TEMP: MAGNIFIED_ATOMS_INFO.evaporationLimit * 1.1, // ~7.7
 
     // a11y - needed to get bounds for the keyboard drag handler, see https://github.com/phetsims/friction/issues/46
     MAX_X_DISPLACEMENT: MAX_X_DISPLACEMENT,

@@ -49,8 +49,6 @@ define( function( require ) {
   const THERMOMETER_FLUID_HIGHLIGHT_COLOR = 'rgb(240,150,150)';
   const THERMOMETER_FLUID_RIGHT_SIDE_COLOR = 'rgb(237,28,36)';
   const THERMOMETER_BACKGROUND_FILL_COLOR = 'white';
-  const THERMOMETER_MIN_TEMP = FrictionModel.MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min - 1.05; // about 0
-  const THERMOMETER_MAX_TEMP = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit * 1.1; // 7.7???
 
   /**
    * @param {FrictionModel} model

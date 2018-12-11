@@ -23,10 +23,8 @@ define( function( require ) {
   const atomsJiggleTinyBitTempCoolString = FrictionA11yStrings.atomsJiggleTinyBitTempCool.value;
 
   // constants
-  //TODO duplicated min/max constants with the screen view
-  const THERMOMETER_MIN_TEMP = FrictionModel.MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min - 1.05; // about 0
-  const THERMOMETER_MAX_TEMP = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit * 1.1; // 7.7???
-
+  const THERMOMETER_MIN_TEMP = FrictionModel.THERMOMETER_MIN_TEMP;
+  const THERMOMETER_MAX_TEMP = FrictionModel.THERMOMETER_MAX_TEMP;
   const THERMOMETER_RANGE = THERMOMETER_MAX_TEMP - THERMOMETER_MIN_TEMP;
   const DIVIDED_RANGE = THERMOMETER_RANGE / 9;
 
