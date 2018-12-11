@@ -49,6 +49,8 @@ define( function( require ) {
   const THERMOMETER_FLUID_HIGHLIGHT_COLOR = 'rgb(240,150,150)';
   const THERMOMETER_FLUID_RIGHT_SIDE_COLOR = 'rgb(237,28,36)';
   const THERMOMETER_BACKGROUND_FILL_COLOR = 'white';
+  const THERMOMETER_MIN_TEMP = FrictionModel.THERMOMETER_MIN_TEMP;
+  const THERMOMETER_MAX_TEMP = FrictionModel.THERMOMETER_MAX_TEMP;
 
   /**
    * @param {FrictionModel} model
@@ -240,9 +242,5 @@ define( function( require ) {
     reset() {
       this.resetFrictionScreenView();
     }
-  }, {
-
-    // @public - exported for other view code
-    THERMOMETER_MAX_TEMP: THERMOMETER_MAX_TEMP
   } );
 } );
