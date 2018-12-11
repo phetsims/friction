@@ -11,9 +11,7 @@ define( function( require ) {
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
-  const Range = require( 'DOT/Range' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const TemperatureZoneEnum = require( 'FRICTION/friction/model/TemperatureZoneEnum' );
   const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
@@ -21,23 +19,6 @@ define( function( require ) {
   const frictionIncreasingAtomsJigglingTemperatureFirstPatternString = FrictionA11yStrings.frictionIncreasingAtomsJigglingTemperatureFirstPattern.value;
   const frictionIncreasingAtomsJigglingTemperaturePatternString = FrictionA11yStrings.frictionIncreasingAtomsJigglingTemperaturePattern.value;
   const atomsJiggleTinyBitTempCoolString = FrictionA11yStrings.atomsJiggleTinyBitTempCool.value;
-
-  // constants
-  const THERMOMETER_MIN_TEMP = FrictionModel.THERMOMETER_MIN_TEMP;
-  const THERMOMETER_MAX_TEMP = FrictionModel.THERMOMETER_MAX_TEMP;
-  const THERMOMETER_RANGE = THERMOMETER_MAX_TEMP - THERMOMETER_MIN_TEMP;
-  const DIVIDED_RANGE = THERMOMETER_RANGE / 9;
-
-  // a11y - [cool, warm, hot, very hot]
-  const AMPLITUDE_RANGES = [ new Range( THERMOMETER_MIN_TEMP, 2 * DIVIDED_RANGE ),
-    new Range( 2 * DIVIDED_RANGE, 5 * DIVIDED_RANGE ),
-    new Range( 5 * DIVIDED_RANGE, 8 * DIVIDED_RANGE ),
-    new Range( 8 * DIVIDED_RANGE, 9 * DIVIDED_RANGE )
-  ];
-  const TEMPERATURE_ZONES = TemperatureZoneEnum.getOrdered();
-
-  // sanity check to keep these in sync
-  assert && assert( AMPLITUDE_RANGES.length === TEMPERATURE_ZONES.length );
 
   var FrictionAlertManager = {
 
