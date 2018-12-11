@@ -44,7 +44,9 @@ define( function( require ) {
 
         // set the role description on the grabbable
         onRelease: () => {
-          wrappedNode.removeAccessibleAttribute( 'aria-roledescription' );
+          if ( wrappedNode.hasAccessibleAttribute( 'aria-roledescription' ) ) {
+            wrappedNode.removeAccessibleAttribute( 'aria-roledescription' );
+          }
 
         }
       }, options );
