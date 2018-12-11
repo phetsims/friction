@@ -116,7 +116,6 @@ define( function( require ) {
       // a11y
       this.a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model, this, {
         thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
-        // tandem: tandem.createTandem( 'chemistryBookNodeGrabButton' ), // TODO: handle this
 
         // Empircally determined values to place the cue above the book.
         grabCueOptions: {
@@ -127,7 +126,6 @@ define( function( require ) {
           appendDescription: true,
           helpText: grabButtonHelpTextString,
           focusHighlight: focusHighlightRect,
-          focusHighlightLayerable: true
         },
         dragCueNode: arrows,
 
@@ -136,7 +134,6 @@ define( function( require ) {
           // add a11y options for the interactive BookNode
           ariaLabel: bookTitle,
           innerContent: bookTitle,
-          focusHighlightLayerable: true
         },
 
         listenersForDrag: [ this.keyboardDragHandler, focusListener ]
@@ -155,7 +152,10 @@ define( function( require ) {
       } );
 
       this.mutate( {
-        cursor: 'pointer'
+        cursor: 'pointer',
+
+        // a11y
+        focusHighlightLayerable: true
       } );
     }
   }

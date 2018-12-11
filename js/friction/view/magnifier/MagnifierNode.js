@@ -154,7 +154,10 @@ define( function( require ) {
       FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY * 6, {
         fill: null,
         cursor: 'pointer',
-        tandem: tandem
+        tandem: tandem,
+
+        // a11y
+        focusHighlightLayerable: true
       } );
 
     dragArea.addInputListener( new FrictionDragHandler( model, tandem.createTandem( 'dragAreaDragHandler' ), {
@@ -212,9 +215,7 @@ define( function( require ) {
         center: dragArea.center.minusXY( 0, 73 )
       },
       grabButtonOptions: {
-        focusHighlight: focusHighlightPath,
-        focusHighlightLayerable: true// TODO: ??
-
+        focusHighlight: focusHighlightPath
       },
 
       // Hide the visual cue arrows
@@ -227,9 +228,7 @@ define( function( require ) {
       dragDivOptions: {
         // Add the Accessible Name based on the name of the name of the book title.
         ariaLabel: zoomedInTitle,
-        innerContent: zoomedInTitle,
-        focusHighlightLayerable: true // TODO: needed?
-
+        innerContent: zoomedInTitle
       },
 
       listenersForDrag: [ this.keyboardDragHandler, focusListener ]
