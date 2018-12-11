@@ -46,9 +46,7 @@ define( require => {
   class FrictionScreenSummaryNode extends Node {
     constructor( model, thermometerMinTemp, thermometerMaxTemp ) {
 
-      super( {
-        tagName: 'div'
-      } );
+      super();
 
       // @private
       this.model = model;
@@ -93,7 +91,10 @@ define( require => {
       model.contactProperty.link( () => { this.updateSummaryString( model );} );
 
       this.mutate( {
-        children: [ this.booksParagraph, this.interactionHintParagraph ]
+        children: [ this.booksParagraph, this.interactionHintParagraph ],
+
+        // a11y
+        tagName: 'div'
       } );
     }
 
