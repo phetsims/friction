@@ -41,7 +41,7 @@ define( function( require ) {
     },
 
     initialGrabbedNotTouching: {
-      value: 'Grabbed. Lightly on Physics book. Use W, A, S, or D keys to move book. Space to release.'
+      value: 'Grabbed. Lightly on Physics book. Move book with W, A, S, or D key. Space to release.'
     },
 
     grabbedNotTouching: {
