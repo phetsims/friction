@@ -130,11 +130,11 @@ define( function( require ) {
   // iterate through the constant to determine the number of atoms that can evaporate from the top book structure
   let atoms = 0;
   TOP_BOOK_ATOM_STRUCTURE.map( row => {
-    for ( let schema of row ) {
+    row.forEach( schema => {
       if ( schema.canEvaporate ) {
         atoms += schema.num;
       }
-    }
+    } );
   } );
 
   // the number of evaporable atoms in the top book
