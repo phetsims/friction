@@ -38,22 +38,22 @@ define( function( require ) {
   const Vector2 = require( 'DOT/Vector2' );
 
   // a11y strings
-  let bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
-  let zoomedInBookTitlePatternString = FrictionA11yStrings.zoomedInBookTitlePattern.value;
-  let zoomedInString = FrictionA11yStrings.zoomedIn.value;
-  let zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
+  const bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
+  const zoomedInBookTitlePatternString = FrictionA11yStrings.zoomedInBookTitlePattern.value;
+  const zoomedInString = FrictionA11yStrings.zoomedIn.value;
+  const zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
 
   // sounds
   const harpDropSound = require( 'sound!FRICTION/harp-drop.mp3' );
   const harpPickupSound = require( 'sound!FRICTION/harp-pickup.mp3' );
 
   // constants
-  let WIDTH = FrictionConstants.MAGNIFIER_WINDOW_WIDTH;
-  let HEIGHT = FrictionConstants.MAGNIFIER_WINDOW_HEIGHT;
-  let ROUND = 30;
-  let SCALE = 0.05;
-  let SOUND_LEVEL = 0.1; // TODO: Ashton - level for magnified book pickup and drop, review and modify if needed
-  let ARROW_TOP = 22;
+  const WIDTH = FrictionConstants.MAGNIFIER_WINDOW_WIDTH;
+  const HEIGHT = FrictionConstants.MAGNIFIER_WINDOW_HEIGHT;
+  const ROUND = 30;
+  const SCALE = 0.05;
+  const SOUND_LEVEL = 0.1; // TODO: Ashton - level for magnified book pickup and drop, review and modify if needed
+  const ARROW_TOP = 22;
 
   /**
    * @param {FrictionModel} model
@@ -75,9 +75,9 @@ define( function( require ) {
     this.topAtomsLayer = new Node();
 
     // arrow icon
-    let leftArrow = new CueArrow( { rotation: Math.PI, fill: 'white' } );
-    let rightArrow = new CueArrow( { fill: 'white' } );
-    let visualArrowIcon = new HBox( {
+    const leftArrow = new CueArrow( { rotation: Math.PI, fill: 'white' } );
+    const rightArrow = new CueArrow( { fill: 'white' } );
+    const visualArrowIcon = new HBox( {
       children: [ leftArrow, rightArrow ],
       spacing: 20,
       centerX: WIDTH / 2,
@@ -123,7 +123,7 @@ define( function( require ) {
     this.topBookBackground = new Node();
 
     // init drag for background
-    let background = new Rectangle(
+    const background = new Rectangle(
       -1.125 * WIDTH,
       -HEIGHT,
       3.25 * WIDTH,
@@ -142,12 +142,12 @@ define( function( require ) {
     this.topBookBackground.addChild( background );
 
     // init drag for drag area
-    let zoomedInTitle = StringUtils.fillIn( zoomedInBookTitlePatternString, {
+    const zoomedInTitle = StringUtils.fillIn( zoomedInBookTitlePatternString, {
       bookTitleString: StringUtils.fillIn( bookTitleStringPattern, {
         bookTitle: title
       } )
     } );
-    let dragArea = new Rectangle(
+    const dragArea = new Rectangle(
       0.055 * WIDTH,
       0.175 * HEIGHT,
       0.875 * WIDTH,
@@ -166,7 +166,7 @@ define( function( require ) {
     } ) );
 
     // a11y - custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
-    let focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
+    const focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
 
     // cuing arrows for the book
     const bookCueArrowLeft = new CueArrow( {
@@ -174,7 +174,7 @@ define( function( require ) {
     } );
     const bookCueArrowRight = new CueArrow();
 
-    let horizontalCueArrows = new HBox( {
+    const horizontalCueArrows = new HBox( {
       children: [ bookCueArrowLeft, bookCueArrowRight ],
       spacing: 30, // to be scaled down below
       centerX: WIDTH / 2,
@@ -199,7 +199,7 @@ define( function( require ) {
     this.keyboardDragHandler = new FrictionKeyboardDragListener( model );
 
     // alert the temperature state on focus
-    let focusListener = {
+    const focusListener = {
       focus() {
         if ( model.amplitudeProperty.value === model.amplitudeProperty.initialValue ) {
           FrictionAlertManager.alertSettledAndCool();
@@ -257,17 +257,17 @@ define( function( require ) {
     this.container.addChild( this.topBookBackground );
 
     // Add the red border around the magnified area, and add a white shape below it to block out the clipped area.
-    let topPadding = 500;
-    let sidePadding = 800;
-    let bottomPadding = 10; // don't go too far below the magnifier
-    let rightX = WIDTH + sidePadding;
-    let leftX = -sidePadding;
-    let topY = -topPadding;
-    let bottomY = HEIGHT + bottomPadding;
-    let innerLowX = ROUND;
-    let innerHighX = WIDTH - ROUND;
-    let innerLowY = ROUND;
-    let innerHighY = HEIGHT - ROUND;
+    const topPadding = 500;
+    const sidePadding = 800;
+    const bottomPadding = 10; // don't go too far below the magnifier
+    const rightX = WIDTH + sidePadding;
+    const leftX = -sidePadding;
+    const topY = -topPadding;
+    const bottomY = HEIGHT + bottomPadding;
+    const innerLowX = ROUND;
+    const innerHighX = WIDTH - ROUND;
+    const innerLowY = ROUND;
+    const innerHighY = HEIGHT - ROUND;
     this.addChild( new Path( new Shape().moveTo( rightX, topY )
       .lineTo( leftX, topY )
       .lineTo( leftX, bottomY )
@@ -290,7 +290,7 @@ define( function( require ) {
     } ) );
 
     // add magnifier's target
-    let magnifierTargetNode = new MagnifierTargetNode(
+    const magnifierTargetNode = new MagnifierTargetNode(
       targetX,
       targetY,
       WIDTH * SCALE,
@@ -332,7 +332,7 @@ define( function( require ) {
 
   // helper function that adds a row of circles at the specified location, used to add bumps to the magnified books
   function addRowCircles( circleRadius, xSpacing, parentNode, options ) {
-    let numberOfAtomsForRow = options.width / xSpacing;
+    const numberOfAtomsForRow = options.width / xSpacing;
     for ( let i = 0; i < numberOfAtomsForRow; i++ ) {
       parentNode.addChild( new Circle( circleRadius, {
         fill: options.color,

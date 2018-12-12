@@ -22,13 +22,13 @@ define( function( require ) {
   const Text = require( 'SCENERY/nodes/Text' );
 
   // constants
-  let FONT = new PhetFont( 22 );
-  let WIDTH = 200;
-  let HEIGHT = 30;
-  let ROUND = 5;
-  let PAGES = 8;
-  let LENGTH = 75;
-  let ANGLE = Math.PI / 12;
+  const FONT = new PhetFont( 22 );
+  const WIDTH = 200;
+  const HEIGHT = 30;
+  const ROUND = 5;
+  const PAGES = 8;
+  const LENGTH = 75;
+  const ANGLE = Math.PI / 12;
 
   /**
    * @param {string} title
@@ -69,7 +69,7 @@ define( function( require ) {
       fill: options.color,
       stroke: options.stroke
     } ) );
-    let titleNode = new Text( title, {
+    const titleNode = new Text( title, {
       font: FONT,
       fill: FrictionConstants.BOOK_TEXT_COLOR,
       pickable: false
@@ -90,9 +90,9 @@ define( function( require ) {
 
     // add remaining pages
     for ( let i = 0, dy = ( HEIGHT - ROUND ) / PAGES, dl = LENGTH / 5, offset = 5; i < PAGES; i++ ) {
-      let amplitude = ( LENGTH - offset + dl * ( Math.pow( 1 / 2 - i / PAGES, 2 ) - 1 / 4 ) );
-      let x2 = WIDTH + ROUND / 2 + Math.cos( ANGLE ) * amplitude;
-      let y2 = ROUND / 2 + dy * i - Math.sin( ANGLE ) * amplitude;
+      const amplitude = ( LENGTH - offset + dl * ( Math.pow( 1 / 2 - i / PAGES, 2 ) - 1 / 4 ) );
+      const x2 = WIDTH + ROUND / 2 + Math.cos( ANGLE ) * amplitude;
+      const y2 = ROUND / 2 + dy * i - Math.sin( ANGLE ) * amplitude;
       this.addChild( new Path( new Shape()
           .moveTo( WIDTH + ROUND / 2, ROUND / 2 + dy * i )
           .lineTo( x2, y2 ), {

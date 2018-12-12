@@ -75,7 +75,7 @@ define( function( require ) {
     BookMovementDescriber.initialize( model );
 
     // a11y
-    let frictionSummaryNode = new FrictionScreenSummaryNode( model, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP );
+    const frictionSummaryNode = new FrictionScreenSummaryNode( model, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP );
     this.screenSummaryNode.addChild( frictionSummaryNode );
 
     // add physics book
@@ -86,7 +86,7 @@ define( function( require ) {
     } ) );
 
     // add chemistry book
-    let chemistryBookNode = new BookNode( model, chemistryString, {
+    const chemistryBookNode = new BookNode( model, chemistryString, {
       x: 65,
       y: 209,
       color: FrictionConstants.TOP_BOOK_COLOR_MACRO,
@@ -142,14 +142,14 @@ define( function( require ) {
       }
     ) );
 
-    let playAreaNode = new PlayAreaNode();
+    const playAreaNode = new PlayAreaNode();
     this.addChild( playAreaNode );
 
     // a11y
     playAreaNode.accessibleOrder = [ chemistryBookNode, this.magnifierNode ];
 
     // add reset button
-    let resetAllButton = new ResetAllButton( {
+    const resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
         self.reset();
@@ -200,7 +200,7 @@ define( function( require ) {
     } );
 
     // add a node that creates a "play area" accessible section in the PDOM
-    let controlAreaNode = new ControlAreaNode();
+    const controlAreaNode = new ControlAreaNode();
     this.addChild( controlAreaNode );
     controlAreaNode.accessibleOrder = [ resetAllButton ];
 

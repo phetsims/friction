@@ -28,12 +28,12 @@ define( function( require ) {
   const frictionTitleString = require( 'string!FRICTION/friction.title' );
 
   // constants
-  let LAYOUT_BOUNDS = new Bounds2( 0, 0, 768, 504 );
+  const LAYOUT_BOUNDS = new Bounds2( 0, 0, 768, 504 );
 
   SimLauncher.launch( function() {
 
-    let keyboardHelpContent = new FrictionKeyboardHelpContentPanel();
-    let simOptions = {
+    const keyboardHelpContent = new FrictionKeyboardHelpContentPanel();
+    const simOptions = {
       credits: {
         leadDesign: 'Michael Dubson, Noah Podolefsky',
         softwareDevelopment: 'Michael Dubson, John Blanco, Jonathan Olson',
@@ -50,7 +50,7 @@ define( function( require ) {
     };
 
     // Create and start the sim
-    let screenTandem = Tandem.rootTandem.createTandem( 'frictionScreen' );
+    const screenTandem = Tandem.rootTandem.createTandem( 'frictionScreen' );
     new Sim( frictionTitleString, [
       new Screen( function() {
           return new FrictionModel( LAYOUT_BOUNDS.width, LAYOUT_BOUNDS.height, screenTandem.createTandem( 'model' ) );

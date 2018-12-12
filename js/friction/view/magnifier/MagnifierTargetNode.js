@@ -38,19 +38,19 @@ define( function( require ) {
 
     Node.call( this );
 
-    let rectangle = new Rectangle( 0, 0, width, height, cornerRadius, cornerRadius, {
+    const rectangle = new Rectangle( 0, 0, width, height, cornerRadius, cornerRadius, {
       stroke: options.stroke,
       lineWidth: 1
     } );
     this.addChild( rectangle );
-    let pathLeft = new Path( new Shape()
+    const pathLeft = new Path( new Shape()
       .moveToPoint( leftAnchor )
       .lineTo( x - width / 2, y ), {
       stroke: options.stroke,
       lineDash: [ 10, 10 ]
     } );
     this.addChild( pathLeft );
-    let pathRight = new Path( new Shape()
+    const pathRight = new Path( new Shape()
       .moveToPoint( rightAnchor )
       .lineTo( x + width / 2, y ), {
       stroke: options.stroke,

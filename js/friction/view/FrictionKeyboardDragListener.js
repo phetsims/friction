@@ -38,7 +38,7 @@ define( function( require ) {
         TemperatureDecreasingDescriber.getDescriber().startDrag();
       },
       drag: () => {
-        let newValue = model.topBookPositionProperty.get();
+        const newValue = model.topBookPositionProperty.get();
         model.move( new Vector2( newValue.x - oldPositionValue.x, newValue.y - oldPositionValue.y ) );
 
         // update the oldPositionValue for the next onDrag

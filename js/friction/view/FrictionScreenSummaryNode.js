@@ -151,7 +151,7 @@ define( require => {
       }
 
       // cancel out the range
-      let normalized = ( amplitude - this.thermometerMinTemp ) / this.thermometerMaxTemp;
+      const normalized = ( amplitude - this.thermometerMinTemp ) / this.thermometerMaxTemp;
       let i = Math.floor( normalized * stringsList.length );
 
       // to account for javascript rounding problems
@@ -171,7 +171,7 @@ define( require => {
      * @returns {string} the temp string based on the amplitude of the model
      */
     amplitudeToTempString( amplitude ) {
-      let i = this.amplitudeToIndex( amplitude, FrictionConstants.TEMPERATURE_STRINGS );
+      const i = this.amplitudeToIndex( amplitude, FrictionConstants.TEMPERATURE_STRINGS );
       return FrictionConstants.TEMPERATURE_STRINGS[ i ];
     }
 
@@ -183,7 +183,7 @@ define( require => {
      * @returns {string} the "jiggle" amount string based on the amplitude of the model
      */
     amplitudeToJiggleString( amplitude ) {
-      let i = this.amplitudeToIndex( amplitude, FrictionConstants.JIGGLE_STRINGS );
+      const i = this.amplitudeToIndex( amplitude, FrictionConstants.JIGGLE_STRINGS );
       return FrictionConstants.JIGGLE_STRINGS[ i ];
     }
 
@@ -195,7 +195,7 @@ define( require => {
     getSecondSummarySentence( amplitudeProperty ) {
 
       // {{boolean}} is sim "in transition"? meaning it is changing, because it isn't settled (settled is the opposite of "in transition"
-      let inTransition = amplitudeProperty.value > FrictionModel.AMPLITUDE_SETTLED_THRESHOLD;
+      const inTransition = amplitudeProperty.value > FrictionModel.AMPLITUDE_SETTLED_THRESHOLD;
 
 
       // Default to describing the jiggling of the atoms
@@ -214,7 +214,7 @@ define( require => {
       }
 
       // Fill in the current temperature string
-      let tempString = StringUtils.fillIn( temperaturePatternString, {
+      const tempString = StringUtils.fillIn( temperaturePatternString, {
         temp: this.amplitudeToTempString( amplitudeProperty.value ),
         thermometer: inTransition ? '' : thermometerString
       } );
@@ -246,13 +246,13 @@ define( require => {
     updateSummaryString() {
 
       // FIRST SENTENCE
-      let chemistryBookString = this.getFirstSummarySentence( this.model.numberOfAtomsEvaporated );
+      const chemistryBookString = this.getFirstSummarySentence( this.model.numberOfAtomsEvaporated );
 
       // SECOND SENTENCE (ZOOMED-IN)
-      let jiggleTempSentence = this.getSecondSummarySentence( this.model.amplitudeProperty );
+      const jiggleTempSentence = this.getSecondSummarySentence( this.model.amplitudeProperty );
 
       // SUPPLEMENTARY THIRD SENTENCE
-      let supplementarySentence = this.getThirdSupplementarySentence( this.model.numberOfAtomsEvaporated );
+      const supplementarySentence = this.getThirdSupplementarySentence( this.model.numberOfAtomsEvaporated );
 
       this.booksParagraph.innerContent = StringUtils.fillIn( summarySentencePatternString, {
         chemistryBookString: chemistryBookString,

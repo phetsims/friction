@@ -28,11 +28,11 @@ define( function( require ) {
   const moveInSmallerStepsString = require( 'string!FRICTION/moveInSmallerSteps' );
 
   // a11y strings
-  let moveBookWithString = FrictionA11yStrings.moveBookWith.value;
-  let moveInSmallerStepsWithString = FrictionA11yStrings.moveInSmallerStepsWith.value;
+  const moveBookWithString = FrictionA11yStrings.moveBookWith.value;
+  const moveInSmallerStepsWithString = FrictionA11yStrings.moveInSmallerStepsWith.value;
 
   // constants
-  let DEFAULT_LABEL_OPTIONS = {
+  const DEFAULT_LABEL_OPTIONS = {
     font: HelpContent.DEFAULT_LABEL_FONT,
     maxWidth: HelpContent.DEFAULT_TEXT_MAX_WIDTH,
     lineWrap: HelpContent.DEFAULT_TEXT_MAX_WIDTH - 10 // extra value necessary for proper wrapping, see https://github.com/phetsims/friction/issues/138#issuecomment-442347693
@@ -43,13 +43,13 @@ define( function( require ) {
    */
   function FrictionKeyboardHelpContentPanel() {
 
-    let grabReleaseHelpContent = HelpContent.getGrabReleaseHelpContent( bookTitleString, bookLabelString );
-    let moveBookHelpContent = new MoveBookHelpNode();
-    let generalNavigationHelpContent = new GeneralNavigationHelpContent();
+    const grabReleaseHelpContent = HelpContent.getGrabReleaseHelpContent( bookTitleString, bookLabelString );
+    const moveBookHelpContent = new MoveBookHelpNode();
+    const generalNavigationHelpContent = new GeneralNavigationHelpContent();
 
     HelpContent.alignHelpContentIcons( [ grabReleaseHelpContent, moveBookHelpContent ] );
 
-    let content = new HBox( {
+    const content = new HBox( {
       children: [
         new VBox( { children: [ grabReleaseHelpContent, moveBookHelpContent ], spacing: 10, align: 'left' } ),
         generalNavigationHelpContent
@@ -80,15 +80,15 @@ define( function( require ) {
     }, options );
 
     // BookNode row
-    let moveBookText = new RichText( moveBookString, DEFAULT_LABEL_OPTIONS );
-    let moveBookIcon = HelpContent.arrowOrWasdKeysRowIcon();
-    let moveBookRow = HelpContent.labelWithIcon( moveBookText, moveBookIcon, moveBookWithString );
+    const moveBookText = new RichText( moveBookString, DEFAULT_LABEL_OPTIONS );
+    const moveBookIcon = HelpContent.arrowOrWasdKeysRowIcon();
+    const moveBookRow = HelpContent.labelWithIcon( moveBookText, moveBookIcon, moveBookWithString );
 
     // BookNode in smaller steps row
-    let moveInSmallerStepsText = new RichText( moveInSmallerStepsString, DEFAULT_LABEL_OPTIONS );
-    let shiftPlusArrowKeys = HelpContent.shiftPlusIcon( HelpContent.arrowKeysRowIcon() );
-    let shiftPlusWASDKeys = HelpContent.shiftPlusIcon( HelpContent.wasdRowIcon() );
-    let row = HelpContent.labelWithIconList( moveInSmallerStepsText, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], moveInSmallerStepsWithString );
+    const moveInSmallerStepsText = new RichText( moveInSmallerStepsString, DEFAULT_LABEL_OPTIONS );
+    const shiftPlusArrowKeys = HelpContent.shiftPlusIcon( HelpContent.arrowKeysRowIcon() );
+    const shiftPlusWASDKeys = HelpContent.shiftPlusIcon( HelpContent.wasdRowIcon() );
+    const row = HelpContent.labelWithIconList( moveInSmallerStepsText, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], moveInSmallerStepsWithString );
 
     HelpContent.call( this, moveBookHeaderString, [ moveBookRow, row ], options );
   }

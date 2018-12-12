@@ -34,12 +34,12 @@ define( function( require ) {
   const simpleDropSound = require( 'sound!FRICTION/simple-drop.mp3' );
 
   // a11y strings
-  let bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
-  let zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
-  let grabButtonHelpTextString = FrictionA11yStrings.grabButtonHelpText.value;
+  const bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
+  const zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
+  const grabButtonHelpTextString = FrictionA11yStrings.grabButtonHelpText.value;
 
   // constants
-  let SOUND_LEVEL = 0.1; // TODO: Ashton - level for non-magnified book pickup and drop, review and modify if needed
+  const SOUND_LEVEL = 0.1; // TODO: Ashton - level for non-magnified book pickup and drop, review and modify if needed
 
   /**
    * @param {FrictionModel} model
@@ -48,7 +48,7 @@ define( function( require ) {
    * @constructor
    */
   function BookNode( model, title, options ) {
-    let self = this;
+    const self = this;
 
     options = _.extend( {
 
@@ -69,11 +69,11 @@ define( function( require ) {
     if ( options.drag ) {
 
       // We want the focus highlight to be completely within the bounds of the book.
-      let focusHighlightRect = new FocusHighlightPath( null );
-      let focusHighlightLineWidth = focusHighlightRect.getOuterLineWidth( this );
+      const focusHighlightRect = new FocusHighlightPath( null );
+      const focusHighlightLineWidth = focusHighlightRect.getOuterLineWidth( this );
       focusHighlightRect.setShape( Shape.bounds( this.localBounds.eroded( focusHighlightLineWidth / 2 ) ) );
 
-      let bookTitle = StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } );
+      const bookTitle = StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } );
 
       // cuing arrows for the book
       const bookCueArrow1 = new CueArrow( {

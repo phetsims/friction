@@ -17,7 +17,7 @@ define( function( require ) {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  let EVAPORATED_SPEED = 400; // speed that particles travel during evaporation, in model units per second
+  const EVAPORATED_SPEED = 400; // speed that particles travel during evaporation, in model units per second
 
   /**
    * @param {Vector2} initialPosition
@@ -27,7 +27,7 @@ define( function( require ) {
    * @constructor
    */
   function Atom( initialPosition, model, isTopAtom, tandem ) {
-    let self = this;
+    const self = this;
 
     // @private {Vector2} - initial position, used during resets
     this.initialPosition = initialPosition;
@@ -55,8 +55,8 @@ define( function( require ) {
       // move the atom's center position as the top book moves
       model.topBookPositionProperty.lazyLink( function( newPosition, oldPosition ) {
         if ( !self.isEvaporated ) {
-          let deltaX = newPosition.x - oldPosition.x;
-          let deltaY = newPosition.y - oldPosition.y;
+          const deltaX = newPosition.x - oldPosition.x;
+          const deltaY = newPosition.y - oldPosition.y;
           self.centerPosition.setXY( self.centerPosition.x + deltaX, self.centerPosition.y + deltaY );
         }
       } );
@@ -76,8 +76,8 @@ define( function( require ) {
       assert && assert( !this.isEvaporated, 'Atom was already evaporated' );
 
       this.isEvaporated = true;
-      let evaporationDestinationX = this.model.width * ( phet.joist.random.nextBoolean() ? 1 : -1 );
-      let evaporationDestinationY = this.positionProperty.get().y -
+      const evaporationDestinationX = this.model.width * ( phet.joist.random.nextBoolean() ? 1 : -1 );
+      const evaporationDestinationY = this.positionProperty.get().y -
                                     this.model.distanceBetweenBooksProperty.get() * phet.joist.random.nextDouble();
 
       this.evaporationVelocity.setXY(
@@ -103,7 +103,7 @@ define( function( require ) {
     step: function( dt ) {
 
       // update the atom's position based on vibration and center position
-      let newPosition = new Vector2(
+      const newPosition = new Vector2(
         this.centerPosition.x + this.model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 ),
         this.centerPosition.y + this.model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 )
       );

@@ -165,7 +165,7 @@ define( function( require ) {
    * @constructor
    */
   function FrictionModel( width, height, tandem ) {
-    let self = this;
+    const self = this;
 
     // @public (read-only) {Number} - the width for the model in model coordinates
     this.width = width;
@@ -223,7 +223,7 @@ define( function( require ) {
     this.bookDraggingScaleFactor = 0.025;
 
     // group tandem for creating the atoms
-    let atomGroupTandem = tandem.createGroupTandem( 'atoms' );
+    const atomGroupTandem = tandem.createGroupTandem( 'atoms' );
 
     // @public (read-only) {Atom[]} - array of atoms that are visible to the user in the magnifier window
     this.atoms = [];
@@ -270,8 +270,8 @@ define( function( require ) {
       oldPosition = oldPosition || Vector2.ZERO;
       self.distanceBetweenBooksProperty.set( self.distanceBetweenBooksProperty.get() - ( newPosition.minus( oldPosition ) ).y );
       if ( self.contactProperty.get() ) {
-        let dx = Math.abs( newPosition.x - oldPosition.x );
-        let newValue = self.amplitudeProperty.get() + dx * HEATING_MULTIPLIER;
+        const dx = Math.abs( newPosition.x - oldPosition.x );
+        const newValue = self.amplitudeProperty.get() + dx * HEATING_MULTIPLIER;
         self.amplitudeProperty.set( Math.min( newValue, MAGNIFIED_ATOMS_INFO.vibrationAmplitude.max ) );
       }
     } );
@@ -288,13 +288,13 @@ define( function( require ) {
   function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, isTopAtom, atomGroupTandem ) {
 
     let canEvaporate;
-    let evaporableAtomsRow = [];
+    const evaporableAtomsRow = [];
 
     for ( let i = 0; i < layerDescription.length; i++ ) {
-      let offset = layerDescription[ i ].offset || 0;
+      const offset = layerDescription[ i ].offset || 0;
       canEvaporate = layerDescription[ i ].canEvaporate || false;
       for ( let n = 0; n < layerDescription[ i ].num; n++ ) {
-        let atom = new Atom(
+        const atom = new Atom(
           new Vector2( rowStartXPos + ( offset + n ) * MAGNIFIED_ATOMS_INFO.distanceX, rowYPos ),
           frictionModel,
           isTopAtom,
@@ -400,13 +400,13 @@ define( function( require ) {
       if ( this.atomRowsToEvaporateProperty.get() > 0 ) {
 
         // determine whether the current row is fully evaporated and, if so, move to the next row
-        let currentRowOfEvaporableAtoms = this.evaporableAtomsByRow[ this.atomRowsToEvaporateProperty.get() - 1 ];
+        const currentRowOfEvaporableAtoms = this.evaporableAtomsByRow[ this.atomRowsToEvaporateProperty.get() - 1 ];
 
         // if there are any rows of evaporable atoms left, evaporate one
         if ( currentRowOfEvaporableAtoms.length > 0 ) {
 
           // make a list of all atoms in this row that have not yet evaporated
-          let unevaporatedAtoms = currentRowOfEvaporableAtoms.filter( function( atom ) {
+          const unevaporatedAtoms = currentRowOfEvaporableAtoms.filter( function( atom ) {
             return !atom.isEvaporated;
           } );
 
@@ -416,7 +416,7 @@ define( function( require ) {
           );
 
           // randomly choose an unevaporated atom and evaporate it
-          let atomToEvaporate = phet.joist.random.sample( unevaporatedAtoms );
+          const atomToEvaporate = phet.joist.random.sample( unevaporatedAtoms );
           atomToEvaporate.evaporate();
           this.evaporationEmitter.emit();
 

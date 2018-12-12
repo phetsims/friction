@@ -145,7 +145,7 @@ define( require => {
       this.alertIndex++;
       var currentAlertIndex = Math.min( this.alertIndex, DECREASING.length - 1 );
 
-      let alertObject = DECREASING[ currentAlertIndex ];
+      const alertObject = DECREASING[ currentAlertIndex ];
 
       FrictionAlertManager.alertTemperatureJiggleFromObject( alertObject, this.firstAlert, 'decreasing' );
 

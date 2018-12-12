@@ -28,7 +28,7 @@ define( function( require ) {
   const atWarmString = FrictionA11yStrings.atWarm.value;
   const atCoolString = FrictionA11yStrings.atCool.value;
 
-  let FrictionConstants = {
+  const FrictionConstants = {
     TOP_BOOK_COLOR_MACRO: new Color( 'rgb(125,226,249)' ), // color of the macroscopic view of the book
     TOP_BOOK_COLOR: new Color( 'rgb(125,226,249)' ), // color for the book in the magnified view
     TOP_BOOK_ATOMS_COLOR: new Color( 'rgb( 0, 255, 255 )' ), // color for the atoms in the magnified view

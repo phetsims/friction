@@ -16,15 +16,15 @@ define( function( require ) {
   const ShadedSphereNode = require( 'SCENERY_PHET/ShadedSphereNode' );
 
   // constants
-  let PARTICLE_IMAGE_SIZE = 32; // pixels, square
-  let ATOM_NODE_LINE_WIDTH = 2;
-  let HIGHLIGHT_FACTOR = 0.7;
-  let ATOM_STROKE = 'black';
+  const PARTICLE_IMAGE_SIZE = 32; // pixels, square
+  const ATOM_NODE_LINE_WIDTH = 2;
+  const HIGHLIGHT_FACTOR = 0.7;
+  const ATOM_STROKE = 'black';
 
   // image size - this is tweaked slightly to account for stroke and to get behavior that is consistent with
   // previous versions of the sim
-  let PARTICLE_IMAGE_SIZE_FOR_RENDERING = FrictionConstants.ATOM_RADIUS * 2 * 1.2;
-  let PARTICLE_RENDERING_OFFSET = -PARTICLE_IMAGE_SIZE_FOR_RENDERING / 2;
+  const PARTICLE_IMAGE_SIZE_FOR_RENDERING = FrictionConstants.ATOM_RADIUS * 2 * 1.2;
+  const PARTICLE_RENDERING_OFFSET = -PARTICLE_IMAGE_SIZE_FOR_RENDERING / 2;
 
   /**
    * @param {Object} [options]
@@ -32,11 +32,11 @@ define( function( require ) {
    */
   function AtomCanvasNode( atoms, options ) {
 
-    let self = this;
+    const self = this;
     CanvasNode.call( this, options );
 
     // create the Scenery image nodes that will be drawn onto the canvas in order to render the atoms
-    let topBookAtomNode = new ShadedSphereNode( PARTICLE_IMAGE_SIZE, {
+    const topBookAtomNode = new ShadedSphereNode( PARTICLE_IMAGE_SIZE, {
       mainColor: FrictionConstants.TOP_BOOK_ATOMS_COLOR,
       highlightColor: FrictionConstants.TOP_BOOK_ATOMS_COLOR.colorUtilsBrighter( HIGHLIGHT_FACTOR ),
       stroke: ATOM_STROKE,
@@ -46,7 +46,7 @@ define( function( require ) {
       self.topBookAtomImage = image;
     } );
 
-    let bottomBookAtomNode = new ShadedSphereNode( PARTICLE_IMAGE_SIZE, {
+    const bottomBookAtomNode = new ShadedSphereNode( PARTICLE_IMAGE_SIZE, {
       mainColor: FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR,
       highlightColor: FrictionConstants.BOTTOM_BOOK_ATOMS_COLOR.colorUtilsBrighter( HIGHLIGHT_FACTOR ),
       stroke: ATOM_STROKE,
@@ -76,9 +76,9 @@ define( function( require ) {
 
       // render each of the atoms to the canvas
       for ( let i = 0; i < this.atoms.length; i++ ) {
-        let atom = this.atoms[ i ];
-        let atomPosition = atom.positionProperty.get();
-        let sourceImage = atom.isTopAtom ? this.topBookAtomImage : this.bottomBookAtomImage;
+        const atom = this.atoms[ i ];
+        const atomPosition = atom.positionProperty.get();
+        const sourceImage = atom.isTopAtom ? this.topBookAtomImage : this.bottomBookAtomImage;
         context.drawImage(
           sourceImage,
           atomPosition.x + PARTICLE_RENDERING_OFFSET,

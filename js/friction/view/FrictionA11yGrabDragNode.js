@@ -52,7 +52,7 @@ define( function( require ) {
       }, options );
 
       // Keep track of the passed in grab listener, to add to it below
-      let oldGrab = options.onGrab;
+      const oldGrab = options.onGrab;
 
       // Wrap the onGrab option in default functionality for al of the type in Friction
       options.onGrab = () => {
@@ -60,7 +60,7 @@ define( function( require ) {
 
         oldGrab && oldGrab();
 
-        let alerts = model.contactProperty.get() ? touchingAlerts : notTouchingAlerts;
+        const alerts = model.contactProperty.get() ? touchingAlerts : notTouchingAlerts;
 
         let alert = alerts.initial;
         if ( this.successfullyInteracted ) {
