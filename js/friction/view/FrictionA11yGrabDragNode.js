@@ -35,7 +35,6 @@ define( function( require ) {
   class FrictionA11yGrabDragNode extends A11yGrabDragNode {
 
     constructor( model, wrappedNode, options ) {
-
       options = _.extend( {
 
         // Function that returns whether or not the drag cue should be shown.
@@ -44,8 +43,13 @@ define( function( require ) {
         },
 
         // set the role description on the grabbable
-        onRelease: () => {
+        onGrabbable: () => {
           wrappedNode.setAccessibleAttribute( 'aria-roledescription', grabToMoveString );
+        },
+
+        // called whenever the interaction mode goes from grab button to draggable div
+        onDraggable:()=>{
+          wrappedNode.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
         }
       }, options );
 
@@ -54,8 +58,6 @@ define( function( require ) {
 
       // Wrap the onGrab option in default functionality for al of the type in Friction
       options.onGrab = () => {
-        wrappedNode.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
-
         oldGrab && oldGrab();
 
         const alerts = model.contactProperty.get() ? touchingAlerts : notTouchingAlerts;

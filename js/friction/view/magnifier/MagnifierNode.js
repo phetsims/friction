@@ -165,8 +165,32 @@ define( function( require ) {
       endSound: bookDropSoundClip
     } ) );
 
+
+    // add arrows before the drag area, then the grab cue hides the arrows
+    this.topBookBackground.addChild( visualArrowIcon );
+
+    this.topBookBackground.addChild( dragArea );
+
+    addRowCircles(
+      FrictionModel.MAGNIFIED_ATOMS_INFO.radius,
+      FrictionModel.MAGNIFIED_ATOMS_INFO.distanceX,
+      this.topBookBackground,
+      {
+        color: FrictionConstants.TOP_BOOK_COLOR,
+        x: -WIDTH,
+        y: HEIGHT / 3 - FrictionModel.MAGNIFIED_ATOMS_INFO.distance,
+        width: 3 * WIDTH
+      }
+    );
+
     // a11y - custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
     const focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
+
+
+    // a11y - add the focus highlight on top of the row circles
+    // must be added prior to adding the grab/drag interaction
+    this.topBookBackground.addChild( focusHighlightPath );
+    dragArea.focusHighlight = focusHighlightPath; // this is a constraint of the grab/drag interaction, must be set before it's creation, but only for focusHighlightLayerable
 
     // cuing arrows for the book
     const bookCueArrowLeft = new CueArrow( {
@@ -207,6 +231,7 @@ define( function( require ) {
       }
     };
 
+
     // a11y
     var a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model, dragArea, {
       thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: zoomedInString } ),
@@ -233,26 +258,6 @@ define( function( require ) {
 
       listenersForDrag: [ this.keyboardDragHandler, focusListener ]
     } );
-
-    // add arrows before the drag area, then the grab cue hides the arrows
-    this.topBookBackground.addChild( visualArrowIcon );
-
-    this.topBookBackground.addChild( dragArea );
-
-    addRowCircles(
-      FrictionModel.MAGNIFIED_ATOMS_INFO.radius,
-      FrictionModel.MAGNIFIED_ATOMS_INFO.distanceX,
-      this.topBookBackground,
-      {
-        color: FrictionConstants.TOP_BOOK_COLOR,
-        x: -WIDTH,
-        y: HEIGHT / 3 - FrictionModel.MAGNIFIED_ATOMS_INFO.distance,
-        width: 3 * WIDTH
-      }
-    );
-
-    // a11y - add the focus highlight on top of the row circles
-    this.topBookBackground.addChild( focusHighlightPath );
 
     this.container.addChild( this.topBookBackground );
 

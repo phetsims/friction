@@ -113,6 +113,10 @@ define( function( require ) {
         }
       };
 
+      // must be added prior to adding the grab/drag interaction
+      this.addChild( focusHighlightRect );
+      this.focusHighlight = focusHighlightRect; // this is a constaint of the grab/drag interaction;
+
       // a11y
       this.a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model, this, {
         thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
@@ -139,7 +143,6 @@ define( function( require ) {
         listenersForDrag: [ this.keyboardDragHandler, focusListener ]
       } );
 
-      this.addChild( focusHighlightRect );
 
       this.addInputListener( new FrictionDragHandler( model, options.tandem.createTandem( 'dragHandler' ), {
         startSound: bookPickupSoundClip,
