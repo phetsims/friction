@@ -20,6 +20,7 @@ define( function( require ) {
   const initialGrabbedTouchingString = FrictionA11yStrings.initialGrabbedTouching.value;
   const grabbedTouchingString = FrictionA11yStrings.grabbedTouching.value;
   const moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
+  const grabToMoveString = FrictionA11yStrings.grabToMove.value;
 
   // constants
   const touchingAlerts = { initial: initialGrabbedTouchingString, subsequent: grabbedTouchingString };
@@ -44,10 +45,7 @@ define( function( require ) {
 
         // set the role description on the grabbable
         onRelease: () => {
-          if ( wrappedNode.hasAccessibleAttribute( 'aria-roledescription' ) ) {
-            wrappedNode.removeAccessibleAttribute( 'aria-roledescription' );
-          }
-
+          wrappedNode.setAccessibleAttribute( 'aria-roledescription', grabToMoveString );
         }
       }, options );
 
