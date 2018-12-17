@@ -243,8 +243,16 @@ define( function( require ) {
         focusHighlight: focusHighlightPath
       },
 
-      // Hide the visual cue arrows
-      onGrab: () => { model.hintProperty.set( false ); },
+      // handler for when the user grabs the book
+      onGrab: () => {
+        model.hintProperty.set( false ); // hide the visual cue arrows
+        bookPickupSoundClip.play();
+      },
+
+      // handler for when the user releases the book
+      onRelease: () => {
+        bookDropSoundClip.play();
+      },
 
       dragCueNode: cueArrows,
 

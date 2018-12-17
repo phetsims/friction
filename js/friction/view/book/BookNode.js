@@ -121,7 +121,7 @@ define( function( require ) {
       this.a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model, this, {
         thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
 
-        // Empircally determined values to place the cue above the book.
+        // Empirically determined values to place the cue above the book.
         grabCueOptions: {
           x: 60,
           y: -55
@@ -131,6 +131,11 @@ define( function( require ) {
           helpText: grabButtonHelpTextString,
           focusHighlight: focusHighlightRect
         },
+
+        onGrab: () => { bookPickupSoundClip.play(); },
+
+        onRelease: () => {bookDropSoundClip.play(); },
+
         dragCueNode: arrows,
 
         draggableOptions: {
