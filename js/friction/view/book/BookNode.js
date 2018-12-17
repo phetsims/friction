@@ -39,7 +39,7 @@ define( function( require ) {
   const grabButtonHelpTextString = FrictionA11yStrings.grabButtonHelpText.value;
 
   // constants
-  const SOUND_LEVEL = 0.1; // TODO: Ashton - level for non-magnified book pickup and drop, review and modify if needed
+  const SOUND_LEVEL = 0.1;
 
   /**
    * @param {FrictionModel} model

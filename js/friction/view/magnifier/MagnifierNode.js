@@ -52,7 +52,7 @@ define( function( require ) {
   const HEIGHT = FrictionConstants.MAGNIFIER_WINDOW_HEIGHT;
   const ROUND = 30;
   const SCALE = 0.05;
-  const SOUND_LEVEL = 0.1; // TODO: Ashton - level for magnified book pickup and drop, review and modify if needed
+  const SOUND_LEVEL = 0.1;
   const ARROW_TOP = 22;
 
   /**
