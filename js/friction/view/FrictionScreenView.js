@@ -155,7 +155,7 @@ define( function( require ) {
       radius: 22,
       x: model.width * 0.94,
       y: model.height * 0.9,
-      touchAreaDilation: 12,
+      touchAreaDilation: 5,
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( resetAllButton );
