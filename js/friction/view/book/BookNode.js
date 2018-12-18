@@ -115,7 +115,7 @@ define( function( require ) {
 
       // must be added prior to adding the grab/drag interaction
       this.addChild( focusHighlightRect );
-      this.focusHighlight = focusHighlightRect; // this is a constaint of the grab/drag interaction;
+      this.focusHighlight = focusHighlightRect; // this is a constraint of the grab/drag interaction;
 
       // a11y
       this.a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model, this, {
