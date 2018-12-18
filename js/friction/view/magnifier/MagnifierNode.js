@@ -34,14 +34,10 @@ define( function( require ) {
   const Shape = require( 'KITE/Shape' );
   const SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
   const soundManager = require( 'TAMBO/soundManager' );
-  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // a11y strings
-  const bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
-  const zoomedInBookTitlePatternString = FrictionA11yStrings.zoomedInBookTitlePattern.value;
-  const zoomedInString = FrictionA11yStrings.zoomedIn.value;
-  const zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
+  const zoomedInChemistryBookString = FrictionA11yStrings.zoomedInChemistryBook.value;
 
   // sounds
   const harpDropSound = require( 'sound!FRICTION/harp-drop.mp3' );
@@ -142,11 +138,6 @@ define( function( require ) {
     this.topBookBackground.addChild( background );
 
     // init drag for drag area
-    const zoomedInTitle = StringUtils.fillIn( zoomedInBookTitlePatternString, {
-      bookTitleString: StringUtils.fillIn( bookTitleStringPattern, {
-        bookTitle: title
-      } )
-    } );
     const dragArea = new Rectangle(
       0.055 * WIDTH,
       0.175 * HEIGHT,
@@ -234,7 +225,7 @@ define( function( require ) {
 
     // a11y
     var a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model, dragArea, {
-      thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: zoomedInString } ),
+      thingToGrab: zoomedInChemistryBookString,
       tandem: tandem.createTandem( 'magnifierNodeGrabButton' ),
       grabCueOptions: {
         center: dragArea.center.minusXY( 0, 73 )
@@ -255,14 +246,6 @@ define( function( require ) {
       },
 
       dragCueNode: cueArrows,
-
-      // a11y - add accessibility to the rectangle that surrounds the top atoms.
-
-      draggableOptions: {
-        // Add the Accessible Name based on the name of the name of the book title.
-        ariaLabel: zoomedInTitle,
-        innerContent: zoomedInTitle
-      },
 
       listenersForDrag: [ this.keyboardDragHandler, focusListener ]
     } );

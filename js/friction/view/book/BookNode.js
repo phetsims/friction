@@ -27,15 +27,13 @@ define( function( require ) {
   const Shape = require( 'KITE/Shape' );
   const SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
   const soundManager = require( 'TAMBO/soundManager' );
-  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // sounds
   const simplePickupSound = require( 'sound!FRICTION/simple-pickup.mp3' );
   const simpleDropSound = require( 'sound!FRICTION/simple-drop.mp3' );
 
   // a11y strings
-  const bookTitleStringPattern = FrictionA11yStrings.bookTitleStringPattern.value;
-  const zoomedInChemistryBookPatternString = FrictionA11yStrings.zoomedInChemistryBookPattern.value;
+  const chemistryBookString = FrictionA11yStrings.chemistryBook.value;
   const grabButtonHelpTextString = FrictionA11yStrings.grabButtonHelpText.value;
 
   // constants
@@ -72,8 +70,6 @@ define( function( require ) {
       const focusHighlightRect = new FocusHighlightPath( null );
       const focusHighlightLineWidth = focusHighlightRect.getOuterLineWidth( this );
       focusHighlightRect.setShape( Shape.bounds( this.localBounds.eroded( focusHighlightLineWidth / 2 ) ) );
-
-      const bookTitle = StringUtils.fillIn( bookTitleStringPattern, { bookTitle: title } );
 
       // cuing arrows for the book
       const bookCueArrow1 = new CueArrow( {
@@ -119,7 +115,7 @@ define( function( require ) {
 
       // a11y
       this.a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model, this, {
-        thingToGrab: StringUtils.fillIn( zoomedInChemistryBookPatternString, { zoomedIn: '' } ),
+        thingToGrab: chemistryBookString,
 
         // Empirically determined values to place the cue above the book.
         grabCueOptions: {
@@ -134,16 +130,9 @@ define( function( require ) {
 
         onGrab: () => { bookPickupSoundClip.play(); },
 
-        onRelease: () => {bookDropSoundClip.play(); },
+        onRelease: () => { bookDropSoundClip.play(); },
 
         dragCueNode: arrows,
-
-        draggableOptions: {
-
-          // add a11y options for the interactive BookNode
-          ariaLabel: bookTitle,
-          innerContent: bookTitle
-        },
 
         listenersForDrag: [ this.keyboardDragHandler, focusListener ]
       } );

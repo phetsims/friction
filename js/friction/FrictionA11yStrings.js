@@ -15,20 +15,11 @@ define( function( require ) {
 
   const FrictionA11yStrings = {
 
-    bookTitleStringPattern: {
-      value: '{{bookTitle}} book'
+    chemistryBook: {
+      value: 'Chemistry book'
     },
-    zoomedInBookTitlePattern: {
-      value: 'Zoomed-in {{bookTitleString}}'
-    },
-    zoomedIn: {
-      value: 'zoomed-in '
-    },
-    zoomedInChemistryBookPattern: {
-      value: '{{zoomedIn}}Chemistry book'
-    },
-    moveInFourDirections: {
-      value: 'move in four directions'
+    zoomedInChemistryBook: {
+      value: 'zoomed-in Chemistry book'
     },
     grabButtonHelpText: {
       value: 'Look for grab buttons. Once grabbed, use letter keys W, A, S, or D to move book or zoomed-in book up, left, down, or right.'

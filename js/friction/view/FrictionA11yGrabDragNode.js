@@ -19,7 +19,6 @@ define( function( require ) {
   const grabbedNotTouchingString = FrictionA11yStrings.grabbedNotTouching.value;
   const initialGrabbedTouchingString = FrictionA11yStrings.initialGrabbedTouching.value;
   const grabbedTouchingString = FrictionA11yStrings.grabbedTouching.value;
-  const moveInFourDirectionsString = FrictionA11yStrings.moveInFourDirections.value;
 
   // constants
   const touchingAlerts = { initial: initialGrabbedTouchingString, subsequent: grabbedTouchingString };
@@ -39,18 +38,6 @@ define( function( require ) {
         // Function that returns whether or not the drag cue should be shown.
         successfulDrag: () => {
           return !model.topBookPositionProperty.value.equals( model.topBookPositionProperty.initialValue );
-        },
-
-        // set the role description on the grabbable
-        onGrabbable: () => {
-          if ( wrappedNode.hasAccessibleAttribute( 'aria-roledescription' ) ) {
-            wrappedNode.removeAccessibleAttribute( 'aria-roledescription' );
-          }
-        },
-
-        // called whenever the interaction mode goes from grab button to draggable div
-        onDraggable: () => {
-          wrappedNode.setAccessibleAttribute( 'aria-roledescription', moveInFourDirectionsString );
         }
       }, options );
 
