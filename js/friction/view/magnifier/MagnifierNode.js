@@ -18,7 +18,7 @@ define( function( require ) {
   const CueArrow = require( 'FRICTION/friction/view/CueArrow' );
   const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   const friction = require( 'FRICTION/friction' );
-  const FrictionA11yGrabDragNode = require( 'FRICTION/friction/view/FrictionA11yGrabDragNode' );
+  const FrictionGrabDragInteraction = require( 'FRICTION/friction/view/FrictionGrabDragInteraction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
@@ -224,7 +224,7 @@ define( function( require ) {
 
 
     // a11y
-    var a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model, dragArea, {
+    var a11yGrabDragInteractionNode = new FrictionGrabDragInteraction( model, dragArea, {
       thingToGrab: zoomedInChemistryBookString,
       tandem: tandem.createTandem( 'magnifierNodeGrabButton' ),
       grabCueOptions: {

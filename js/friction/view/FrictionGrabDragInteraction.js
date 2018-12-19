@@ -8,7 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  const A11yGrabDragNode = require( 'SCENERY_PHET/accessibility/nodes/A11yGrabDragNode' );
+  const GrabDragInteraction = require( 'SCENERY_PHET/accessibility/GrabDragInteraction' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
@@ -30,7 +30,7 @@ define( function( require ) {
    * @param {Object} options
    * @constructor
    */
-  class FrictionA11yGrabDragNode extends A11yGrabDragNode {
+  class FrictionGrabDragInteraction extends GrabDragInteraction {
 
     constructor( model, wrappedNode, options ) {
       options = _.extend( {
@@ -89,5 +89,5 @@ define( function( require ) {
     }
   }
 
-  return friction.register( 'FrictionA11yGrabDragNode', FrictionA11yGrabDragNode );
+  return friction.register( 'FrictionGrabDragInteraction', FrictionGrabDragInteraction );
 } );

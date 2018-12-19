@@ -20,7 +20,7 @@ define( function( require ) {
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionDragHandler = require( 'FRICTION/friction/view/FrictionDragHandler' );
-  const FrictionA11yGrabDragNode = require( 'FRICTION/friction/view/FrictionA11yGrabDragNode' );
+  const FrictionGrabDragInteraction = require( 'FRICTION/friction/view/FrictionGrabDragInteraction' );
   const FrictionKeyboardDragListener = require( 'FRICTION/friction/view/FrictionKeyboardDragListener' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
@@ -114,7 +114,7 @@ define( function( require ) {
       this.focusHighlight = focusHighlightRect; // this is a constraint of the grab/drag interaction;
 
       // a11y
-      this.a11yGrabDragInteractionNode = new FrictionA11yGrabDragNode( model, this, {
+      this.a11yGrabDragInteractionNode = new FrictionGrabDragInteraction( model, this, {
         thingToGrab: chemistryBookString,
 
         // Empirically determined values to place the cue above the book.
