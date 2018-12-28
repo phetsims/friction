@@ -44,6 +44,15 @@ define( function( require ) {
 
     Node.call( this, { x: options.x, y: options.y } );
 
+    // add white background for pages
+    this.addChild( new Path( new Shape()
+      .moveTo( WIDTH, 0 )
+      .lineTo( WIDTH + Math.cos( ANGLE ) * LENGTH, -Math.sin( ANGLE ) * LENGTH )
+      .lineTo( WIDTH + Math.cos( ANGLE ) * LENGTH, HEIGHT + 2 - Math.sin( ANGLE ) * LENGTH - 2 )
+      .lineTo( WIDTH, HEIGHT - 1 ), {
+      fill: 'white'
+    } ) );
+
     // add last page
     this.addChild( new Path( new Shape()
       .moveTo( WIDTH - ROUND / 2, HEIGHT )
@@ -79,14 +88,6 @@ define( function( require ) {
     titleNode.centerX = WIDTH / 2;
     this.addChild( titleNode );
 
-    // add white background for pages
-    this.addChild( new Path( new Shape()
-      .moveTo( WIDTH, 0 )
-      .lineTo( WIDTH + Math.cos( ANGLE ) * LENGTH, -Math.sin( ANGLE ) * LENGTH )
-      .lineTo( WIDTH + Math.cos( ANGLE ) * LENGTH, HEIGHT - Math.sin( ANGLE ) * LENGTH - 2 )
-      .lineTo( WIDTH, HEIGHT - 2 ), {
-      fill: 'white'
-    } ) );
 
     // add remaining pages
     for ( let i = 0, dy = ( HEIGHT - ROUND ) / PAGES, dl = LENGTH / 5, offset = 5; i < PAGES; i++ ) {
