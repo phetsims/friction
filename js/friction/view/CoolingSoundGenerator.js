@@ -95,6 +95,7 @@ define( function( require ) {
       }
 
       // update the state of the "cooling" sound
+      let targetOutputLevel = 0;
       if ( this.continuousCoolingTime > COOLING_SOUND_DELAY ) {
 
         // Calculate a scaling factor for the output level of the cooling sound that is based on how long the
@@ -103,13 +104,27 @@ define( function( require ) {
         const scalingFactor =
           ( 1 - Math.min( ( this.continuousCoolingTime - COOLING_SOUND_DELAY ) / COOLING_SOUND_DURATION, 1 ) ) *
           Math.min( Math.abs( averageChangeRate ), 1 );
-        const coolingSoundLevel = this.maxOutputLevel * scalingFactor;
-        if ( this.outputLevel !== coolingSoundLevel ) {
-          this.setOutputLevel( coolingSoundLevel, 0.5 );
-        }
+
+        // calculate the target output level as a function of the max output and the scaling factor
+        targetOutputLevel = this.maxOutputLevel * scalingFactor;
       }
-      else if ( this.outputLevel > 0 ) {
-        this.setOutputLevel( 0, 0.2 );
+      if ( this.outputLevel !== targetOutputLevel ) {
+        if ( targetOutputLevel > 0 ) {
+
+          // start the noise generator if it isn't already running
+          if ( !this.isPlaying ) {
+            this.start();
+          }
+
+          // set the output level using an empirically determined time constant such that changes sound smooth
+          this.setOutputLevel( targetOutputLevel, 0.2 );
+        }
+        else {
+
+          // stop the noise generator in a way that fades rapidly but not TOO abruptly
+          this.setOutputLevel( targetOutputLevel, 0.5 );
+          this.stop( this.audioContext.currentTime + 0.01 );
+        }
       }
     }
   } );
