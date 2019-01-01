@@ -56,11 +56,12 @@ define( function( require ) {
 
     moleculeAmplitudeProperty.lazyLink( amplitude => {
 
-      // normalize the amplitude value
-      const normalizedAmplitude = ( amplitude - 1 ) / FrictionModel.VIBRATION_AMPLITUDE_MAX;
+      // Normalize the amplitude value.  Note that the min amplitude is always 1.
+      const normalizedAmplitude = Math.min( ( amplitude - 1 ) / FrictionModel.VIBRATION_AMPLITUDE_MAX, 1 );
 
-      // map normalized amplitude to volume
-      const moleculeMotionSoundVolume = Math.pow( normalizedAmplitude, 1.5 );
+      // Map normalized amplitude to volume.  This uses a shifted sigmoid function, since that is what seems to sound
+      // the best.
+      const moleculeMotionSoundVolume = 1 / ( 1 + Math.pow( Math.E, -10 * ( normalizedAmplitude - 0.5 ) ) );
       this.setOutputLevel( options.maxOutputLevel * moleculeMotionSoundVolume );
 
       // choose a sound clip (this creates variation in the output level for each play operation)
