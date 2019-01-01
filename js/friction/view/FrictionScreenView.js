@@ -167,7 +167,7 @@ define( function( require ) {
 
     // create and register the sound that will be played to indicate changes to the rate of molecule motion
     soundManager.addSoundGenerator( new MoleculeMotionSoundGenerator( model.amplitudeProperty, {
-      maxOutputLevel: 0.2
+      maxOutputLevel: 0.175
     } ) );
 
     // create and hook up the sound that is played when molecules break off from the top book
