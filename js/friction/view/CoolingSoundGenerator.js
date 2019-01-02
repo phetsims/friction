@@ -9,8 +9,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  const inherit = require( 'PHET_CORE/inherit' );
   const friction = require( 'FRICTION/friction' );
+  const inherit = require( 'PHET_CORE/inherit' );
   const NoiseGenerator = require( 'TAMBO/sound-generators/NoiseGenerator' );
 
   // constants

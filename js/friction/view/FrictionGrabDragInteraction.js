@@ -8,10 +8,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  const GrabDragInteraction = require( 'SCENERY_PHET/accessibility/GrabDragInteraction' );
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
+  const GrabDragInteraction = require( 'SCENERY_PHET/accessibility/GrabDragInteraction' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // a11y strings

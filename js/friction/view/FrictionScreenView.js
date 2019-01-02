@@ -14,10 +14,10 @@ define( function( require ) {
   const BookMovementDescriber = require( 'FRICTION/friction/view/describers/BookMovementDescriber' );
   const BookNode = require( 'FRICTION/friction/view/book/BookNode' );
   const BookRubSoundGenerator = require( 'FRICTION/friction/view/BookRubSoundGenerator' );
-  const CoolingSoundGenerator = require( 'FRICTION/friction/view/CoolingSoundGenerator' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const BreakAwayDescriber = require( 'FRICTION/friction/view/describers/BreakAwayDescriber' );
   const ControlAreaNode = require( 'SCENERY_PHET/accessibility/nodes/ControlAreaNode' );
+  const CoolingSoundGenerator = require( 'FRICTION/friction/view/CoolingSoundGenerator' );
   const friction = require( 'FRICTION/friction' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );

@@ -29,8 +29,8 @@ define( function( require ) {
   const soundManager = require( 'TAMBO/soundManager' );
 
   // sounds
-  const simplePickupSound = require( 'sound!FRICTION/simple-pickup.mp3' );
   const simpleDropSound = require( 'sound!FRICTION/simple-drop.mp3' );
+  const simplePickupSound = require( 'sound!FRICTION/simple-pickup.mp3' );
 
   // a11y strings
   const chemistryBookString = FrictionA11yStrings.chemistryBook.value;

@@ -10,8 +10,8 @@ define( function( require ) {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const friction = require( 'FRICTION/friction' );
+  const inherit = require( 'PHET_CORE/inherit' );
   const NoiseGenerator = require( 'TAMBO/sound-generators/NoiseGenerator' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Property = require( 'AXON/Property' );
