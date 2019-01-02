@@ -225,7 +225,7 @@ define( function( require ) {
 
     // a11y
     var a11yGrabDragInteractionNode = new FrictionGrabDragInteraction( model, dragArea, {
-      thingToGrab: zoomedInChemistryBookString,
+      objectToGrabString: zoomedInChemistryBookString,
       tandem: tandem.createTandem( 'magnifierNodeGrabButton' ),
       grabCueOptions: {
         center: dragArea.center.minusXY( 0, 73 )

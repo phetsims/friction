@@ -115,7 +115,7 @@ define( function( require ) {
 
       // a11y
       this.a11yGrabDragInteractionNode = new FrictionGrabDragInteraction( model, this, {
-        thingToGrab: chemistryBookString,
+        objectToGrabString: chemistryBookString,
 
         // Empirically determined values to place the cue above the book.
         grabCueOptions: {
