@@ -18,10 +18,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  const inherit = require( 'PHET_CORE/inherit' );
   const friction = require( 'FRICTION/friction' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
+  const inherit = require( 'PHET_CORE/inherit' );
   const SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
   const SoundGenerator = require( 'TAMBO/sound-generators/SoundGenerator' );
 
