@@ -276,7 +276,8 @@ define( function( require ) {
       .arc( innerLowX, innerLowY, ROUND, Math.PI, Math.PI * 3 / 2, false )
       .lineTo( innerHighX, innerLowY - ROUND )
       .close(), {
-      fill: 'white'
+      fill: 'white',
+      pickable: true
     } ) );
 
     // add the containing border rectangle
