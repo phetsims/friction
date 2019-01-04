@@ -45,6 +45,8 @@ define( function( require ) {
         oldPositionValue = model.topBookPositionProperty.get().copy();
       },
       end: ( event ) => {
+        model.bottomOffsetProperty.set( 0 );
+
         TemperatureIncreasingDescriber.getDescriber().endDrag();
         BookMovementDescriber.getDescriber().endDrag( event.domEvent );
 
