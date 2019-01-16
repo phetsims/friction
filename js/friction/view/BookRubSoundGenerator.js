@@ -21,6 +21,7 @@ define( function( require ) {
   const FRICTION_SOUND_VARIATION = 0.15; // proportion
   const DIRECTION_SWITCH_LOCKOUT_TIME = 0.030; // in seconds
   const STILLNESS_TIME = 0.064; // in seconds, time used to determine when the book becomes still
+  const STOP_DURATION = 0.05; // in seconds
 
   /**
    * {Property.<Vector2>} topBookPositionProperty - location of the top book
@@ -41,9 +42,6 @@ define( function( require ) {
     );
 
     NoiseGenerator.call( this, options );
-
-    // start the noise generator - it will remain on and the output level will be controlled by the code below
-    this.start();
 
     // @private - state variables needed to update the sound output
     this.topBookXVelocityProperty = new NumberProperty( 0 );
@@ -83,12 +81,18 @@ define( function( require ) {
       ( topBookXVelocity, contact, rubSoundLockedOut ) => {
         if ( contact && Math.abs( topBookXVelocity ) > 0 && !rubSoundLockedOut ) {
 
+          if ( !this.isPlaying ) {
+            this.start();
+          }
           // set the output level based on the velocity of the book
           const noiseAmplitude = options.maxOutputLevel * Math.min( Math.pow( Math.abs( topBookXVelocity ), 0.25 ), 1 );
-          this.setOutputLevel( noiseAmplitude, 0.05 );
+          this.setOutputLevel( noiseAmplitude, 0.1 );
         }
         else {
-          this.setOutputLevel( 0 );
+          if ( this.isPlaying ) {
+            this.stop( this.audioContext.currentTime + STOP_DURATION );
+          }
+          this.setOutputLevel( 0, STOP_DURATION );
         }
       }
     );
