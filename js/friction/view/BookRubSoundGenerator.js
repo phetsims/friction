@@ -94,7 +94,7 @@ define( function( require ) {
           const normalizedVelocity = Math.min( Math.abs( topBookXVelocity / maxVelocity ), 1 );
 
           // set the output level based on the velocity of the book
-          const noiseAmplitude = options.maxOutputLevel * Math.pow( normalizedVelocity, 0.25 );
+          const noiseAmplitude = options.maxOutputLevel * Math.pow( normalizedVelocity, 0.5 );
           this.setOutputLevel( noiseAmplitude, 0.1 );
         }
         else {
