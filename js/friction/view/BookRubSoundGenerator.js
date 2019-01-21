@@ -20,8 +20,8 @@ define( function( require ) {
   const FRICTION_SOUND_CENTER_FREQUENCY = 1000; // Hz
   const FRICTION_SOUND_VARIATION = 0.15; // proportion
   const DIRECTION_SWITCH_LOCKOUT_TIME = 0.030; // in seconds
-  const STILLNESS_TIME = 0.064; // in seconds, time used to determine when the book becomes still
-  const STOP_DURATION = 0.05; // in seconds
+  const STILLNESS_TIME = 0.1; // in seconds, time used to determine when the book becomes still
+  const STOP_DURATION = 0.1; // in seconds
 
   /**
    * {Property.<Vector2>} topBookPositionProperty - location of the top book
@@ -57,6 +57,7 @@ define( function( require ) {
       this.timeOfLastXVelocityUpdate = now;
     } );
 
+    // monitor the velocity for a direction change
     this.topBookXVelocityProperty.link( ( velocity, previousVelocity ) => {
 
       if ( velocity > 0 && ( previousVelocity === 0 || previousVelocity < 0 ) ) {
@@ -84,8 +85,16 @@ define( function( require ) {
           if ( !this.isPlaying ) {
             this.start();
           }
+
+          // There really isn't an easily determined hard limit to the velocity, since it depends on how fast a user
+          // can drag, so this value is derived from experimenting with fairly rapid drags.
+          const maxVelocity = 2000;
+
+          // calculate a normalized absolute value of the velocity
+          const normalizedVelocity = Math.min( Math.abs( topBookXVelocity / maxVelocity ), 1 );
+
           // set the output level based on the velocity of the book
-          const noiseAmplitude = options.maxOutputLevel * Math.min( Math.pow( Math.abs( topBookXVelocity ), 0.25 ), 1 );
+          const noiseAmplitude = options.maxOutputLevel * Math.pow( normalizedVelocity, 0.25 );
           this.setOutputLevel( noiseAmplitude, 0.1 );
         }
         else {
