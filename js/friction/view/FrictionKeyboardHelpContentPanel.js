@@ -35,7 +35,7 @@ define( function( require ) {
   const DEFAULT_LABEL_OPTIONS = {
     font: HelpContent.DEFAULT_LABEL_FONT,
     maxWidth: HelpContent.DEFAULT_TEXT_MAX_WIDTH,
-    lineWrap: HelpContent.DEFAULT_TEXT_MAX_WIDTH - 10 // extra value necessary for proper wrapping, see https://github.com/phetsims/friction/issues/138#issuecomment-442347693
+    lineWrap: HelpContent.DEFAULT_TEXT_MAX_WIDTH
   };
 
   /**
