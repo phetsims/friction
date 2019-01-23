@@ -33,9 +33,7 @@ define( function( require ) {
 
   // constants
   const DEFAULT_LABEL_OPTIONS = {
-    font: HelpContent.DEFAULT_LABEL_FONT,
-    maxWidth: HelpContent.DEFAULT_TEXT_MAX_WIDTH,
-    lineWrap: HelpContent.DEFAULT_TEXT_MAX_WIDTH
+    font: HelpContent.DEFAULT_LABEL_FONT
   };
 
   /**
@@ -43,9 +41,19 @@ define( function( require ) {
    */
   function FrictionKeyboardHelpContentPanel() {
 
-    const grabReleaseHelpContent = HelpContent.getGrabReleaseHelpContent( bookTitleString, bookLabelString );
-    const moveBookHelpContent = new MoveBookHelpNode();
-    const generalNavigationHelpContent = new GeneralNavigationHelpContent();
+    // make all the HelpContents consistent in layout
+    const maxWidth = 130;
+    const grabReleaseHelpContent = HelpContent.getGrabReleaseHelpContent( bookTitleString, bookLabelString, {
+      baseLabelMaxWidth: maxWidth
+    } );
+    const moveBookHelpContent = new MoveBookHelpContent( {
+      baseLabelMaxWidth: maxWidth
+
+    } );
+    const generalNavigationHelpContent = new GeneralNavigationHelpContent( {
+      baseLabelMaxWidth: maxWidth
+
+    } );
 
     HelpContent.alignHelpContentIcons( [ grabReleaseHelpContent, moveBookHelpContent ] );
 
@@ -68,15 +76,13 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function MoveBookHelpNode( options ) {
+  function MoveBookHelpContent( options ) {
 
     Node.call( this );
     options = _.extend( {
 
       // icon options
-      arrowKeysScale: 0.55,
-      verticalIconSpacing: HelpContent.DEFAULT_VERTICAL_ICON_SPACING
-
+      arrowKeysScale: 0.55
     }, options );
 
     // BookNode row
@@ -93,7 +99,7 @@ define( function( require ) {
     HelpContent.call( this, moveBookHeaderString, [ moveBookRow, row ], options );
   }
 
-  inherit( HelpContent, MoveBookHelpNode );
+  inherit( HelpContent, MoveBookHelpContent );
 
   friction.register( 'FrictionKeyboardHelpContentPanel', FrictionKeyboardHelpContentPanel );
 
