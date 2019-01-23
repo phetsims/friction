@@ -15,10 +15,10 @@
     "value": "Book"
   },
   "bookLabel": {
-    "value": "book or zoomed-in book"
+    "value": "book or<br> zoomed-in book"
   },
   "moveBook": {
-    "value": "Move grabbed book or grabbed zoomed-in book"
+    "value": "Move grabbed book or<br> grabbed zoomed-in book"
   },
   "moveInSmallerSteps": {
     "value": "Move slower"
