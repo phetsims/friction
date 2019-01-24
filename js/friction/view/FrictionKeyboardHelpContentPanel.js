@@ -44,14 +44,14 @@ define( function( require ) {
     // make all the HelpContents consistent in layout
     const maxWidth = 130;
     const grabReleaseHelpContent = HelpContent.getGrabReleaseHelpContent( bookTitleString, bookLabelString, {
-      baseLabelMaxWidth: maxWidth
+      labelMaxWidth: maxWidth
     } );
     const moveBookHelpContent = new MoveBookHelpContent( {
-      baseLabelMaxWidth: maxWidth
+      labelMaxWidth: maxWidth
 
     } );
     const generalNavigationHelpContent = new GeneralNavigationHelpContent( {
-      baseLabelMaxWidth: maxWidth
+      labelMaxWidth: maxWidth
 
     } );
 
