@@ -17,7 +17,6 @@ define( function( require ) {
   const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
-  const RichText = require( 'SCENERY/nodes/RichText' );
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
@@ -31,11 +30,6 @@ define( function( require ) {
   const moveBookWithString = FrictionA11yStrings.moveBookWith.value;
   const moveInSmallerStepsWithString = FrictionA11yStrings.moveInSmallerStepsWith.value;
 
-  // constants
-  const DEFAULT_LABEL_OPTIONS = {
-    font: HelpContent.DEFAULT_LABEL_FONT
-  };
-
   /**
    * @constructor
    */
@@ -44,14 +38,14 @@ define( function( require ) {
     // make all the HelpContents consistent in layout
     const maxWidth = 130;
     const grabReleaseHelpContent = HelpContent.getGrabReleaseHelpContent( bookTitleString, bookLabelString, {
-      baseLabelMaxWidth: maxWidth
+      labelMaxWidth: maxWidth
     } );
     const moveBookHelpContent = new MoveBookHelpContent( {
-      baseLabelMaxWidth: maxWidth
+      labelMaxWidth: maxWidth
 
     } );
     const generalNavigationHelpContent = new GeneralNavigationHelpContent( {
-      baseLabelMaxWidth: maxWidth
+      labelMaxWidth: maxWidth
 
     } );
 
@@ -86,15 +80,13 @@ define( function( require ) {
     }, options );
 
     // BookNode row
-    const moveBookText = new RichText( moveBookString, DEFAULT_LABEL_OPTIONS );
     const moveBookIcon = HelpContent.arrowOrWasdKeysRowIcon();
-    const moveBookRow = HelpContent.labelWithIcon( moveBookText, moveBookIcon, moveBookWithString );
+    const moveBookRow = HelpContent.labelWithIcon( moveBookString, moveBookIcon, moveBookWithString );
 
     // BookNode in smaller steps row
-    const moveInSmallerStepsText = new RichText( moveInSmallerStepsString, DEFAULT_LABEL_OPTIONS );
     const shiftPlusArrowKeys = HelpContent.shiftPlusIcon( HelpContent.arrowKeysRowIcon() );
     const shiftPlusWASDKeys = HelpContent.shiftPlusIcon( HelpContent.wasdRowIcon() );
-    const row = HelpContent.labelWithIconList( moveInSmallerStepsText, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], moveInSmallerStepsWithString );
+    const row = HelpContent.labelWithIconList( moveInSmallerStepsString, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], moveInSmallerStepsWithString );
 
     HelpContent.call( this, moveBookHeaderString, [ moveBookRow, row ], options );
   }
