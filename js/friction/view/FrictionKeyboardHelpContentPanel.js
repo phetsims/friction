@@ -86,9 +86,8 @@ define( function( require ) {
     }, options );
 
     // BookNode row
-    const moveBookText = new RichText( moveBookString, DEFAULT_LABEL_OPTIONS );
     const moveBookIcon = HelpContent.arrowOrWasdKeysRowIcon();
-    const moveBookRow = HelpContent.labelWithIcon( moveBookText, moveBookIcon, moveBookWithString );
+    const moveBookRow = HelpContent.labelWithIcon( moveBookString, moveBookIcon, moveBookWithString );
 
     // BookNode in smaller steps row
     const moveInSmallerStepsText = new RichText( moveInSmallerStepsString, DEFAULT_LABEL_OPTIONS );
