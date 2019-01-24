@@ -17,7 +17,6 @@ define( function( require ) {
   const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
-  const RichText = require( 'SCENERY/nodes/RichText' );
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
@@ -30,11 +29,6 @@ define( function( require ) {
   // a11y strings
   const moveBookWithString = FrictionA11yStrings.moveBookWith.value;
   const moveInSmallerStepsWithString = FrictionA11yStrings.moveInSmallerStepsWith.value;
-
-  // constants
-  const DEFAULT_LABEL_OPTIONS = {
-    font: HelpContent.DEFAULT_LABEL_FONT
-  };
 
   /**
    * @constructor
@@ -90,10 +84,9 @@ define( function( require ) {
     const moveBookRow = HelpContent.labelWithIcon( moveBookString, moveBookIcon, moveBookWithString );
 
     // BookNode in smaller steps row
-    const moveInSmallerStepsText = new RichText( moveInSmallerStepsString, DEFAULT_LABEL_OPTIONS );
     const shiftPlusArrowKeys = HelpContent.shiftPlusIcon( HelpContent.arrowKeysRowIcon() );
     const shiftPlusWASDKeys = HelpContent.shiftPlusIcon( HelpContent.wasdRowIcon() );
-    const row = HelpContent.labelWithIconList( moveInSmallerStepsText, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], moveInSmallerStepsWithString );
+    const row = HelpContent.labelWithIconList( moveInSmallerStepsString, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], moveInSmallerStepsWithString );
 
     HelpContent.call( this, moveBookHeaderString, [ moveBookRow, row ], options );
   }
