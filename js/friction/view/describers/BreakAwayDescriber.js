@@ -13,7 +13,7 @@ define( ( require ) => {
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const timer = require( 'PHET_CORE/timer' );
+  const timer = require( 'AXON/timer' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // a11y strings

@@ -21,7 +21,7 @@ define( ( require ) => {
   const FrictionAlertManager = require( 'FRICTION/friction/view/FrictionAlertManager' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const timer = require( 'PHET_CORE/timer' );
+  const timer = require( 'AXON/timer' );
   const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
