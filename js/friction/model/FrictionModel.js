@@ -12,7 +12,6 @@ define( function( require ) {
 
   // modules
   const Atom = require( 'FRICTION/friction/model/Atom' );
-  const BooleanIO = require( 'TANDEM/types/BooleanIO' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const Emitter = require( 'AXON/Emitter' );
@@ -208,9 +207,8 @@ define( function( require ) {
     this.atomRowsToEvaporateProperty = new NumberProperty( TOP_BOOK_ATOM_STRUCTURE.length - 1 );
 
     // @private - are books in contact?
-    this.contactProperty = new Property( false, {
-      tandem: tandem.createTandem( 'contactProperty' ),
-      phetioType: PropertyIO( BooleanIO )
+    this.contactProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'contactProperty' )
     } );
 
     // @public {BooleanProperty} - Show hint icon. Only set by model and on a11y grab interaction.
