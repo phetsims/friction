@@ -1,4 +1,4 @@
-// Copyright 2018, University of Colorado Boulder
+// Copyright 2018-2019, University of Colorado Boulder
 
 /**
  * Describer responsible for handling the appropriate alert when atoms evaporate, or "break away" from the top book.

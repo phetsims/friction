@@ -1,4 +1,4 @@
-// Copyright 2018, University of Colorado Boulder
+// Copyright 2018-2019, University of Colorado Boulder
 
 /**
  * a sound generator used to indicate the amount of molecule motion in the Friction simulation

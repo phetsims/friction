@@ -1,4 +1,4 @@
-// Copyright 2018, University of Colorado Boulder
+// Copyright 2018-2019, University of Colorado Boulder
 
 /**
  * This singleton type is responsible for alerting all aria-live alerts that pertain to the model/amplitude/temperature

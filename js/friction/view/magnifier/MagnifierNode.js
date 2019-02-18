@@ -1,4 +1,4 @@
-// Copyright 2013-2018, University of Colorado Boulder
+// Copyright 2013-2019, University of Colorado Boulder
 
 /**
  * a Scenery Node that depicts the magnified area between the two books where the atoms can be seen
