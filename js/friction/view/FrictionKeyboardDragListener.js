@@ -13,7 +13,7 @@ define( function( require ) {
   const friction = require( 'FRICTION/friction' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const inherit = require( 'PHET_CORE/inherit' );
-  const KeyboardDragListener = require( 'SCENERY_PHET/accessibility/listeners/KeyboardDragListener' );
+  const KeyboardDragListener = require( 'SCENERY/listeners/KeyboardDragListener' );
   const TemperatureDecreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureDecreasingDescriber' );
   const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
   const Vector2 = require( 'DOT/Vector2' );
