@@ -19,11 +19,9 @@ define( function( require ) {
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const inherit = require( 'PHET_CORE/inherit' );
   const NumberProperty = require( 'AXON/NumberProperty' );
-  const Property = require( 'AXON/Property' );
-  const PropertyIO = require( 'AXON/PropertyIO' );
   const Range = require( 'DOT/Range' );
   const Vector2 = require( 'DOT/Vector2' );
-  const Vector2IO = require( 'DOT/Vector2IO' );
+  const Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
   const ATOM_RADIUS = FrictionConstants.ATOM_RADIUS; // radius of single atom
@@ -191,8 +189,7 @@ define( function( require ) {
     } );
 
     // @public (read-only) {Property.<Vector2>} - position of top book, can by dragged the user
-    this.topBookPositionProperty = new Property( new Vector2( 0, 0 ), {
-      phetioType: PropertyIO( Vector2IO ),
+    this.topBookPositionProperty = new Vector2Property( new Vector2( 0, 0 ), {
       tandem: tandem.createTandem( 'topBookPositionProperty' ),
       phetioHighFrequency: true
     } );
