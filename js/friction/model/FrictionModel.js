@@ -188,7 +188,7 @@ define( function( require ) {
       phetioHighFrequency: true
     } );
 
-    // @public (read-only) {Property.<Vector2>} - position of top book, can by dragged the user
+    // @public (read-only) - position of top book, can by dragged the user
     this.topBookPositionProperty = new Vector2Property( new Vector2( 0, 0 ), {
       tandem: tandem.createTandem( 'topBookPositionProperty' ),
       phetioHighFrequency: true

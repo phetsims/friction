@@ -13,8 +13,8 @@ define( function( require ) {
   // modules
   const friction = require( 'FRICTION/friction' );
   const inherit = require( 'PHET_CORE/inherit' );
-  const Property = require( 'AXON/Property' );
   const Vector2 = require( 'DOT/Vector2' );
+  const Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
   const EVAPORATED_SPEED = 400; // speed that particles travel during evaporation, in model units per second
@@ -41,8 +41,8 @@ define( function( require ) {
     // @private - marked as true when the atom is evaporated
     this.isEvaporated = false;
 
-    // @public {Property.<Vector2>} - the position of the atom
-    this.positionProperty = new Property( initialPosition );
+    // @public - the position of the atom
+    this.positionProperty = new Vector2Property( initialPosition );
 
     // @private {Vector2} - the center position, around which oscillations occur
     this.centerPosition = new Vector2( initialPosition.x, initialPosition.y );
