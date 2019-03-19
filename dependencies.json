@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.5.1 Fri Mar 08 2019 13:24:40 GMT-0500 (EST)",
+  "comment": "# friction 1.5.1 Tue Mar 19 2019 16:39:14 GMT-0400 (EDT)",
   "assert": {
     "sha": "69088d35b9e1971aee675d1aec7f413f4d0bef19",
     "branch": "HEAD"
@@ -10,23 +10,23 @@
   },
   "brand": {
     "sha": "9004c2c55c6ac6847866cfb38aeec830a6bb85ca",
-    "branch": "friction-1.5"
+    "branch": "HEAD"
   },
   "chipper": {
-    "sha": "07323a50bc36c71b1f38068445df677a165d79e2",
-    "branch": "HEAD"
+    "sha": "0b1ef0bbdd3487cbe2cbb6951d6b19685682f13d",
+    "branch": "friction-1.5"
   },
   "dot": {
     "sha": "8d95f26a755cbef2695bf02731b385da746dca86",
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "0608b0086654a29b2ddea21391fcda9a592e21fa",
+    "sha": "19d9230ed46c15dd81af2786d5eb457b0ddf9dcb",
     "branch": "1.5"
   },
   "joist": {
     "sha": "7bfe74a0b592d55e63fcdeaec65e496831328c51",
-    "branch": "friction-1.5"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "6c78a24fdf01ba21cb7037e7554d2aa81717d94a",
@@ -60,6 +60,10 @@
     "sha": "f8c5396f2e624b09a230f7dd09c1b57f19ac83e4",
     "branch": "HEAD"
   },
+  "phetmarks": {
+    "sha": "83ca87d6bf22f8d4eeafe5835dfdf4782c3e72e2",
+    "branch": "HEAD"
+  },
   "query-string-machine": {
     "sha": "96ab0c2b8258e18ab04a5f6dfbee16968699d92a",
     "branch": "HEAD"
@@ -87,9 +91,5 @@
   "tandem": {
     "sha": "eb385888828274bd79c28425c6efd051e1c4369e",
     "branch": "HEAD"
-  },
-  "phetmarks": {
-    "branch": "master",
-    "sha": "2a113c313ad45ec24274735ce8dcc6d1022b7b12"
   }
 }
