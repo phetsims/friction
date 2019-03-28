@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.5.2-rc.1 Wed Mar 20 2019 19:07:43 GMT-0400 (EDT)",
+  "comment": "# friction 1.5.2-rc.1 Thu Mar 28 2019 14:05:42 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "69088d35b9e1971aee675d1aec7f413f4d0bef19",
     "branch": "HEAD"
@@ -13,15 +13,15 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "0b1ef0bbdd3487cbe2cbb6951d6b19685682f13d",
-    "branch": "HEAD"
+    "sha": "d48bfda1be8799282abac8a53da57182eea033c1",
+    "branch": "friction-1.5"
   },
   "dot": {
     "sha": "8d95f26a755cbef2695bf02731b385da746dca86",
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "3923cc6469680c5d2b24ee9e15ebb569c2b45fd1",
+    "sha": "25b3044ffe155833acb7645a96b2b897ab94f98d",
     "branch": "1.5"
   },
   "joist": {
