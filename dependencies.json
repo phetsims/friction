@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.5.2-rc.2 Fri Mar 29 2019 13:59:10 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# friction 1.5.2 Thu Apr 04 2019 11:01:25 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "69088d35b9e1971aee675d1aec7f413f4d0bef19",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "db394a5c1e54cac820a3aadb8ffbbc5b75cfc471",
+    "sha": "6f78cf2030c2631d8533516db557edaeafc6678a",
     "branch": "1.5"
   },
   "joist": {
