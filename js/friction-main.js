@@ -15,7 +15,7 @@ define( function( require ) {
 
   // modules
   const Bounds2 = require( 'DOT/Bounds2' );
-  const FrictionKeyboardHelpContentPanel = require( 'FRICTION/friction/view/FrictionKeyboardHelpContentPanel' );
+  const FrictionKeyboardHelpContent = require( 'FRICTION/friction/view/FrictionKeyboardHelpContent' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const FrictionScreenView = require( 'FRICTION/friction/view/FrictionScreenView' );
   const Property = require( 'AXON/Property' );
@@ -32,7 +32,7 @@ define( function( require ) {
 
   SimLauncher.launch( function() {
 
-    const keyboardHelpContent = new FrictionKeyboardHelpContentPanel();
+    const keyboardHelpContent = new FrictionKeyboardHelpContent();
     const simOptions = {
       credits: {
         leadDesign: 'Michael Dubson, Noah Podolefsky',
