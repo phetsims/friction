@@ -13,7 +13,7 @@ define( function( require ) {
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const GeneralNavigationHelpContent = require( 'SCENERY_PHET/keyboard/help/GeneralNavigationHelpContent' );
   const HBox = require( 'SCENERY/nodes/HBox' );
-  const HelpContent = require( 'SCENERY_PHET/keyboard/help/HelpContent' );
+  const KeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/KeyboardHelpSection' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
@@ -37,7 +37,7 @@ define( function( require ) {
 
     // make all the HelpContents consistent in layout
     const maxWidth = 130;
-    const grabReleaseHelpContent = HelpContent.getGrabReleaseHelpContent( bookTitleString, bookLabelString, {
+    const grabReleaseHelpContent = KeyboardHelpSection.getGrabReleaseHelpContent( bookTitleString, bookLabelString, {
       labelMaxWidth: maxWidth
     } );
     const moveBookHelpContent = new MoveBookHelpContent( {
@@ -49,7 +49,7 @@ define( function( require ) {
 
     } );
 
-    HelpContent.alignHelpContentIcons( [ grabReleaseHelpContent, moveBookHelpContent ] );
+    KeyboardHelpSection.alignHelpContentIcons( [ grabReleaseHelpContent, moveBookHelpContent ] );
 
     const content = new HBox( {
       children: [
@@ -80,18 +80,18 @@ define( function( require ) {
     }, options );
 
     // BookNode row
-    const moveBookIcon = HelpContent.arrowOrWasdKeysRowIcon();
-    const moveBookRow = HelpContent.labelWithIcon( moveBookString, moveBookIcon, moveBookWithString );
+    const moveBookIcon = KeyboardHelpSection.arrowOrWasdKeysRowIcon();
+    const moveBookRow = KeyboardHelpSection.labelWithIcon( moveBookString, moveBookIcon, moveBookWithString );
 
     // BookNode in smaller steps row
-    const shiftPlusArrowKeys = HelpContent.shiftPlusIcon( HelpContent.arrowKeysRowIcon() );
-    const shiftPlusWASDKeys = HelpContent.shiftPlusIcon( HelpContent.wasdRowIcon() );
-    const row = HelpContent.labelWithIconList( moveInSmallerStepsString, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], moveInSmallerStepsWithString );
+    const shiftPlusArrowKeys = KeyboardHelpSection.shiftPlusIcon( KeyboardHelpSection.arrowKeysRowIcon() );
+    const shiftPlusWASDKeys = KeyboardHelpSection.shiftPlusIcon( KeyboardHelpSection.wasdRowIcon() );
+    const row = KeyboardHelpSection.labelWithIconList( moveInSmallerStepsString, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], moveInSmallerStepsWithString );
 
-    HelpContent.call( this, moveBookHeaderString, [ moveBookRow, row ], options );
+    KeyboardHelpSection.call( this, moveBookHeaderString, [ moveBookRow, row ], options );
   }
 
-  inherit( HelpContent, MoveBookHelpContent );
+  inherit( KeyboardHelpSection, MoveBookHelpContent );
 
   friction.register( 'FrictionKeyboardHelpContentPanel', FrictionKeyboardHelpContentPanel );
 
