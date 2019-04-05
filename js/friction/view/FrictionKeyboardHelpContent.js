@@ -48,7 +48,7 @@ define( function( require ) {
 
     } );
 
-    KeyboardHelpSection.alignHelpContentIcons( [ grabReleaseHelpContent, moveBookHelpContent ] );
+    KeyboardHelpSection.alignHelpSectionIcons( [ grabReleaseHelpContent, moveBookHelpContent ] );
 
     HBox.call( this, {
       children: [
