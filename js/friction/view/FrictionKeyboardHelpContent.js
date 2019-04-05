@@ -36,7 +36,7 @@ define( function( require ) {
 
     // make all the KeyboardHelpSection consistent in layout
     const maxWidth = 130;
-    const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpContent( bookTitleString, bookLabelString, {
+    const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection( bookTitleString, bookLabelString, {
       labelMaxWidth: maxWidth
     } );
     const moveBookHelpSection = new MoveBookHelpSection( {
