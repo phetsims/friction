@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
-  const GeneralNavigationHelpContent = require( 'SCENERY_PHET/keyboard/help/GeneralNavigationHelpContent' );
+  const GeneralKeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/GeneralKeyboardHelpSection' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const KeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/KeyboardHelpSection' );
   const inherit = require( 'PHET_CORE/inherit' );
@@ -44,7 +44,7 @@ define( function( require ) {
       labelMaxWidth: maxWidth
 
     } );
-    const generalNavigationHelpContent = new GeneralNavigationHelpContent( {
+    const generalNavigationHelpContent = new GeneralKeyboardHelpSection( {
       labelMaxWidth: maxWidth
 
     } );
