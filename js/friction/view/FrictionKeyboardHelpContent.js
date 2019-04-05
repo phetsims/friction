@@ -34,26 +34,26 @@ define( function( require ) {
    */
   function FrictionKeyboardHelpContent() {
 
-    // make all the HelpContents consistent in layout
+    // make all the KeyboardHelpSection consistent in layout
     const maxWidth = 130;
-    const grabReleaseHelpContent = KeyboardHelpSection.getGrabReleaseHelpContent( bookTitleString, bookLabelString, {
+    const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpContent( bookTitleString, bookLabelString, {
       labelMaxWidth: maxWidth
     } );
-    const moveBookHelpContent = new MoveBookHelpContent( {
-      labelMaxWidth: maxWidth
-
-    } );
-    const generalNavigationHelpContent = new GeneralKeyboardHelpSection( {
+    const moveBookHelpSection = new MoveBookHelpSection( {
       labelMaxWidth: maxWidth
 
     } );
+    const generalNavigationHelpSection = new GeneralKeyboardHelpSection( {
+      labelMaxWidth: maxWidth
 
-    KeyboardHelpSection.alignHelpSectionIcons( [ grabReleaseHelpContent, moveBookHelpContent ] );
+    } );
+
+    KeyboardHelpSection.alignHelpSectionIcons( [ grabReleaseHelpSection, moveBookHelpSection ] );
 
     HBox.call( this, {
       children: [
-        new VBox( { children: [ grabReleaseHelpContent, moveBookHelpContent ], spacing: 10, align: 'left' } ),
-        generalNavigationHelpContent
+        new VBox( { children: [ grabReleaseHelpSection, moveBookHelpSection ], spacing: 10, align: 'left' } ),
+        generalNavigationHelpSection
       ],
       align: 'top',
       spacing: 30
@@ -64,7 +64,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function MoveBookHelpContent( options ) {
+  function MoveBookHelpSection( options ) {
 
     Node.call( this );
     options = _.extend( {
@@ -85,7 +85,7 @@ define( function( require ) {
     KeyboardHelpSection.call( this, moveBookHeaderString, [ moveBookRow, row ], options );
   }
 
-  inherit( KeyboardHelpSection, MoveBookHelpContent );
+  inherit( KeyboardHelpSection, MoveBookHelpSection );
 
   friction.register( 'FrictionKeyboardHelpContent', FrictionKeyboardHelpContent );
 
