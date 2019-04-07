@@ -5,7 +5,7 @@
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
@@ -14,8 +14,6 @@ define( function( require ) {
   const GeneralKeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/GeneralKeyboardHelpSection' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const KeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/KeyboardHelpSection' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const Node = require( 'SCENERY/nodes/Node' );
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
@@ -29,65 +27,66 @@ define( function( require ) {
   const moveBookWithString = FrictionA11yStrings.moveBookWith.value;
   const moveInSmallerStepsWithString = FrictionA11yStrings.moveInSmallerStepsWith.value;
 
-  /**
-   * @constructor
-   */
-  function FrictionKeyboardHelpContent() {
+  class FrictionKeyboardHelpContent extends HBox {
+    constructor() {
 
-    // make all the KeyboardHelpSection consistent in layout
-    const maxWidth = 130;
-    const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection( bookTitleString, bookLabelString, {
-      labelMaxWidth: maxWidth
-    } );
-    const moveBookHelpSection = new MoveBookHelpSection( {
-      labelMaxWidth: maxWidth
+      // make all the KeyboardHelpSection consistent in layout
+      const maxWidth = 130;
+      const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection( bookTitleString, bookLabelString, {
+        labelMaxWidth: maxWidth
+      } );
+      const moveBookHelpSection = new MoveBookHelpSection( {
+        labelMaxWidth: maxWidth
 
-    } );
-    const generalNavigationHelpSection = new GeneralKeyboardHelpSection( {
-      labelMaxWidth: maxWidth
+      } );
+      const generalNavigationHelpSection = new GeneralKeyboardHelpSection( {
+        labelMaxWidth: maxWidth
 
-    } );
+      } );
 
-    KeyboardHelpSection.alignHelpSectionIcons( [ grabReleaseHelpSection, moveBookHelpSection ] );
+      KeyboardHelpSection.alignHelpSectionIcons( [ grabReleaseHelpSection, moveBookHelpSection ] );
 
-    HBox.call( this, {
-      children: [
-        new VBox( { children: [ grabReleaseHelpSection, moveBookHelpSection ], spacing: 10, align: 'left' } ),
-        generalNavigationHelpSection
-      ],
-      align: 'top',
-      spacing: 30
-    } );
+      super( {
+        children: [
+          new VBox( { children: [ grabReleaseHelpSection, moveBookHelpSection ], spacing: 10, align: 'left' } ),
+          generalNavigationHelpSection
+        ],
+        align: 'top',
+        spacing: 30
+      } );
+    }
   }
+
+  friction.register( 'FrictionKeyboardHelpContent', FrictionKeyboardHelpContent );
 
   /**
    * @param {Object} [options]
    * @constructor
    */
-  function MoveBookHelpSection( options ) {
+  class MoveBookHelpSection extends KeyboardHelpSection {
 
-    Node.call( this );
-    options = _.extend( {
+    /**
+     * @param {Object} [options]
+     */
+    constructor( options ) {
+      options = _.extend( {
 
-      // icon options
-      arrowKeysScale: 0.55
-    }, options );
+        // icon options
+        arrowKeysScale: 0.55
+      }, options );
 
-    // BookNode row
-    const moveBookIcon = KeyboardHelpSection.arrowOrWasdKeysRowIcon();
-    const moveBookRow = KeyboardHelpSection.labelWithIcon( moveBookString, moveBookIcon, moveBookWithString );
+      // BookNode row
+      const moveBookIcon = KeyboardHelpSection.arrowOrWasdKeysRowIcon();
+      const moveBookRow = KeyboardHelpSection.labelWithIcon( moveBookString, moveBookIcon, moveBookWithString );
 
-    // BookNode in smaller steps row
-    const shiftPlusArrowKeys = KeyboardHelpSection.shiftPlusIcon( KeyboardHelpSection.arrowKeysRowIcon() );
-    const shiftPlusWASDKeys = KeyboardHelpSection.shiftPlusIcon( KeyboardHelpSection.wasdRowIcon() );
-    const row = KeyboardHelpSection.labelWithIconList( moveInSmallerStepsString, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], moveInSmallerStepsWithString );
+      // BookNode in smaller steps row
+      const shiftPlusArrowKeys = KeyboardHelpSection.shiftPlusIcon( KeyboardHelpSection.arrowKeysRowIcon() );
+      const shiftPlusWASDKeys = KeyboardHelpSection.shiftPlusIcon( KeyboardHelpSection.wasdRowIcon() );
+      const row = KeyboardHelpSection.labelWithIconList( moveInSmallerStepsString, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], moveInSmallerStepsWithString );
 
-    KeyboardHelpSection.call( this, moveBookHeaderString, [ moveBookRow, row ], options );
+      super( moveBookHeaderString, [ moveBookRow, row ], options );
+    }
   }
 
-  inherit( KeyboardHelpSection, MoveBookHelpSection );
-
-  friction.register( 'FrictionKeyboardHelpContent', FrictionKeyboardHelpContent );
-
-  return inherit( HBox, FrictionKeyboardHelpContent );
+  return FrictionKeyboardHelpContent;
 } );
