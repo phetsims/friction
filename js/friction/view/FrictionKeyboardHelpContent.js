@@ -12,8 +12,8 @@ define( require => {
   const friction = require( 'FRICTION/friction' );
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const GeneralKeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/GeneralKeyboardHelpSection' );
-  const HBox = require( 'SCENERY/nodes/HBox' );
   const KeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/KeyboardHelpSection' );
+  const TwoColumnKeyboardHelpContent = require( 'SCENERY_PHET/keyboard/help/TwoColumnKeyboardHelpContent' );
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
@@ -27,7 +27,7 @@ define( require => {
   const moveBookWithString = FrictionA11yStrings.moveBookWith.value;
   const moveInSmallerStepsWithString = FrictionA11yStrings.moveInSmallerStepsWith.value;
 
-  class FrictionKeyboardHelpContent extends HBox {
+  class FrictionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
     constructor() {
 
       // make all the KeyboardHelpSection consistent in layout
@@ -46,14 +46,8 @@ define( require => {
 
       KeyboardHelpSection.alignHelpSectionIcons( [ grabReleaseHelpSection, moveBookHelpSection ] );
 
-      super( {
-        children: [
-          new VBox( { children: [ grabReleaseHelpSection, moveBookHelpSection ], spacing: 10, align: 'left' } ),
-          generalNavigationHelpSection
-        ],
-        align: 'top',
-        spacing: 30
-      } );
+      const leftContent = new VBox( { children: [ grabReleaseHelpSection, moveBookHelpSection ], spacing: 10, align: 'left' } );
+      super( leftContent, generalNavigationHelpSection );
     }
   }
 
