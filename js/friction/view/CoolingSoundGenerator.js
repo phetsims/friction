@@ -39,7 +39,7 @@ define( function( require ) {
 
     // start the noise generator - it will remain on and the output level will be controlled by the code below
     this.start();
-    this.setOutputLevel( 0 );
+    this.setOutputLevel( 0, 0 );
 
     // @private {number} - max output level, used in the step function that updates the sound output level
     this.maxOutputLevel = options.maxOutputLevel;
@@ -117,12 +117,12 @@ define( function( require ) {
           }
 
           // set the output level using an empirically determined time constant such that changes sound smooth
-          this.setOutputLevel( targetOutputLevel, 0.2 );
+          this.setOutputLevel( targetOutputLevel, 0.07 );
         }
         else {
 
           // stop the noise generator in a way that fades rapidly but not TOO abruptly
-          this.setOutputLevel( targetOutputLevel, 0.5 );
+          this.setOutputLevel( targetOutputLevel, 0.2 );
           this.stop( this.audioContext.currentTime + 0.01 );
         }
       }

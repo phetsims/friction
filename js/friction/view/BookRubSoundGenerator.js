@@ -95,13 +95,13 @@ define( function( require ) {
 
           // set the output level based on the velocity of the book
           const noiseAmplitude = options.maxOutputLevel * Math.pow( normalizedVelocity, 0.5 );
-          this.setOutputLevel( noiseAmplitude, 0.1 );
+          this.setOutputLevel( noiseAmplitude, 0.02 );
         }
         else {
           if ( this.isPlaying ) {
             this.stop( this.audioContext.currentTime + STOP_DURATION );
           }
-          this.setOutputLevel( 0, STOP_DURATION );
+          this.setOutputLevel( 0, 0.02 );
         }
       }
     );
