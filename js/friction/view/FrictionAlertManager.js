@@ -19,6 +19,10 @@ define( function( require ) {
   const frictionIncreasingAtomsJigglingTemperaturePatternString = FrictionA11yStrings.frictionIncreasingAtomsJigglingTemperaturePattern.value;
   const atomsJiggleTinyBitTempCoolString = FrictionA11yStrings.atomsJiggleTinyBitTempCool.value;
 
+  // utterance for announcing temperature and particle changes, persistent reference to use
+  // alertStable feature of utterance
+  const temperatureJiggleUtterance = new Utterance();
+
   var FrictionAlertManager = {
 
     /**
@@ -44,7 +48,8 @@ define( function( require ) {
         jigglingAmount: alertObject.jiggle
       } );
 
-      utteranceQueue.addToBack( new Utterance( { alert: string, uniqueGroupId: typeID } ) );
+      temperatureJiggleUtterance.alert = string;
+      utteranceQueue.addToBack( temperatureJiggleUtterance );
     },
 
     /**

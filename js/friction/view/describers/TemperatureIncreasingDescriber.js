@@ -104,7 +104,6 @@ define( ( require ) => {
 
       this.maxTempUtterance = new Utterance( {
         alert: [ MAX_TEMP_STRING, MAX_TEMP_STRING, resetSimMoreObservationSentenceString ],
-        uniqueGroupId: 'increasing',
         loopAlerts: true
       } );
 
