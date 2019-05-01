@@ -78,7 +78,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ObjectIO"
     },
-    "friction.frictionScreen.view.chemistryBookNode.dragHandler.dragEndedEmitter": {
+    "friction.frictionScreen.view.chemistryBookNode.dragHandler.dragEndedAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -89,7 +89,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
     },
-    "friction.frictionScreen.view.chemistryBookNode.dragHandler.dragStartedEmitter": {
+    "friction.frictionScreen.view.chemistryBookNode.dragHandler.dragStartedAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -100,7 +100,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
     },
-    "friction.frictionScreen.view.chemistryBookNode.dragHandler.draggedEmitter": {
+    "friction.frictionScreen.view.chemistryBookNode.dragHandler.draggedAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -177,7 +177,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ObjectIO"
     },
-    "friction.frictionScreen.view.magnifierNode.backgroundDragHandler.dragEndedEmitter": {
+    "friction.frictionScreen.view.magnifierNode.backgroundDragHandler.dragEndedAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -188,7 +188,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
     },
-    "friction.frictionScreen.view.magnifierNode.backgroundDragHandler.dragStartedEmitter": {
+    "friction.frictionScreen.view.magnifierNode.backgroundDragHandler.dragStartedAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -199,7 +199,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
     },
-    "friction.frictionScreen.view.magnifierNode.backgroundDragHandler.draggedEmitter": {
+    "friction.frictionScreen.view.magnifierNode.backgroundDragHandler.draggedAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -232,7 +232,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ObjectIO"
     },
-    "friction.frictionScreen.view.magnifierNode.dragAreaDragHandler.dragEndedEmitter": {
+    "friction.frictionScreen.view.magnifierNode.dragAreaDragHandler.dragEndedAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -243,7 +243,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
     },
-    "friction.frictionScreen.view.magnifierNode.dragAreaDragHandler.dragStartedEmitter": {
+    "friction.frictionScreen.view.magnifierNode.dragAreaDragHandler.dragStartedAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -254,7 +254,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
     },
-    "friction.frictionScreen.view.magnifierNode.dragAreaDragHandler.draggedEmitter": {
+    "friction.frictionScreen.view.magnifierNode.dragAreaDragHandler.draggedAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -419,8 +419,8 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<NullableIO.<BooleanIO>>"
     },
-    "friction.frictionScreen.view.resetAllButton.pressListener.pressedEmitter": {
-      "phetioDocumentation": "Emits whenever a press occurs. The first argument when emitting can be used to convey info about the Event.",
+    "friction.frictionScreen.view.resetAllButton.pressListener.pressedAction": {
+      "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event.",
       "phetioEventType": "user",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -430,8 +430,8 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
-    "friction.frictionScreen.view.resetAllButton.pressListener.releasedEmitter": {
-      "phetioDocumentation": "Emits whenever a release occurs.",
+    "friction.frictionScreen.view.resetAllButton.pressListener.releasedAction": {
+      "phetioDocumentation": "Executes whenever a release occurs.",
       "phetioEventType": "user",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -485,8 +485,8 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO.<>"
     },
-    "friction.general.barrierRectangle.inputListener.pressedEmitter": {
-      "phetioDocumentation": "Emits whenever a press occurs. The first argument when emitting can be used to convey info about the Event.",
+    "friction.general.barrierRectangle.inputListener.pressedAction": {
+      "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event.",
       "phetioEventType": "user",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -496,8 +496,8 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
-    "friction.general.barrierRectangle.inputListener.releasedEmitter": {
-      "phetioDocumentation": "Emits whenever a release occurs.",
+    "friction.general.barrierRectangle.inputListener.releasedAction": {
+      "phetioDocumentation": "Executes whenever a release occurs.",
       "phetioEventType": "user",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -551,7 +551,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<BooleanIO>"
     },
-    "friction.general.controller.input.changeEmitter": {
+    "friction.general.controller.input.changeAction": {
       "phetioDocumentation": "Emits when the PDOM root gets the change DOM event.",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -562,7 +562,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<DOMEventIO>"
     },
-    "friction.general.controller.input.clickEmitter": {
+    "friction.general.controller.input.clickAction": {
       "phetioDocumentation": "Emits when the PDOM root gets the click DOM event.",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -573,7 +573,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<DOMEventIO>"
     },
-    "friction.general.controller.input.focusinEmitter": {
+    "friction.general.controller.input.focusinAction": {
       "phetioDocumentation": "Emits when the PDOM root gets the focusin DOM event.",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -584,7 +584,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<DOMEventIO>"
     },
-    "friction.general.controller.input.focusoutEmitter": {
+    "friction.general.controller.input.focusoutAction": {
       "phetioDocumentation": "Emits when the PDOM root gets the focusout DOM event.",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -595,7 +595,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<DOMEventIO>"
     },
-    "friction.general.controller.input.inputEmitter": {
+    "friction.general.controller.input.inputAction": {
       "phetioDocumentation": "Emits when the PDOM root gets the input DOM event.",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -606,7 +606,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<DOMEventIO>"
     },
-    "friction.general.controller.input.keydownEmitter": {
+    "friction.general.controller.input.keydownAction": {
       "phetioDocumentation": "Emits when the PDOM root gets the keydown DOM event.",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -617,7 +617,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<DOMEventIO>"
     },
-    "friction.general.controller.input.keyupEmitter": {
+    "friction.general.controller.input.keyupAction": {
       "phetioDocumentation": "Emits when the PDOM root gets the keyup DOM event.",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -628,7 +628,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<DOMEventIO>"
     },
-    "friction.general.controller.input.mouseDownEmitter": {
+    "friction.general.controller.input.mouseDownAction": {
       "phetioDocumentation": "Emits when a mouse button is pressed",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -639,7 +639,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, DOMEventIO>"
     },
-    "friction.general.controller.input.mouseMovedEmitter": {
+    "friction.general.controller.input.mouseMovedAction": {
       "phetioDocumentation": "Emits when the mouse is moved",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -650,7 +650,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, DOMEventIO>"
     },
-    "friction.general.controller.input.mouseOutEmitter": {
+    "friction.general.controller.input.mouseOutAction": {
       "phetioDocumentation": "Emits when the mouse moves out of the display",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -661,7 +661,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, DOMEventIO>"
     },
-    "friction.general.controller.input.mouseOverEmitter": {
+    "friction.general.controller.input.mouseOverAction": {
       "phetioDocumentation": "Emits when the mouse is moved over a Node",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -672,7 +672,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, DOMEventIO>"
     },
-    "friction.general.controller.input.mouseUpEmitter": {
+    "friction.general.controller.input.mouseUpAction": {
       "phetioDocumentation": "Emits when a mouse button is released",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -683,7 +683,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, DOMEventIO>"
     },
-    "friction.general.controller.input.penCanceledEmitter": {
+    "friction.general.controller.input.penCanceledAction": {
       "phetioDocumentation": "Emits when a pen is canceled",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -694,7 +694,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
-    "friction.general.controller.input.penEndedEmitter": {
+    "friction.general.controller.input.penEndedAction": {
       "phetioDocumentation": "Emits when a pen is lifted",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -705,7 +705,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
-    "friction.general.controller.input.penMovedEmitter": {
+    "friction.general.controller.input.penMovedAction": {
       "phetioDocumentation": "Emits when a pen is moved",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -716,7 +716,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
-    "friction.general.controller.input.penStartedEmitter": {
+    "friction.general.controller.input.penStartedAction": {
       "phetioDocumentation": "Emits when a pen touches the screen",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -727,7 +727,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
-    "friction.general.controller.input.touchCanceledEmitter": {
+    "friction.general.controller.input.touchCanceledAction": {
       "phetioDocumentation": "Emits when a touch is canceled",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -738,7 +738,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
-    "friction.general.controller.input.touchEndedEmitter": {
+    "friction.general.controller.input.touchEndedAction": {
       "phetioDocumentation": "Emits when a touch ends",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -749,7 +749,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
-    "friction.general.controller.input.touchMovedEmitter": {
+    "friction.general.controller.input.touchMovedAction": {
       "phetioDocumentation": "Emits when a touch moves",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -760,7 +760,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
-    "friction.general.controller.input.touchStartedEmitter": {
+    "friction.general.controller.input.touchStartedAction": {
       "phetioDocumentation": "Emits when a touch begins",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -771,7 +771,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<NumberIO, Vector2IO, DOMEventIO>"
     },
-    "friction.general.controller.input.validatePointersEmitter": {
+    "friction.general.controller.input.validatePointersAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -782,7 +782,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<>"
     },
-    "friction.general.controller.input.wheelScrolledEmitter": {
+    "friction.general.controller.input.wheelScrolledAction": {
       "phetioDocumentation": "Emits when the mouse wheel scrolls",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -805,7 +805,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioTypeName": "PhetioCommandProcessorIO"
     },
     "friction.general.resizedAction": {
-      "phetioDocumentation": "Emits when the sim is resized",
+      "phetioDocumentation": "Executes when the sim is resized",
       "phetioEventType": "model",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -903,8 +903,8 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<NullableIO.<BooleanIO>>"
     },
-    "friction.navigationBar.a11yButtonsHBox.keyboardHelpButton.pressListener.pressedEmitter": {
-      "phetioDocumentation": "Emits whenever a press occurs. The first argument when emitting can be used to convey info about the Event.",
+    "friction.navigationBar.a11yButtonsHBox.keyboardHelpButton.pressListener.pressedAction": {
+      "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event.",
       "phetioEventType": "user",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -914,8 +914,8 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
-    "friction.navigationBar.a11yButtonsHBox.keyboardHelpButton.pressListener.releasedEmitter": {
-      "phetioDocumentation": "Emits whenever a release occurs.",
+    "friction.navigationBar.a11yButtonsHBox.keyboardHelpButton.pressListener.releasedAction": {
+      "phetioDocumentation": "Executes whenever a release occurs.",
       "phetioEventType": "user",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1002,8 +1002,8 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO.<>"
     },
-    "friction.navigationBar.phetButton.phetMenu.aboutMenuItem.inputListener.pressedEmitter": {
-      "phetioDocumentation": "Emits whenever a press occurs. The first argument when emitting can be used to convey info about the Event.",
+    "friction.navigationBar.phetButton.phetMenu.aboutMenuItem.inputListener.pressedAction": {
+      "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event.",
       "phetioEventType": "user",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1013,8 +1013,8 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
-    "friction.navigationBar.phetButton.phetMenu.aboutMenuItem.inputListener.releasedEmitter": {
-      "phetioDocumentation": "Emits whenever a release occurs.",
+    "friction.navigationBar.phetButton.phetMenu.aboutMenuItem.inputListener.releasedAction": {
+      "phetioDocumentation": "Executes whenever a release occurs.",
       "phetioEventType": "user",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1079,8 +1079,8 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO.<>"
     },
-    "friction.navigationBar.phetButton.phetMenu.screenshotMenuItem.inputListener.pressedEmitter": {
-      "phetioDocumentation": "Emits whenever a press occurs. The first argument when emitting can be used to convey info about the Event.",
+    "friction.navigationBar.phetButton.phetMenu.screenshotMenuItem.inputListener.pressedAction": {
+      "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event.",
       "phetioEventType": "user",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1090,8 +1090,8 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
-    "friction.navigationBar.phetButton.phetMenu.screenshotMenuItem.inputListener.releasedEmitter": {
-      "phetioDocumentation": "Emits whenever a release occurs.",
+    "friction.navigationBar.phetButton.phetMenu.screenshotMenuItem.inputListener.releasedAction": {
+      "phetioDocumentation": "Executes whenever a release occurs.",
       "phetioEventType": "user",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1145,8 +1145,8 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<NullableIO.<BooleanIO>>"
     },
-    "friction.navigationBar.phetButton.pressListener.pressedEmitter": {
-      "phetioDocumentation": "Emits whenever a press occurs. The first argument when emitting can be used to convey info about the Event.",
+    "friction.navigationBar.phetButton.pressListener.pressedAction": {
+      "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event.",
       "phetioEventType": "user",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -1156,8 +1156,8 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<EventIO, VoidIO, VoidIO>"
     },
-    "friction.navigationBar.phetButton.pressListener.releasedEmitter": {
-      "phetioDocumentation": "Emits whenever a release occurs.",
+    "friction.navigationBar.phetButton.pressListener.releasedAction": {
+      "phetioDocumentation": "Executes whenever a release occurs.",
       "phetioEventType": "user",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
