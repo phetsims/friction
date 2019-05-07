@@ -794,7 +794,7 @@ window.phet.phetio.phetioElementsBaseline =
       "phetioTypeName": "ActionIO.<DOMEventIO>"
     },
     "friction.general.focusProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Stores the current focus for the simulation, null if there is not focus. This is not updated based on mouse or touch input, only keyboard and other alternative inputs.",
       "phetioEventType": "model",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
