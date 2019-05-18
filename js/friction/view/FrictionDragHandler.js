@@ -9,21 +9,21 @@ define( function( require ) {
   'use strict';
 
   // modules
-  const BookMovementDescriber = require( 'FRICTION/friction/view/describers/BookMovementDescriber' );
   const friction = require( 'FRICTION/friction' );
   const inherit = require( 'PHET_CORE/inherit' );
   const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  const TemperatureDecreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureDecreasingDescriber' );
-  const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
   const Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {FrictionModel} model
-   * @param {Tandem} tandem
-   * @param {Object} [options]
-   * @constructor
+   * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
+   * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
+   * @param {BookMovementDescriber} bookMovementDescriber
+   * @param tandem
+   * @param options
    */
-  function FrictionDragHandler( model, tandem, options ) {
+  function FrictionDragHandler( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
+                                bookMovementDescriber, tandem, options ) {
 
     options = _.extend( {
 
@@ -39,8 +39,8 @@ define( function( require ) {
         options.startSound && options.startSound.play();
 
         // a11y
-        TemperatureIncreasingDescriber.getDescriber().startDrag();
-        TemperatureDecreasingDescriber.getDescriber().startDrag();
+        temperatureIncreasingDescriber.startDrag();
+        temperatureDecreasingDescriber.startDrag();
       },
       translate: function( e ) {
         model.move( new Vector2( e.delta.x, e.delta.y ) );
@@ -52,8 +52,8 @@ define( function( require ) {
         options.endSound && options.endSound.play();
 
         // a11y
-        TemperatureIncreasingDescriber.getDescriber().endDrag();
-        BookMovementDescriber.getDescriber().endDrag();
+        temperatureIncreasingDescriber.endDrag();
+        bookMovementDescriber.endDrag();
       },
       tandem: tandem
     } );

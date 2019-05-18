@@ -14,7 +14,6 @@ define( require => {
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const Node = require( 'SCENERY/nodes/Node' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const TemperatureDecreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureDecreasingDescriber' );
 
 
   // a11y strings
@@ -44,7 +43,7 @@ define( require => {
    * @constructor
    */
   class FrictionScreenSummaryNode extends Node {
-    constructor( model, thermometerMinTemp, thermometerMaxTemp ) {
+    constructor( model, thermometerMinTemp, thermometerMaxTemp, temperatureDecreasingDescriber ) {
 
       super();
 
@@ -66,7 +65,7 @@ define( require => {
       model.amplitudeProperty.link( ( amplitude ) => {
 
           // the temperature is decreasing
-          var tempDecreasing = TemperatureDecreasingDescriber.getDescriber().tempDecreasing;
+          var tempDecreasing = temperatureDecreasingDescriber.tempDecreasing;
 
           // Not if it is completely cool, so we don't trigger the update too much.
           var amplitudeSettledButNotMin = amplitude < FrictionModel.AMPLITUDE_SETTLED_THRESHOLD && // considered in a "settled" state

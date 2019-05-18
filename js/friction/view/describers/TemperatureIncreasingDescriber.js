@@ -71,9 +71,6 @@ define( ( require ) => {
   // in ms, time in between each increasing alert
   const ALERT_TIME_DELAY = 500;
 
-  // the singleton instance of this describer, used for the entire instance of the sim.
-  let describer = null;
-
   /**
    * Responsible for alerting when the temperature increases
    * @param {Object} [options]
@@ -190,25 +187,6 @@ define( ( require ) => {
      */
     reset() {
       this.maxTempUtterance.reset(); // reset the maximum alerts
-    }
-
-    /**
-     * Uses the singleton pattern to keep one instance of this describer for the entire lifetime of the sim.
-     * @returns {TemperatureIncreasingDescriber}
-     */
-    static getDescriber() {
-      assert && assert( describer, 'describer has not yet been initialized' );
-      return describer;
-    }
-
-    /**
-     * Initialize the describer singleton
-     * @param {FrictionModel} model
-     * @returns {TemperatureIncreasingDescriber}
-     */
-    static initialize( model ) {
-      describer = new TemperatureIncreasingDescriber( model );
-      return describer;
     }
   }
 

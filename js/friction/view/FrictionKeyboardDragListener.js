@@ -9,21 +9,22 @@ define( function( require ) {
   'use strict';
 
   // modules
-  const BookMovementDescriber = require( 'FRICTION/friction/view/describers/BookMovementDescriber' );
   const friction = require( 'FRICTION/friction' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const inherit = require( 'PHET_CORE/inherit' );
   const KeyboardDragListener = require( 'SCENERY/listeners/KeyboardDragListener' );
-  const TemperatureDecreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureDecreasingDescriber' );
-  const TemperatureIncreasingDescriber = require( 'FRICTION/friction/view/describers/TemperatureIncreasingDescriber' );
   const Vector2 = require( 'DOT/Vector2' );
 
 
   /**
    * @param {FrictionModel} model
+   * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
+   * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
+   * @param {BookMovementDescriber} bookMovementDescriber
    * @constructor
    */
-  function FrictionKeyboardDragListener( model ) {
+  function FrictionKeyboardDragListener( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
+                                         bookMovementDescriber ) {
 
     let oldPositionValue; // determines our delta for how the positionProperty changed every drag
 
@@ -32,8 +33,8 @@ define( function( require ) {
       start: () => {
         oldPositionValue = model.topBookPositionProperty.get().copy();
 
-        TemperatureIncreasingDescriber.getDescriber().startDrag();
-        TemperatureDecreasingDescriber.getDescriber().startDrag();
+        temperatureIncreasingDescriber.startDrag();
+        temperatureDecreasingDescriber.startDrag();
       },
       drag: () => {
         const newValue = model.topBookPositionProperty.get();
@@ -45,8 +46,8 @@ define( function( require ) {
       end: ( event ) => {
         model.bottomOffsetProperty.set( 0 );
 
-        TemperatureIncreasingDescriber.getDescriber().endDrag();
-        BookMovementDescriber.getDescriber().endDrag( event.domEvent );
+        temperatureIncreasingDescriber.endDrag();
+        bookMovementDescriber.endDrag( event.domEvent );
 
       },
       dragBounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS

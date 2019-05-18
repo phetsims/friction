@@ -34,9 +34,6 @@ define( ( require ) => {
   const ALERT_TIME_DELAY = 2000;
   const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
 
-  // the singleton instance of this describer, used for the entire instance of the sim.
-  let describer = null;
-
   /**
    * Responsible for alerting when the temperature increases
    * @param {Object} [options]
@@ -95,27 +92,6 @@ define( ( require ) => {
      */
     reset() {
       this.alertedBreakAwayProperty.reset(); // get the "first time" break away alert on reset
-    }
-
-
-    /**
-     * Uses the singleton pattern to keep one instance of this describer for the entire lifetime of the sim.
-     * @returns {BreakAwayDescriber}
-     */
-    static getDescriber() {
-      assert && assert( describer, 'describer has not yet been initialized' );
-      return describer;
-    }
-
-
-    /**
-     * Initialize the describer singleton
-     * @param {FrictionModel} model
-     * @returns {BreakAwayDescriber}
-     */
-    static initialize( model ) {
-      describer = new BreakAwayDescriber( model );
-      return describer;
     }
   }
 

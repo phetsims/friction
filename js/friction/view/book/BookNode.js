@@ -42,10 +42,14 @@ define( function( require ) {
   /**
    * @param {FrictionModel} model
    * @param {string} title - title that appears on the book spine
+   * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
+   * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
+   * @param {BookMovementDescriber} bookMovementDescriber
    * @param {Object} [options]
    * @constructor
    */
-  function BookNode( model, title, options ) {
+  function BookNode( model, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
+                     bookMovementDescriber, options ) {
     const self = this;
 
     options = _.extend( {
@@ -98,7 +102,8 @@ define( function( require ) {
       soundManager.addSoundGenerator( bookDropSoundClip );
 
       // a11y - add a keyboard drag handler
-      this.keyboardDragHandler = new FrictionKeyboardDragListener( model );
+      this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingDescriber,
+        temperatureDecreasingDescriber, bookMovementDescriber );
 
       // alert the temperature state on focus
       const focusListener = {
@@ -138,10 +143,11 @@ define( function( require ) {
       } );
 
 
-      this.addInputListener( new FrictionDragHandler( model, options.tandem.createTandem( 'dragHandler' ), {
-        startSound: bookPickupSoundClip,
-        endSound: bookDropSoundClip
-      } ) );
+      this.addInputListener( new FrictionDragHandler( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
+        bookMovementDescriber, options.tandem.createTandem( 'dragHandler' ), {
+          startSound: bookPickupSoundClip,
+          endSound: bookDropSoundClip
+        } ) );
 
       // add observer
       model.topBookPositionProperty.link( position => {

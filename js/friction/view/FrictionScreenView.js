@@ -69,30 +69,34 @@ define( function( require ) {
     this.model = model;
 
     // a11y initialize the describers for auditory descriptions and alerts.
-    TemperatureIncreasingDescriber.initialize( model );
-    TemperatureDecreasingDescriber.initialize( model );
-    BreakAwayDescriber.initialize( model );
-    BookMovementDescriber.initialize( model );
+    const temperatureIncreasingDescriber = new TemperatureIncreasingDescriber( model );
+    const temperatureDecreasingDescriber = new TemperatureDecreasingDescriber( model );
+    const breakAwayDescriber = new BreakAwayDescriber( model );
+    const bookMovementDescriber = new BookMovementDescriber( model );
 
     // a11y
-    const frictionSummaryNode = new FrictionScreenSummaryNode( model, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP );
+    const frictionSummaryNode = new FrictionScreenSummaryNode( model, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP,
+      temperatureDecreasingDescriber );
     this.screenSummaryNode.addChild( frictionSummaryNode );
 
     // add physics book
-    this.addChild( new BookNode( model, physicsString, {
-      x: 50,
-      y: 225,
-      tandem: tandem.createTandem( 'physicsBookNode' )
-    } ) );
+    this.addChild( new BookNode( model, physicsString, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
+      bookMovementDescriber, {
+        x: 50,
+        y: 225,
+        tandem: tandem.createTandem( 'physicsBookNode' )
+      } ) );
 
     // add chemistry book
-    const chemistryBookNode = new BookNode( model, chemistryString, {
-      x: 65,
-      y: 209,
-      color: FrictionConstants.TOP_BOOK_COLOR_MACRO,
-      drag: true,
-      tandem: tandem.createTandem( 'chemistryBookNode' )
-    } );
+    const chemistryBookNode = new BookNode( model, chemistryString, temperatureIncreasingDescriber,
+      temperatureDecreasingDescriber,
+      bookMovementDescriber, {
+        x: 65,
+        y: 209,
+        color: FrictionConstants.TOP_BOOK_COLOR_MACRO,
+        drag: true,
+        tandem: tandem.createTandem( 'chemistryBookNode' )
+      } );
     this.addChild( chemistryBookNode );
 
     // create and hook up the sound that will be produced when the books come into contact with one another
@@ -111,11 +115,13 @@ define( function( require ) {
     soundManager.addSoundGenerator( this.bookRubSoundGenerator );
 
     // @private - add magnifier
-    this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, tandem.createTandem( 'magnifierNode' ), {
-      x: 40,
-      y: 25,
-      layerSplit: true
-    } );
+    this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, temperatureIncreasingDescriber,
+      temperatureDecreasingDescriber,
+      bookMovementDescriber, tandem.createTandem( 'magnifierNode' ), {
+        x: 40,
+        y: 25,
+        layerSplit: true
+      } );
     this.addChild( this.magnifierNode );
 
     // add thermometer
@@ -207,10 +213,10 @@ define( function( require ) {
       chemistryBookNode.reset();
 
       // a11y, reset PDOM and reset alerting types
-      TemperatureDecreasingDescriber.getDescriber().reset();
-      TemperatureIncreasingDescriber.getDescriber().reset();
-      BreakAwayDescriber.getDescriber().reset();
-      BookMovementDescriber.getDescriber().reset();
+      temperatureDecreasingDescriber.reset();
+      temperatureIncreasingDescriber.reset();
+      breakAwayDescriber.reset();
+      bookMovementDescriber.reset();
       frictionSummaryNode.updateSummaryString();
     };
   }

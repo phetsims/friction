@@ -56,11 +56,15 @@ define( function( require ) {
    * @param {number} targetX - x position of the MagnifierTargetNode rectangle
    * @param {number} targetY - y position of the MagnifierTargetNode rectangle
    * @param {string} title - the title of the book that is draggable, used for a11y
+   * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
+   * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
+   * @param {BookMovementDescriber} bookMovementDescriber
    * @param {Tandem} tandem - passed to the dragArea to instrument the focusable item as the magnifier, see https://github.com/phetsims/friction/issues/82
    * @param {Object} [options]
    * @constructor
    */
-  function MagnifierNode( model, targetX, targetY, title, tandem, options ) {
+  function MagnifierNode( model, targetX, targetY, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
+                          bookMovementDescriber, tandem, options ) {
     Node.call( this, options );
 
     // add container for clipping
@@ -131,10 +135,11 @@ define( function( require ) {
         cursor: 'pointer'
       }
     );
-    background.addInputListener( new FrictionDragHandler( model, tandem.createTandem( 'backgroundDragHandler' ), {
-      startSound: bookPickupSoundClip,
-      endSound: bookDropSoundClip
-    } ) );
+    background.addInputListener( new FrictionDragHandler( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
+      bookMovementDescriber, tandem.createTandem( 'backgroundDragHandler' ), {
+        startSound: bookPickupSoundClip,
+        endSound: bookDropSoundClip
+      } ) );
     this.topBookBackground.addChild( background );
 
     // init drag for drag area
@@ -151,10 +156,11 @@ define( function( require ) {
         focusHighlightLayerable: true
       } );
 
-    dragArea.addInputListener( new FrictionDragHandler( model, tandem.createTandem( 'dragAreaDragHandler' ), {
-      startSound: bookPickupSoundClip,
-      endSound: bookDropSoundClip
-    } ) );
+    dragArea.addInputListener( new FrictionDragHandler( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
+      bookMovementDescriber, tandem.createTandem( 'dragAreaDragHandler' ), {
+        startSound: bookPickupSoundClip,
+        endSound: bookDropSoundClip
+      } ) );
 
 
     // add arrows before the drag area, then the grab cue hides the arrows
@@ -211,7 +217,8 @@ define( function( require ) {
     } );
 
     // a11y - add the keyboard drag listener to the top atoms
-    this.keyboardDragHandler = new FrictionKeyboardDragListener( model );
+    this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingDescriber,
+      temperatureDecreasingDescriber, bookMovementDescriber );
 
     // alert the temperature state on focus
     const focusListener = {

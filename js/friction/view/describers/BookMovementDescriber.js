@@ -32,9 +32,6 @@ define( require => {
     position: DEFAULT_AT_TOP_ALERT
   } );
 
-  // the singleton instance of this describer, used for the entire instance of the sim.
-  let describer = null;
-
   /**
    * @param {Object} [options]
    * @constructor
@@ -169,26 +166,6 @@ define( require => {
       this.bottomUtterance.reset();
       this.contactedAlertPair.reset();
       this.separatedAlertPair.reset();
-    }
-
-    /**
-     * Uses the singleton pattern to keep one instance of this describer for the entire lifetime of the sim.
-     * @returns {BookMovementDescriber}
-     */
-    static getDescriber() {
-      assert && assert( describer, 'describer has not yet been initialized' );
-      return describer;
-    }
-
-    /**
-     * Initialize the describer singleton, we do it this way because we need a reference to the model.
-     * @param {FrictionModel} model
-     * @param {Object} [options]
-     * @returns {BookMovementDescriber}
-     */
-    static initialize( model, options ) {
-      describer = new BookMovementDescriber( model, options );
-      return describer;
     }
   }
 

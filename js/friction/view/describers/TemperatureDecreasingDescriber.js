@@ -50,9 +50,6 @@ define( require => {
   // In same units as FrictionModel's amplitude
   const AMPLITUDE_DECREASING_THRESHOLD = 1;
 
-  // the singleton instance of this describer, used for the entire instance of the sim.
-  let describer = null;
-
   /**
    * Responsible for alerting when the temperature increases
    * @param {Object} [options]
@@ -153,26 +150,6 @@ define( require => {
       this.firstAlert = false;
 
       this.timeOfLastAlert = phet.joist.elapsedTime;
-    }
-
-    /**
-     * Uses the singleton pattern to keep one instance of this describer for the entire lifetime of the sim.
-     * @returns {TemperatureDecreasingDescriber}
-     */
-    static getDescriber() {
-      assert && assert( describer, 'describer has not yet been initialized' );
-      return describer;
-    }
-
-
-    /**
-     * Initialize the describer singleton
-     * @param {FrictionModel} model
-     * @returns {TemperatureDecreasingDescriber}
-     */
-    static initialize( model ) {
-      describer = new TemperatureDecreasingDescriber( model );
-      return describer;
     }
   }
 
