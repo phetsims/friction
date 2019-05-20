@@ -14,7 +14,6 @@ define( require => {
   const GeneralKeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/GeneralKeyboardHelpSection' );
   const KeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/KeyboardHelpSection' );
   const TwoColumnKeyboardHelpContent = require( 'SCENERY_PHET/keyboard/help/TwoColumnKeyboardHelpContent' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
   const bookLabelString = require( 'string!FRICTION/bookLabel' );
@@ -46,8 +45,11 @@ define( require => {
 
       KeyboardHelpSection.alignHelpSectionIcons( [ grabReleaseHelpSection, moveBookHelpSection ] );
 
-      const leftContent = new VBox( { children: [ grabReleaseHelpSection, moveBookHelpSection ], spacing: 10, align: 'left' } );
-      super( leftContent, generalNavigationHelpSection );
+      const leftContent = [ grabReleaseHelpSection, moveBookHelpSection ];
+      const rightContent = [ generalNavigationHelpSection ];
+      super( leftContent, rightContent, {
+        sectionSpacing: 10
+      } );
     }
   }
 
