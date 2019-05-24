@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.5.3 Wed Apr 24 2019 15:49:57 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# friction 1.5.3 Fri May 24 2019 14:47:48 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "69088d35b9e1971aee675d1aec7f413f4d0bef19",
     "branch": "HEAD"
@@ -13,15 +13,15 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "d377f76873d540114b41a2c9f65653776223d5f1",
-    "branch": "HEAD"
+    "sha": "d2b0dbe6116f52724f9d3476c87108ecaea3c692",
+    "branch": "friction-1.5"
   },
   "dot": {
     "sha": "8d95f26a755cbef2695bf02731b385da746dca86",
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "f75f55d48c6abd04fc71060341f9149ffe4deada",
+    "sha": "8de865763afde81ced506fcc2f5a55e083045e05",
     "branch": "1.5"
   },
   "joist": {
@@ -38,18 +38,6 @@
   },
   "phet-io": {
     "sha": "4558068df9806c2986752eae05515e1a8c3345db",
-    "branch": "HEAD"
-  },
-  "phet-io-wrapper-classroom-activity": {
-    "sha": "a066df3371699a038941caa3f8961f77455cfea4",
-    "branch": "HEAD"
-  },
-  "phet-io-wrapper-hookes-law-energy": {
-    "sha": "b19f66891bb47d7c284e10d79e09f828760c7d1c",
-    "branch": "HEAD"
-  },
-  "phet-io-wrapper-lab-book": {
-    "sha": "6f3a9e13562b423fc1576446d21e26ba03c66d92",
     "branch": "HEAD"
   },
   "phet-io-wrappers": {
