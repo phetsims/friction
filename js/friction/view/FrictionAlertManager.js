@@ -20,7 +20,7 @@ define( function( require ) {
   const atomsJiggleTinyBitTempCoolString = FrictionA11yStrings.atomsJiggleTinyBitTempCool.value;
 
   // utterance for announcing temperature and particle changes, persistent reference to use
-  // alertStable feature of utterance
+  // alertStableDelay feature of utterance
   const temperatureJiggleUtterance = new Utterance();
 
   var FrictionAlertManager = {
