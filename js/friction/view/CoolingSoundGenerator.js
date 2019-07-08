@@ -5,12 +5,11 @@
  *
  * @author John Blanco
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
   const friction = require( 'FRICTION/friction' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const NoiseGenerator = require( 'TAMBO/sound-generators/NoiseGenerator' );
 
   // constants
@@ -18,58 +17,56 @@ define( function( require ) {
   const COOLING_SOUND_DELAY = 0.25; // delay before playing the cooling sound after cooling is detected, in seconds
   const COOLING_SOUND_DURATION = 2; // amount of time cooling sound plays, in seconds
 
-  /**
-   * {NumberProperty} moleculeOscillationAmplitudeProperty - location of the top book
-   * {Object} [options] - options, see parent classes for more information
-   * @constructor
-   */
-  function CoolingSoundGenerator( moleculeOscillationAmplitudeProperty, options ) {
+  class CoolingSoundGenerator extends NoiseGenerator {
 
-    options = _.extend( {
-        noiseType: 'pink',
-        centerFrequency: 6000,
-        qFactor: 4,
-        initialOutputLevel: 0,
-        maxOutputLevel: 1
-      },
-      options
-    );
+    /**
+     * {NumberProperty} moleculeOscillationAmplitudeProperty - location of the top book
+     * {Object} [options] - options, see parent classes for more information
+     * @constructor
+     */
+    constructor( moleculeOscillationAmplitudeProperty, options ) {
 
-    NoiseGenerator.call( this, options );
+      options = _.extend( {
+          noiseType: 'pink',
+          centerFrequency: 6000,
+          qFactor: 4,
+          initialOutputLevel: 0,
+          maxOutputLevel: 1
+        },
+        options
+      );
 
-    // start the noise generator - it will remain on and the output level will be controlled by the code below
-    this.start();
-    this.setOutputLevel( 0, 0 );
+      super( options );
 
-    // @private {number} - max output level, used in the step function that updates the sound output level
-    this.maxOutputLevel = options.maxOutputLevel;
+      // start the noise generator - it will remain on and the output level will be controlled by the code below
+      this.start();
+      this.setOutputLevel( 0, 0 );
 
-    // @private {number} - most recent and previous oscillation values, used to calculate change rate history
-    this.mostRecentAmplitudeValue = 0;
-    this.previousAmplitudeValue = 0;
+      // @private {number} - max output level, used in the step function that updates the sound output level
+      this.maxOutputLevel = options.maxOutputLevel;
 
-    // @private {number[]} - array that tracks previous amplitude change rates, used to detect cooling
-    this.amplitudeChangeRateHistory = [];
+      // @private {number} - most recent and previous oscillation values, used to calculate change rate history
+      this.mostRecentAmplitudeValue = 0;
+      this.previousAmplitudeValue = 0;
 
-    // @private {number} - time which the molecules have been cooling, i.e. oscillation amplitude has been going down
-    this.continuousCoolingTime;
+      // @private {number[]} - array that tracks previous amplitude change rates, used to detect cooling
+      this.amplitudeChangeRateHistory = [];
 
-    // monitor the molecule oscillation amplitude and update local state
-    moleculeOscillationAmplitudeProperty.lazyLink( amplitude => {
-      this.mostRecentAmplitudeValue = amplitude;
-    } );
-  }
+      // @private {number} - time which the molecules have been cooling, i.e. oscillation amplitude has been going down
+      this.continuousCoolingTime;
 
-  friction.register( 'CoolingSoundGenerator', CoolingSoundGenerator );
-
-  return inherit( NoiseGenerator, CoolingSoundGenerator, {
+      // monitor the molecule oscillation amplitude and update local state
+      moleculeOscillationAmplitudeProperty.lazyLink( amplitude => {
+        this.mostRecentAmplitudeValue = amplitude;
+      } );
+    }
 
     /**
      * step function that calculates the molecule oscillation change rate and updates the level of the cooling sound
      * @param {number} dt - amount of time step, in seconds
      * @public
      */
-    step: function( dt ) {
+    step( dt ) {
 
       // calculate the rate of change for the amplitude
       const amplitudeChangeRate = ( this.mostRecentAmplitudeValue - this.previousAmplitudeValue ) / dt;
@@ -83,8 +80,7 @@ define( function( require ) {
 
       // calculate the average change rate
       const averageChangeRate =
-        this.amplitudeChangeRateHistory.reduce( function( total, num ) { return total + num; } ) /
-        AMPLITUDE_AVERAGING_ARRAY_LENGTH;
+        this.amplitudeChangeRateHistory.reduce( ( total, num ) => total + num ) / AMPLITUDE_AVERAGING_ARRAY_LENGTH;
 
       // keep track of whether the molecules are cooling off and, if so, for how long
       if ( this.amplitudeChangeRateHistory.length === AMPLITUDE_AVERAGING_ARRAY_LENGTH && averageChangeRate < 0 ) {
@@ -127,5 +123,10 @@ define( function( require ) {
         }
       }
     }
-  } );
+
+  }
+
+  friction.register( 'CoolingSoundGenerator', CoolingSoundGenerator );
+
+  return CoolingSoundGenerator;
 } );
