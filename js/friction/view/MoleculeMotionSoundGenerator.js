@@ -14,69 +14,68 @@
  *
  * @author John Blanco
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
   const friction = require( 'FRICTION/friction' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
   const SoundGenerator = require( 'TAMBO/sound-generators/SoundGenerator' );
 
   // sounds
   const bounceMarimbaSound = require( 'sound!FRICTION/bounce-marimba.mp3' );
 
-  /**
-   * @constructor
-   * {Property.<number>} moleculeAmplitudeProperty - amplitude of molecule motion
-   * {Object} [options]
-   */
-  function MoleculeMotionSoundGenerator( moleculeAmplitudeProperty, options ) {
+  class MoleculeMotionSoundGenerator extends SoundGenerator {
 
-    options = _.extend( {
-      maxOutputLevel: 1 // max gain for this sound generator, sets the overall output of this sound generator
-    }, options );
+    /**
+     * @constructor
+     * {Property.<number>} moleculeAmplitudeProperty - amplitude of molecule motion
+     * {Object} [options]
+     */
+    constructor( moleculeAmplitudeProperty, options ) {
 
-    SoundGenerator.call( this, options );
+      options = _.extend( {
+        maxOutputLevel: 1 // max gain for this sound generator, sets the overall output of this sound generator
+      }, options );
 
-    // create several instances of the sound clip at different volume levels to allow more variation in the sound
-    const motionSoundClips = [
-      new SoundClip( bounceMarimbaSound, { initialOutputLevel: 1 } ),
-      new SoundClip( bounceMarimbaSound, { initialOutputLevel: 0.75 } ),
-      new SoundClip( bounceMarimbaSound, { initialOutputLevel: 0.5 } ),
-      new SoundClip( bounceMarimbaSound, { initialOutputLevel: 0.25 } )
-    ];
+      super( options );
 
-    // connect up the sound clips
-    motionSoundClips.forEach( motionSoundClip => {
-      motionSoundClip.connect( this.masterGainNode );
-    } );
+      // create several instances of the sound clip at different volume levels to allow more variation in the sound
+      const motionSoundClips = [
+        new SoundClip( bounceMarimbaSound, { initialOutputLevel: 1 } ),
+        new SoundClip( bounceMarimbaSound, { initialOutputLevel: 0.75 } ),
+        new SoundClip( bounceMarimbaSound, { initialOutputLevel: 0.5 } ),
+        new SoundClip( bounceMarimbaSound, { initialOutputLevel: 0.25 } )
+      ];
 
-    moleculeAmplitudeProperty.lazyLink( amplitude => {
+      // connect up the sound clips
+      motionSoundClips.forEach( motionSoundClip => { motionSoundClip.connect( this.masterGainNode ); } );
 
-      // Normalize the amplitude value.  Note that the min amplitude is always 1.
-      const normalizedAmplitude = Math.min( ( amplitude - 1 ) / FrictionModel.VIBRATION_AMPLITUDE_MAX, 1 );
+      moleculeAmplitudeProperty.lazyLink( amplitude => {
 
-      // Map normalized amplitude to volume.  This uses a shifted sigmoid function, since that is what seems to sound
-      // the best.
-      const moleculeMotionSoundVolume = 1 / ( 1 + Math.pow( Math.E, -10 * ( normalizedAmplitude - 0.5 ) ) );
-      this.setOutputLevel( options.maxOutputLevel * moleculeMotionSoundVolume );
+        // Normalize the amplitude value.  Note that the min amplitude is always 1.
+        const normalizedAmplitude = Math.min( ( amplitude - 1 ) / FrictionModel.VIBRATION_AMPLITUDE_MAX, 1 );
 
-      // choose a sound clip (this creates variation in the output level for each play operation)
-      const soundClip = phet.joist.random.sample( motionSoundClips );
+        // Map normalized amplitude to volume.  This uses a shifted sigmoid function, since that is what seems to sound
+        // the best.
+        const moleculeMotionSoundVolume = 1 / ( 1 + Math.pow( Math.E, -10 * ( normalizedAmplitude - 0.5 ) ) );
+        this.setOutputLevel( options.maxOutputLevel * moleculeMotionSoundVolume );
 
-      // set the playback rate in a way that sounds good with other sounds that are playing
-      soundClip.playbackRate = FrictionConstants.GET_RANDOM_PENTATONIC_PLAYBACK_RATE();
+        // choose a sound clip (this creates variation in the output level for each play operation)
+        const soundClip = phet.joist.random.sample( motionSoundClips );
 
-      soundClip.play();
-    } );
+        // set the playback rate in a way that sounds good with other sounds that are playing
+        soundClip.playbackRate = FrictionConstants.GET_RANDOM_PENTATONIC_PLAYBACK_RATE();
+
+        soundClip.play();
+      } );
+    }
+
   }
 
   friction.register( 'MoleculeMotionSoundGenerator', MoleculeMotionSoundGenerator );
 
-  inherit( SoundGenerator, MoleculeMotionSoundGenerator );
-
-  return inherit( SoundGenerator, MoleculeMotionSoundGenerator );
+  return MoleculeMotionSoundGenerator;
 } );
