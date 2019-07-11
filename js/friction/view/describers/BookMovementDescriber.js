@@ -1,4 +1,4 @@
-// Copyright 2018, University of Colorado Boulder
+// Copyright 2018-2019, University of Colorado Boulder
 
 /**
  * MovementDescriber subtype that knows how to alert movement for Friction's chemistry book, which is pretty specific for a
