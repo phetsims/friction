@@ -1233,7 +1233,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<NumberIO>"
     },
-    "friction.utteranceQueue": {
+    "friction.general.utteranceQueue": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
