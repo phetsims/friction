@@ -45,11 +45,12 @@ define( function( require ) {
    * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
    * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
    * @param {BookMovementDescriber} bookMovementDescriber
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
   function BookNode( model, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
-                     bookMovementDescriber, options ) {
+                     bookMovementDescriber, tandem, options ) {
     const self = this;
 
     options = _.extend( {
@@ -62,13 +63,16 @@ define( function( require ) {
     assert && assert( typeof options.x === 'number', 'options.x must be specified' );
     assert && assert( typeof options.y === 'number', 'options.y must be specified' );
 
-    Node.call( this, options );
+    Node.call( this );
 
-    // add cover
-    this.addChild( new CoverNode( title, options ) );
+    // add cover, pass the whole tandem to hide the "cover" implementation detail
+    this.addChild( new CoverNode( title, tandem, options ) );
 
     // init drag and a11y options for the draggable book
     if ( options.drag ) {
+
+      // instrument this book, but not the other
+      options.tandem = tandem;
 
       // We want the focus highlight to be completely within the bounds of the book.
       const focusHighlightRect = new FocusHighlightPath( null );
@@ -161,6 +165,8 @@ define( function( require ) {
         focusHighlightLayerable: true
       } );
     }
+
+    this.mutate( options );
   }
 
   friction.register( 'BookNode', BookNode );

@@ -81,21 +81,19 @@ define( function( require ) {
 
     // add physics book
     this.addChild( new BookNode( model, physicsString, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
-      bookMovementDescriber, {
+      bookMovementDescriber, tandem.createTandem( 'bottomBookNode' ), {
         x: 50,
-        y: 225,
-        tandem: tandem.createTandem( 'physicsBookNode' )
+        y: 225
       } ) );
 
     // add chemistry book
     const chemistryBookNode = new BookNode( model, chemistryString, temperatureIncreasingDescriber,
       temperatureDecreasingDescriber,
-      bookMovementDescriber, {
+      bookMovementDescriber, tandem.createTandem( 'topBookNode' ), {
         x: 65,
         y: 209,
         color: FrictionConstants.TOP_BOOK_COLOR_MACRO,
-        drag: true,
-        tandem: tandem.createTandem( 'chemistryBookNode' )
+        drag: true
       } );
     this.addChild( chemistryBookNode );
 
@@ -117,7 +115,7 @@ define( function( require ) {
     // @private - add magnifier
     this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, temperatureIncreasingDescriber,
       temperatureDecreasingDescriber,
-      bookMovementDescriber, tandem.createTandem( 'magnifierNode' ), {
+      bookMovementDescriber, tandem.createTandem( 'atomicView' ), {
         x: 40,
         y: 25,
         layerSplit: true
@@ -142,7 +140,10 @@ define( function( require ) {
         fluidMainColor: THERMOMETER_FLUID_MAIN_COLOR,
         fluidHighlightColor: THERMOMETER_FLUID_HIGHLIGHT_COLOR,
         fluidRightSideColor: THERMOMETER_FLUID_RIGHT_SIDE_COLOR,
-        backgroundFill: THERMOMETER_BACKGROUND_FILL_COLOR
+        backgroundFill: THERMOMETER_BACKGROUND_FILL_COLOR,
+
+        // phet-io
+        tandem: tandem.createTandem( 'thermometerNode' )
       }
     ) );
 

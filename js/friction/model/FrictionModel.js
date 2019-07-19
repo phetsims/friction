@@ -175,7 +175,8 @@ define( function( require ) {
 
     // @public (phet-io) - Instrumented so that PhET-iO clients can get a message when an atom evaporates
     this.evaporationEmitter = new Emitter( {
-      tandem: tandem.createTandem( 'evaporationEmitter' )
+      tandem: tandem.createTandem( 'evaporationEmitter' ),
+      phetioDocumentation: 'Emits when atoms evaporate from the top book'
     } );
 
     // @public (read-only) {Atom[][]}- array of all atoms which are able to evaporate organized by row such that the
@@ -184,8 +185,12 @@ define( function( require ) {
 
     // @public (read-only) {NumberProperty} - atoms temperature = amplitude of oscillation
     this.amplitudeProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min, {
+      range: MAGNIFIED_ATOMS_INFO.vibrationAmplitude,
+
       tandem: tandem.createTandem( 'amplitudeProperty' ),
-      phetioHighFrequency: true
+      phetioDocumentation: 'A relative, qualitative value describing the amount of vibration of the atoms',
+      phetioHighFrequency: true,
+      phetioReadOnly: true
     } );
 
     // @public (read-only) - position of top book, can by dragged the user

@@ -32,10 +32,11 @@ define( function( require ) {
 
   /**
    * @param {string} title
+   * @param {Tandem} tandem
    * @param {Object} options
    * @constructor
    */
-  function CoverNode( title, options ) {
+  function CoverNode( title, tandem, options ) {
 
     options = _.extend( {
       stroke: 'gray',
@@ -53,10 +54,12 @@ define( function( require ) {
       fill: 'white'
     } ) );
 
+    const rightSideOfSpine = WIDTH - ROUND / 2 + Math.cos( ANGLE ) * LENGTH; // TODO: what are you!?!?!
+
     // add last page
     this.addChild( new Path( new Shape()
       .moveTo( WIDTH - ROUND / 2, HEIGHT )
-      .lineTo( ( WIDTH - ROUND / 2 ) + Math.cos( ANGLE ) * LENGTH, HEIGHT - Math.sin( ANGLE ) * LENGTH ), {
+      .lineTo( rightSideOfSpine, HEIGHT - Math.sin( ANGLE ) * LENGTH ), {
       stroke: options.stroke,
       lineWidth: 1,
       pickable: false
@@ -66,7 +69,7 @@ define( function( require ) {
     this.addChild( new Path( new Shape()
       .moveTo( ROUND / 2, 0 )
       .lineTo( ROUND / 2 + Math.cos( ANGLE ) * LENGTH, -Math.sin( ANGLE ) * LENGTH )
-      .lineTo( WIDTH - ROUND / 2 + Math.cos( ANGLE ) * LENGTH, -Math.sin( ANGLE ) * LENGTH )
+      .lineTo( rightSideOfSpine, -Math.sin( ANGLE ) * LENGTH )
       .lineTo( WIDTH - ROUND / 2, 0 ), {
       stroke: options.stroke,
       lineWidth: 1,
@@ -74,19 +77,26 @@ define( function( require ) {
     } ) );
 
     // add binding, scaling the title to fit if necessary
-    this.addChild( new Rectangle( 0, 0, WIDTH, HEIGHT, ROUND, ROUND, {
+    const bindingRectangle = new Rectangle( 0, 0, WIDTH, HEIGHT, ROUND, ROUND, {
       fill: options.color,
       stroke: options.stroke
-    } ) );
-    const titleNode = new Text( title, {
+    } );
+    this.addChild( bindingRectangle );
+
+    const titleText = new Text( title, {
       font: FONT,
       fill: FrictionConstants.BOOK_TEXT_COLOR,
-      pickable: false
+      pickable: false,
+      maxWidth: WIDTH * .97, // for a bit of margin
+      tandem: tandem.createTandem( 'titleText' )
     } );
-    titleNode.scale( Math.min( ( WIDTH * 0.9 ) / titleNode.width, 1 ) );
-    titleNode.centerY = HEIGHT / 2;
-    titleNode.centerX = WIDTH / 2;
-    this.addChild( titleNode );
+    titleText.center = bindingRectangle.center;
+
+    // If updated via PhET-iO, recenter it
+    titleText.on( 'text', () => {
+      titleText.center = bindingRectangle.center;
+    } );
+    this.addChild( titleText );
 
 
     // add remaining pages
