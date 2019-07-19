@@ -12,17 +12,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<BooleanIO>"
     },
-    "friction.frictionScreen.model.vibrationAmplitudeProperty": {
-      "phetioDocumentation": "",
-      "phetioEventType": "model",
-      "phetioFeatured": false,
-      "phetioHighFrequency": true,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
-    },
     "friction.frictionScreen.model.contactProperty": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
@@ -35,7 +24,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO.<BooleanIO>"
     },
     "friction.frictionScreen.model.evaporationEmitter": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Emits when atoms evaporate from the top book",
       "phetioEventType": "model",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
@@ -56,7 +45,18 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<Vector2IO>"
     },
-    "friction.frictionScreen.view.chemistryBookNode": {
+    "friction.frictionScreen.model.vibrationAmplitudeProperty": {
+      "phetioDocumentation": "A relative, qualitative value describing the amount of vibration of the atoms",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": true,
+      "phetioPlayback": false,
+      "phetioReadOnly": true,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "NumberPropertyIO"
+    },
+    "friction.frictionScreen.view.atomicView": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -67,29 +67,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "friction.frictionScreen.view.chemistryBookNode.dragHandler": {
-      "phetioDocumentation": "",
-      "phetioEventType": "user",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
-    },
-    "friction.frictionScreen.view.chemistryBookNode.dragHandler.dragAction": {
-      "phetioDocumentation": "",
-      "phetioEventType": "model",
-      "phetioFeatured": false,
-      "phetioHighFrequency": true,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
-    },
-    "friction.frictionScreen.view.chemistryBookNode.dragHandler.dragEndAction": {
+    "friction.frictionScreen.view.atomicView.atomDragArea": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -98,31 +76,9 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
+      "phetioTypeName": "NodeIO"
     },
-    "friction.frictionScreen.view.chemistryBookNode.dragHandler.dragStartAction": {
-      "phetioDocumentation": "",
-      "phetioEventType": "model",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
-    },
-    "friction.frictionScreen.view.chemistryBookNode.dragHandler.isDraggingProperty": {
-      "phetioDocumentation": "Indicates whether the object is dragging",
-      "phetioEventType": "model",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": true,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO.<BooleanIO>"
-    },
-    "friction.frictionScreen.view.chemistryBookNode.opacityProperty": {
+    "friction.frictionScreen.view.atomicView.atomDragArea.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -133,7 +89,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "friction.frictionScreen.view.chemistryBookNode.pickableProperty": {
+    "friction.frictionScreen.view.atomicView.atomDragArea.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -144,7 +100,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<NullableIO.<BooleanIO>>"
     },
-    "friction.frictionScreen.view.chemistryBookNode.visibleProperty": {
+    "friction.frictionScreen.view.atomicView.atomDragArea.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -155,18 +111,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<BooleanIO>"
     },
-    "friction.frictionScreen.view.magnifierNode": {
-      "phetioDocumentation": "",
-      "phetioEventType": "model",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NodeIO"
-    },
-    "friction.frictionScreen.view.magnifierNode.backgroundDragHandler": {
+    "friction.frictionScreen.view.atomicView.backgroundDragHandler": {
       "phetioDocumentation": "",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -177,7 +122,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ObjectIO"
     },
-    "friction.frictionScreen.view.magnifierNode.backgroundDragHandler.dragAction": {
+    "friction.frictionScreen.view.atomicView.backgroundDragHandler.dragAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -188,7 +133,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
     },
-    "friction.frictionScreen.view.magnifierNode.backgroundDragHandler.dragEndAction": {
+    "friction.frictionScreen.view.atomicView.backgroundDragHandler.dragEndAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -199,7 +144,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
     },
-    "friction.frictionScreen.view.magnifierNode.backgroundDragHandler.dragStartAction": {
+    "friction.frictionScreen.view.atomicView.backgroundDragHandler.dragStartAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -210,7 +155,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
     },
-    "friction.frictionScreen.view.magnifierNode.backgroundDragHandler.isDraggingProperty": {
+    "friction.frictionScreen.view.atomicView.backgroundDragHandler.isDraggingProperty": {
       "phetioDocumentation": "Indicates whether the object is dragging",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -221,7 +166,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<BooleanIO>"
     },
-    "friction.frictionScreen.view.magnifierNode.dragAreaDragHandler": {
+    "friction.frictionScreen.view.atomicView.dragAreaDragHandler": {
       "phetioDocumentation": "",
       "phetioEventType": "user",
       "phetioFeatured": false,
@@ -232,7 +177,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ObjectIO"
     },
-    "friction.frictionScreen.view.magnifierNode.dragAreaDragHandler.dragAction": {
+    "friction.frictionScreen.view.atomicView.dragAreaDragHandler.dragAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -243,7 +188,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
     },
-    "friction.frictionScreen.view.magnifierNode.dragAreaDragHandler.dragEndAction": {
+    "friction.frictionScreen.view.atomicView.dragAreaDragHandler.dragEndAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -254,7 +199,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
     },
-    "friction.frictionScreen.view.magnifierNode.dragAreaDragHandler.dragStartAction": {
+    "friction.frictionScreen.view.atomicView.dragAreaDragHandler.dragStartAction": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -265,7 +210,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
     },
-    "friction.frictionScreen.view.magnifierNode.dragAreaDragHandler.isDraggingProperty": {
+    "friction.frictionScreen.view.atomicView.dragAreaDragHandler.isDraggingProperty": {
       "phetioDocumentation": "Indicates whether the object is dragging",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -276,7 +221,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<BooleanIO>"
     },
-    "friction.frictionScreen.view.magnifierNode.opacityProperty": {
+    "friction.frictionScreen.view.atomicView.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -287,7 +232,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "friction.frictionScreen.view.magnifierNode.pickableProperty": {
+    "friction.frictionScreen.view.atomicView.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -298,7 +243,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<NullableIO.<BooleanIO>>"
     },
-    "friction.frictionScreen.view.magnifierNode.visibleProperty": {
+    "friction.frictionScreen.view.atomicView.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -309,7 +254,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<BooleanIO>"
     },
-    "friction.frictionScreen.view.physicsBookNode": {
+    "friction.frictionScreen.view.bottomBookNode.titleText": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -318,9 +263,9 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "NodeIO"
+      "phetioTypeName": "TextIO"
     },
-    "friction.frictionScreen.view.physicsBookNode.opacityProperty": {
+    "friction.frictionScreen.view.bottomBookNode.titleText.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -331,7 +276,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "friction.frictionScreen.view.physicsBookNode.pickableProperty": {
+    "friction.frictionScreen.view.bottomBookNode.titleText.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -342,7 +287,18 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<NullableIO.<BooleanIO>>"
     },
-    "friction.frictionScreen.view.physicsBookNode.visibleProperty": {
+    "friction.frictionScreen.view.bottomBookNode.titleText.textProperty": {
+      "phetioDocumentation": "Property for the displayed text",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO.<StringIO>"
+    },
+    "friction.frictionScreen.view.bottomBookNode.titleText.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
       "phetioFeatured": false,
@@ -445,6 +401,204 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioEventType": "model",
       "phetioFeatured": true,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO.<BooleanIO>"
+    },
+    "friction.frictionScreen.view.thermometerNode": {
+      "phetioDocumentation": "",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "NodeIO"
+    },
+    "friction.frictionScreen.view.thermometerNode.opacityProperty": {
+      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "NumberPropertyIO"
+    },
+    "friction.frictionScreen.view.thermometerNode.pickableProperty": {
+      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO.<NullableIO.<BooleanIO>>"
+    },
+    "friction.frictionScreen.view.thermometerNode.visibleProperty": {
+      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO.<BooleanIO>"
+    },
+    "friction.frictionScreen.view.topBookNode": {
+      "phetioDocumentation": "",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "NodeIO"
+    },
+    "friction.frictionScreen.view.topBookNode.dragHandler": {
+      "phetioDocumentation": "",
+      "phetioEventType": "user",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ObjectIO"
+    },
+    "friction.frictionScreen.view.topBookNode.dragHandler.dragAction": {
+      "phetioDocumentation": "",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": true,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
+    },
+    "friction.frictionScreen.view.topBookNode.dragHandler.dragEndAction": {
+      "phetioDocumentation": "",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
+    },
+    "friction.frictionScreen.view.topBookNode.dragHandler.dragStartAction": {
+      "phetioDocumentation": "",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ActionIO.<Vector2IO, VoidIO>"
+    },
+    "friction.frictionScreen.view.topBookNode.dragHandler.isDraggingProperty": {
+      "phetioDocumentation": "Indicates whether the object is dragging",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": true,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO.<BooleanIO>"
+    },
+    "friction.frictionScreen.view.topBookNode.opacityProperty": {
+      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "NumberPropertyIO"
+    },
+    "friction.frictionScreen.view.topBookNode.pickableProperty": {
+      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO.<NullableIO.<BooleanIO>>"
+    },
+    "friction.frictionScreen.view.topBookNode.titleText": {
+      "phetioDocumentation": "",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "TextIO"
+    },
+    "friction.frictionScreen.view.topBookNode.titleText.opacityProperty": {
+      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "NumberPropertyIO"
+    },
+    "friction.frictionScreen.view.topBookNode.titleText.pickableProperty": {
+      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO.<NullableIO.<BooleanIO>>"
+    },
+    "friction.frictionScreen.view.topBookNode.titleText.textProperty": {
+      "phetioDocumentation": "Property for the displayed text",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO.<StringIO>"
+    },
+    "friction.frictionScreen.view.topBookNode.titleText.visibleProperty": {
+      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO.<BooleanIO>"
+    },
+    "friction.frictionScreen.view.topBookNode.visibleProperty": {
+      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
+      "phetioEventType": "model",
+      "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
