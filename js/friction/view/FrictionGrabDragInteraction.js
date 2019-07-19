@@ -67,7 +67,7 @@ define( function( require ) {
           this.successfullyInteracted = true;
         }
       };
-      model.amplitudeProperty.link( this.amplitudeListener );
+      model.vibrationAmplitudeProperty.link( this.amplitudeListener );
     }
 
     /**
@@ -85,7 +85,7 @@ define( function( require ) {
      * @override
      */
     dispose() {
-      this.model.amplitudeProperty.unlink( this.amplitudeListener );
+      this.model.vibrationAmplitudeProperty.unlink( this.amplitudeListener );
     }
   }
 

@@ -58,11 +58,11 @@ define( require => {
       this.updateSummaryString( model );
 
       // a11y - update the screen summary when the model changes
-      let previousTempString = this.amplitudeToTempString( model.amplitudeProperty.value );
-      let previousJiggleString = this.amplitudeToJiggleString( model.amplitudeProperty.value );
+      let previousTempString = this.amplitudeToTempString( model.vibrationAmplitudeProperty.value );
+      let previousJiggleString = this.amplitudeToJiggleString( model.vibrationAmplitudeProperty.value );
 
       // make a11y updates as the amplitude changes in the model, no need to unlink, exists for sim lifetime.
-      model.amplitudeProperty.link( ( amplitude ) => {
+      model.vibrationAmplitudeProperty.link( ( amplitude ) => {
 
           // the temperature is decreasing
           var tempDecreasing = temperatureDecreasingDescriber.tempDecreasing;
@@ -188,18 +188,18 @@ define( require => {
 
     /**
      * Construct the second screen summary sentence about the zoomed in chemistry book.
-     * @param amplitudeProperty
+     * @param {Property.<number>} vibrationAmplitudeProperty
      * @returns {*|string}
      */
-    getSecondSummarySentence( amplitudeProperty ) {
+    getSecondSummarySentence( vibrationAmplitudeProperty ) {
 
       // {{boolean}} is sim "in transition"? meaning it is changing, because it isn't settled (settled is the opposite of "in transition"
-      const inTransition = amplitudeProperty.value > FrictionModel.AMPLITUDE_SETTLED_THRESHOLD;
+      const inTransition = vibrationAmplitudeProperty.value > FrictionModel.AMPLITUDE_SETTLED_THRESHOLD;
 
 
       // Default to describing the jiggling of the atoms
       var jiggleAmount = StringUtils.fillIn( atomsJigglePatternString, {
-        jiggleAmount: this.amplitudeToJiggleString( amplitudeProperty.value )
+        jiggleAmount: this.amplitudeToJiggleString( vibrationAmplitudeProperty.value )
       } );
       var jiggleClause = StringUtils.fillIn( jiggleClausePatternString, {
         jiggleAmount: jiggleAmount
@@ -214,7 +214,7 @@ define( require => {
 
       // Fill in the current temperature string
       const tempString = StringUtils.fillIn( temperaturePatternString, {
-        temp: this.amplitudeToTempString( amplitudeProperty.value ),
+        temp: this.amplitudeToTempString( vibrationAmplitudeProperty.value ),
         thermometer: inTransition ? '' : thermometerString
       } );
 
@@ -248,7 +248,7 @@ define( require => {
       const chemistryBookString = this.getFirstSummarySentence( this.model.numberOfAtomsEvaporated );
 
       // SECOND SENTENCE (ZOOMED-IN)
-      const jiggleTempSentence = this.getSecondSummarySentence( this.model.amplitudeProperty );
+      const jiggleTempSentence = this.getSecondSummarySentence( this.model.vibrationAmplitudeProperty );
 
       // SUPPLEMENTARY THIRD SENTENCE
       const supplementarySentence = this.getThirdSupplementarySentence( this.model.numberOfAtomsEvaporated );

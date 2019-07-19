@@ -184,10 +184,10 @@ define( function( require ) {
     this.evaporableAtomsByRow = [];
 
     // @public (read-only) {NumberProperty} - atoms temperature = amplitude of oscillation
-    this.amplitudeProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min, {
+    this.vibrationAmplitudeProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min, {
       range: MAGNIFIED_ATOMS_INFO.vibrationAmplitude,
 
-      tandem: tandem.createTandem( 'amplitudeProperty' ),
+      tandem: tandem.createTandem( 'vibrationAmplitudeProperty' ),
       phetioDocumentation: 'A relative, qualitative value describing the amount of vibration of the atoms',
       phetioHighFrequency: true,
       phetioReadOnly: true
@@ -271,13 +271,13 @@ define( function( require ) {
       self.distanceBetweenBooksProperty.set( self.distanceBetweenBooksProperty.get() - ( newPosition.minus( oldPosition ) ).y );
       if ( self.contactProperty.get() ) {
         const dx = Math.abs( newPosition.x - oldPosition.x );
-        const newValue = self.amplitudeProperty.get() + dx * HEATING_MULTIPLIER;
-        self.amplitudeProperty.set( Math.min( newValue, MAGNIFIED_ATOMS_INFO.vibrationAmplitude.max ) );
+        const newValue = self.vibrationAmplitudeProperty.get() + dx * HEATING_MULTIPLIER;
+        self.vibrationAmplitudeProperty.set( Math.min( newValue, MAGNIFIED_ATOMS_INFO.vibrationAmplitude.max ) );
       }
     } );
 
     // evaporation check
-    this.amplitudeProperty.link( function( amplitude ) {
+    this.vibrationAmplitudeProperty.link( function( amplitude ) {
       if ( amplitude > MAGNIFIED_ATOMS_INFO.evaporationLimit ) {
         self.tryToEvaporate();
       }
@@ -328,9 +328,9 @@ define( function( require ) {
       }
 
       // cool the atoms
-      let amplitude = this.amplitudeProperty.get() - this.scheduledEvaporationAmount;
+      let amplitude = this.vibrationAmplitudeProperty.get() - this.scheduledEvaporationAmount;
       amplitude = Math.max( MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min, amplitude * ( 1 - dt * COOLING_RATE ) );
-      this.amplitudeProperty.set( amplitude );
+      this.vibrationAmplitudeProperty.set( amplitude );
 
       this.scheduledEvaporationAmount = 0;
     },
@@ -341,7 +341,7 @@ define( function( require ) {
      */
     reset: function() {
       this.resetInProgressProperty.set( true );
-      this.amplitudeProperty.reset();
+      this.vibrationAmplitudeProperty.reset();
       this.topBookPositionProperty.reset();
       this.distanceBetweenBooksProperty.reset();
       this.bottomOffsetProperty.reset();

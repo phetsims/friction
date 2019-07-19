@@ -76,7 +76,7 @@ define( require => {
       // Keep track of the last highest amplitude when it was increasing. This value is reset everytime the oldAmplitude
       // is less that the new amplitude.
       // @private
-      let lastAmplitudeWhenIncreasing = model.amplitudeProperty.value;
+      let lastAmplitudeWhenIncreasing = model.vibrationAmplitudeProperty.value;
 
       // Different alert for the very first decrease alert we have for the lifetime of the sim
       // @private
@@ -108,13 +108,13 @@ define( require => {
       };
 
       // exists for the lifetime of the sim, no need to dispose
-      this.model.amplitudeProperty.link( this.amplitudeListener );
+      this.model.vibrationAmplitudeProperty.link( this.amplitudeListener );
 
       // handle the "settled and cool" alert once temp is completely decreased.
       // lazyLink so that we do not hear the alert on startup
       // exists for the lifetime of the sim, no need to dispose
-      model.amplitudeProperty.lazyLink( amplitude => {
-        if ( amplitude === model.amplitudeProperty.initialValue ) {
+      model.vibrationAmplitudeProperty.lazyLink( amplitude => {
+        if ( amplitude === model.vibrationAmplitudeProperty.initialValue ) {
           FrictionAlertManager.alertSettledAndCool();
         }
       } );

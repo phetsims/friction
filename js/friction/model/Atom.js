@@ -104,8 +104,8 @@ define( function( require ) {
 
       // update the atom's position based on vibration and center position
       const newPosition = new Vector2(
-        this.centerPosition.x + this.model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 ),
-        this.centerPosition.y + this.model.amplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 )
+        this.centerPosition.x + this.model.vibrationAmplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 ),
+        this.centerPosition.y + this.model.vibrationAmplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 )
       );
       this.positionProperty.set( newPosition );
 

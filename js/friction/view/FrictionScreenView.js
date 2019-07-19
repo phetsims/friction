@@ -126,7 +126,7 @@ define( function( require ) {
     this.addChild( new ThermometerNode(
       THERMOMETER_MIN_TEMP,
       THERMOMETER_MAX_TEMP,
-      model.amplitudeProperty,
+      model.vibrationAmplitudeProperty,
       {
         x: 690,
         y: 250,
@@ -172,7 +172,7 @@ define( function( require ) {
     } ) );
 
     // create and register the sound that will be played to indicate changes to the rate of molecule motion
-    soundManager.addSoundGenerator( new MoleculeMotionSoundGenerator( model.amplitudeProperty, {
+    soundManager.addSoundGenerator( new MoleculeMotionSoundGenerator( model.vibrationAmplitudeProperty, {
       initialOutputLevel: 0,
       maxOutputLevel: 0.175
     } ) );
@@ -194,7 +194,7 @@ define( function( require ) {
     } );
 
     // @private {CoolingSoundGenerator} - sound generator that produces the "cooling off" sound
-    this.coolingSoundGenerator = new CoolingSoundGenerator( model.amplitudeProperty, {
+    this.coolingSoundGenerator = new CoolingSoundGenerator( model.vibrationAmplitudeProperty, {
       maxOutputLevel: 0.75
     } );
     soundManager.addSoundGenerator( this.coolingSoundGenerator, {

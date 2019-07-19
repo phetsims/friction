@@ -89,7 +89,7 @@ define( ( require ) => {
       this.timeOfLastDrag = 0;
 
       // @private
-      this.initialAmplitude = model.amplitudeProperty.value;
+      this.initialAmplitude = model.vibrationAmplitudeProperty.value;
 
       // zero indexed, so the first one is 0
       // @private
@@ -123,7 +123,7 @@ define( ( require ) => {
       };
 
       // exists for the lifetime of the sim, no need to dispose
-      this.model.amplitudeProperty.link( this.amplitudeListener );
+      this.model.vibrationAmplitudeProperty.link( this.amplitudeListener );
     }
 
     // @public
@@ -133,7 +133,7 @@ define( ( require ) => {
       // If longer than threshold, treat as new "drag session"
       if ( phet.joist.elapsedTime - this.timeOfLastDrag > DRAG_SESSION_THRESHOLD ) {
         this.alertIndex = -1; //reset
-        this.initialAmplitude = this.model.amplitudeProperty.value;
+        this.initialAmplitude = this.model.vibrationAmplitudeProperty.value;
       }
     }
 
@@ -175,7 +175,7 @@ define( ( require ) => {
       this.tooSoonForNextAlert = true;
 
       // reset the "initialAmplitude" to the current amplitude, because then it will take another whole threshold level to alert again
-      this.initialAmplitude = this.model.amplitudeProperty.value;
+      this.initialAmplitude = this.model.vibrationAmplitudeProperty.value;
 
       // This is a bit buggy, we may want to tweak the threshold more, or find a better solution.
       timer.setTimeout( () => { this.tooSoonForNextAlert = false; }, ALERT_TIME_DELAY );

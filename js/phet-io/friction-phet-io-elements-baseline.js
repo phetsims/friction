@@ -12,7 +12,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO.<BooleanIO>"
     },
-    "friction.frictionScreen.model.amplitudeProperty": {
+    "friction.frictionScreen.model.vibrationAmplitudeProperty": {
       "phetioDocumentation": "",
       "phetioEventType": "model",
       "phetioFeatured": false,

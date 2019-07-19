@@ -224,7 +224,7 @@ define( function( require ) {
     // alert the temperature state on focus
     const focusListener = {
       focus() {
-        if ( model.amplitudeProperty.value === model.amplitudeProperty.initialValue ) {
+        if ( model.vibrationAmplitudeProperty.value === model.vibrationAmplitudeProperty.initialValue ) {
           FrictionAlertManager.alertSettledAndCool();
         }
       }

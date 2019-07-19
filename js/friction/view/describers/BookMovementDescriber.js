@@ -109,7 +109,7 @@ define( require => {
           // if both the left and right alerts haven't yet been alerted while separated
           if ( !this.separatedAlertPair.bothAlerted() ) {
 
-            if ( this.model.amplitudeProperty.value < FrictionModel.AMPLITUDE_SETTLED_THRESHOLD ) {
+            if ( this.model.vibrationAmplitudeProperty.value < FrictionModel.AMPLITUDE_SETTLED_THRESHOLD ) {
               this.alertDirections( direction );
             }
             this.separatedAlertPair.updateFromDirection( direction );
