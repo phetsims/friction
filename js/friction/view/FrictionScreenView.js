@@ -58,15 +58,7 @@ define( function( require ) {
    * @constructor
    */
   function FrictionScreenView( model, tandem ) {
-
     const self = this;
-    ScreenView.call( this, {
-      layoutBounds: new Bounds2( 0, 0, model.width, model.height ),
-      addScreenSummaryNode: true // opt into the generic screen overview strategy provided by ScreenView.js see https://github.com/phetsims/joist/issues/509
-    } );
-
-    // @private
-    this.model = model;
 
     // a11y initialize the describers for auditory descriptions and alerts.
     const temperatureIncreasingDescriber = new TemperatureIncreasingDescriber( model );
@@ -75,9 +67,16 @@ define( function( require ) {
     const bookMovementDescriber = new BookMovementDescriber( model );
 
     // a11y
-    const frictionSummaryNode = new FrictionScreenSummaryNode( model, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP,
+    const frictionScreenSummaryNode = new FrictionScreenSummaryNode( model, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP,
       temperatureDecreasingDescriber );
-    this.screenSummaryNode.addChild( frictionSummaryNode );
+
+    ScreenView.call( this, {
+      layoutBounds: new Bounds2( 0, 0, model.width, model.height ),
+      screenSummaryContent: frictionScreenSummaryNode
+    } );
+
+    // @private
+    this.model = model;
 
     // add physics book
     this.addChild( new BookNode( model, physicsString, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
@@ -151,7 +150,7 @@ define( function( require ) {
     this.addChild( playAreaNode );
 
     // a11y
-    playAreaNode.accessibleOrder = [ chemistryBookNode, this.magnifierNode ];
+    playAreaNode.accessibleOrder = [chemistryBookNode, this.magnifierNode];
 
     // add reset button
     const resetAllButton = new ResetAllButton( {
@@ -204,7 +203,7 @@ define( function( require ) {
     // add a node that creates a "play area" accessible section in the PDOM
     const controlAreaNode = new ControlAreaNode();
     this.addChild( controlAreaNode );
-    controlAreaNode.accessibleOrder = [ resetAllButton ];
+    controlAreaNode.accessibleOrder = [resetAllButton];
 
     // @private
     this.resetFrictionScreenView = function() {
@@ -218,7 +217,7 @@ define( function( require ) {
       temperatureIncreasingDescriber.reset();
       breakAwayDescriber.reset();
       bookMovementDescriber.reset();
-      frictionSummaryNode.updateSummaryString();
+      frictionScreenSummaryNode.updateSummaryString();
     };
   }
 
