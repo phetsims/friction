@@ -16,7 +16,6 @@ define( function( require ) {
   const BookRubSoundGenerator = require( 'FRICTION/friction/view/BookRubSoundGenerator' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const BreakAwayDescriber = require( 'FRICTION/friction/view/describers/BreakAwayDescriber' );
-  const ControlAreaNode = require( 'SCENERY_PHET/accessibility/nodes/ControlAreaNode' );
   const CoolingSoundGenerator = require( 'FRICTION/friction/view/CoolingSoundGenerator' );
   const friction = require( 'FRICTION/friction' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
@@ -25,7 +24,6 @@ define( function( require ) {
   const inherit = require( 'PHET_CORE/inherit' );
   const MagnifierNode = require( 'FRICTION/friction/view/magnifier/MagnifierNode' );
   const MoleculeMotionSoundGenerator = require( 'FRICTION/friction/view/MoleculeMotionSoundGenerator' );
-  const PlayAreaNode = require( 'SCENERY_PHET/accessibility/nodes/PlayAreaNode' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ResetAllSoundGenerator = require( 'TAMBO/sound-generators/ResetAllSoundGenerator' );
   const ScreenView = require( 'JOIST/ScreenView' );
@@ -146,11 +144,8 @@ define( function( require ) {
       }
     ) );
 
-    const playAreaNode = new PlayAreaNode();
-    this.addChild( playAreaNode );
-
     // a11y
-    playAreaNode.accessibleOrder = [chemistryBookNode, this.magnifierNode];
+    this.playAreaNode.accessibleOrder = [ chemistryBookNode, this.magnifierNode ];
 
     // add reset button
     const resetAllButton = new ResetAllButton( {
@@ -201,9 +196,7 @@ define( function( require ) {
     } );
 
     // add a node that creates a "play area" accessible section in the PDOM
-    const controlAreaNode = new ControlAreaNode();
-    this.addChild( controlAreaNode );
-    controlAreaNode.accessibleOrder = [resetAllButton];
+    this.controlAreaNode.accessibleOrder = [resetAllButton];
 
     // @private
     this.resetFrictionScreenView = function() {
