@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.5.6 Mon Aug 05 2019 15:44:00 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# friction 1.5.6 Mon Aug 19 2019 13:48:44 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "69088d35b9e1971aee675d1aec7f413f4d0bef19",
     "branch": "HEAD"
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "ab9df0a563d7f29ad08565c974a2fcd4ad586fb4",
+    "sha": "b354aa0c49361e8c2bde60f75b34da3724623fd8",
     "branch": "1.5"
   },
   "joist": {
-    "sha": "7bfe74a0b592d55e63fcdeaec65e496831328c51",
-    "branch": "HEAD"
+    "sha": "a353297130c2b525b17822be5583df39a345f2cb",
+    "branch": "friction-1.5"
   },
   "kite": {
     "sha": "6c78a24fdf01ba21cb7037e7554d2aa81717d94a",
@@ -57,12 +57,12 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "938e51619c44a5e237115d87b22610e261ebe343",
-    "branch": "HEAD"
+    "sha": "d33a66b8a4d6d15b356312e42ba52a8152b57bd6",
+    "branch": "friction-1.5"
   },
   "scenery-phet": {
-    "sha": "9c18c30b9f703066355a3f064eccc5cb52f52d93",
-    "branch": "HEAD"
+    "sha": "d7ec7871dd3a261a164d3e7a7f45cdbb0b8d0951",
+    "branch": "friction-1.5"
   },
   "sherpa": {
     "sha": "a1f5e867c286fd118550fd49e5838cde140860b6",
