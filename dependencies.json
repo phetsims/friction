@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.5.6 Mon Aug 19 2019 13:48:44 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# friction 1.5.7-rc.1 Mon Aug 19 2019 16:50:53 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "69088d35b9e1971aee675d1aec7f413f4d0bef19",
     "branch": "HEAD"
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "b354aa0c49361e8c2bde60f75b34da3724623fd8",
+    "sha": "494c612b337b6f86ac2faf3fe2269589acf71929",
     "branch": "1.5"
   },
   "joist": {
     "sha": "a353297130c2b525b17822be5583df39a345f2cb",
-    "branch": "friction-1.5"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "6c78a24fdf01ba21cb7037e7554d2aa81717d94a",
@@ -58,11 +58,11 @@
   },
   "scenery": {
     "sha": "d33a66b8a4d6d15b356312e42ba52a8152b57bd6",
-    "branch": "friction-1.5"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "d7ec7871dd3a261a164d3e7a7f45cdbb0b8d0951",
-    "branch": "friction-1.5"
+    "branch": "HEAD"
   },
   "sherpa": {
     "sha": "a1f5e867c286fd118550fd49e5838cde140860b6",
