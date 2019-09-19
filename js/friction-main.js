@@ -10,7 +10,7 @@
  * @author Chris Malley (PixelZoom, Inc.)
  * @author John Blanco (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules

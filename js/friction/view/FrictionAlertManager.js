@@ -4,7 +4,7 @@
  * Manager for the alerts that are dynamically emitted in the simulation.
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules

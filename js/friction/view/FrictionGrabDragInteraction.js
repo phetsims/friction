@@ -4,7 +4,7 @@
  * A wrapping type around A11yGrabDragNode that handles the alerts consistently for both book grab buttons.
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
