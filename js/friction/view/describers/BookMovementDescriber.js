@@ -146,7 +146,7 @@ define( require => {
       if ( !newLocation.equals( this.lastAlertedLocation ) ) {
         var directions = this.getDirections( newLocation, this.lastAlertedLocation );
 
-        directions.forEach( ( direction ) => {
+        directions.forEach( direction => {
           this.alertForDirection( direction );
         } );
 

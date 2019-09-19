@@ -4,7 +4,7 @@
  * Describer responsible for handling the appropriate alert when atoms evaporate, or "break away" from the top book.
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
-define( ( require ) => {
+define( require => {
   'use strict';
 
   // modules

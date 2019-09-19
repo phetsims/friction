@@ -62,7 +62,7 @@ define( require => {
       let previousJiggleString = this.amplitudeToJiggleString( model.vibrationAmplitudeProperty.value );
 
       // make a11y updates as the amplitude changes in the model, no need to unlink, exists for sim lifetime.
-      model.vibrationAmplitudeProperty.link( ( amplitude ) => {
+      model.vibrationAmplitudeProperty.link( amplitude => {
 
           // the temperature is decreasing
           var tempDecreasing = temperatureDecreasingDescriber.tempDecreasing;
