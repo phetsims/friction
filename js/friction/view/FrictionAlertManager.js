@@ -23,7 +23,7 @@ define( require => {
   // alertStableDelay feature of utterance
   const temperatureJiggleUtterance = new Utterance();
 
-  var FrictionAlertManager = {
+  const FrictionAlertManager = {
 
     /**
      * @param {object} alertObject - data object holding strings for alert, see this.ALERT_SCHEMA
@@ -43,7 +43,7 @@ define( require => {
         alertObject = alertObject.firstTime;
       }
 
-      var string = StringUtils.fillIn( patternString, {
+      const string = StringUtils.fillIn( patternString, {
         temperature: alertObject.temp,
         jigglingAmount: alertObject.jiggle
       } );

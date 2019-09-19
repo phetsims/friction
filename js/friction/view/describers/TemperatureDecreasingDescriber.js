@@ -140,7 +140,7 @@ define( require => {
      */
     alertDecrease() {
       this.alertIndex++;
-      var currentAlertIndex = Math.min( this.alertIndex, DECREASING.length - 1 );
+      const currentAlertIndex = Math.min( this.alertIndex, DECREASING.length - 1 );
 
       const alertObject = DECREASING[ currentAlertIndex ];
 

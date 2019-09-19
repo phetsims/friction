@@ -424,7 +424,7 @@ define( require => {
           this.scheduledEvaporationAmount = this.scheduledEvaporationAmount + EVAPORATION_AMPLITUDE_REDUCTION;
         }
 
-        var isCurrentRowFullyEvaporated = _.every( currentRowOfEvaporableAtoms, function( atom ) {
+        const isCurrentRowFullyEvaporated = _.every( currentRowOfEvaporableAtoms, function( atom ) {
           return atom.isEvaporated;
         } );
 

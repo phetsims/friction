@@ -232,7 +232,7 @@ define( require => {
 
 
     // a11y
-    var a11yGrabDragInteractionNode = new FrictionGrabDragInteraction( model, dragArea, {
+    const a11yGrabDragInteractionNode = new FrictionGrabDragInteraction( model, dragArea, {
       objectToGrabString: zoomedInChemistryBookString,
       tandem: tandem.createTandem( 'magnifierNodeGrabButton' ),
       grabCueOptions: {
