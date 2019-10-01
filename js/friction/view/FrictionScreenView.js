@@ -96,7 +96,7 @@ define( require => {
 
     // create and hook up the sound that will be produced when the books come into contact with one another
     const bookContactSoundClip = new SoundClip( bookContactSound, { initialOutputLevel: 0.06 } );
-    soundManager.addSoundGenerator( bookContactSoundClip );
+    soundManager.addSoundGenerator( bookContactSoundClip, { sonificationLevel: SoundLevelEnum.ENHANCED } );
     model.contactProperty.link( contact => {
       if ( contact ) {
         bookContactSoundClip.play();
@@ -107,7 +107,7 @@ define( require => {
     this.bookRubSoundGenerator = new BookRubSoundGenerator( model.topBookPositionProperty, model.contactProperty, {
       maxOutputLevel: 0.3
     } );
-    soundManager.addSoundGenerator( this.bookRubSoundGenerator );
+    soundManager.addSoundGenerator( this.bookRubSoundGenerator, { sonificationLevel: SoundLevelEnum.ENHANCED } );
 
     // @private - add magnifier
     this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, temperatureIncreasingDescriber,
@@ -161,19 +161,23 @@ define( require => {
     this.addChild( resetAllButton );
 
     // add sound generator for reset
-    soundManager.addSoundGenerator( new ResetAllSoundGenerator( model.resetInProgressProperty, {
-      initialOutputLevel: 0.7
-    } ) );
+    soundManager.addSoundGenerator(
+      new ResetAllSoundGenerator( model.resetInProgressProperty, { initialOutputLevel: 0.7 } ),
+      { sonificationLevel: SoundLevelEnum.ENHANCED }
+    );
 
     // create and register the sound that will be played to indicate changes to the rate of molecule motion
-    soundManager.addSoundGenerator( new MoleculeMotionSoundGenerator( model.vibrationAmplitudeProperty, {
-      initialOutputLevel: 0,
-      maxOutputLevel: 0.175
-    } ) );
+    soundManager.addSoundGenerator(
+      new MoleculeMotionSoundGenerator( model.vibrationAmplitudeProperty, {
+        initialOutputLevel: 0,
+        maxOutputLevel: 0.175
+      } ),
+      { sonificationLevel: SoundLevelEnum.ENHANCED }
+    );
 
     // create and hook up the sound that is played when molecules break off from the top book
     const moleculeBreakOffSoundClip = new SoundClip( moleculeBreakOffSound, { initialOutputLevel: 0.05 } );
-    soundManager.addSoundGenerator( moleculeBreakOffSoundClip );
+    soundManager.addSoundGenerator( moleculeBreakOffSoundClip, { sonificationLevel: SoundLevelEnum.ENHANCED } );
     model.evaporationEmitter.addListener( () => {
 
       // don't play for every evaporated molecule or it's too noisy
@@ -191,12 +195,10 @@ define( require => {
     this.coolingSoundGenerator = new CoolingSoundGenerator( model.vibrationAmplitudeProperty, {
       maxOutputLevel: 0.75
     } );
-    soundManager.addSoundGenerator( this.coolingSoundGenerator, {
-      sonificationLevel: SoundLevelEnum.ENHANCED
-    } );
+    soundManager.addSoundGenerator( this.coolingSoundGenerator );
 
     // add a node that creates a "play area" accessible section in the PDOM
-    this.controlAreaNode.accessibleOrder = [resetAllButton];
+    this.controlAreaNode.accessibleOrder = [ resetAllButton ];
 
     // @private
     this.resetFrictionScreenView = function() {

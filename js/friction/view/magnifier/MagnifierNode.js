@@ -33,6 +33,7 @@ define( require => {
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Shape = require( 'KITE/Shape' );
   const SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
+  const SoundLevelEnum = require( 'TAMBO/SoundLevelEnum' );
   const soundManager = require( 'TAMBO/soundManager' );
   const Vector2 = require( 'DOT/Vector2' );
 
@@ -87,9 +88,9 @@ define( require => {
 
     // create and register the sound generators that will be used when the top book is picked up and dropped
     const bookPickupSoundClip = new SoundClip( harpPickupSound, { initialOutputLevel: SOUND_LEVEL } );
-    soundManager.addSoundGenerator( bookPickupSoundClip );
+    soundManager.addSoundGenerator( bookPickupSoundClip, { sonificationLevel: SoundLevelEnum.ENHANCED } );
     const bookDropSoundClip = new SoundClip( harpDropSound, { initialOutputLevel: SOUND_LEVEL } );
-    soundManager.addSoundGenerator( bookDropSoundClip );
+    soundManager.addSoundGenerator( bookDropSoundClip, { sonificationLevel: SoundLevelEnum.ENHANCED } );
 
     // @private - add bottom book
     this.bottomBookBackground = new Node( {

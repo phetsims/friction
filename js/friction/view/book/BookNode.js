@@ -26,6 +26,7 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const Shape = require( 'KITE/Shape' );
   const SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
+  const SoundLevelEnum = require( 'TAMBO/SoundLevelEnum' );
   const soundManager = require( 'TAMBO/soundManager' );
 
   // sounds
@@ -101,9 +102,9 @@ define( require => {
 
       // sounds used when the book is picked up or dropped
       const bookPickupSoundClip = new SoundClip( simplePickupSound, { initialOutputLevel: SOUND_LEVEL } );
-      soundManager.addSoundGenerator( bookPickupSoundClip );
+      soundManager.addSoundGenerator( bookPickupSoundClip, { sonificationLevel: SoundLevelEnum.ENHANCED } );
       const bookDropSoundClip = new SoundClip( simpleDropSound, { initialOutputLevel: SOUND_LEVEL } );
-      soundManager.addSoundGenerator( bookDropSoundClip );
+      soundManager.addSoundGenerator( bookDropSoundClip, { sonificationLevel: SoundLevelEnum.ENHANCED } );
 
       // a11y - add a keyboard drag handler
       this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingDescriber,
