@@ -38,10 +38,6 @@ define( require => {
 
       super( options );
 
-      // start the noise generator - it will remain on and the output level will be controlled by the code below
-      this.start();
-      this.setOutputLevel( 0, 0 );
-
       // @private {number} - max output level, used in the step function that updates the sound output level
       this.maxOutputLevel = options.maxOutputLevel;
 
@@ -53,7 +49,7 @@ define( require => {
       this.amplitudeChangeRateHistory = [];
 
       // @private {number} - time which the molecules have been cooling, i.e. oscillation amplitude has been going down
-      this.continuousCoolingTime;
+      this.continuousCoolingTime = 0;
 
       // monitor the molecule oscillation amplitude and update local state
       moleculeOscillationAmplitudeProperty.lazyLink( amplitude => {
