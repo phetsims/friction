@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.6.0-soundDesignCourse.0 Tue Oct 01 2019 17:08:06 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# friction 1.6.0-soundDesignCourse.1 Wed Oct 02 2019 11:33:45 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "bd6e3ed0a8b6fea73a4a176d5364809666833e58",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "f940422fd5a40e3d43a44e9524fa00f64eba1eb8",
+    "sha": "ab7a97853d90bd6ff76855bdcf907e812d850faa",
     "branch": "master"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "friction": {
-    "sha": "80be05d514c87ccd4f5eadaa217d09e050a9e18e",
+    "sha": "b8c2f6675116638859aae3d5653248c55c3bedca",
     "branch": "soundDesignCourse"
   },
   "joist": {
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "387755de5d8dcf01b633caeefd563e66fdabb749",
+    "sha": "70fd4ab5321e6e09d314c4bf4bb3633d2bb24ec4",
     "branch": "master"
   },
   "phet-io-wrappers": {
@@ -57,7 +57,7 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "3cc3c0a388de20ff19f63d0e3f9473681b2a1756",
+    "sha": "4bf463d2f14a6be487607b11a596f6662bbbdd92",
     "branch": "master"
   },
   "scenery-phet": {
@@ -69,7 +69,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "ec09fe383a09dbe8976a963d4bfb53e51624d4e3",
+    "sha": "3667e406afaeba0962a5ffdd8bd5d4d0e8bf6f88",
     "branch": "master"
   },
   "tambo": {
@@ -77,7 +77,7 @@
     "branch": "master"
   },
   "tandem": {
-    "sha": "d74621ff7d3b28f40a3ad93e31443886033eeb38",
+    "sha": "19d354feba4ede57eb756f8d00bd15748a788f90",
     "branch": "master"
   }
 }
