@@ -13,6 +13,7 @@ define( require => {
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const GeneralKeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/GeneralKeyboardHelpSection' );
   const KeyboardHelpSection = require( 'SCENERY_PHET/keyboard/help/KeyboardHelpSection' );
+  const merge = require( 'PHET_CORE/merge' );
   const TwoColumnKeyboardHelpContent = require( 'SCENERY_PHET/keyboard/help/TwoColumnKeyboardHelpContent' );
 
   // strings
@@ -65,7 +66,7 @@ define( require => {
      * @param {Object} [options]
      */
     constructor( options ) {
-      options = _.extend( {
+      options = merge( {
 
         // icon options
         arrowKeysScale: 0.55

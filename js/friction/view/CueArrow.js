@@ -11,6 +11,7 @@ define( require => {
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
   const friction = require( 'FRICTION/friction' );
+  const merge = require( 'PHET_CORE/merge' );
 
   /**
    *
@@ -21,7 +22,7 @@ define( require => {
     constructor( options ) {
 
       // these values were empirically determined based on visual appearance
-      options = _.extend( {
+      options = merge( {
         headHeight: 32,
         headWidth: 30,
         tailWidth: 15,

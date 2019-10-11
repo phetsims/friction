@@ -11,6 +11,7 @@ define( require => {
   // modules
   const friction = require( 'FRICTION/friction' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   const Vector2 = require( 'DOT/Vector2' );
 
@@ -25,7 +26,7 @@ define( require => {
   function FrictionDragHandler( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
                                 bookMovementDescriber, tandem, options ) {
 
-    options = _.extend( {
+    options = merge( {
 
       // {SoundClip} - sounds to be played at start and end of drag
       startSound: null,

@@ -14,6 +14,7 @@ define( require => {
   // modules
   const friction = require( 'FRICTION/friction' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -32,7 +33,7 @@ define( require => {
    */
   function MagnifierTargetNode( x, y, width, height, cornerRadius, leftAnchor, rightAnchor, options ) {
 
-    options = _.extend( {
+    options = merge( {
       stroke: 'black'
     }, options );
 

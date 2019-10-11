@@ -11,6 +11,7 @@ define( require => {
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const friction = require( 'FRICTION/friction' );
+  const merge = require( 'PHET_CORE/merge' );
   const NoiseGenerator = require( 'TAMBO/sound-generators/NoiseGenerator' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const Property = require( 'AXON/Property' );
@@ -31,7 +32,7 @@ define( require => {
      */
     constructor( topBookPositionProperty, contactProperty, options ) {
 
-      options = _.extend( {
+      options = merge( {
           noiseType: 'pink',
           centerFrequency: FRICTION_SOUND_CENTER_FREQUENCY,
           qFactor: 2,

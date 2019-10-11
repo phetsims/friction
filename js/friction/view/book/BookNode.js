@@ -23,6 +23,7 @@ define( require => {
   const FrictionGrabDragInteraction = require( 'FRICTION/friction/view/FrictionGrabDragInteraction' );
   const FrictionKeyboardDragListener = require( 'FRICTION/friction/view/FrictionKeyboardDragListener' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Shape = require( 'KITE/Shape' );
   const SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
@@ -53,7 +54,7 @@ define( require => {
                      bookMovementDescriber, tandem, options ) {
     const self = this;
 
-    options = _.extend( {
+    options = merge( {
 
       // whether or not we can drag the book
       drag: false,

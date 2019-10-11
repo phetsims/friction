@@ -12,6 +12,7 @@ define( require => {
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const GrabDragInteraction = require( 'SCENERY_PHET/accessibility/GrabDragInteraction' );
+  const merge = require( 'PHET_CORE/merge' );
   const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
 
   // a11y strings
@@ -33,7 +34,7 @@ define( require => {
   class FrictionGrabDragInteraction extends GrabDragInteraction {
 
     constructor( model, wrappedNode, options ) {
-      options = _.extend( {
+      options = merge( {
 
         // Function that returns whether or not the drag cue should be shown.
         successfulDrag: () => {

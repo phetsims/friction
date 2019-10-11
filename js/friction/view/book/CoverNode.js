@@ -14,6 +14,7 @@ define( require => {
   const friction = require( 'FRICTION/friction' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -38,7 +39,7 @@ define( require => {
    */
   function CoverNode( title, tandem, options ) {
 
-    options = _.extend( {
+    options = merge( {
       stroke: 'gray',
       color: 'black'
     }, options );

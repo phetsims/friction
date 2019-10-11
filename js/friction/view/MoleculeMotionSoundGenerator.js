@@ -21,6 +21,7 @@ define( require => {
   const friction = require( 'FRICTION/friction' );
   const FrictionConstants = require( 'FRICTION/friction/FrictionConstants' );
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
+  const merge = require( 'PHET_CORE/merge' );
   const SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
   const SoundGenerator = require( 'TAMBO/sound-generators/SoundGenerator' );
 
@@ -36,7 +37,7 @@ define( require => {
      */
     constructor( moleculeAmplitudeProperty, options ) {
 
-      options = _.extend( {
+      options = merge( {
         maxOutputLevel: 1 // max gain for this sound generator, sets the overall output of this sound generator
       }, options );
 

@@ -10,6 +10,7 @@ define( require => {
 
   // modules
   const friction = require( 'FRICTION/friction' );
+  const merge = require( 'PHET_CORE/merge' );
   const NoiseGenerator = require( 'TAMBO/sound-generators/NoiseGenerator' );
 
   // constants
@@ -26,7 +27,7 @@ define( require => {
      */
     constructor( moleculeOscillationAmplitudeProperty, options ) {
 
-      options = _.extend( {
+      options = merge( {
           noiseType: 'pink',
           centerFrequency: 6000,
           qFactor: 4,
