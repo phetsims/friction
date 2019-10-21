@@ -129,8 +129,8 @@ define( require => {
 
         // Empirically determined values to place the cue above the book.
         grabCueOptions: {
-          x: 60,
-          y: -55
+          x: 45,
+          y: -60
         },
         grabbableOptions: {
           appendDescription: true,
