@@ -14,7 +14,7 @@ define( require => {
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const timer = require( 'AXON/timer' );
-  const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
+  const utteranceQueue = require( 'UTTERANCE_QUEUE/utteranceQueue' );
 
   // a11y strings
   const capitalizedVeryHotString = FrictionA11yStrings.capitalizedVeryHot.value;

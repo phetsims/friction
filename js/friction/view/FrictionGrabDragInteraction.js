@@ -13,7 +13,7 @@ define( require => {
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const GrabDragInteraction = require( 'SCENERY_PHET/accessibility/GrabDragInteraction' );
   const merge = require( 'PHET_CORE/merge' );
-  const utteranceQueue = require( 'SCENERY_PHET/accessibility/utteranceQueue' );
+  const utteranceQueue = require( 'UTTERANCE_QUEUE/utteranceQueue' );
 
   // a11y strings
   const initialGrabbedNotTouchingString = FrictionA11yStrings.initialGrabbedNotTouching.value;

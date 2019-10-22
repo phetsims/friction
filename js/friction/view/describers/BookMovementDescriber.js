@@ -17,7 +17,7 @@ define( require => {
   const LeftRightAlertPair = require( 'FRICTION/friction/view/describers/LeftRightAlertPair' );
   const MovementDescriber = require( 'SCENERY_PHET/accessibility/describers/MovementDescriber' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const Utterance = require( 'SCENERY_PHET/accessibility/Utterance' );
+  const Utterance = require( 'UTTERANCE_QUEUE/Utterance' );
 
   // a11y strings
   const moveDownToRubHarderSentenceString = FrictionA11yStrings.moveDownToRubHarderSentence.value;
