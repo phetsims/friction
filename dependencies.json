@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.5.10-rc.2 Wed Oct 23 2019 09:32:36 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# friction 1.5.10-rc.3 Wed Oct 23 2019 10:04:41 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "69088d35b9e1971aee675d1aec7f413f4d0bef19",
     "branch": "HEAD"
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "ba7445f4ca761f9dc786ca28ab4f1fe95b1b6f88",
+    "sha": "7798994c1a7c5b76ae9b0292b60fa7bd1e2ee086",
     "branch": "1.5"
   },
   "joist": {
     "sha": "6e412c39dd8c4b4bdad2731eb4ecf23105ca763d",
-    "branch": "friction-1.5"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "6c78a24fdf01ba21cb7037e7554d2aa81717d94a",
