@@ -196,7 +196,7 @@ define( require => {
     } );
 
     // add a node that creates a "play area" accessible section in the PDOM
-    this.controlAreaNode.accessibleOrder = [resetAllButton];
+    this.pdomControlAreaNode.accessibleOrder = [resetAllButton];
 
     // @private
     this.resetFrictionScreenView = function() {
