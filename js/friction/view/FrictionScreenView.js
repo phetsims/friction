@@ -145,7 +145,7 @@ define( require => {
     ) );
 
     // a11y
-    this.playAreaNode.accessibleOrder = [ chemistryBookNode, this.magnifierNode ];
+    this.pdomPlayAreaNode.accessibleOrder = [ chemistryBookNode, this.magnifierNode ];
 
     // add reset button
     const resetAllButton = new ResetAllButton( {
