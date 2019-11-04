@@ -242,6 +242,10 @@ define( require => {
         focusHighlight: focusHighlightPath
       },
 
+      // The help text is provided by the BookNode's interaction
+      keyboardHelpText: null,
+      gestureHelpText: null,
+
       // handler for when the user grabs the book
       onGrab: () => {
         model.hintProperty.set( false ); // hide the visual cue arrows
