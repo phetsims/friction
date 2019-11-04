@@ -133,9 +133,9 @@ define( require => {
           y: -60
         },
         grabbableOptions: {
-          appendDescription: true,
           focusHighlight: focusHighlightRect
         },
+
         keyboardHelpText: grabButtonHelpTextString,
 
         onGrab: () => { bookPickupSoundClip.play(); },
