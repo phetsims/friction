@@ -12,9 +12,7 @@ define( require => {
   const FrictionA11yStrings = require( 'FRICTION/friction/FrictionA11yStrings' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Utterance = require( 'UTTERANCE_QUEUE/Utterance' );
-  const utteranceQueue = require( 'UTTERANCE_QUEUE/utteranceQueue' );
-
-  // a11y strings
+// a11y strings
   const frictionIncreasingAtomsJigglingTemperatureFirstPatternString = FrictionA11yStrings.frictionIncreasingAtomsJigglingTemperatureFirstPattern.value;
   const frictionIncreasingAtomsJigglingTemperaturePatternString = FrictionA11yStrings.frictionIncreasingAtomsJigglingTemperaturePattern.value;
   const atomsJiggleTinyBitTempCoolString = FrictionA11yStrings.atomsJiggleTinyBitTempCool.value;
@@ -49,7 +47,7 @@ define( require => {
       } );
 
       temperatureJiggleUtterance.alert = string;
-      utteranceQueue.addToBack( temperatureJiggleUtterance );
+      phet.joist.sim.display.utteranceQueue.addToBack( temperatureJiggleUtterance );
     },
 
     /**
@@ -57,7 +55,7 @@ define( require => {
      * @public
      */
     alertSettledAndCool: function() {
-      utteranceQueue.addToBack( atomsJiggleTinyBitTempCoolString );
+      phet.joist.sim.display.utteranceQueue.addToBack( atomsJiggleTinyBitTempCoolString );
     },
 
     // Threshold that must be reached from initial temp to new temp to alert that the temperature changed, in amplitude (see model for more info)

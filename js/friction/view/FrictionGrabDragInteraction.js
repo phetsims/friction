@@ -13,9 +13,7 @@ define( require => {
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const GrabDragInteraction = require( 'SCENERY_PHET/accessibility/GrabDragInteraction' );
   const merge = require( 'PHET_CORE/merge' );
-  const utteranceQueue = require( 'UTTERANCE_QUEUE/utteranceQueue' );
-
-  // a11y strings
+// a11y strings
   const initialGrabbedNotTouchingString = FrictionA11yStrings.initialGrabbedNotTouching.value;
   const grabbedNotTouchingString = FrictionA11yStrings.grabbedNotTouching.value;
   const initialGrabbedTouchingString = FrictionA11yStrings.initialGrabbedTouching.value;
@@ -55,7 +53,7 @@ define( require => {
         if ( this.successfullyInteracted ) {
           alert = alerts.subsequent;
         }
-        utteranceQueue.addToBack( alert );
+        phet.joist.sim.display.utteranceQueue.addToBack( alert );
       };
 
       super( wrappedNode, options );

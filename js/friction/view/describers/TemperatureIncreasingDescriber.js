@@ -23,9 +23,7 @@ define( require => {
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const timer = require( 'AXON/timer' );
   const Utterance = require( 'UTTERANCE_QUEUE/Utterance' );
-  const utteranceQueue = require( 'UTTERANCE_QUEUE/utteranceQueue' );
-
-  // a11y strings
+// a11y strings
   const moreString = FrictionA11yStrings.more.value;
   const fasterString = FrictionA11yStrings.faster.value;
   const nowHotterString = FrictionA11yStrings.nowHotter.value;
@@ -159,7 +157,7 @@ define( require => {
      * @private
      */
     alertMaxTemp() {
-      this.alert( () => { utteranceQueue.addToBack( this.maxTempUtterance ); } );
+      this.alert( () => { phet.joist.sim.display.utteranceQueue.addToBack( this.maxTempUtterance ); } );
     }
 
     /**

@@ -14,9 +14,7 @@ define( require => {
   const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const timer = require( 'AXON/timer' );
-  const utteranceQueue = require( 'UTTERANCE_QUEUE/utteranceQueue' );
-
-  // a11y strings
+// a11y strings
   const capitalizedVeryHotString = FrictionA11yStrings.capitalizedVeryHot.value;
   const breakAwaySentenceFirstString = FrictionA11yStrings.breakAwaySentenceFirst.value;
   const breakAwaySentenceAgainString = FrictionA11yStrings.breakAwaySentenceAgain.value;
@@ -76,10 +74,10 @@ define( require => {
       // If there aren't any more atoms to break away
       if ( this.model.numberOfAtomsEvaporated >= FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ) {
         assert && assert( this.alertedBreakAwayProperty.value, 'If this is the first alert, then we have problems' );
-        utteranceQueue.addToFront( BREAK_AWAY_NONE_LEFT );
+        phet.joist.sim.display.utteranceQueue.addToFront( BREAK_AWAY_NONE_LEFT );
       }
       else {
-        utteranceQueue.addToFront( this.alertedBreakAwayProperty.value ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST );
+        phet.joist.sim.display.utteranceQueue.addToFront( this.alertedBreakAwayProperty.value ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST );
       }
 
       this.alertedBreakAwayProperty.value = true;
