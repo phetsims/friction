@@ -18,6 +18,8 @@
       "phet-io"
     ],
     "accessible": true,
+    "supportsSound": true,
+    "supportsEnhancedSound": true,
     "simulation": true
   },
   "eslintConfig": {

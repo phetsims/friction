@@ -45,9 +45,7 @@ define( require => {
         thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation to HTML5.'
       },
       keyboardHelpNode: keyboardHelpContent,
-      accessibility: true,
-      supportsEnhancedSound: true,
-      supportsSound: true
+      accessibility: true
     };
 
     // Create and start the sim
