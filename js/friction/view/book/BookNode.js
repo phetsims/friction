@@ -124,7 +124,7 @@ define( require => {
       this.focusHighlight = focusHighlightRect; // this is a constraint of the grab/drag interaction;
 
       // @private - a11y
-      this.a11yGrabDragInteractionNode = new FrictionGrabDragInteraction( model, this, {
+      this.grabDragInteraction = new FrictionGrabDragInteraction( model, this, {
         objectToGrabString: chemistryBookString,
 
         // Empirically determined values to place the cue above the book.
@@ -146,7 +146,7 @@ define( require => {
 
         listenersForDrag: [ this.keyboardDragHandler, focusListener ],
 
-        tandem: tandem.createTandem( 'a11yGrabDragInteractionNode' )
+        tandem: tandem.createTandem( 'grabDragInteraction' )
       } );
 
 
@@ -178,7 +178,7 @@ define( require => {
      * @public
      */
     reset: function() {
-      this.a11yGrabDragInteractionNode.reset();
+      this.grabDragInteraction.reset();
     }
   } );
 } );

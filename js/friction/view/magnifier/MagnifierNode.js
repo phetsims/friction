@@ -232,9 +232,9 @@ define( require => {
 
 
     // a11y
-    const a11yGrabDragInteractionNode = new FrictionGrabDragInteraction( model, dragArea, {
+    const grabDragInteraction = new FrictionGrabDragInteraction( model, dragArea, {
       objectToGrabString: zoomedInChemistryBookString,
-      tandem: tandem.createTandem( 'magnifierNodeGrabButton' ),
+      tandem: tandem.createTandem( 'grabDragInteraction' ),
       grabCueOptions: {
         center: dragArea.center.minusXY( 0, 73 )
       },
@@ -333,7 +333,7 @@ define( require => {
 
     // @private
     this.resetMagnifierNode = function() {
-      a11yGrabDragInteractionNode.reset();
+      grabDragInteraction.reset();
     };
   }
 
