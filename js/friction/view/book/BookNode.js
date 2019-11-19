@@ -144,7 +144,9 @@ define( require => {
 
         dragCueNode: arrows,
 
-        listenersForDrag: [ this.keyboardDragHandler, focusListener ]
+        listenersForDrag: [ this.keyboardDragHandler, focusListener ],
+
+        tandem: tandem.createTandem( 'a11yGrabDragInteractionNode' )
       } );
 
 
