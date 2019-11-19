@@ -26,7 +26,7 @@ define( require => {
 
   // constants
   const DEFAULT_AT_TOP_ALERT = BorderAlertsDescriber.getDefaultTopAlert();
-  const DEFAULT_MOVEMENT_ALERTS = MovementDescriber.getDefaultMovementAlerts();
+  const DEFAULT_MOVEMENT_DESCRIPTIONS = MovementDescriber.getDefaultMovementDescriptions();
   const AT_TOP_MOVE_DOWN_STRING = StringUtils.fillIn( positionMoveDownPatternString, {
     moveDownToRubHarder: moveDownToRubHarderSentenceString,
     position: DEFAULT_AT_TOP_ALERT
@@ -61,7 +61,7 @@ define( require => {
 
       // @private - special verbose alert for the first 2 times, then use the default
       this.bottomUtterance = new Utterance( {
-        alert: [ downRubFastOrSlowString, downRubFastOrSlowString, DEFAULT_MOVEMENT_ALERTS.DOWN ]
+        alert: [ downRubFastOrSlowString, downRubFastOrSlowString, DEFAULT_MOVEMENT_DESCRIPTIONS.DOWN ]
       } );
 
       // {LeftRightAlertPair} - alert pairs to monitor if both left and right alerts have been triggered.
