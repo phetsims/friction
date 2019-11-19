@@ -216,9 +216,6 @@ define( require => {
     // @public {BooleanProperty} - Show hint icon. Only set by model and on a11y grab interaction.
     this.hintProperty = new BooleanProperty( true );
 
-    // @public (read-only) {BooleanProperty} - true when a reset is in progress, false otherwise
-    this.resetInProgressProperty = new BooleanProperty( false );
-
     // @public {Number} (read-only) - drag and drop book coordinates conversion coefficient
     this.bookDraggingScaleFactor = 0.025;
 
@@ -340,7 +337,6 @@ define( require => {
      * @public
      */
     reset: function() {
-      this.resetInProgressProperty.set( true );
       this.vibrationAmplitudeProperty.reset();
       this.topBookPositionProperty.reset();
       this.distanceBetweenBooksProperty.reset();
@@ -352,7 +348,6 @@ define( require => {
         atom.reset();
       } );
       this.numberOfAtomsEvaporated = 0;
-      this.resetInProgressProperty.set( false );
     },
 
     /**

@@ -25,7 +25,6 @@ define( require => {
   const MagnifierNode = require( 'FRICTION/friction/view/magnifier/MagnifierNode' );
   const MoleculeMotionSoundGenerator = require( 'FRICTION/friction/view/MoleculeMotionSoundGenerator' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  const ResetAllSoundGenerator = require( 'TAMBO/sound-generators/ResetAllSoundGenerator' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const SoundClip = require( 'TAMBO/sound-generators/SoundClip' );
   const SoundLevelEnum = require( 'TAMBO/SoundLevelEnum' );
@@ -159,11 +158,6 @@ define( require => {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( resetAllButton );
-
-    // add sound generator for reset
-    soundManager.addSoundGenerator( new ResetAllSoundGenerator( model.resetInProgressProperty, {
-      initialOutputLevel: 0.7
-    } ) );
 
     // create and register the sound that will be played to indicate changes to the rate of molecule motion
     soundManager.addSoundGenerator( new MoleculeMotionSoundGenerator( model.vibrationAmplitudeProperty, {
