@@ -123,7 +123,7 @@ define( require => {
       this.addChild( focusHighlightRect );
       this.focusHighlight = focusHighlightRect; // this is a constraint of the grab/drag interaction;
 
-      // a11y
+      // @private - a11y
       this.a11yGrabDragInteractionNode = new FrictionGrabDragInteraction( model, this, {
         objectToGrabString: chemistryBookString,
 
@@ -171,6 +171,10 @@ define( require => {
   friction.register( 'BookNode', BookNode );
 
   return inherit( Node, BookNode, {
+
+    /**
+     * @public
+     */
     reset: function() {
       this.a11yGrabDragInteractionNode.reset();
     }
