@@ -47,7 +47,7 @@ define( require => {
       } );
 
       temperatureJiggleUtterance.alert = string;
-      phet.joist.sim.display.utteranceQueue.addToBack( temperatureJiggleUtterance );
+      phet.joist.sim.utteranceQueue.addToBack( temperatureJiggleUtterance );
     },
 
     /**
@@ -55,7 +55,7 @@ define( require => {
      * @public
      */
     alertSettledAndCool: function() {
-      phet.joist.sim.display.utteranceQueue.addToBack( atomsJiggleTinyBitTempCoolString );
+      phet.joist.sim.utteranceQueue.addToBack( atomsJiggleTinyBitTempCoolString );
     },
 
     // Threshold that must be reached from initial temp to new temp to alert that the temperature changed, in amplitude (see model for more info)

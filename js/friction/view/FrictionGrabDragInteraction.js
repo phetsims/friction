@@ -53,7 +53,7 @@ define( require => {
         if ( this.successfullyInteracted ) {
           alert = alerts.subsequent;
         }
-        phet.joist.sim.display.utteranceQueue.addToBack( alert );
+        phet.joist.sim.utteranceQueue.addToBack( alert );
       };
 
       super( wrappedNode, options );

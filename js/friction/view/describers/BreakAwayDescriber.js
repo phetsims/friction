@@ -74,10 +74,10 @@ define( require => {
       // If there aren't any more atoms to break away
       if ( this.model.numberOfAtomsEvaporated >= FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ) {
         assert && assert( this.alertedBreakAwayProperty.value, 'If this is the first alert, then we have problems' );
-        phet.joist.sim.display.utteranceQueue.addToFront( BREAK_AWAY_NONE_LEFT );
+        phet.joist.sim.utteranceQueue.addToFront( BREAK_AWAY_NONE_LEFT );
       }
       else {
-        phet.joist.sim.display.utteranceQueue.addToFront( this.alertedBreakAwayProperty.value ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST );
+        phet.joist.sim.utteranceQueue.addToFront( this.alertedBreakAwayProperty.value ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST );
       }
 
       this.alertedBreakAwayProperty.value = true;

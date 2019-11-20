@@ -157,7 +157,7 @@ define( require => {
      * @private
      */
     alertMaxTemp() {
-      this.alert( () => { phet.joist.sim.display.utteranceQueue.addToBack( this.maxTempUtterance ); } );
+      this.alert( () => { phet.joist.sim.utteranceQueue.addToBack( this.maxTempUtterance ); } );
     }
 
     /**
