@@ -22,7 +22,7 @@ define( require => {
       value: 'zoomed-in Chemistry book'
     },
     grabButtonHelpText: {
-      value: 'Look for grab buttons. Once grabbed, use letter keys W, A, S, or D to move book or zoomed-in book up, left, down, or right.'
+      value: 'Look for grab buttons. Once grabbed, use keyboard shortcuts to move book or zoomed-in book.'
     },
     moveBookWith: {
       value: 'Move grabbed book or zoomed-in book up, left, down, or right with Arrow keys, or with letter keys W, A, S, or D.'
