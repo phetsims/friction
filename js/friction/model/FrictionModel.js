@@ -351,7 +351,7 @@ define( require => {
     },
 
     /**
-     * Move the book, checking to make sure the new location is valid. If the book is going to move out of bounds,
+     * Move the book, checking to make sure the new position is valid. If the book is going to move out of bounds,
      * prevent movement.
      * @param {Vector2} delta
      * @public
@@ -366,7 +366,7 @@ define( require => {
         delta.y = 0;
       }
 
-      // Check if the motion vector would put the book in an invalid location and limit it if so.
+      // Check if the motion vector would put the book in an invalid position and limit it if so.
       if ( delta.y > this.distanceBetweenBooksProperty.get() ) {
         this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + delta.y - this.distanceBetweenBooksProperty.get() );
         delta.y = this.distanceBetweenBooksProperty.get();
