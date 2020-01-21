@@ -29,7 +29,7 @@ define( require => {
     let oldPositionValue; // determines our delta for how the positionProperty changed every drag
 
     KeyboardDragListener.call( this, {
-      positionPropertyProperty: model.topBookPositionProperty,
+      positionProperty: model.topBookPositionProperty,
       start: () => {
         oldPositionValue = model.topBookPositionProperty.get().copy();
 
