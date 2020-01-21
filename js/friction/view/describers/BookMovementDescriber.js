@@ -142,18 +142,18 @@ define( require => {
      * @public
      */
     alertDirectionalMovement() {
-      const newLocation = this.locationProperty.get();
-      if ( !newLocation.equals( this.lastAlertedLocation ) ) {
-        const directions = this.getDirections( newLocation, this.lastAlertedLocation );
+      const newPosition = this.positionProperty.get();
+      if ( !newPosition.equals( this.lastAlertedPosition ) ) {
+        const directions = this.getDirections( newPosition, this.lastAlertedPosition );
 
         directions.forEach( direction => {
           this.alertForDirection( direction );
         } );
 
-        // Update the last alerted location even if this.alertForDirection doesn't put anything on utteranceQueue, see https://github.com/phetsims/friction/issues/149#issuecomment-444458179
+        // Update the last alerted position even if this.alertForDirection doesn't put anything on utteranceQueue, see https://github.com/phetsims/friction/issues/149#issuecomment-444458179
         // This has to be done because this.alertForDirection only conditionally alerts using `this.alert`, but we still
-        // want the model locations to be kept in sync.
-        this.lastAlertedLocation = this.locationProperty.get();
+        // want the model positions to be kept in sync.
+        this.lastAlertedPosition = this.positionProperty.get();
       }
     }
 
