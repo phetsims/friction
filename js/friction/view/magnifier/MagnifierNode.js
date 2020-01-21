@@ -339,7 +339,7 @@ define( require => {
 
   friction.register( 'MagnifierNode', MagnifierNode );
 
-  // helper function that adds a row of circles at the specified location, used to add bumps to the magnified books
+  // helper function that adds a row of circles at the specified position, used to add bumps to the magnified books
   function addRowCircles( circleRadius, xSpacing, parentNode, options ) {
     const numberOfAtomsForRow = options.width / xSpacing;
     for ( let i = 0; i < numberOfAtomsForRow; i++ ) {
