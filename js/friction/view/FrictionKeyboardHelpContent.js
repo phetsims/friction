@@ -78,8 +78,8 @@ define( require => {
       const moveBookRow = KeyboardHelpSection.labelWithIcon( moveBookString, moveBookIcon, moveBookWithString );
 
       // BookNode in smaller steps row
-      const shiftPlusArrowKeys = KeyboardHelpSection.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() );
-      const shiftPlusWASDKeys = KeyboardHelpSection.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() );
+      const shiftPlusArrowKeys = KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() );
+      const shiftPlusWASDKeys = KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() );
       const row = KeyboardHelpSection.labelWithIconList( moveInSmallerStepsString, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], moveInSmallerStepsWithString );
 
       super( moveBookHeaderString, [ moveBookRow, row ], options );
