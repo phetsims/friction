@@ -306,7 +306,7 @@ define( require => {
       HEIGHT * SCALE,
       ROUND * SCALE,
       new Vector2( ROUND, HEIGHT ),
-      new Vector2( WIDTH - ROUND, HEIGHT ),
+      new Vector2( WIDTH - ROUND, HEIGHT )
     );
     this.addChild( magnifierTargetNode );
 
