@@ -34,7 +34,7 @@ define( require => {
   /**
    * @param {string} title
    * @param {Tandem} tandem
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function CoverNode( title, tandem, options ) {

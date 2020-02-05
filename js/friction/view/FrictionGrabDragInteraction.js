@@ -26,7 +26,7 @@ define( require => {
   /**
    * @param {FrictionModel} model
    * @param {Node} wrappedNode
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   class FrictionGrabDragInteraction extends GrabDragInteraction {
