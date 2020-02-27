@@ -4,37 +4,34 @@
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const FocusHighlightPath = require( 'SCENERY/accessibility/FocusHighlightPath' );
-  const friction = require( 'FRICTION/friction' );
-  const merge = require( 'PHET_CORE/merge' );
+import merge from '../../../../phet-core/js/merge.js';
+import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
+import FocusHighlightPath from '../../../../scenery/js/accessibility/FocusHighlightPath.js';
+import friction from '../../friction.js';
 
-  /**
-   *
-   * @param {Object} [options]
-   * @constructor
-   */
-  class CueArrow extends ArrowNode {
-    constructor( options ) {
+/**
+ *
+ * @param {Object} [options]
+ * @constructor
+ */
+class CueArrow extends ArrowNode {
+  constructor( options ) {
 
-      // these values were empirically determined based on visual appearance
-      options = merge( {
-        headHeight: 32,
-        headWidth: 30,
-        tailWidth: 15,
-        stroke: 'black',
-        fill: FocusHighlightPath.INNER_FOCUS_COLOR,
-        lineWidth: 2,
-        arrowLength: 70
-      }, options );
+    // these values were empirically determined based on visual appearance
+    options = merge( {
+      headHeight: 32,
+      headWidth: 30,
+      tailWidth: 15,
+      stroke: 'black',
+      fill: FocusHighlightPath.INNER_FOCUS_COLOR,
+      lineWidth: 2,
+      arrowLength: 70
+    }, options );
 
-      super( 0, 0, options.arrowLength, 0, options );
-    }
+    super( 0, 0, options.arrowLength, 0, options );
   }
+}
 
-  return friction.register( 'CueArrow', CueArrow );
-} );
+friction.register( 'CueArrow', CueArrow );
+export default CueArrow;

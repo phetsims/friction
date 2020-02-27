@@ -5,56 +5,52 @@
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const friction = require( 'FRICTION/friction' );
-  const FrictionModel = require( 'FRICTION/friction/model/FrictionModel' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const KeyboardDragListener = require( 'SCENERY/listeners/KeyboardDragListener' );
-  const Vector2 = require( 'DOT/Vector2' );
+import Vector2 from '../../../../dot/js/Vector2.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
+import friction from '../../friction.js';
+import FrictionModel from '../model/FrictionModel.js';
 
+/**
+ * @param {FrictionModel} model
+ * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
+ * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
+ * @param {BookMovementDescriber} bookMovementDescriber
+ * @constructor
+ */
+function FrictionKeyboardDragListener( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
+                                       bookMovementDescriber ) {
 
-  /**
-   * @param {FrictionModel} model
-   * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
-   * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
-   * @param {BookMovementDescriber} bookMovementDescriber
-   * @constructor
-   */
-  function FrictionKeyboardDragListener( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
-                                         bookMovementDescriber ) {
+  let oldPositionValue; // determines our delta for how the positionProperty changed every drag
 
-    let oldPositionValue; // determines our delta for how the positionProperty changed every drag
+  KeyboardDragListener.call( this, {
+    positionProperty: model.topBookPositionProperty,
+    start: () => {
+      oldPositionValue = model.topBookPositionProperty.get().copy();
 
-    KeyboardDragListener.call( this, {
-      positionProperty: model.topBookPositionProperty,
-      start: () => {
-        oldPositionValue = model.topBookPositionProperty.get().copy();
+      temperatureIncreasingDescriber.startDrag();
+      temperatureDecreasingDescriber.startDrag();
+    },
+    drag: () => {
+      const newValue = model.topBookPositionProperty.get();
+      model.move( new Vector2( newValue.x - oldPositionValue.x, newValue.y - oldPositionValue.y ) );
 
-        temperatureIncreasingDescriber.startDrag();
-        temperatureDecreasingDescriber.startDrag();
-      },
-      drag: () => {
-        const newValue = model.topBookPositionProperty.get();
-        model.move( new Vector2( newValue.x - oldPositionValue.x, newValue.y - oldPositionValue.y ) );
+      // update the oldPositionValue for the next onDrag
+      oldPositionValue = model.topBookPositionProperty.get().copy();
+    },
+    end: event => {
+      model.bottomOffsetProperty.set( 0 );
 
-        // update the oldPositionValue for the next onDrag
-        oldPositionValue = model.topBookPositionProperty.get().copy();
-      },
-      end: event => {
-        model.bottomOffsetProperty.set( 0 );
+      temperatureIncreasingDescriber.endDrag();
+      bookMovementDescriber.endDrag( event.domEvent );
 
-        temperatureIncreasingDescriber.endDrag();
-        bookMovementDescriber.endDrag( event.domEvent );
+    },
+    dragBounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS
+  } );
+}
 
-      },
-      dragBounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS
-    } );
-  }
+friction.register( 'FrictionKeyboardDragListener', FrictionKeyboardDragListener );
 
-  friction.register( 'FrictionKeyboardDragListener', FrictionKeyboardDragListener );
-
-  return inherit( KeyboardDragListener, FrictionKeyboardDragListener );
-} );
+inherit( KeyboardDragListener, FrictionKeyboardDragListener );
+export default FrictionKeyboardDragListener;
