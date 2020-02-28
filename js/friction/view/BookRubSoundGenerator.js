@@ -1,4 +1,4 @@
-// Copyright 2018-2019, University of Colorado Boulder
+// Copyright 2018-2020, University of Colorado Boulder
 
 /**
  * sound generator used to produce a sound like two things being rubbed together

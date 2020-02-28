@@ -1,4 +1,4 @@
-// Copyright 2016-2019, University of Colorado Boulder
+// Copyright 2016-2020, University of Colorado Boulder
 
 /**
  * This is an optimization that uses a CanvasNode to draw the atoms.

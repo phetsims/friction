@@ -1,4 +1,4 @@
-// Copyright 2018, University of Colorado Boulder
+// Copyright 2018-2020, University of Colorado Boulder
 
 /**
  * Data structure type that keeps track of when the book has moved both left and right

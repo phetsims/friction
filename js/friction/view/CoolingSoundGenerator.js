@@ -1,4 +1,4 @@
-// Copyright 2018-2019, University of Colorado Boulder
+// Copyright 2018-2020, University of Colorado Boulder
 
 /**
  * sound generator used to produce a sound when the temperature of the books is going down, i.e. the system is cooling

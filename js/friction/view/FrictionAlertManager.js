@@ -1,4 +1,4 @@
-// Copyright 2018-2019, University of Colorado Boulder
+// Copyright 2018-2020, University of Colorado Boulder
 
 /**
  * Manager for the alerts that are dynamically emitted in the simulation.
