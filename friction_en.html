@@ -19,30 +19,8 @@
 
   window.phet = window.phet || {};
   window.phet.chipper = window.phet.chipper || {};
-  window.phet.chipper.packageObject = {
-    "name": "friction",
-    "version": "1.6.0-dev.2",
-    "license": "GPL-3.0",
-    "repository": { "type": "git", "url": "https://github.com/phetsims/friction.git" },
-    "devDependencies": { "grunt": "~1.0.0" },
-    "phet": {
-      "requirejsNamespace": "FRICTION",
-      "runnable": true,
-      "supportedBrands": [ "adapted-from-phet", "phet", "phet-io" ],
-      "accessible": true,
-      "supportsSound": true,
-      "supportsEnhancedSound": true,
-      "simulation": true
-    },
-    "eslintConfig": { "extends": "../chipper/eslint/sim_eslintrc.js" }
-  };
-  window.phet.chipper.stringRepos = [ { "repo": "friction", "requirejsNamespace": "FRICTION" }, {
-    "repo": "joist",
-    "requirejsNamespace": "JOIST"
-  }, { "repo": "scenery-phet", "requirejsNamespace": "SCENERY_PHET" }, {
-    "repo": "sun",
-    "requirejsNamespace": "SUN"
-  }, { "repo": "tambo", "requirejsNamespace": "TAMBO" } ];
+  window.phet.chipper.packageObject = {"name":"friction","version":"1.6.0-dev.2","license":"GPL-3.0","repository":{"type":"git","url":"https://github.com/phetsims/friction.git"},"devDependencies":{"grunt":"~1.0.0"},"phet":{"requirejsNamespace":"FRICTION","runnable":true,"supportedBrands":["adapted-from-phet","phet","phet-io"],"accessible":true,"supportsSound":true,"supportsEnhancedSound":true,"simulation":true},"eslintConfig":{"extends":"../chipper/eslint/sim_eslintrc.js"}};
+  window.phet.chipper.stringRepos = [{"repo":"friction","requirejsNamespace":"FRICTION"},{"repo":"joist","requirejsNamespace":"JOIST"},{"repo":"scenery-phet","requirejsNamespace":"SCENERY_PHET"},{"repo":"sun","requirejsNamespace":"SUN"},{"repo":"tambo","requirejsNamespace":"TAMBO"}];
 
   // Identify the brand (assume generated brand if not provided with query parameters)
   const brandMatch = location.search.match( /brand=([^&]+)/ );
