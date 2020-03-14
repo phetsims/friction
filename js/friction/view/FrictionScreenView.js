@@ -128,6 +128,7 @@ function FrictionScreenView( model, tandem ) {
       lineWidth: 1,
       tubeWidth: 12,
       bulbDiameter: 24,
+      glassThickness: 3,
       majorTickLength: 4,
       minorTickLength: 4,
       fluidMainColor: THERMOMETER_FLUID_MAIN_COLOR,
