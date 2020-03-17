@@ -41,8 +41,7 @@ SimLauncher.launch( function() {
                         'Kathryn Woessner',
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation to HTML5.'
     },
-    keyboardHelpNode: keyboardHelpContent,
-    accessibility: true
+    keyboardHelpNode: keyboardHelpContent
   };
 
   // Create and start the sim
