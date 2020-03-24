@@ -24,7 +24,7 @@ import soundManager from '../../../../../tambo/js/soundManager.js';
 import harpDropSound from '../../../../sounds/harp-drop_mp3.js';
 import harpPickupSound from '../../../../sounds/harp-pickup_mp3.js';
 import friction from '../../../friction.js';
-import FrictionA11yStrings from '../../FrictionA11yStrings.js';
+import frictionStrings from '../../../friction-strings.js';
 import FrictionConstants from '../../FrictionConstants.js';
 import FrictionModel from '../../model/FrictionModel.js';
 import CueArrow from '../CueArrow.js';
@@ -35,11 +35,6 @@ import FrictionKeyboardDragListener from '../FrictionKeyboardDragListener.js';
 import AtomCanvasNode from './AtomCanvasNode.js';
 import MagnifierTargetNode from './MagnifierTargetNode.js';
 
-// a11y strings
-const zoomedInChemistryBookString = FrictionA11yStrings.zoomedInChemistryBook.value;
-
-// sounds
-
 // constants
 const WIDTH = FrictionConstants.MAGNIFIER_WINDOW_WIDTH;
 const HEIGHT = FrictionConstants.MAGNIFIER_WINDOW_HEIGHT;
@@ -47,6 +42,8 @@ const ROUND = 30;
 const SCALE = 0.05;
 const SOUND_LEVEL = 0.1;
 const ARROW_TOP = 22;
+
+const zoomedInChemistryBookString = frictionStrings.a11y.zoomedInChemistryBook;
 
 /**
  * @param {FrictionModel} model

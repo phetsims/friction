@@ -8,27 +8,27 @@
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import friction from '../../friction.js';
-import FrictionA11yStrings from '../FrictionA11yStrings.js';
+import frictionStrings from '../../friction-strings.js';
 import FrictionConstants from '../FrictionConstants.js';
 import FrictionModel from '../model/FrictionModel.js';
 
-// a11y strings
-const summarySentencePatternString = FrictionA11yStrings.summarySentencePattern.value;
-const droppingAsAtomsJiggleLessString = FrictionA11yStrings.droppingAsAtomsJiggleLess.value;
-const atomsJigglePatternString = FrictionA11yStrings.atomsJigglePattern.value;
-const jiggleClausePatternString = FrictionA11yStrings.jiggleClausePattern.value;
-const jiggleTemperatureScaleSentenceString = FrictionA11yStrings.jiggleTemperatureScaleSentence.value;
-const thermometerString = FrictionA11yStrings.thermometer.value;
-const temperaturePatternString = FrictionA11yStrings.temperaturePattern.value;
-const moveChemistryBookSentenceString = FrictionA11yStrings.moveChemistryBookSentence.value;
-const resetSimMoreObservationSentenceString = FrictionA11yStrings.resetSimMoreObservationSentence.value;
-const startingChemistryBookPatternString = FrictionA11yStrings.startingChemistryBookPattern.value;
-const lightlyString = FrictionA11yStrings.lightly.value;
-const amountOfAtomsString = FrictionA11yStrings.amountOfAtoms.value;
-const fewerString = FrictionA11yStrings.fewer.value;
-const farFewerString = FrictionA11yStrings.farFewer.value;
-const someString = FrictionA11yStrings.some.value;
-const manyString = FrictionA11yStrings.many.value;
+// constants
+const summarySentencePatternString = frictionStrings.a11y.summarySentencePattern;
+const droppingAsAtomsJiggleLessString = frictionStrings.a11y.droppingAsAtomsJiggleLess;
+const atomsJigglePatternString = frictionStrings.a11y.atomsJigglePattern;
+const jiggleClausePatternString = frictionStrings.a11y.jiggleClausePattern;
+const jiggleTemperatureScaleSentenceString = frictionStrings.a11y.jiggleTemperatureScaleSentence;
+const thermometerString = frictionStrings.a11y.thermometer;
+const temperaturePatternString = frictionStrings.a11y.temperaturePattern;
+const moveChemistryBookSentenceString = frictionStrings.a11y.moveChemistryBookSentence;
+const resetSimMoreObservationSentenceString = frictionStrings.a11y.resetSimMoreObservationSentence;
+const startingChemistryBookPatternString = frictionStrings.a11y.startingChemistryBookPattern;
+const lightlyString = frictionStrings.a11y.lightly;
+const amountOfAtomsString = frictionStrings.a11y.amountOfAtoms;
+const fewerString = frictionStrings.a11y.fewer;
+const farFewerString = frictionStrings.a11y.farFewer;
+const someString = frictionStrings.a11y.some;
+const manyString = frictionStrings.a11y.many;
 
 // Used for the screen summary sentence to compare how many atoms have evaporated
 const SOME_ATOMS_EVAPORATED_THRESHOLD = FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS / 2;

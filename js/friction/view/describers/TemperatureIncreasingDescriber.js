@@ -17,23 +17,23 @@ import timer from '../../../../../axon/js/timer.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import Utterance from '../../../../../utterance-queue/js/Utterance.js';
 import friction from '../../../friction.js';
-import FrictionA11yStrings from '../../FrictionA11yStrings.js';
+import frictionStrings from '../../../friction-strings.js';
 import FrictionModel from '../../model/FrictionModel.js';
 import FrictionAlertManager from '../FrictionAlertManager.js';
 
-// a11y strings
-const moreString = FrictionA11yStrings.more.value;
-const fasterString = FrictionA11yStrings.faster.value;
-const nowHotterString = FrictionA11yStrings.nowHotter.value;
-const evenFasterString = FrictionA11yStrings.evenFaster.value;
-const warmerString = FrictionA11yStrings.warmer.value;
-const evenHotterString = FrictionA11yStrings.evenHotter.value;
+// constants
+const moreString = frictionStrings.a11y.more;
+const fasterString = frictionStrings.a11y.faster;
+const nowHotterString = frictionStrings.a11y.nowHotter;
+const evenFasterString = frictionStrings.a11y.evenFaster;
+const warmerString = frictionStrings.a11y.warmer;
+const evenHotterString = frictionStrings.a11y.evenHotter;
 
-const superFastString = FrictionA11yStrings.superFast.value;
-const superHotString = FrictionA11yStrings.superHot.value;
+const superFastString = frictionStrings.a11y.superFast;
+const superHotString = frictionStrings.a11y.superHot;
 
-const resetSimMoreObservationSentenceString = FrictionA11yStrings.resetSimMoreObservationSentence.value;
-const frictionIncreasingAtomsJigglingTemperaturePatternString = FrictionA11yStrings.frictionIncreasingAtomsJigglingTemperaturePattern.value;
+const resetSimMoreObservationSentenceString = frictionStrings.a11y.resetSimMoreObservationSentence;
+const frictionIncreasingAtomsJigglingTemperaturePatternString = frictionStrings.a11y.frictionIncreasingAtomsJigglingTemperaturePattern;
 
 // alert object for the Maximum temp alert
 const MAX_TEMP_STRING = StringUtils.fillIn( frictionIncreasingAtomsJigglingTemperaturePatternString, {

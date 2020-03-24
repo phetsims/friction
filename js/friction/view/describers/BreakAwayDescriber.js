@@ -9,16 +9,14 @@ import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import timer from '../../../../../axon/js/timer.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import friction from '../../../friction.js';
-import FrictionA11yStrings from '../../FrictionA11yStrings.js';
+import frictionStrings from '../../../friction-strings.js';
 import FrictionModel from '../../model/FrictionModel.js';
 
-// a11y strings
-const capitalizedVeryHotString = FrictionA11yStrings.capitalizedVeryHot.value;
-const breakAwaySentenceFirstString = FrictionA11yStrings.breakAwaySentenceFirst.value;
-const breakAwaySentenceAgainString = FrictionA11yStrings.breakAwaySentenceAgain.value;
-const breakAwayNoneLeftString = FrictionA11yStrings.breakAwayNoneLeft.value;
-
 // constants
+const capitalizedVeryHotString = frictionStrings.a11y.capitalizedVeryHot;
+const breakAwaySentenceFirstString = frictionStrings.a11y.breakAwaySentenceFirst;
+const breakAwaySentenceAgainString = frictionStrings.a11y.breakAwaySentenceAgain;
+const breakAwayNoneLeftString = frictionStrings.a11y.breakAwayNoneLeft;
 
 // break away sentences
 const BREAK_AWAY_THRESHOLD_FIRST = StringUtils.fillIn( breakAwaySentenceFirstString, { temp: capitalizedVeryHotString } );

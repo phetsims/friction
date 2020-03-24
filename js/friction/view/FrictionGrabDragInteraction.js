@@ -8,16 +8,15 @@
 import merge from '../../../../phet-core/js/merge.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/GrabDragInteraction.js';
 import friction from '../../friction.js';
-import FrictionA11yStrings from '../FrictionA11yStrings.js';
+import frictionStrings from '../../friction-strings.js';
 import FrictionModel from '../model/FrictionModel.js';
 
-// a11y strings
-const initialGrabbedNotTouchingString = FrictionA11yStrings.initialGrabbedNotTouching.value;
-const grabbedNotTouchingString = FrictionA11yStrings.grabbedNotTouching.value;
-const initialGrabbedTouchingString = FrictionA11yStrings.initialGrabbedTouching.value;
-const grabbedTouchingString = FrictionA11yStrings.grabbedTouching.value;
-
 // constants
+const initialGrabbedNotTouchingString = frictionStrings.a11y.initialGrabbedNotTouching;
+const grabbedNotTouchingString = frictionStrings.a11y.grabbedNotTouching;
+const initialGrabbedTouchingString = frictionStrings.a11y.initialGrabbedTouching;
+const grabbedTouchingString = frictionStrings.a11y.grabbedTouching;
+
 const touchingAlerts = { initial: initialGrabbedTouchingString, subsequent: grabbedTouchingString };
 const notTouchingAlerts = { initial: initialGrabbedNotTouchingString, subsequent: grabbedNotTouchingString };
 

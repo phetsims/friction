@@ -19,7 +19,7 @@ import soundManager from '../../../../../tambo/js/soundManager.js';
 import simpleDropSound from '../../../../sounds/simple-drop_mp3.js';
 import simplePickupSound from '../../../../sounds/simple-pickup_mp3.js';
 import friction from '../../../friction.js';
-import FrictionA11yStrings from '../../FrictionA11yStrings.js';
+import frictionStrings from '../../../friction-strings.js';
 import FrictionConstants from '../../FrictionConstants.js';
 import CueArrow from '../CueArrow.js';
 import FrictionAlertManager from '../FrictionAlertManager.js';
@@ -28,13 +28,10 @@ import FrictionGrabDragInteraction from '../FrictionGrabDragInteraction.js';
 import FrictionKeyboardDragListener from '../FrictionKeyboardDragListener.js';
 import CoverNode from './CoverNode.js';
 
-// sounds
-
-// a11y strings
-const chemistryBookString = FrictionA11yStrings.chemistryBook.value;
-const grabButtonHelpTextString = FrictionA11yStrings.grabButtonHelpText.value;
-
 // constants
+const chemistryBookString = frictionStrings.a11y.chemistryBook;
+const grabButtonHelpTextString = frictionStrings.a11y.grabButtonHelpText;
+
 const SOUND_LEVEL = 0.1;
 
 /**

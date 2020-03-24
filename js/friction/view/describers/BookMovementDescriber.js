@@ -12,16 +12,15 @@ import DirectionEnum from '../../../../../scenery-phet/js/accessibility/describe
 import MovementDescriber from '../../../../../scenery-phet/js/accessibility/describers/MovementDescriber.js';
 import Utterance from '../../../../../utterance-queue/js/Utterance.js';
 import friction from '../../../friction.js';
-import FrictionA11yStrings from '../../FrictionA11yStrings.js';
+import frictionStrings from '../../../friction-strings.js';
 import FrictionModel from '../../model/FrictionModel.js';
 import LeftRightAlertPair from './LeftRightAlertPair.js';
 
-// a11y strings
-const moveDownToRubHarderSentenceString = FrictionA11yStrings.moveDownToRubHarderSentence.value;
-const downRubFastOrSlowString = FrictionA11yStrings.downRubFastOrSlow.value;
-const positionMoveDownPatternString = FrictionA11yStrings.positionMoveDownPattern.value;
-
 // constants
+const moveDownToRubHarderSentenceString = frictionStrings.a11y.moveDownToRubHarderSentence;
+const downRubFastOrSlowString = frictionStrings.a11y.downRubFastOrSlow;
+const positionMoveDownPatternString = frictionStrings.a11y.positionMoveDownPattern;
+
 const DEFAULT_AT_TOP_ALERT = BorderAlertsDescriber.getDefaultTopAlert();
 const DEFAULT_MOVEMENT_DESCRIPTIONS = MovementDescriber.getDefaultMovementDescriptions();
 const AT_TOP_MOVE_DOWN_STRING = StringUtils.fillIn( positionMoveDownPatternString, {

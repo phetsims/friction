@@ -13,17 +13,16 @@ import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/Keybo
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import frictionStrings from '../../friction-strings.js';
 import friction from '../../friction.js';
-import FrictionA11yStrings from '../FrictionA11yStrings.js';
 
+// constants
 const bookLabelString = frictionStrings.bookLabel;
 const bookTitleString = frictionStrings.bookTitle;
 const moveBookHeaderString = frictionStrings.moveBookHeader;
 const moveBookString = frictionStrings.moveBook;
 const moveInSmallerStepsString = frictionStrings.moveInSmallerSteps;
 
-// a11y strings
-const moveBookWithString = FrictionA11yStrings.moveBookWith.value;
-const moveInSmallerStepsWithString = FrictionA11yStrings.moveInSmallerStepsWith.value;
+const moveBookWithString = frictionStrings.a11y.moveBookWith;
+const moveInSmallerStepsWithString = frictionStrings.a11y.moveInSmallerStepsWith;
 
 class FrictionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
   constructor() {

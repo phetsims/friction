@@ -33,12 +33,10 @@ import FrictionScreenSummaryNode from './FrictionScreenSummaryNode.js';
 import MagnifierNode from './magnifier/MagnifierNode.js';
 import MoleculeMotionSoundGenerator from './MoleculeMotionSoundGenerator.js';
 
+// constants
 const chemistryString = frictionStrings.chemistry;
 const physicsString = frictionStrings.physics;
 
-// sounds
-
-// constants
 const THERMOMETER_FLUID_MAIN_COLOR = 'rgb(237,28,36)';
 const THERMOMETER_FLUID_HIGHLIGHT_COLOR = 'rgb(240,150,150)';
 const THERMOMETER_FLUID_RIGHT_SIDE_COLOR = 'rgb(237,28,36)';
