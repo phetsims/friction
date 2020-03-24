@@ -16,13 +16,13 @@ const MAJOR_PENTATONIC_PLAYBACK_RATES = [
   1, Math.pow( 2, 2 / 12 ), Math.pow( 2, 4 / 12 ), Math.pow( 2, 7 / 12 ), Math.pow( 2, 9 / 12 )
 ];
 
-const jiggleALotString = frictionStrings.a11y.jiggleALot;
-const jiggleALittleString = frictionStrings.a11y.jiggleALittle;
-const jiggleABitString = frictionStrings.a11y.jiggleABit;
-const veryHotString = frictionStrings.a11y.veryHot;
-const hotString = frictionStrings.a11y.hot;
-const atWarmString = frictionStrings.a11y.atWarm;
-const atCoolString = frictionStrings.a11y.atCool;
+const jiggleALotString = frictionStrings.a11y.jiggle.jiggleALot;
+const jiggleALittleString = frictionStrings.a11y.jiggle.jiggleALittle;
+const jiggleABitString = frictionStrings.a11y.jiggle.jiggleABit;
+const veryHotString = frictionStrings.a11y.temperature.veryHot;
+const hotString = frictionStrings.a11y.temperature.hot;
+const atWarmString = frictionStrings.a11y.temperature.atWarm;
+const atCoolString = frictionStrings.a11y.temperature.atCool;
 
 const FrictionConstants = {
   TOP_BOOK_COLOR_MACRO: new Color( 'rgb(125,226,249)' ), // color of the macroscopic view of the book

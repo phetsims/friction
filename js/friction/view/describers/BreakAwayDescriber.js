@@ -13,7 +13,7 @@ import frictionStrings from '../../../friction-strings.js';
 import FrictionModel from '../../model/FrictionModel.js';
 
 // constants
-const capitalizedVeryHotString = frictionStrings.a11y.capitalizedVeryHot;
+const capitalizedVeryHotString = frictionStrings.a11y.temperature.capitalizedVeryHot;
 const breakAwaySentenceFirstString = frictionStrings.a11y.breakAwaySentenceFirst;
 const breakAwaySentenceAgainString = frictionStrings.a11y.breakAwaySentenceAgain;
 const breakAwayNoneLeftString = frictionStrings.a11y.breakAwayNoneLeft;

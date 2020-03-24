@@ -10,12 +10,12 @@ import FrictionModel from '../../model/FrictionModel.js';
 import FrictionAlertManager from '../FrictionAlertManager.js';
 
 // constants
-const jigglingLessString = frictionStrings.a11y.jigglingLess;
-const coolerString = frictionStrings.a11y.cooler;
-const nowCoolerString = frictionStrings.a11y.nowCooler;
-const lessString = frictionStrings.a11y.less;
-const evenLessString = frictionStrings.a11y.evenLess;
-const evenCoolerString = frictionStrings.a11y.evenCooler;
+const jigglingLessString = frictionStrings.a11y.jiggle.jigglingLess;
+const coolerString = frictionStrings.a11y.temperature.cooler;
+const nowCoolerString = frictionStrings.a11y.temperature.nowCooler;
+const lessString = frictionStrings.a11y.jiggle.less;
+const evenLessString = frictionStrings.a11y.jiggle.evenLess;
+const evenCoolerString = frictionStrings.a11y.temperature.evenCooler;
 
 const DECREASING = [
   {

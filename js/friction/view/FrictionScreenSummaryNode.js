@@ -13,22 +13,22 @@ import FrictionConstants from '../FrictionConstants.js';
 import FrictionModel from '../model/FrictionModel.js';
 
 // constants
-const summarySentencePatternString = frictionStrings.a11y.summarySentencePattern;
-const droppingAsAtomsJiggleLessString = frictionStrings.a11y.droppingAsAtomsJiggleLess;
-const atomsJigglePatternString = frictionStrings.a11y.atomsJigglePattern;
-const jiggleClausePatternString = frictionStrings.a11y.jiggleClausePattern;
-const jiggleTemperatureScaleSentenceString = frictionStrings.a11y.jiggleTemperatureScaleSentence;
-const thermometerString = frictionStrings.a11y.thermometer;
-const temperaturePatternString = frictionStrings.a11y.temperaturePattern;
-const moveChemistryBookSentenceString = frictionStrings.a11y.moveChemistryBookSentence;
+const summarySentencePatternString = frictionStrings.a11y.screenSummary.summarySentencePattern;
+const droppingAsAtomsJiggleLessString = frictionStrings.a11y.screenSummary.droppingAsAtomsJiggleLess;
+const atomsJigglePatternString = frictionStrings.a11y.screenSummary.atomsJigglePattern;
+const jiggleClausePatternString = frictionStrings.a11y.screenSummary.jiggleClausePattern;
+const jiggleTemperatureScaleSentenceString = frictionStrings.a11y.screenSummary.jiggleTemperatureScaleSentence;
+const thermometerString = frictionStrings.a11y.temperature.thermometer;
+const temperaturePatternString = frictionStrings.a11y.temperature.pattern;
+const moveChemistryBookSentenceString = frictionStrings.a11y.screenSummary.moveChemistryBookSentence;
 const resetSimMoreObservationSentenceString = frictionStrings.a11y.resetSimMoreObservationSentence;
-const startingChemistryBookPatternString = frictionStrings.a11y.startingChemistryBookPattern;
+const startingChemistryBookPatternString = frictionStrings.a11y.screenSummary.startingChemistryBookPattern;
 const lightlyString = frictionStrings.a11y.lightly;
-const amountOfAtomsString = frictionStrings.a11y.amountOfAtoms;
-const fewerString = frictionStrings.a11y.fewer;
-const farFewerString = frictionStrings.a11y.farFewer;
-const someString = frictionStrings.a11y.some;
-const manyString = frictionStrings.a11y.many;
+const amountOfAtomsString = frictionStrings.a11y.amountOfAtoms.sentence;
+const fewerString = frictionStrings.a11y.amountOfAtoms.fewer;
+const farFewerString = frictionStrings.a11y.amountOfAtoms.farFewer;
+const someString = frictionStrings.a11y.amountOfAtoms.some;
+const manyString = frictionStrings.a11y.amountOfAtoms.many;
 
 // Used for the screen summary sentence to compare how many atoms have evaporated
 const SOME_ATOMS_EVAPORATED_THRESHOLD = FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS / 2;

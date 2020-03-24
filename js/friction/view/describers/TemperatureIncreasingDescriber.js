@@ -22,15 +22,15 @@ import FrictionModel from '../../model/FrictionModel.js';
 import FrictionAlertManager from '../FrictionAlertManager.js';
 
 // constants
-const moreString = frictionStrings.a11y.more;
-const fasterString = frictionStrings.a11y.faster;
-const nowHotterString = frictionStrings.a11y.nowHotter;
-const evenFasterString = frictionStrings.a11y.evenFaster;
-const warmerString = frictionStrings.a11y.warmer;
-const evenHotterString = frictionStrings.a11y.evenHotter;
+const moreString = frictionStrings.a11y.temperature.more;
+const fasterString = frictionStrings.a11y.temperature.faster;
+const nowHotterString = frictionStrings.a11y.temperature.nowHotter;
+const evenFasterString = frictionStrings.a11y.temperature.evenFaster;
+const warmerString = frictionStrings.a11y.temperature.warmer;
+const evenHotterString = frictionStrings.a11y.temperature.evenHotter;
 
-const superFastString = frictionStrings.a11y.superFast;
-const superHotString = frictionStrings.a11y.superHot;
+const superFastString = frictionStrings.a11y.temperature.superFast;
+const superHotString = frictionStrings.a11y.temperature.superHot;
 
 const resetSimMoreObservationSentenceString = frictionStrings.a11y.resetSimMoreObservationSentence;
 const frictionIncreasingAtomsJigglingTemperaturePatternString = frictionStrings.a11y.frictionIncreasingAtomsJigglingTemperaturePattern;
