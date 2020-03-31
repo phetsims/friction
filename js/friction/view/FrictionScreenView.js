@@ -18,7 +18,7 @@ import SoundLevelEnum from '../../../../tambo/js/SoundLevelEnum.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import moleculeBreakOffSound from '../../../sounds/break-off-autosinfonie-spatialized_mp3.js';
 import bookContactSound from '../../../sounds/contact-lower_mp3.js';
-import frictionStrings from '../../friction-strings.js';
+import frictionStrings from '../../frictionStrings.js';
 import friction from '../../friction.js';
 import FrictionConstants from '../FrictionConstants.js';
 import FrictionModel from '../model/FrictionModel.js';

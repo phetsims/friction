@@ -19,7 +19,7 @@ import soundManager from '../../../../../tambo/js/soundManager.js';
 import simpleDropSound from '../../../../sounds/simple-drop_mp3.js';
 import simplePickupSound from '../../../../sounds/simple-pickup_mp3.js';
 import friction from '../../../friction.js';
-import frictionStrings from '../../../friction-strings.js';
+import frictionStrings from '../../../frictionStrings.js';
 import FrictionConstants from '../../FrictionConstants.js';
 import CueArrow from '../CueArrow.js';
 import FrictionAlertManager from '../FrictionAlertManager.js';

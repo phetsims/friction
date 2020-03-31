@@ -17,7 +17,7 @@ import Screen from '../../joist/js/Screen.js';
 import Sim from '../../joist/js/Sim.js';
 import SimLauncher from '../../joist/js/SimLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
-import frictionStrings from './friction-strings.js';
+import frictionStrings from './frictionStrings.js';
 import FrictionModel from './friction/model/FrictionModel.js';
 import FrictionKeyboardHelpContent from './friction/view/FrictionKeyboardHelpContent.js';
 import FrictionScreenView from './friction/view/FrictionScreenView.js';

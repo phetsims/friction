@@ -11,7 +11,7 @@ import GeneralKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/hel
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
-import frictionStrings from '../../friction-strings.js';
+import frictionStrings from '../../frictionStrings.js';
 import friction from '../../friction.js';
 
 // constants

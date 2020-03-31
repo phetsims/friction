@@ -8,7 +8,7 @@
 import merge from '../../../../phet-core/js/merge.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/GrabDragInteraction.js';
 import friction from '../../friction.js';
-import frictionStrings from '../../friction-strings.js';
+import frictionStrings from '../../frictionStrings.js';
 import FrictionModel from '../model/FrictionModel.js';
 
 // constants

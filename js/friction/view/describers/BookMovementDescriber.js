@@ -12,7 +12,7 @@ import DirectionEnum from '../../../../../scenery-phet/js/accessibility/describe
 import MovementDescriber from '../../../../../scenery-phet/js/accessibility/describers/MovementDescriber.js';
 import Utterance from '../../../../../utterance-queue/js/Utterance.js';
 import friction from '../../../friction.js';
-import frictionStrings from '../../../friction-strings.js';
+import frictionStrings from '../../../frictionStrings.js';
 import FrictionModel from '../../model/FrictionModel.js';
 import LeftRightAlertPair from './LeftRightAlertPair.js';
 

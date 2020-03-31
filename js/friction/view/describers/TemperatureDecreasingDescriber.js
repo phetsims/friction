@@ -5,7 +5,7 @@
  */
 
 import friction from '../../../friction.js';
-import frictionStrings from '../../../friction-strings.js';
+import frictionStrings from '../../../frictionStrings.js';
 import FrictionModel from '../../model/FrictionModel.js';
 import FrictionAlertManager from '../FrictionAlertManager.js';
 

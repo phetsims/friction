@@ -24,7 +24,7 @@ import soundManager from '../../../../../tambo/js/soundManager.js';
 import harpDropSound from '../../../../sounds/harp-drop_mp3.js';
 import harpPickupSound from '../../../../sounds/harp-pickup_mp3.js';
 import friction from '../../../friction.js';
-import frictionStrings from '../../../friction-strings.js';
+import frictionStrings from '../../../frictionStrings.js';
 import FrictionConstants from '../../FrictionConstants.js';
 import FrictionModel from '../../model/FrictionModel.js';
 import CueArrow from '../CueArrow.js';

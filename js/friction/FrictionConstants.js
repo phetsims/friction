@@ -9,7 +9,7 @@
 
 import Color from '../../../scenery/js/util/Color.js';
 import friction from '../friction.js';
-import frictionStrings from '../friction-strings.js';
+import frictionStrings from '../frictionStrings.js';
 
 // constants
 const MAJOR_PENTATONIC_PLAYBACK_RATES = [

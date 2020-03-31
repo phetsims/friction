@@ -8,7 +8,7 @@
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import friction from '../../friction.js';
-import frictionStrings from '../../friction-strings.js';
+import frictionStrings from '../../frictionStrings.js';
 import FrictionConstants from '../FrictionConstants.js';
 import FrictionModel from '../model/FrictionModel.js';
 
