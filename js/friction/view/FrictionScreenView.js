@@ -52,13 +52,13 @@ const THERMOMETER_MAX_TEMP = FrictionModel.THERMOMETER_MAX_TEMP;
 function FrictionScreenView( model, tandem ) {
   const self = this;
 
-  // a11y initialize the describers for auditory descriptions and alerts.
+  // pdom - initialize the describers for auditory descriptions and alerts.
   const temperatureIncreasingDescriber = new TemperatureIncreasingDescriber( model );
   const temperatureDecreasingDescriber = new TemperatureDecreasingDescriber( model );
   const breakAwayDescriber = new BreakAwayDescriber( model );
   const bookMovementDescriber = new BookMovementDescriber( model );
 
-  // a11y
+  // pdom
   const frictionScreenSummaryNode = new FrictionScreenSummaryNode( model, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP,
     temperatureDecreasingDescriber );
 
@@ -139,7 +139,7 @@ function FrictionScreenView( model, tandem ) {
     }
   ) );
 
-  // a11y
+  // pdom
   this.pdomPlayAreaNode.accessibleOrder = [ chemistryBookNode, this.magnifierNode ];
 
   // add reset button
@@ -191,11 +191,11 @@ function FrictionScreenView( model, tandem ) {
   // @private
   this.resetFrictionScreenView = function() {
 
-    // a11y - among other things, this will reset the grab button cuing.
+    // pdom - among other things, this will reset the grab button cuing.
     this.magnifierNode.reset();
     chemistryBookNode.reset();
 
-    // a11y, reset PDOM and reset alerting types
+    // pdom, reset PDOM and reset alerting types
     temperatureDecreasingDescriber.reset();
     temperatureIncreasingDescriber.reset();
     breakAwayDescriber.reset();

@@ -53,7 +53,7 @@ class FrictionScreenSummaryNode extends Node {
     // requires an init
     this.updateSummaryString( model );
 
-    // a11y - update the screen summary when the model changes
+    // pdom - update the screen summary when the model changes
     let previousTempString = this.amplitudeToTempString( model.vibrationAmplitudeProperty.value );
     let previousJiggleString = this.amplitudeToJiggleString( model.vibrationAmplitudeProperty.value );
 
@@ -88,7 +88,7 @@ class FrictionScreenSummaryNode extends Node {
     this.mutate( {
       children: [ this.booksParagraph, this.interactionHintParagraph ],
 
-      // a11y
+      // pdom
       tagName: 'div'
     } );
   }

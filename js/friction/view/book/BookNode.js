@@ -100,7 +100,7 @@ function BookNode( model, title, temperatureIncreasingDescriber, temperatureDecr
     const bookDropSoundClip = new SoundClip( simpleDropSound, { initialOutputLevel: SOUND_LEVEL } );
     soundManager.addSoundGenerator( bookDropSoundClip );
 
-    // a11y - add a keyboard drag handler
+    // pdom - add a keyboard drag handler
     this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingDescriber,
       temperatureDecreasingDescriber, bookMovementDescriber );
 
@@ -158,7 +158,7 @@ function BookNode( model, title, temperatureIncreasingDescriber, temperatureDecr
     this.mutate( {
       cursor: 'pointer',
 
-      // a11y
+      // pdom
       focusHighlightLayerable: true
     } );
   }

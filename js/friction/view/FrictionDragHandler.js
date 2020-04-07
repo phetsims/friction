@@ -36,7 +36,7 @@ function FrictionDragHandler( model, temperatureIncreasingDescriber, temperature
       // sound
       options.startSound && options.startSound.play();
 
-      // a11y
+      // pdom
       temperatureIncreasingDescriber.startDrag();
       temperatureDecreasingDescriber.startDrag();
     },
@@ -49,7 +49,7 @@ function FrictionDragHandler( model, temperatureIncreasingDescriber, temperature
       // sound
       options.endSound && options.endSound.play();
 
-      // a11y
+      // pdom
       temperatureIncreasingDescriber.endDrag();
       bookMovementDescriber.endDrag();
     },

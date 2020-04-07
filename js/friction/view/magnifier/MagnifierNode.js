@@ -147,7 +147,7 @@ function MagnifierNode( model, targetX, targetY, title, temperatureIncreasingDes
       cursor: 'pointer',
       tandem: tandem.createTandem( 'atomDragArea' ), // TODO: do we need this? probably do for a11y support, but it seems like an implementation detail
 
-      // a11y
+      // pdom
       focusHighlightLayerable: true
     } );
 
@@ -175,11 +175,11 @@ function MagnifierNode( model, targetX, targetY, title, temperatureIncreasingDes
     }
   );
 
-  // a11y - custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
+  // pdom - custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
   const focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
 
 
-  // a11y - add the focus highlight on top of the row circles
+  // pdom - add the focus highlight on top of the row circles
   // must be added prior to adding the grab/drag interaction
   this.topBookBackground.addChild( focusHighlightPath );
   dragArea.focusHighlight = focusHighlightPath; // this is a constraint of the grab/drag interaction, must be set before it's creation, but only for focusHighlightLayerable
@@ -211,7 +211,7 @@ function MagnifierNode( model, targetX, targetY, title, temperatureIncreasingDes
     top: ARROW_TOP
   } );
 
-  // a11y - add the keyboard drag listener to the top atoms
+  // pdom - add the keyboard drag listener to the top atoms
   this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingDescriber,
     temperatureDecreasingDescriber, bookMovementDescriber );
 
@@ -225,7 +225,7 @@ function MagnifierNode( model, targetX, targetY, title, temperatureIncreasingDes
   };
 
 
-  // a11y
+  // pdom
   const grabDragInteraction = new FrictionGrabDragInteraction( model, dragArea, {
     objectToGrabString: zoomedInChemistryBookString,
     tandem: tandem.createTandem( 'grabDragInteraction' ),

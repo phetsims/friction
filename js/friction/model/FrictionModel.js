@@ -120,7 +120,7 @@ const BOTTOM_BOOK_ATOM_STRUCTURE = [
 ];
 
 
-// a11y
+// pdom
 // iterate through the constant to determine the number of atoms that can evaporate from the top book structure
 let atoms = 0;
 TOP_BOOK_ATOM_STRUCTURE.map( row => {
@@ -439,18 +439,18 @@ export default inherit( Object, FrictionModel, {
   THERMOMETER_MIN_TEMP: MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min - 1.05, // about 0
   THERMOMETER_MAX_TEMP: MAGNIFIED_ATOMS_INFO.evaporationLimit * 1.1, // ~7.7
 
-  // a11y - needed to get bounds for the keyboard drag handler, see https://github.com/phetsims/friction/issues/46
+  // pdom - needed to get bounds for the keyboard drag handler, see https://github.com/phetsims/friction/issues/46
   MAX_X_DISPLACEMENT: MAX_X_DISPLACEMENT,
   MIN_Y_POSITION: MIN_Y_POSITION,
 
-  // a11y
+  // pdom
   NUMBER_OF_EVAPORABLE_ATOMS: NUMBER_OF_EVAPORABLE_ATOMS,
 
-  // a11y
+  // pdom
   VIBRATION_AMPLITUDE_MIN: VIBRATION_AMPLITUDE_MIN,
   VIBRATION_AMPLITUDE_MAX: VIBRATION_AMPLITUDE_MAX,
 
-  // a11y - empirically determined value of when the atoms are "pretty much cool and settled"
+  // pdom - empirically determined value of when the atoms are "pretty much cool and settled"
   AMPLITUDE_SETTLED_THRESHOLD: VIBRATION_AMPLITUDE_MIN + .4,
 
   // The drag bounds for the magnified book view
