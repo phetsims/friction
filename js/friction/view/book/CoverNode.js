@@ -91,7 +91,7 @@ function CoverNode( title, tandem, options ) {
   titleText.center = bindingRectangle.center;
 
   // If updated via PhET-iO, recenter it
-  titleText.on( 'text', () => {
+  titleText.textProperty.lazyLink( () => {
     titleText.center = bindingRectangle.center;
   } );
   this.addChild( titleText );
