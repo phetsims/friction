@@ -62,7 +62,7 @@ function Atom( initialPosition, model, isTopAtom, tandem ) {
 
 friction.register( 'Atom', Atom );
 
-export default inherit( Object, Atom, {
+inherit( Object, Atom, {
 
   /**
    * when the oscillation has exceeded the threshold, the atom breaks off, animates to one side of the screen, and
@@ -115,3 +115,5 @@ export default inherit( Object, Atom, {
     }
   }
 } );
+
+export default Atom;

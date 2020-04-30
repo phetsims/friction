@@ -63,7 +63,7 @@ function AtomCanvasNode( atoms, options ) {
 
 friction.register( 'AtomCanvasNode', AtomCanvasNode );
 
-export default inherit( CanvasNode, AtomCanvasNode, {
+inherit( CanvasNode, AtomCanvasNode, {
 
   /**
    * paints the particles on the canvas node
@@ -87,3 +87,5 @@ export default inherit( CanvasNode, AtomCanvasNode, {
   }
 
 } );
+
+export default AtomCanvasNode;

@@ -166,7 +166,7 @@ function BookNode( model, title, temperatureIncreasingDescriber, temperatureDecr
 
 friction.register( 'BookNode', BookNode );
 
-export default inherit( Node, BookNode, {
+inherit( Node, BookNode, {
 
   /**
    * @public
@@ -175,3 +175,5 @@ export default inherit( Node, BookNode, {
     this.grabDragInteraction.reset();
   }
 } );
+
+export default BookNode;

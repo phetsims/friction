@@ -307,7 +307,7 @@ function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, isT
 
 friction.register( 'FrictionModel', FrictionModel );
 
-export default inherit( Object, FrictionModel, {
+inherit( Object, FrictionModel, {
 
   /**
    * Move forward in time
@@ -461,3 +461,5 @@ export default inherit( Object, FrictionModel, {
     2000 ) // bottom, arbitrary because the model stops the motion when the top atoms collide with the bottom book
 
 } );
+
+export default FrictionModel;

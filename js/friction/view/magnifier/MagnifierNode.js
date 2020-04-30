@@ -354,7 +354,7 @@ function getFocusHighlightShape( dragArea ) {
   return Shape.bounds( dragArea.bounds.withOffsets( 0, 40, 0, 0 ) );
 }
 
-export default inherit( Node, MagnifierNode, {
+inherit( Node, MagnifierNode, {
 
   /**
    * move forward in time
@@ -372,3 +372,5 @@ export default inherit( Node, MagnifierNode, {
   }
 
 } );
+
+export default MagnifierNode;

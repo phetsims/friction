@@ -206,7 +206,7 @@ function FrictionScreenView( model, tandem ) {
 
 friction.register( 'FrictionScreenView', FrictionScreenView );
 
-export default inherit( ScreenView, FrictionScreenView, {
+inherit( ScreenView, FrictionScreenView, {
 
   /**
    * move forward in time
@@ -227,3 +227,5 @@ export default inherit( ScreenView, FrictionScreenView, {
     this.resetFrictionScreenView();
   }
 } );
+
+export default FrictionScreenView;
