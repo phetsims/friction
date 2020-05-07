@@ -15,7 +15,7 @@ import Property from '../../axon/js/Property.js';
 import Bounds2 from '../../dot/js/Bounds2.js';
 import Screen from '../../joist/js/Screen.js';
 import Sim from '../../joist/js/Sim.js';
-import SimLauncher from '../../joist/js/SimLauncher.js';
+import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import frictionStrings from './frictionStrings.js';
 import FrictionModel from './friction/model/FrictionModel.js';
@@ -27,7 +27,7 @@ const frictionTitleString = frictionStrings.friction.title;
 // constants
 const LAYOUT_BOUNDS = new Bounds2( 0, 0, 768, 504 );
 
-SimLauncher.launch( function() {
+simLauncher.launch( function() {
 
   const keyboardHelpContent = new FrictionKeyboardHelpContent();
   const simOptions = {
