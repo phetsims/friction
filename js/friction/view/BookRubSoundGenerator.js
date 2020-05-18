@@ -23,7 +23,7 @@ const STOP_DURATION = 0.1; // in seconds
 class BookRubSoundGenerator extends NoiseGenerator {
 
   /**
-   * {Property.<Vector2>} topBookPositionProperty - location of the top book
+   * {Property.<Vector2>} topBookPositionProperty - position of the top book
    * {BooleanProperty} contactProperty - whether the books are in contact with one another
    * {Object} [options] - options, see parent classes for more information
    */

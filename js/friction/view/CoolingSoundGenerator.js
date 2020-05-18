@@ -18,7 +18,7 @@ const COOLING_SOUND_DURATION = 2; // amount of time cooling sound plays, in seco
 class CoolingSoundGenerator extends NoiseGenerator {
 
   /**
-   * {NumberProperty} moleculeOscillationAmplitudeProperty - location of the top book
+   * {NumberProperty} moleculeOscillationAmplitudeProperty - position of the top book
    * {Object} [options] - options, see parent classes for more information
    * @constructor
    */
