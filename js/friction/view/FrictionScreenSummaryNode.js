@@ -99,6 +99,7 @@ class FrictionScreenSummaryNode extends Node {
    * describing the chemistry book.
    * @param {number} atomsEvaporated
    * @returns {string} the first sentence of the screen summary
+   * @private
    */
   getFirstSummarySentence( atomsEvaporated ) {
 
@@ -186,6 +187,7 @@ class FrictionScreenSummaryNode extends Node {
    * Construct the second screen summary sentence about the zoomed in chemistry book.
    * @param {Property.<number>} vibrationAmplitudeProperty
    * @returns {*|string}
+   * @private
    */
   getSecondSummarySentence( vibrationAmplitudeProperty ) {
 
