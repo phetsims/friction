@@ -23,8 +23,6 @@ import friction from '../../friction.js';
 import FrictionConstants from '../FrictionConstants.js';
 import FrictionModel from '../model/FrictionModel.js';
 
-// sounds
-
 class MoleculeMotionSoundGenerator extends SoundGenerator {
 
   /**
