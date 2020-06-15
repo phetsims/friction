@@ -47,7 +47,7 @@ class MoleculeMotionSoundGenerator extends SoundGenerator {
     ];
 
     // connect up the sound clips
-    motionSoundClips.forEach( motionSoundClip => { motionSoundClip.connect( this.masterGainNode ); } );
+    motionSoundClips.forEach( motionSoundClip => { motionSoundClip.connect( this.soundSourceDestination ); } );
 
     moleculeAmplitudeProperty.lazyLink( amplitude => {
 
