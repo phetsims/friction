@@ -28,7 +28,7 @@ class FrictionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
   constructor() {
 
     // make all the KeyboardHelpSection consistent in layout
-    const maxWidth = 130;
+    const maxWidth = 175;
     const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection( bookTitleString, bookLabelString, {
       labelMaxWidth: maxWidth
     } );
