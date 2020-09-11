@@ -13,7 +13,7 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import timer from '../../../../../axon/js/timer.js';
+import stepTimer from '../../../../../axon/js/stepTimer.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import Utterance from '../../../../../utterance-queue/js/Utterance.js';
 import friction from '../../../friction.js';
@@ -174,7 +174,7 @@ class TemperatureIncreasingDescriber {
     this.initialAmplitude = this.model.vibrationAmplitudeProperty.value;
 
     // This is a bit buggy, we may want to tweak the threshold more, or find a better solution.
-    timer.setTimeout( () => { this.tooSoonForNextAlert = false; }, ALERT_TIME_DELAY );
+    stepTimer.setTimeout( () => { this.tooSoonForNextAlert = false; }, ALERT_TIME_DELAY );
   }
 
   /**

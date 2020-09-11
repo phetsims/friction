@@ -6,7 +6,7 @@
  */
 
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
-import timer from '../../../../../axon/js/timer.js';
+import stepTimer from '../../../../../axon/js/stepTimer.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import friction from '../../../friction.js';
 import frictionStrings from '../../../frictionStrings.js';
@@ -78,7 +78,7 @@ class BreakAwayDescriber {
 
     this.alertedBreakAwayProperty.value = true;
     this.tooSoonForNextAlert = true;
-    timer.setTimeout( () => { this.tooSoonForNextAlert = false; }, ALERT_TIME_DELAY );
+    stepTimer.setTimeout( () => { this.tooSoonForNextAlert = false; }, ALERT_TIME_DELAY );
   }
 
   /**
