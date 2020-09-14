@@ -1,7 +1,7 @@
 // Copyright 2018-2020, University of Colorado Boulder
 
 /**
- * A wrapping type around A11yGrabDragNode that handles the alerts consistently for both book grab buttons.
+ * A wrapping type around GrabDragInteraction that handles the alerts consistently for both book grab buttons.
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
