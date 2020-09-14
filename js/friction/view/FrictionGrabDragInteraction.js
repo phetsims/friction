@@ -1,7 +1,8 @@
 // Copyright 2018-2020, University of Colorado Boulder
 
 /**
- * A wrapping type around GrabDragInteraction that handles the alerts consistently for both book grab buttons.
+ * Extends the base GrabDragInteraction to supply consistent description and alternative input to all the possible ways
+ * of interacting with the top book.
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
