@@ -6,13 +6,12 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import GeneralKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/GeneralKeyboardHelpSection.js';
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
-import frictionStrings from '../../frictionStrings.js';
 import friction from '../../friction.js';
+import frictionStrings from '../../frictionStrings.js';
 
 // constants
 const bookLabelString = frictionStrings.bookLabel;
@@ -63,11 +62,6 @@ class MoveBookHelpSection extends KeyboardHelpSection {
    * @param {Object} [options]
    */
   constructor( options ) {
-    options = merge( {
-
-      // icon options
-      arrowKeysScale: 0.55
-    }, options );
 
     // BookNode row
     const moveBookIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
