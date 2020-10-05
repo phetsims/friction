@@ -17,10 +17,10 @@ import Screen from '../../joist/js/Screen.js';
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
-import frictionStrings from './frictionStrings.js';
 import FrictionModel from './friction/model/FrictionModel.js';
 import FrictionKeyboardHelpContent from './friction/view/FrictionKeyboardHelpContent.js';
 import FrictionScreenView from './friction/view/FrictionScreenView.js';
+import frictionStrings from './frictionStrings.js';
 
 const frictionTitleString = frictionStrings.friction.title;
 
@@ -29,7 +29,6 @@ const LAYOUT_BOUNDS = new Bounds2( 0, 0, 768, 504 );
 
 simLauncher.launch( function() {
 
-  const keyboardHelpContent = new FrictionKeyboardHelpContent();
   const simOptions = {
     credits: {
       leadDesign: 'Michael Dubson, Noah Podolefsky',
@@ -41,7 +40,7 @@ simLauncher.launch( function() {
                         'Kathryn Woessner',
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation to HTML5.'
     },
-    keyboardHelpNode: keyboardHelpContent
+    hasKeyboardHelpContent: true
   };
 
   // Create and start the sim
@@ -54,7 +53,8 @@ simLauncher.launch( function() {
         return new FrictionScreenView( model, screenTandem.createTandem( 'view' ) );
       }, {
         backgroundColorProperty: new Property( '#fff' ),
-        tandem: screenTandem
+        tandem: screenTandem,
+        keyboardHelpNode: new FrictionKeyboardHelpContent()
       }
     )
   ], simOptions ).start();
