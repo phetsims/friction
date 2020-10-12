@@ -33,12 +33,8 @@ class FrictionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
     } );
     const moveBookHelpSection = new MoveBookHelpSection( {
       labelMaxWidth: maxWidth
-
     } );
-    const generalNavigationHelpSection = new GeneralKeyboardHelpSection( {
-      labelMaxWidth: maxWidth
-
-    } );
+    const generalNavigationHelpSection = new GeneralKeyboardHelpSection();
 
     KeyboardHelpSection.alignHelpSectionIcons( [ grabReleaseHelpSection, moveBookHelpSection ] );
 
