@@ -27,7 +27,7 @@ const frictionTitleString = frictionStrings.friction.title;
 // constants
 const LAYOUT_BOUNDS = new Bounds2( 0, 0, 768, 504 );
 
-simLauncher.launch( function() {
+simLauncher.launch( () => {
 
   const simOptions = {
     credits: {
@@ -46,12 +46,8 @@ simLauncher.launch( function() {
   // Create and start the sim
   const screenTandem = Tandem.ROOT.createTandem( 'frictionScreen' );
   new Sim( frictionTitleString, [
-    new Screen( function() {
-        return new FrictionModel( LAYOUT_BOUNDS.width, LAYOUT_BOUNDS.height, screenTandem.createTandem( 'model' ) );
-      },
-      function( model ) {
-        return new FrictionScreenView( model, screenTandem.createTandem( 'view' ) );
-      }, {
+    new Screen( () => new FrictionModel( LAYOUT_BOUNDS.width, LAYOUT_BOUNDS.height, screenTandem.createTandem( 'model' ) ),
+      model => new FrictionScreenView( model, screenTandem.createTandem( 'view' ) ), {
         backgroundColorProperty: new Property( '#fff' ),
         tandem: screenTandem,
         keyboardHelpNode: new FrictionKeyboardHelpContent()

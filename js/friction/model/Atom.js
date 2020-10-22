@@ -10,66 +10,62 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import friction from '../../friction.js';
 
 // constants
 const EVAPORATED_SPEED = 400; // speed that particles travel during evaporation, in model units per second
 
-/**
- * @param {Vector2} initialPosition
- * @param {FrictionModel} model
- * @param {boolean} isTopAtom
- * @param {Tandem} tandem
- * @constructor
- */
-function Atom( initialPosition, model, isTopAtom, tandem ) {
-  const self = this;
+class Atom {
 
-  // @private {Vector2} - initial position, used during resets
-  this.initialPosition = initialPosition;
-
-  // @private {FrictionModel}
-  this.model = model;
-
-  // @public (read-only) {boolean} - flag that indicates whether this atom is part of the top book
-  this.isTopAtom = isTopAtom;
-
-  // @private - marked as true when the atom is evaporated
-  this.isEvaporated = false;
-
-  // @public - the position of the atom
-  this.positionProperty = new Vector2Property( initialPosition );
-
-  // @private {Vector2} - the center position, around which oscillations occur
-  this.centerPosition = new Vector2( initialPosition.x, initialPosition.y );
-
-  // @private {Vector2} - velocity vector for evaporation
-  this.evaporationVelocity = new Vector2( 0, 0 );
-
-  if ( this.isTopAtom ) {
-
-    // move the atom's center position as the top book moves
-    model.topBookPositionProperty.lazyLink( function( newPosition, oldPosition ) {
-      if ( !self.isEvaporated ) {
-        const deltaX = newPosition.x - oldPosition.x;
-        const deltaY = newPosition.y - oldPosition.y;
-        self.centerPosition.setXY( self.centerPosition.x + deltaX, self.centerPosition.y + deltaY );
-      }
-    } );
+  /**
+   * @param {Vector2} initialPosition
+   * @param {FrictionModel} model
+   * @param {boolean} isTopAtom
+   * @param {Tandem} tandem
+   */
+  constructor( initialPosition, model, isTopAtom, tandem ) {
+  
+    // @private {Vector2} - initial position, used during resets
+    this.initialPosition = initialPosition;
+  
+    // @private {FrictionModel}
+    this.model = model;
+  
+    // @public (read-only) {boolean} - flag that indicates whether this atom is part of the top book
+    this.isTopAtom = isTopAtom;
+  
+    // @private - marked as true when the atom is evaporated
+    this.isEvaporated = false;
+  
+    // @public - the position of the atom
+    this.positionProperty = new Vector2Property( initialPosition );
+  
+    // @private {Vector2} - the center position, around which oscillations occur
+    this.centerPosition = new Vector2( initialPosition.x, initialPosition.y );
+  
+    // @private {Vector2} - velocity vector for evaporation
+    this.evaporationVelocity = new Vector2( 0, 0 );
+  
+    if ( this.isTopAtom ) {
+  
+      // move the atom's center position as the top book moves
+      model.topBookPositionProperty.lazyLink( ( newPosition, oldPosition ) => {
+        if ( !this.isEvaporated ) {
+          const deltaX = newPosition.x - oldPosition.x;
+          const deltaY = newPosition.y - oldPosition.y;
+          this.centerPosition.setXY( this.centerPosition.x + deltaX, this.centerPosition.y + deltaY );
+        }
+      } );
+    }
   }
-}
 
-friction.register( 'Atom', Atom );
-
-inherit( Object, Atom, {
 
   /**
    * when the oscillation has exceeded the threshold, the atom breaks off, animates to one side of the screen, and
    * disappears
    * @public
    */
-  evaporate: function() {
+  evaporate() {
     assert && assert( !this.isEvaporated, 'Atom was already evaporated' );
 
     this.isEvaporated = true;
@@ -81,23 +77,23 @@ inherit( Object, Atom, {
       evaporationDestinationX - this.positionProperty.get().x,
       evaporationDestinationY - this.positionProperty.get().y
     ).setMagnitude( EVAPORATED_SPEED );
-  },
+  }
 
   /**
    * restore the initial conditions
    * @public
    */
-  reset: function() {
+  reset() {
     this.centerPosition.set( this.initialPosition );
     this.isEvaporated = false;
-  },
+  }
 
   /**
    * step the atom forward in time
    * @param dt - delta time, in seconds
    * @public
    */
-  step: function( dt ) {
+  step( dt ) {
 
     // update the atom's position based on vibration and center position
     const newPosition = new Vector2(
@@ -114,6 +110,8 @@ inherit( Object, Atom, {
       );
     }
   }
-} );
+}
+
+friction.register( 'Atom', Atom );
 
 export default Atom;

@@ -27,7 +27,7 @@ const FrictionAlertManager = {
    * @param {string} [typeID]
    * @public
    */
-  alertTemperatureJiggleFromObject: function( alertObject, firstTimeAlerting, typeID ) {
+  alertTemperatureJiggleFromObject( alertObject, firstTimeAlerting, typeID ) {
 
     let patternString = frictionIncreasingAtomsJigglingTemperaturePatternString;
 
@@ -39,12 +39,11 @@ const FrictionAlertManager = {
       alertObject = alertObject.firstTime;
     }
 
-    const string = StringUtils.fillIn( patternString, {
+    temperatureJiggleUtterance.alert = StringUtils.fillIn( patternString, {
       temperature: alertObject.temp,
       jigglingAmount: alertObject.jiggle
     } );
 
-    temperatureJiggleUtterance.alert = string;
     phet.joist.sim.utteranceQueue.addToBack( temperatureJiggleUtterance );
   },
 
@@ -52,13 +51,12 @@ const FrictionAlertManager = {
    * Alert the state of the cool and settled atoms.
    * @public
    */
-  alertSettledAndCool: function() {
+  alertSettledAndCool() {
     phet.joist.sim.utteranceQueue.addToBack( atomsJiggleTinyBitTempCoolString );
   },
 
   // Threshold that must be reached from initial temp to new temp to alert that the temperature changed, in amplitude (see model for more info)
   TEMPERATURE_ALERT_THRESHOLD: 1.5
-
 };
 
 

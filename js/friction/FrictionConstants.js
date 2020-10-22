@@ -39,7 +39,7 @@ const FrictionConstants = {
   MAGNIFIER_WINDOW_WIDTH: 690,
 
   // sound - a function for choosing a random playback rate from a one-octave pentatonic scale
-  GET_RANDOM_PENTATONIC_PLAYBACK_RATE: function() {
+  GET_RANDOM_PENTATONIC_PLAYBACK_RATE() {
     return phet.joist.random.sample( MAJOR_PENTATONIC_PLAYBACK_RATES );
   },
 

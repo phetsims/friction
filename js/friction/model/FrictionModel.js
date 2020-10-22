@@ -15,7 +15,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import friction from '../../friction.js';
 import FrictionConstants from '../FrictionConstants.js';
 import Atom from './Atom.js';
@@ -152,131 +151,280 @@ const MAGNIFIED_ATOMS_INFO = {
   }
 };
 
-/**
- * @param {number} width - width in view=model coordinates
- * @param {number} height - height in view=model coordinates
- * @param {Tandem} tandem
- * @constructor
- */
-function FrictionModel( width, height, tandem ) {
-  const self = this;
+class FrictionModel {
 
-  // @public (read-only) {Number} - the width for the model in model coordinates
-  this.width = width;
+  /**
+   * @param {number} width - width in view=model coordinates
+   * @param {number} height - height in view=model coordinates
+   * @param {Tandem} tandem
+   */
+  constructor( width, height, tandem ) {
+  
+    // @public (read-only) {Number} - the width for the model in model coordinates
+    this.width = width;
+  
+    // @public (read-only) {Number} - the height for the model in model coordinates
+    this.height = height;
+  
+    // @private {Number} - track how much to evaporate in step() to prevent a Property loop
+    this.scheduledEvaporationAmount = 0;
+  
+    // @public (phet-io) - Instrumented so that PhET-iO clients can get a message when an atom evaporates
+    this.evaporationEmitter = new Emitter( {
+      tandem: tandem.createTandem( 'evaporationEmitter' ),
+      phetioDocumentation: 'Emits when atoms evaporate from the top book'
+    } );
+  
+    // @public (read-only) {Atom[][]}- array of all atoms which are able to evaporate organized by row such that the
+    // last rows should be evaporated first
+    this.evaporableAtomsByRow = [];
+  
+    // @public (read-only) {NumberProperty} - atoms temperature = amplitude of oscillation
+    this.vibrationAmplitudeProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min, {
+      range: MAGNIFIED_ATOMS_INFO.vibrationAmplitude,
+  
+      tandem: tandem.createTandem( 'vibrationAmplitudeProperty' ),
+      phetioDocumentation: 'A relative, qualitative value describing the amount of vibration of the atoms',
+      phetioHighFrequency: true,
+      phetioReadOnly: true
+    } );
+  
+    // @public (read-only) - position of top book, can by dragged the user
+    this.topBookPositionProperty = new Vector2Property( new Vector2( 0, 0 ), {
+      tandem: tandem.createTandem( 'topBookPositionProperty' ),
+      phetioHighFrequency: true
+    } );
+  
+    // @public {NumberProperty} - distance between books
+    this.distanceBetweenBooksProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.distance );
+  
+    // @public {NumberProperty} - additional offset, results from drag
+    this.bottomOffsetProperty = new NumberProperty( 0 );
+  
+    // @public (read-only) {NumberProperty} - number of rows of atoms available to evaporate, goes down as book wears away
+    this.atomRowsToEvaporateProperty = new NumberProperty( TOP_BOOK_ATOM_STRUCTURE.length - 1 );
+  
+    // @private - are books in contact?
+    this.contactProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'contactProperty' )
+    } );
+  
+    // @public {BooleanProperty} - Show hint icon. Only set by model and on a11y grab interaction.
+    this.hintProperty = new BooleanProperty( true );
+  
+    // @public {Number} (read-only) - drag and drop book coordinates conversion coefficient
+    this.bookDraggingScaleFactor = 0.025;
+  
+    // group tandem for creating the atoms
+    const atomGroupTandem = tandem.createGroupTandem( 'atoms' );
+  
+    // @public (read-only) {Atom[]} - array of atoms that are visible to the user in the magnifier window
+    this.atoms = [];
+  
+    // @public (read-only)
+    // {number} the count of how many atoms have been evaporated
+    this.numberOfAtomsEvaporated = 0;
+  
+    this.evaporationEmitter.addListener( () => {
+      this.numberOfAtomsEvaporated += 1;
+    } );
+  
+    // add the atoms that are visible in the top book
+    MAGNIFIED_ATOMS_INFO.top.layerDescriptions.forEach( ( layerDescription, i ) => {
+      addAtomRow(
+        this,
+        layerDescription,
+        DEFAULT_ROW_START_X_POSITION,
+        FrictionConstants.MAGNIFIER_WINDOW_HEIGHT / 3 - INITIAL_ATOM_SPACING_Y + ATOM_SPACING_Y * i,
+        true, // isTopAtom
+        atomGroupTandem
+      );
+    } );
+  
+    // add the atoms that are visible in the bottom book
+    MAGNIFIED_ATOMS_INFO.bottom.layerDescriptions.forEach( ( layerDescription, i ) => {
+      addAtomRow(
+        this,
+        layerDescription,
+        DEFAULT_ROW_START_X_POSITION,
+        2 * FrictionConstants.MAGNIFIER_WINDOW_HEIGHT / 3 + ATOM_SPACING_Y * i,
+        false, // isTopAtom
+        atomGroupTandem
+      );
+    } );
+  
+    // check atom's contact
+    this.distanceBetweenBooksProperty.link( distance => {
+      this.contactProperty.set( Math.floor( distance ) <= 0 );
+    } );
+  
+    // set distance between atoms and set the amplitude if they are in contact
+    this.topBookPositionProperty.link( ( newPosition, oldPosition ) => {
+      oldPosition = oldPosition || Vector2.ZERO;
+      this.distanceBetweenBooksProperty.set( this.distanceBetweenBooksProperty.get() - ( newPosition.minus( oldPosition ) ).y );
+      if ( this.contactProperty.get() ) {
+        const dx = Math.abs( newPosition.x - oldPosition.x );
+        const newValue = this.vibrationAmplitudeProperty.get() + dx * HEATING_MULTIPLIER;
+        this.vibrationAmplitudeProperty.set( Math.min( newValue, MAGNIFIED_ATOMS_INFO.vibrationAmplitude.max ) );
+      }
+    } );
+  
+    // evaporation check
+    this.vibrationAmplitudeProperty.link( amplitude => {
+      if ( amplitude > MAGNIFIED_ATOMS_INFO.evaporationLimit ) {
+        this.tryToEvaporate();
+      }
+    } );
+  }
 
-  // @public (read-only) {Number} - the height for the model in model coordinates
-  this.height = height;
 
-  // @private {Number} - track how much to evaporate in step() to prevent a Property loop
-  this.scheduledEvaporationAmount = 0;
+  /**
+   * Move forward in time
+   * @param {number} dt - in seconds
+   * @public
+   */
+  step( dt ) {
 
-  // @public (phet-io) - Instrumented so that PhET-iO clients can get a message when an atom evaporates
-  this.evaporationEmitter = new Emitter( {
-    tandem: tandem.createTandem( 'evaporationEmitter' ),
-    phetioDocumentation: 'Emits when atoms evaporate from the top book'
-  } );
-
-  // @public (read-only) {Atom[][]}- array of all atoms which are able to evaporate organized by row such that the
-  // last rows should be evaporated first
-  this.evaporableAtomsByRow = [];
-
-  // @public (read-only) {NumberProperty} - atoms temperature = amplitude of oscillation
-  this.vibrationAmplitudeProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min, {
-    range: MAGNIFIED_ATOMS_INFO.vibrationAmplitude,
-
-    tandem: tandem.createTandem( 'vibrationAmplitudeProperty' ),
-    phetioDocumentation: 'A relative, qualitative value describing the amount of vibration of the atoms',
-    phetioHighFrequency: true,
-    phetioReadOnly: true
-  } );
-
-  // @public (read-only) - position of top book, can by dragged the user
-  this.topBookPositionProperty = new Vector2Property( new Vector2( 0, 0 ), {
-    tandem: tandem.createTandem( 'topBookPositionProperty' ),
-    phetioHighFrequency: true
-  } );
-
-  // @public {NumberProperty} - distance between books
-  this.distanceBetweenBooksProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.distance );
-
-  // @public {NumberProperty} - additional offset, results from drag
-  this.bottomOffsetProperty = new NumberProperty( 0 );
-
-  // @public (read-only) {NumberProperty} - number of rows of atoms available to evaporate, goes down as book wears away
-  this.atomRowsToEvaporateProperty = new NumberProperty( TOP_BOOK_ATOM_STRUCTURE.length - 1 );
-
-  // @private - are books in contact?
-  this.contactProperty = new BooleanProperty( false, {
-    tandem: tandem.createTandem( 'contactProperty' )
-  } );
-
-  // @public {BooleanProperty} - Show hint icon. Only set by model and on a11y grab interaction.
-  this.hintProperty = new BooleanProperty( true );
-
-  // @public {Number} (read-only) - drag and drop book coordinates conversion coefficient
-  this.bookDraggingScaleFactor = 0.025;
-
-  // group tandem for creating the atoms
-  const atomGroupTandem = tandem.createGroupTandem( 'atoms' );
-
-  // @public (read-only) {Atom[]} - array of atoms that are visible to the user in the magnifier window
-  this.atoms = [];
-
-  // @public (read-only)
-  // {number} the count of how many atoms have been evaporated
-  this.numberOfAtomsEvaporated = 0;
-
-  this.evaporationEmitter.addListener( function() {
-    self.numberOfAtomsEvaporated += 1;
-  } );
-
-  // add the atoms that are visible in the top book
-  MAGNIFIED_ATOMS_INFO.top.layerDescriptions.forEach( function( layerDescription, i ) {
-    addAtomRow(
-      self,
-      layerDescription,
-      DEFAULT_ROW_START_X_POSITION,
-      FrictionConstants.MAGNIFIER_WINDOW_HEIGHT / 3 - INITIAL_ATOM_SPACING_Y + ATOM_SPACING_Y * i,
-      true, // isTopAtom
-      atomGroupTandem
-    );
-  } );
-
-  // add the atoms that are visible in the bottom book
-  MAGNIFIED_ATOMS_INFO.bottom.layerDescriptions.forEach( function( layerDescription, i ) {
-    addAtomRow(
-      self,
-      layerDescription,
-      DEFAULT_ROW_START_X_POSITION,
-      2 * FrictionConstants.MAGNIFIER_WINDOW_HEIGHT / 3 + ATOM_SPACING_Y * i,
-      false, // isTopAtom
-      atomGroupTandem
-    );
-  } );
-
-  // check atom's contact
-  this.distanceBetweenBooksProperty.link( function( distance ) {
-    self.contactProperty.set( Math.floor( distance ) <= 0 );
-  } );
-
-  // set distance between atoms and set the amplitude if they are in contact
-  this.topBookPositionProperty.link( function( newPosition, oldPosition ) {
-    oldPosition = oldPosition || Vector2.ZERO;
-    self.distanceBetweenBooksProperty.set( self.distanceBetweenBooksProperty.get() - ( newPosition.minus( oldPosition ) ).y );
-    if ( self.contactProperty.get() ) {
-      const dx = Math.abs( newPosition.x - oldPosition.x );
-      const newValue = self.vibrationAmplitudeProperty.get() + dx * HEATING_MULTIPLIER;
-      self.vibrationAmplitudeProperty.set( Math.min( newValue, MAGNIFIED_ATOMS_INFO.vibrationAmplitude.max ) );
+    // step the atoms, which is how they vibrate and move away if they evaporate
+    for ( let i = 0; i < this.atoms.length; i++ ) {
+      this.atoms[ i ].step( dt );
     }
-  } );
 
-  // evaporation check
-  this.vibrationAmplitudeProperty.link( function( amplitude ) {
-    if ( amplitude > MAGNIFIED_ATOMS_INFO.evaporationLimit ) {
-      self.tryToEvaporate();
+    // cool the atoms
+    let amplitude = this.vibrationAmplitudeProperty.get() - this.scheduledEvaporationAmount;
+    amplitude = Math.max( MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min, amplitude * ( 1 - dt * COOLING_RATE ) );
+    this.vibrationAmplitudeProperty.set( amplitude );
+
+    this.scheduledEvaporationAmount = 0;
+  }
+
+  /**
+   * Restores the initial conditions.
+   * @public
+   */
+  reset() {
+    this.vibrationAmplitudeProperty.reset();
+    this.topBookPositionProperty.reset();
+    this.distanceBetweenBooksProperty.reset();
+    this.bottomOffsetProperty.reset();
+    this.atomRowsToEvaporateProperty.reset();
+    this.contactProperty.reset();
+    this.hintProperty.reset();
+    this.atoms.forEach( atom => {
+      atom.reset();
+    } );
+    this.numberOfAtomsEvaporated = 0;
+  }
+
+  /**
+   * Move the book, checking to make sure the new position is valid. If the book is going to move out of bounds,
+   * prevent movement.
+   * @param {Vector2} delta
+   * @public
+   */
+  move( delta ) {
+    assert && assert( delta instanceof Vector2, 'delta should be a Vector2' );
+    this.hintProperty.set( false );
+
+    // check bottom offset
+    if ( this.bottomOffsetProperty.get() > 0 && delta.y < 0 ) {
+      this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + delta.y );
+      delta.y = 0;
     }
-  } );
+
+    // Check if the motion vector would put the book in an invalid position and limit it if so.
+    if ( delta.y > this.distanceBetweenBooksProperty.get() ) {
+      this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + delta.y - this.distanceBetweenBooksProperty.get() );
+      delta.y = this.distanceBetweenBooksProperty.get();
+    }
+    else if ( this.topBookPositionProperty.get().y + delta.y < MIN_Y_POSITION ) {
+      delta.y = MIN_Y_POSITION - this.topBookPositionProperty.get().y; // Limit book from going out of magnifier window.
+    }
+    if ( this.topBookPositionProperty.get().x + delta.x > MAX_X_DISPLACEMENT ) {
+      delta.x = MAX_X_DISPLACEMENT - this.topBookPositionProperty.get().x;
+    }
+    else if ( this.topBookPositionProperty.get().x + delta.x < -MAX_X_DISPLACEMENT ) {
+      delta.x = -MAX_X_DISPLACEMENT - this.topBookPositionProperty.get().x;
+    }
+
+    // set the new position
+    this.topBookPositionProperty.set( this.topBookPositionProperty.get().plus( delta ) );
+  }
+
+  /**
+   * determine whether an atom is available to be evaporated and, if so, evaporate it
+   * @private
+   */
+  tryToEvaporate() {
+
+    // only if this value points to a proper index in evaporableAtomsByRow. If negative, there are likely no more evaporable rows
+    if ( this.atomRowsToEvaporateProperty.get() > 0 ) {
+
+      // determine whether the current row is fully evaporated and, if so, move to the next row
+      const currentRowOfEvaporableAtoms = this.evaporableAtomsByRow[ this.atomRowsToEvaporateProperty.get() - 1 ];
+
+      // if there are any rows of evaporable atoms left, evaporate one
+      if ( currentRowOfEvaporableAtoms.length > 0 ) {
+
+        // make a list of all atoms in this row that have not yet evaporated
+        const unevaporatedAtoms = currentRowOfEvaporableAtoms.filter( atom => !atom.isEvaporated );
+
+        assert && assert(
+          unevaporatedAtoms.length > 0,
+          'should never encounter this case, if we do, something is wrong in logic above'
+        );
+
+        // randomly choose an unevaporated atom and evaporate it
+        const atomToEvaporate = phet.joist.random.sample( unevaporatedAtoms );
+        atomToEvaporate.evaporate();
+        this.evaporationEmitter.emit();
+
+        // cause some cooling due to evaporation
+        this.scheduledEvaporationAmount = this.scheduledEvaporationAmount + EVAPORATION_AMPLITUDE_REDUCTION;
+      }
+
+      const isCurrentRowFullyEvaporated = _.every( currentRowOfEvaporableAtoms, atom => atom.isEvaporated );
+
+      // if all atoms in this row are evaporated, move on to the next row
+      if ( isCurrentRowFullyEvaporated ) {
+
+        // point one row higher because all of the previous row is evaporated
+        this.atomRowsToEvaporateProperty.set( this.atomRowsToEvaporateProperty.get() - 1 );
+
+        // the current row is totally evaporated, so the distance between the books just increased "one row" worth.
+        this.distanceBetweenBooksProperty.set( this.distanceBetweenBooksProperty.get() + MAGNIFIED_ATOMS_INFO.distanceY );
+
+      }
+    }
+  }
 }
+
+
+// statics
+FrictionModel.MAGNIFIED_ATOMS_INFO = MAGNIFIED_ATOMS_INFO;
+FrictionModel.THERMOMETER_MIN_TEMP = MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min - 1.05; // about 0
+FrictionModel.THERMOMETER_MAX_TEMP = MAGNIFIED_ATOMS_INFO.evaporationLimit * 1.1; // ~7.7
+
+// pdom - needed to get bounds for the keyboard drag handler, see https://github.com/phetsims/friction/issues/46
+FrictionModel.MAX_X_DISPLACEMENT = MAX_X_DISPLACEMENT;
+FrictionModel.MIN_Y_POSITION = MIN_Y_POSITION;
+
+// pdom
+FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS = NUMBER_OF_EVAPORABLE_ATOMS;
+
+// pdom
+FrictionModel.VIBRATION_AMPLITUDE_MIN = VIBRATION_AMPLITUDE_MIN;
+FrictionModel.VIBRATION_AMPLITUDE_MAX = VIBRATION_AMPLITUDE_MAX;
+
+// pdom - empirically determined value of when the atoms are "pretty much cool and settled"
+FrictionModel.AMPLITUDE_SETTLED_THRESHOLD = VIBRATION_AMPLITUDE_MIN + .4;
+
+// The drag bounds for the magnified book view
+FrictionModel.MAGNIFIED_DRAG_BOUNDS = new Bounds2(
+  -MAX_X_DISPLACEMENT, // left bound
+  MIN_Y_POSITION, // top bound
+  MAX_X_DISPLACEMENT, // right bound
+  2000 );
 
 // helper function to add a layer of atoms to the model
 function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, isTopAtom, atomGroupTandem ) {
@@ -306,160 +454,5 @@ function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, isT
 }
 
 friction.register( 'FrictionModel', FrictionModel );
-
-inherit( Object, FrictionModel, {
-
-  /**
-   * Move forward in time
-   * @param {number} dt - in seconds
-   * @public
-   */
-  step: function( dt ) {
-
-    // step the atoms, which is how they vibrate and move away if they evaporate
-    for ( let i = 0; i < this.atoms.length; i++ ) {
-      this.atoms[ i ].step( dt );
-    }
-
-    // cool the atoms
-    let amplitude = this.vibrationAmplitudeProperty.get() - this.scheduledEvaporationAmount;
-    amplitude = Math.max( MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min, amplitude * ( 1 - dt * COOLING_RATE ) );
-    this.vibrationAmplitudeProperty.set( amplitude );
-
-    this.scheduledEvaporationAmount = 0;
-  },
-
-  /**
-   * Restores the initial conditions.
-   * @public
-   */
-  reset: function() {
-    this.vibrationAmplitudeProperty.reset();
-    this.topBookPositionProperty.reset();
-    this.distanceBetweenBooksProperty.reset();
-    this.bottomOffsetProperty.reset();
-    this.atomRowsToEvaporateProperty.reset();
-    this.contactProperty.reset();
-    this.hintProperty.reset();
-    this.atoms.forEach( function( atom ) {
-      atom.reset();
-    } );
-    this.numberOfAtomsEvaporated = 0;
-  },
-
-  /**
-   * Move the book, checking to make sure the new position is valid. If the book is going to move out of bounds,
-   * prevent movement.
-   * @param {Vector2} delta
-   * @public
-   */
-  move: function( delta ) {
-    assert && assert( delta instanceof Vector2, 'delta should be a Vector2' );
-    this.hintProperty.set( false );
-
-    // check bottom offset
-    if ( this.bottomOffsetProperty.get() > 0 && delta.y < 0 ) {
-      this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + delta.y );
-      delta.y = 0;
-    }
-
-    // Check if the motion vector would put the book in an invalid position and limit it if so.
-    if ( delta.y > this.distanceBetweenBooksProperty.get() ) {
-      this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + delta.y - this.distanceBetweenBooksProperty.get() );
-      delta.y = this.distanceBetweenBooksProperty.get();
-    }
-    else if ( this.topBookPositionProperty.get().y + delta.y < MIN_Y_POSITION ) {
-      delta.y = MIN_Y_POSITION - this.topBookPositionProperty.get().y; // Limit book from going out of magnifier window.
-    }
-    if ( this.topBookPositionProperty.get().x + delta.x > MAX_X_DISPLACEMENT ) {
-      delta.x = MAX_X_DISPLACEMENT - this.topBookPositionProperty.get().x;
-    }
-    else if ( this.topBookPositionProperty.get().x + delta.x < -MAX_X_DISPLACEMENT ) {
-      delta.x = -MAX_X_DISPLACEMENT - this.topBookPositionProperty.get().x;
-    }
-
-    // set the new position
-    this.topBookPositionProperty.set( this.topBookPositionProperty.get().plus( delta ) );
-  },
-
-  /**
-   * determine whether an atom is available to be evaporated and, if so, evaporate it
-   * @private
-   */
-  tryToEvaporate: function() {
-
-    // only if this value points to a proper index in evaporableAtomsByRow. If negative, there are likely no more evaporable rows
-    if ( this.atomRowsToEvaporateProperty.get() > 0 ) {
-
-      // determine whether the current row is fully evaporated and, if so, move to the next row
-      const currentRowOfEvaporableAtoms = this.evaporableAtomsByRow[ this.atomRowsToEvaporateProperty.get() - 1 ];
-
-      // if there are any rows of evaporable atoms left, evaporate one
-      if ( currentRowOfEvaporableAtoms.length > 0 ) {
-
-        // make a list of all atoms in this row that have not yet evaporated
-        const unevaporatedAtoms = currentRowOfEvaporableAtoms.filter( function( atom ) {
-          return !atom.isEvaporated;
-        } );
-
-        assert && assert(
-          unevaporatedAtoms.length > 0,
-          'should never encounter this case, if we do, something is wrong in logic above'
-        );
-
-        // randomly choose an unevaporated atom and evaporate it
-        const atomToEvaporate = phet.joist.random.sample( unevaporatedAtoms );
-        atomToEvaporate.evaporate();
-        this.evaporationEmitter.emit();
-
-        // cause some cooling due to evaporation
-        this.scheduledEvaporationAmount = this.scheduledEvaporationAmount + EVAPORATION_AMPLITUDE_REDUCTION;
-      }
-
-      const isCurrentRowFullyEvaporated = _.every( currentRowOfEvaporableAtoms, function( atom ) {
-        return atom.isEvaporated;
-      } );
-
-      // if all atoms in this row are evaporated, move on to the next row
-      if ( isCurrentRowFullyEvaporated ) {
-
-        // point one row higher because all of the previous row is evaporated
-        this.atomRowsToEvaporateProperty.set( this.atomRowsToEvaporateProperty.get() - 1 );
-
-        // the current row is totally evaporated, so the distance between the books just increased "one row" worth.
-        this.distanceBetweenBooksProperty.set( this.distanceBetweenBooksProperty.get() + MAGNIFIED_ATOMS_INFO.distanceY );
-
-      }
-    }
-  }
-}, {
-
-  // statics
-  MAGNIFIED_ATOMS_INFO: MAGNIFIED_ATOMS_INFO,
-  THERMOMETER_MIN_TEMP: MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min - 1.05, // about 0
-  THERMOMETER_MAX_TEMP: MAGNIFIED_ATOMS_INFO.evaporationLimit * 1.1, // ~7.7
-
-  // pdom - needed to get bounds for the keyboard drag handler, see https://github.com/phetsims/friction/issues/46
-  MAX_X_DISPLACEMENT: MAX_X_DISPLACEMENT,
-  MIN_Y_POSITION: MIN_Y_POSITION,
-
-  // pdom
-  NUMBER_OF_EVAPORABLE_ATOMS: NUMBER_OF_EVAPORABLE_ATOMS,
-
-  // pdom
-  VIBRATION_AMPLITUDE_MIN: VIBRATION_AMPLITUDE_MIN,
-  VIBRATION_AMPLITUDE_MAX: VIBRATION_AMPLITUDE_MAX,
-
-  // pdom - empirically determined value of when the atoms are "pretty much cool and settled"
-  AMPLITUDE_SETTLED_THRESHOLD: VIBRATION_AMPLITUDE_MIN + .4,
-
-  // The drag bounds for the magnified book view
-  MAGNIFIED_DRAG_BOUNDS: new Bounds2(
-    -MAX_X_DISPLACEMENT, // left bound
-    MIN_Y_POSITION, // top bound
-    MAX_X_DISPLACEMENT, // right bound
-    2000 ) // bottom, arbitrary because the model stops the motion when the top atoms collide with the bottom book
-
-} );
 
 export default FrictionModel;
