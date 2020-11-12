@@ -10,56 +10,56 @@
  */
 
 import Shape from '../../../../../kite/js/Shape.js';
-import inherit from '../../../../../phet-core/js/inherit.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import friction from '../../../friction.js';
 
-/**
- * @param {number} x
- * @param {number} y
- * @param {number} width
- * @param {number} height
- * @param {number} cornerRadius - corner radius for the rectangle (in X and Y)
- * @param {Vector2} leftAnchor - point on the magnifier to draw the left dashed line to
- * @param {Vector2} rightAnchor - point on the magnifier to draw the right dashed line to
- * @param {Object} [options]
- * @constructor
- */
-function MagnifierTargetNode( x, y, width, height, cornerRadius, leftAnchor, rightAnchor, options ) {
+class MagnifierTargetNode extends Node {
 
-  options = merge( {
-    stroke: 'black'
-  }, options );
+  /**
+   * @param {number} x
+   * @param {number} y
+   * @param {number} width
+   * @param {number} height
+   * @param {number} cornerRadius - corner radius for the rectangle (in X and Y)
+   * @param {Vector2} leftAnchor - point on the magnifier to draw the left dashed line to
+   * @param {Vector2} rightAnchor - point on the magnifier to draw the right dashed line to
+   * @param {Object} [options]
+   */
+  constructor( x, y, width, height, cornerRadius, leftAnchor, rightAnchor, options ) {
 
-  Node.call( this );
+    options = merge( {
+      stroke: 'black'
+    }, options );
 
-  const rectangle = new Rectangle( 0, 0, width, height, cornerRadius, cornerRadius, {
-    stroke: options.stroke,
-    lineWidth: 1
-  } );
-  this.addChild( rectangle );
-  const pathLeft = new Path( new Shape()
-    .moveToPoint( leftAnchor )
-    .lineTo( x - width / 2, y ), {
-    stroke: options.stroke,
-    lineDash: [ 10, 10 ]
-  } );
-  this.addChild( pathLeft );
-  const pathRight = new Path( new Shape()
-    .moveToPoint( rightAnchor )
-    .lineTo( x + width / 2, y ), {
-    stroke: options.stroke,
-    lineDash: [ 10, 10 ]
-  } );
-  this.addChild( pathRight );
+    super();
 
-  rectangle.setTranslation( x - width / 2, y - height / 2 );
+    const rectangle = new Rectangle( 0, 0, width, height, cornerRadius, cornerRadius, {
+      stroke: options.stroke,
+      lineWidth: 1
+    } );
+    this.addChild( rectangle );
+    const pathLeft = new Path( new Shape()
+      .moveToPoint( leftAnchor )
+      .lineTo( x - width / 2, y ), {
+      stroke: options.stroke,
+      lineDash: [ 10, 10 ]
+    } );
+    this.addChild( pathLeft );
+    const pathRight = new Path( new Shape()
+      .moveToPoint( rightAnchor )
+      .lineTo( x + width / 2, y ), {
+      stroke: options.stroke,
+      lineDash: [ 10, 10 ]
+    } );
+    this.addChild( pathRight );
+
+    rectangle.setTranslation( x - width / 2, y - height / 2 );
+  }
 }
 
 friction.register( 'MagnifierTargetNode', MagnifierTargetNode );
 
-inherit( Node, MagnifierTargetNode );
 export default MagnifierTargetNode;

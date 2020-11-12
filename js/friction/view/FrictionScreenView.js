@@ -66,8 +66,6 @@ class FrictionScreenView extends ScreenView {
       screenSummaryContent: frictionScreenSummaryNode
     } );
 
-    const self = this;
-
     // add physics book
     this.addChild( new BookNode( model, physicsString, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
       bookMovementDescriber, tandem.createTandem( 'bottomBookNode' ), {
@@ -142,9 +140,9 @@ class FrictionScreenView extends ScreenView {
 
     // add reset button
     const resetAllButton = new ResetAllButton( {
-      listener: function() {
+      listener: () => {
         model.reset();
-        self.reset();
+        this.reset();
       },
       radius: 22,
       x: model.width * 0.94,
@@ -187,7 +185,7 @@ class FrictionScreenView extends ScreenView {
     this.pdomControlAreaNode.accessibleOrder = [ resetAllButton ];
 
     // @private
-    this.resetFrictionScreenView = function() {
+    this.resetFrictionScreenView = () => {
 
       // pdom - among other things, this will reset the grab button cuing.
       this.magnifierNode.reset();
