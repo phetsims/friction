@@ -29,7 +29,7 @@ const notTouchingAlerts = { initial: initialGrabbedNotTouchingString, subsequent
  */
 class FrictionGrabDragInteraction extends GrabDragInteraction {
 
-  constructor( model, wrappedNode, options ) {
+  constructor( model, keyboardDragListener, wrappedNode, options ) {
     options = merge( {
 
       // Function that returns whether or not the drag cue should be shown.
@@ -54,7 +54,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
       phet.joist.sim.utteranceQueue.addToBack( alert );
     };
 
-    super( wrappedNode, options );
+    super( wrappedNode, keyboardDragListener, options );
 
     // @private
     this.successfullyInteracted = false; // Keep track when an interaction has successfully occurred.

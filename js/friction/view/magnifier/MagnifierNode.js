@@ -223,9 +223,8 @@ class MagnifierNode extends Node {
       }
     };
   
-  
     // pdom
-    const grabDragInteraction = new FrictionGrabDragInteraction( model, dragArea, {
+    const grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, dragArea, {
       objectToGrabString: zoomedInChemistryBookString,
       tandem: tandem.createTandem( 'grabDragInteraction' ),
       grabCueOptions: {
@@ -252,7 +251,7 @@ class MagnifierNode extends Node {
   
       dragCueNode: cueArrows,
   
-      listenersForDrag: [ this.keyboardDragHandler, focusListener ]
+      listenersForDrag: [ focusListener ]
     } );
   
     this.container.addChild( this.topBookBackground );

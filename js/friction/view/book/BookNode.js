@@ -115,7 +115,7 @@ class BookNode extends Node {
       this.focusHighlight = focusHighlightRect; // this is a constraint of the grab/drag interaction;
   
       // @private - a11y
-      this.grabDragInteraction = new FrictionGrabDragInteraction( model, this, {
+      this.grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, this, {
         objectToGrabString: chemistryBookString,
   
         // Empirically determined values to place the cue above the book.
@@ -135,7 +135,7 @@ class BookNode extends Node {
   
         dragCueNode: arrows,
   
-        listenersForDrag: [ this.keyboardDragHandler, focusListener ],
+        listenersForDrag: [ focusListener ],
   
         tandem: tandem.createTandem( 'grabDragInteraction' )
       } );
