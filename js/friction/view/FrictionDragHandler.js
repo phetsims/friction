@@ -21,20 +21,20 @@ class FrictionDragHandler extends SimpleDragHandler {
    * @param options
    */
   constructor( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, tandem, options ) {
-  
+
     options = merge( {
-  
+
       // {SoundClip} - sounds to be played at start and end of drag
       startSound: null,
       endSound: null
     }, options );
-  
+
     super( {
       start: () => {
-  
+
         // sound
         options.startSound && options.startSound.play();
-  
+
         // pdom
         temperatureIncreasingDescriber.startDrag();
         temperatureDecreasingDescriber.startDrag();
@@ -44,10 +44,10 @@ class FrictionDragHandler extends SimpleDragHandler {
       },
       end: () => {
         model.bottomOffsetProperty.set( 0 );
-  
+
         // sound
         options.endSound && options.endSound.play();
-  
+
         // pdom
         temperatureIncreasingDescriber.endDrag();
         bookMovementDescriber.endDrag();

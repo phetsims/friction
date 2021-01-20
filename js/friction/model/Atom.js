@@ -24,30 +24,30 @@ class Atom {
    * @param {Tandem} tandem
    */
   constructor( initialPosition, model, isTopAtom, tandem ) {
-  
+
     // @private {Vector2} - initial position, used during resets
     this.initialPosition = initialPosition;
-  
+
     // @private {FrictionModel}
     this.model = model;
-  
+
     // @public (read-only) {boolean} - flag that indicates whether this atom is part of the top book
     this.isTopAtom = isTopAtom;
-  
+
     // @private - marked as true when the atom is evaporated
     this.isEvaporated = false;
-  
+
     // @public - the position of the atom
     this.positionProperty = new Vector2Property( initialPosition );
-  
+
     // @private {Vector2} - the center position, around which oscillations occur
     this.centerPosition = new Vector2( initialPosition.x, initialPosition.y );
-  
+
     // @private {Vector2} - velocity vector for evaporation
     this.evaporationVelocity = new Vector2( 0, 0 );
-  
+
     if ( this.isTopAtom ) {
-  
+
       // move the atom's center position as the top book moves
       model.topBookPositionProperty.lazyLink( ( newPosition, oldPosition ) => {
         if ( !this.isEvaporated ) {

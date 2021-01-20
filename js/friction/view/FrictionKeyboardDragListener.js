@@ -19,30 +19,30 @@ class FrictionKeyboardDragListener extends KeyboardDragListener {
    * @param {BookMovementDescriber} bookMovementDescriber
    */
   constructor( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber ) {
-  
+
     let oldPositionValue; // determines our delta for how the positionProperty changed every drag
-  
+
     super( {
       positionProperty: model.topBookPositionProperty,
       start: () => {
         oldPositionValue = model.topBookPositionProperty.get().copy();
-  
+
         temperatureIncreasingDescriber.startDrag();
         temperatureDecreasingDescriber.startDrag();
       },
       drag: () => {
         const newValue = model.topBookPositionProperty.get();
         model.move( new Vector2( newValue.x - oldPositionValue.x, newValue.y - oldPositionValue.y ) );
-  
+
         // update the oldPositionValue for the next onDrag
         oldPositionValue = model.topBookPositionProperty.get().copy();
       },
       end: event => {
         model.bottomOffsetProperty.set( 0 );
-  
+
         temperatureIncreasingDescriber.endDrag();
         bookMovementDescriber.endDrag( event.domEvent );
-  
+
       },
       dragBounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS
     } );

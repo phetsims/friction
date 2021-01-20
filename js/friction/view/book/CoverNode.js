@@ -35,14 +35,14 @@ class CoverNode extends Node {
    * @param {Object} [options]
    */
   constructor( title, tandem, options ) {
-  
+
     options = merge( {
       stroke: 'gray',
       color: 'black'
     }, options );
-  
+
     super( { x: options.x, y: options.y } );
-  
+
     // add white background for pages
     this.addChild( new Path( new Shape()
       .moveTo( WIDTH, 0 )
@@ -51,9 +51,9 @@ class CoverNode extends Node {
       .lineTo( WIDTH, HEIGHT - 1 ), {
       fill: 'white'
     } ) );
-  
+
     const rightSideOfSpine = WIDTH - ROUND / 2 + Math.cos( ANGLE ) * LENGTH; // TODO: what are you!?!?!
-  
+
     // add last page
     this.addChild( new Path( new Shape()
       .moveTo( WIDTH - ROUND / 2, HEIGHT )
@@ -62,7 +62,7 @@ class CoverNode extends Node {
       lineWidth: 1,
       pickable: false
     } ) );
-  
+
     // add front cover
     this.addChild( new Path( new Shape()
       .moveTo( ROUND / 2, 0 )
@@ -73,14 +73,14 @@ class CoverNode extends Node {
       lineWidth: 1,
       fill: options.color
     } ) );
-  
+
     // add binding, scaling the title to fit if necessary
     const bindingRectangle = new Rectangle( 0, 0, WIDTH, HEIGHT, ROUND, ROUND, {
       fill: options.color,
       stroke: options.stroke
     } );
     this.addChild( bindingRectangle );
-  
+
     const titleText = new Text( title, {
       font: FONT,
       fill: FrictionConstants.BOOK_TEXT_COLOR,
@@ -89,14 +89,14 @@ class CoverNode extends Node {
       tandem: tandem.createTandem( 'titleText' )
     } );
     titleText.center = bindingRectangle.center;
-  
+
     // If updated via PhET-iO, recenter it
     titleText.textProperty.lazyLink( () => {
       titleText.center = bindingRectangle.center;
     } );
     this.addChild( titleText );
-  
-  
+
+
     // add remaining pages
     for ( let i = 0, dy = ( HEIGHT - ROUND ) / PAGES, dl = LENGTH / 5, offset = 5; i < PAGES; i++ ) {
       const amplitude = ( LENGTH - offset + dl * ( Math.pow( 1 / 2 - i / PAGES, 2 ) - 1 / 4 ) );

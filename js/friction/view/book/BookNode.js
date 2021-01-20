@@ -44,33 +44,33 @@ class BookNode extends Node {
    * @param {Object} [options]
    */
   constructor( model, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, tandem, options ) {
-  
+
     options = merge( {
-  
+
       // whether or not we can drag the book
       drag: false,
       color: FrictionConstants.BOTTOM_BOOK_COLOR_MACRO
     }, options );
-  
+
     assert && assert( typeof options.x === 'number', 'options.x must be specified' );
     assert && assert( typeof options.y === 'number', 'options.y must be specified' );
-  
+
     super( options );
-  
+
     // add cover, pass the whole tandem to hide the "cover" implementation detail
     this.addChild( new CoverNode( title, tandem, options ) );
-  
+
     // init drag and a11y options for the draggable book
     if ( options.drag ) {
-  
+
       // instrument this book, but not the other
       options.tandem = tandem;
-  
+
       // We want the focus highlight to be completely within the bounds of the book.
       const focusHighlightRect = new FocusHighlightPath( null );
       const focusHighlightLineWidth = focusHighlightRect.getOuterLineWidth( this );
       focusHighlightRect.setShape( Shape.bounds( this.localBounds.eroded( focusHighlightLineWidth / 2 ) ) );
-  
+
       // cuing arrows for the book
       const bookCueArrow1 = new CueArrow( {
         rotation: Math.PI,
@@ -90,17 +90,17 @@ class BookNode extends Node {
       const arrows = new Node( {
         children: [ bookCueArrow1, bookCueArrow2, bookCueArrow3 ]
       } );
-  
+
       // sounds used when the book is picked up or dropped
       const bookPickupSoundClip = new SoundClip( simplePickupSound, { initialOutputLevel: SOUND_LEVEL } );
       soundManager.addSoundGenerator( bookPickupSoundClip );
       const bookDropSoundClip = new SoundClip( simpleDropSound, { initialOutputLevel: SOUND_LEVEL } );
       soundManager.addSoundGenerator( bookDropSoundClip );
-  
+
       // pdom - add a keyboard drag handler
       this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingDescriber,
         temperatureDecreasingDescriber, bookMovementDescriber );
-  
+
       // alert the temperature state on focus
       const focusListener = {
         focus() {
@@ -109,15 +109,15 @@ class BookNode extends Node {
           }
         }
       };
-  
+
       // must be added prior to adding the grab/drag interaction
       this.addChild( focusHighlightRect );
       this.focusHighlight = focusHighlightRect; // this is a constraint of the grab/drag interaction;
-  
+
       // @private - a11y
       this.grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, this, {
         objectToGrabString: chemistryBookString,
-  
+
         // Empirically determined values to place the cue above the book.
         grabCueOptions: {
           x: 45,
@@ -126,35 +126,35 @@ class BookNode extends Node {
         grabbableOptions: {
           focusHighlight: focusHighlightRect
         },
-  
+
         keyboardHelpText: grabButtonHelpTextString,
-  
+
         onGrab: () => { bookPickupSoundClip.play(); },
-  
+
         onRelease: () => { bookDropSoundClip.play(); },
-  
+
         dragCueNode: arrows,
-  
+
         listenersForDrag: [ focusListener ],
-  
+
         tandem: tandem.createTandem( 'grabDragInteraction' )
       } );
-  
-  
+
+
       this.addInputListener( new FrictionDragHandler( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
         bookMovementDescriber, options.tandem.createTandem( 'dragHandler' ), {
           startSound: bookPickupSoundClip,
           endSound: bookDropSoundClip
         } ) );
-  
+
       // add observer
       model.topBookPositionProperty.link( position => {
         this.setTranslation( options.x + position.x * model.bookDraggingScaleFactor, options.y + position.y * model.bookDraggingScaleFactor );
       } );
-  
+
       this.mutate( {
         cursor: 'pointer',
-  
+
         // pdom
         focusHighlightLayerable: true
       } );

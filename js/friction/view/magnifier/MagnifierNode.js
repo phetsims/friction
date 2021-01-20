@@ -60,14 +60,14 @@ class MagnifierNode extends Node {
   constructor( model, targetX, targetY, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, tandem, options ) {
     options.tandem = tandem;
     super( options );
-  
+
     // add container for clipping
     this.container = new Node();
     this.addChild( this.container );
-  
+
     // @private - container where the individual atoms will be placed
     this.topAtomsLayer = new Node();
-  
+
     // arrow icon
     const leftArrow = new CueArrow( { rotation: Math.PI, fill: 'white' } );
     const rightArrow = new CueArrow( { fill: 'white' } );
@@ -77,13 +77,13 @@ class MagnifierNode extends Node {
       centerX: WIDTH / 2,
       top: ARROW_TOP
     } );
-  
+
     // create and register the sound generators that will be used when the top book is picked up and dropped
     const bookPickupSoundClip = new SoundClip( harpPickupSound, { initialOutputLevel: SOUND_LEVEL } );
     soundManager.addSoundGenerator( bookPickupSoundClip );
     const bookDropSoundClip = new SoundClip( harpDropSound, { initialOutputLevel: SOUND_LEVEL } );
     soundManager.addSoundGenerator( bookDropSoundClip );
-  
+
     // @private - add bottom book
     this.bottomBookBackground = new Node( {
       children: [
@@ -98,7 +98,7 @@ class MagnifierNode extends Node {
         )
       ]
     } );
-  
+
     // add the "bumps" to the book
     addRowCircles(
       FrictionModel.MAGNIFIED_ATOMS_INFO.radius,
@@ -112,10 +112,10 @@ class MagnifierNode extends Node {
       }
     );
     this.container.addChild( this.bottomBookBackground );
-  
+
     // @private - add top book
     this.topBookBackground = new Node();
-  
+
     // init drag for background
     const background = new Rectangle(
       -1.125 * WIDTH,
@@ -135,7 +135,7 @@ class MagnifierNode extends Node {
         endSound: bookDropSoundClip
       } ) );
     this.topBookBackground.addChild( background );
-  
+
     // init drag for drag area
     const dragArea = new Rectangle(
       0.055 * WIDTH,
@@ -145,23 +145,23 @@ class MagnifierNode extends Node {
         fill: null,
         cursor: 'pointer',
         tandem: tandem.createTandem( 'atomDragArea' ), // TODO: do we need this? probably do for a11y support, but it seems like an implementation detail
-  
+
         // pdom
         focusHighlightLayerable: true
       } );
-  
+
     dragArea.addInputListener( new FrictionDragHandler( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
       bookMovementDescriber, tandem.createTandem( 'dragAreaDragHandler' ), {
         startSound: bookPickupSoundClip,
         endSound: bookDropSoundClip
       } ) );
-  
-  
+
+
     // add arrows before the drag area, then the grab cue hides the arrows
     this.topBookBackground.addChild( visualArrowIcon );
-  
+
     this.topBookBackground.addChild( dragArea );
-  
+
     addRowCircles(
       FrictionModel.MAGNIFIED_ATOMS_INFO.radius,
       FrictionModel.MAGNIFIED_ATOMS_INFO.distanceX,
@@ -173,35 +173,35 @@ class MagnifierNode extends Node {
         width: 3 * WIDTH
       }
     );
-  
+
     // pdom - custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
     const focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
-  
-  
+
+
     // pdom - add the focus highlight on top of the row circles
     // must be added prior to adding the grab/drag interaction
     this.topBookBackground.addChild( focusHighlightPath );
     dragArea.focusHighlight = focusHighlightPath; // this is a constraint of the grab/drag interaction, must be set before it's creation, but only for focusHighlightLayerable
-  
+
     // cuing arrows for the book
     const bookCueArrowLeft = new CueArrow( {
       rotation: Math.PI
     } );
     const bookCueArrowRight = new CueArrow();
-  
+
     const horizontalCueArrows = new HBox( {
       children: [ bookCueArrowLeft, bookCueArrowRight ],
       spacing: 30, // to be scaled down below
       centerX: WIDTH / 2,
       top: ARROW_TOP
     } );
-  
+
     const bookCueArrowVertical = new CueArrow( {
       top: horizontalCueArrows.centerY,
       arrowLength: 55,
       rotation: Math.PI / 2,
       centerX: WIDTH / 2
-  
+
     } );
     const cueArrows = new Node( {
       children: [ horizontalCueArrows, bookCueArrowVertical ],
@@ -209,11 +209,11 @@ class MagnifierNode extends Node {
       centerX: WIDTH / 2,
       top: ARROW_TOP
     } );
-  
+
     // pdom - add the keyboard drag listener to the top atoms
     this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingDescriber,
       temperatureDecreasingDescriber, bookMovementDescriber );
-  
+
     // alert the temperature state on focus
     const focusListener = {
       focus() {
@@ -222,7 +222,7 @@ class MagnifierNode extends Node {
         }
       }
     };
-  
+
     // pdom
     const grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, dragArea, {
       objectToGrabString: zoomedInChemistryBookString,
@@ -233,29 +233,29 @@ class MagnifierNode extends Node {
       grabbableOptions: {
         focusHighlight: focusHighlightPath
       },
-  
+
       // The help text is provided by the BookNode's interaction
       keyboardHelpText: null,
       gestureHelpText: null,
-  
+
       // handler for when the user grabs the book
       onGrab: () => {
         model.hintProperty.set( false ); // hide the visual cue arrows
         bookPickupSoundClip.play();
       },
-  
+
       // handler for when the user releases the book
       onRelease: () => {
         bookDropSoundClip.play();
       },
-  
+
       dragCueNode: cueArrows,
-  
+
       listenersForDrag: [ focusListener ]
     } );
-  
+
     this.container.addChild( this.topBookBackground );
-  
+
     // Add the red border around the magnified area, and add a white shape below it to block out the clipped area.
     const topPadding = 500;
     const sidePadding = 800;
@@ -283,13 +283,13 @@ class MagnifierNode extends Node {
       fill: 'white',
       pickable: true
     } ) );
-  
+
     // add the containing border rectangle
     this.addChild( new Rectangle( 0, 0, WIDTH, HEIGHT, ROUND, ROUND, {
       stroke: 'black',
       lineWidth: 5
     } ) );
-  
+
     // add magnifier's target
     const magnifierTargetNode = new MagnifierTargetNode(
       targetX,
@@ -301,28 +301,28 @@ class MagnifierNode extends Node {
       new Vector2( WIDTH - ROUND, HEIGHT )
     );
     this.addChild( magnifierTargetNode );
-  
+
     // @private - Add the canvas where the atoms will be rendered. For better performance, particularly on iPad, we are
     // using CanvasNode to render the atoms instead of individual nodes.
     this.atomCanvasNode = new AtomCanvasNode( model.atoms, {
       canvasBounds: new Bounds2( 0, 0, WIDTH, HEIGHT )
     } );
     this.container.addChild( this.atomCanvasNode );
-  
+
     // add observers
     model.hintProperty.linkAttribute( visualArrowIcon, 'visible' );
     model.topBookPositionProperty.linkAttribute( this.topBookBackground, 'translation' );
     model.topBookPositionProperty.linkAttribute( this.topAtomsLayer, 'translation' );
-  
+
     model.atomRowsToEvaporateProperty.link( number => {
-  
+
       // Adjust the drag area as the number of rows of atoms evaporates.
       dragArea.setRectHeight( ( number + 2 ) * FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY );
-  
+
       // Update the size of the focus highlight accordingly
       focusHighlightPath.setShape( getFocusHighlightShape( dragArea ) );
     } );
-  
+
     // @private
     this.resetMagnifierNode = () => {
       grabDragInteraction.reset();

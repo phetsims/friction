@@ -159,76 +159,76 @@ class FrictionModel {
    * @param {Tandem} tandem
    */
   constructor( width, height, tandem ) {
-  
+
     // @public (read-only) {Number} - the width for the model in model coordinates
     this.width = width;
-  
+
     // @public (read-only) {Number} - the height for the model in model coordinates
     this.height = height;
-  
+
     // @private {Number} - track how much to evaporate in step() to prevent a Property loop
     this.scheduledEvaporationAmount = 0;
-  
+
     // @public (phet-io) - Instrumented so that PhET-iO clients can get a message when an atom evaporates
     this.evaporationEmitter = new Emitter( {
       tandem: tandem.createTandem( 'evaporationEmitter' ),
       phetioDocumentation: 'Emits when atoms evaporate from the top book'
     } );
-  
+
     // @public (read-only) {Atom[][]}- array of all atoms which are able to evaporate organized by row such that the
     // last rows should be evaporated first
     this.evaporableAtomsByRow = [];
-  
+
     // @public (read-only) {NumberProperty} - atoms temperature = amplitude of oscillation
     this.vibrationAmplitudeProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min, {
       range: MAGNIFIED_ATOMS_INFO.vibrationAmplitude,
-  
+
       tandem: tandem.createTandem( 'vibrationAmplitudeProperty' ),
       phetioDocumentation: 'A relative, qualitative value describing the amount of vibration of the atoms',
       phetioHighFrequency: true,
       phetioReadOnly: true
     } );
-  
+
     // @public (read-only) - position of top book, can by dragged the user
     this.topBookPositionProperty = new Vector2Property( new Vector2( 0, 0 ), {
       tandem: tandem.createTandem( 'topBookPositionProperty' ),
       phetioHighFrequency: true
     } );
-  
+
     // @public {NumberProperty} - distance between books
     this.distanceBetweenBooksProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.distance );
-  
+
     // @public {NumberProperty} - additional offset, results from drag
     this.bottomOffsetProperty = new NumberProperty( 0 );
-  
+
     // @public (read-only) {NumberProperty} - number of rows of atoms available to evaporate, goes down as book wears away
     this.atomRowsToEvaporateProperty = new NumberProperty( TOP_BOOK_ATOM_STRUCTURE.length - 1 );
-  
+
     // @private - are books in contact?
     this.contactProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'contactProperty' )
     } );
-  
+
     // @public {BooleanProperty} - Show hint icon. Only set by model and on a11y grab interaction.
     this.hintProperty = new BooleanProperty( true );
-  
+
     // @public {Number} (read-only) - drag and drop book coordinates conversion coefficient
     this.bookDraggingScaleFactor = 0.025;
-  
+
     // group tandem for creating the atoms
     const atomGroupTandem = tandem.createGroupTandem( 'atoms' );
-  
+
     // @public (read-only) {Atom[]} - array of atoms that are visible to the user in the magnifier window
     this.atoms = [];
-  
+
     // @public (read-only)
     // {number} the count of how many atoms have been evaporated
     this.numberOfAtomsEvaporated = 0;
-  
+
     this.evaporationEmitter.addListener( () => {
       this.numberOfAtomsEvaporated += 1;
     } );
-  
+
     // add the atoms that are visible in the top book
     MAGNIFIED_ATOMS_INFO.top.layerDescriptions.forEach( ( layerDescription, i ) => {
       addAtomRow(
@@ -240,7 +240,7 @@ class FrictionModel {
         atomGroupTandem
       );
     } );
-  
+
     // add the atoms that are visible in the bottom book
     MAGNIFIED_ATOMS_INFO.bottom.layerDescriptions.forEach( ( layerDescription, i ) => {
       addAtomRow(
@@ -252,12 +252,12 @@ class FrictionModel {
         atomGroupTandem
       );
     } );
-  
+
     // check atom's contact
     this.distanceBetweenBooksProperty.link( distance => {
       this.contactProperty.set( Math.floor( distance ) <= 0 );
     } );
-  
+
     // set distance between atoms and set the amplitude if they are in contact
     this.topBookPositionProperty.link( ( newPosition, oldPosition ) => {
       oldPosition = oldPosition || Vector2.ZERO;
@@ -268,7 +268,7 @@ class FrictionModel {
         this.vibrationAmplitudeProperty.set( Math.min( newValue, MAGNIFIED_ATOMS_INFO.vibrationAmplitude.max ) );
       }
     } );
-  
+
     // evaporation check
     this.vibrationAmplitudeProperty.link( amplitude => {
       if ( amplitude > MAGNIFIED_ATOMS_INFO.evaporationLimit ) {
