@@ -8,6 +8,7 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import friction from '../../friction.js';
@@ -69,9 +70,9 @@ class Atom {
     assert && assert( !this.isEvaporated, 'Atom was already evaporated' );
 
     this.isEvaporated = true;
-    const evaporationDestinationX = this.model.width * ( phet.joist.random.nextBoolean() ? 1 : -1 );
+    const evaporationDestinationX = this.model.width * ( dotRandom.nextBoolean() ? 1 : -1 );
     const evaporationDestinationY = this.positionProperty.get().y -
-                                    this.model.distanceBetweenBooksProperty.get() * phet.joist.random.nextDouble();
+                                    this.model.distanceBetweenBooksProperty.get() * dotRandom.nextDouble();
 
     this.evaporationVelocity.setXY(
       evaporationDestinationX - this.positionProperty.get().x,
@@ -97,8 +98,8 @@ class Atom {
 
     // update the atom's position based on vibration and center position
     const newPosition = new Vector2(
-      this.centerPosition.x + this.model.vibrationAmplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 ),
-      this.centerPosition.y + this.model.vibrationAmplitudeProperty.get() * ( phet.joist.random.nextDouble() - 0.5 )
+      this.centerPosition.x + this.model.vibrationAmplitudeProperty.get() * ( dotRandom.nextDouble() - 0.5 ),
+      this.centerPosition.y + this.model.vibrationAmplitudeProperty.get() * ( dotRandom.nextDouble() - 0.5 )
     );
     this.positionProperty.set( newPosition );
 

@@ -7,6 +7,7 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
+import dotRandom from '../../../dot/js/dotRandom.js';
 import Color from '../../../scenery/js/util/Color.js';
 import friction from '../friction.js';
 import frictionStrings from '../frictionStrings.js';
@@ -40,7 +41,7 @@ const FrictionConstants = {
 
   // sound - a function for choosing a random playback rate from a one-octave pentatonic scale
   GET_RANDOM_PENTATONIC_PLAYBACK_RATE() {
-    return phet.joist.random.sample( MAJOR_PENTATONIC_PLAYBACK_RATES );
+    return dotRandom.sample( MAJOR_PENTATONIC_PLAYBACK_RATES );
   },
 
   // pdom - the mappings work well divided into 9 sections (arbitrary, but @terracoda's design diagram fit into 9 well

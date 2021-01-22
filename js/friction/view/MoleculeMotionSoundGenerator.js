@@ -15,6 +15,7 @@
  * @author John Blanco
  */
 
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import merge from '../../../../phet-core/js/merge.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import SoundGenerator from '../../../../tambo/js/sound-generators/SoundGenerator.js';
@@ -60,7 +61,7 @@ class MoleculeMotionSoundGenerator extends SoundGenerator {
       this.setOutputLevel( options.maxOutputLevel * moleculeMotionSoundVolume );
 
       // choose a sound clip (this creates variation in the output level for each play operation)
-      const soundClip = phet.joist.random.sample( motionSoundClips );
+      const soundClip = dotRandom.sample( motionSoundClips );
 
       // set the playback rate in a way that sounds good with other sounds that are playing
       soundClip.playbackRate = FrictionConstants.GET_RANDOM_PENTATONIC_PLAYBACK_RATE();

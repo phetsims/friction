@@ -12,6 +12,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
+import dotRandom from '../../../../dot/js/dotRandom.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -375,7 +376,7 @@ class FrictionModel {
         );
 
         // randomly choose an unevaporated atom and evaporate it
-        const atomToEvaporate = phet.joist.random.sample( unevaporatedAtoms );
+        const atomToEvaporate = dotRandom.sample( unevaporatedAtoms );
         atomToEvaporate.evaporate();
         this.evaporationEmitter.emit();
 
