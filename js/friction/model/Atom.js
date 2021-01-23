@@ -22,9 +22,8 @@ class Atom {
    * @param {Vector2} initialPosition
    * @param {FrictionModel} model
    * @param {boolean} isTopAtom
-   * @param {Tandem} tandem
    */
-  constructor( initialPosition, model, isTopAtom, tandem ) {
+  constructor( initialPosition, model, isTopAtom ) {
 
     // @private {Vector2} - initial position, used during resets
     this.initialPosition = initialPosition;
@@ -59,7 +58,6 @@ class Atom {
       } );
     }
   }
-
 
   /**
    * when the oscillation has exceeded the threshold, the atom breaks off, animates to one side of the screen, and

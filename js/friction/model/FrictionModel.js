@@ -216,9 +216,6 @@ class FrictionModel {
     // @public {Number} (read-only) - drag and drop book coordinates conversion coefficient
     this.bookDraggingScaleFactor = 0.025;
 
-    // group tandem for creating the atoms
-    const atomGroupTandem = tandem.createGroupTandem( 'atoms' );
-
     // @public (read-only) {Atom[]} - array of atoms that are visible to the user in the magnifier window
     this.atoms = [];
 
@@ -237,8 +234,7 @@ class FrictionModel {
         layerDescription,
         DEFAULT_ROW_START_X_POSITION,
         FrictionConstants.MAGNIFIER_WINDOW_HEIGHT / 3 - INITIAL_ATOM_SPACING_Y + ATOM_SPACING_Y * i,
-        true, // isTopAtom
-        atomGroupTandem
+        true // isTopAtom
       );
     } );
 
@@ -249,8 +245,7 @@ class FrictionModel {
         layerDescription,
         DEFAULT_ROW_START_X_POSITION,
         2 * FrictionConstants.MAGNIFIER_WINDOW_HEIGHT / 3 + ATOM_SPACING_Y * i,
-        false, // isTopAtom
-        atomGroupTandem
+        false // isTopAtom
       );
     } );
 
@@ -428,7 +423,7 @@ FrictionModel.MAGNIFIED_DRAG_BOUNDS = new Bounds2(
   2000 );
 
 // helper function to add a layer of atoms to the model
-function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, isTopAtom, atomGroupTandem ) {
+function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, isTopAtom) {
 
   let canEvaporate;
   const evaporableAtomsRow = [];
@@ -440,8 +435,7 @@ function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, isT
       const atom = new Atom(
         new Vector2( rowStartXPos + ( offset + n ) * MAGNIFIED_ATOMS_INFO.distanceX, rowYPos ),
         frictionModel,
-        isTopAtom,
-        atomGroupTandem.createNextTandem()
+        isTopAtom
       );
       frictionModel.atoms.push( atom );
       if ( canEvaporate ) {
