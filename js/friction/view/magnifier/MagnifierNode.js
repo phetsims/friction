@@ -251,7 +251,7 @@ class MagnifierNode extends Node {
 
       dragCueNode: cueArrows,
 
-      listenersForDrag: [ focusListener ]
+      listenersForDragState: [ focusListener ]
     } );
 
     this.container.addChild( this.topBookBackground );

@@ -135,7 +135,7 @@ class BookNode extends Node {
 
         dragCueNode: arrows,
 
-        listenersForDrag: [ focusListener ],
+        listenersForDragState: [ focusListener ],
 
         tandem: tandem.createTandem( 'grabDragInteraction' )
       } );
