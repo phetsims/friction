@@ -136,7 +136,7 @@ class FrictionScreenView extends ScreenView {
     ) );
 
     // pdom
-    this.pdomPlayAreaNode.accessibleOrder = [ chemistryBookNode, this.magnifierNode ];
+    this.pdomPlayAreaNode.pdomOrder = [ chemistryBookNode, this.magnifierNode ];
 
     // add reset button
     const resetAllButton = new ResetAllButton( {
@@ -182,7 +182,7 @@ class FrictionScreenView extends ScreenView {
     } );
 
     // add a node that creates a "play area" accessible section in the PDOM
-    this.pdomControlAreaNode.accessibleOrder = [ resetAllButton ];
+    this.pdomControlAreaNode.pdomOrder = [ resetAllButton ];
 
     // @private
     this.resetFrictionScreenView = () => {
