@@ -423,7 +423,7 @@ FrictionModel.MAGNIFIED_DRAG_BOUNDS = new Bounds2(
   2000 );
 
 // helper function to add a layer of atoms to the model
-function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, isTopAtom) {
+function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, isTopAtom ) {
 
   let canEvaporate;
   const evaporableAtomsRow = [];
