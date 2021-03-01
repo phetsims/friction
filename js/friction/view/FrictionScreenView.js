@@ -63,7 +63,8 @@ class FrictionScreenView extends ScreenView {
 
     super( {
       layoutBounds: new Bounds2( 0, 0, model.width, model.height ),
-      screenSummaryContent: frictionScreenSummaryNode
+      screenSummaryContent: frictionScreenSummaryNode,
+      tandem: tandem
     } );
 
     // add physics book
