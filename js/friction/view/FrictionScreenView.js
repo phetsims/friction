@@ -10,8 +10,11 @@
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import SelfVoicingInputListener from '../../../../scenery-phet/js/accessibility/speaker/SelfVoicingInputListener.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import ThermometerNode from '../../../../scenery-phet/js/ThermometerNode.js';
+import selfVoicingManager from '../../../../scenery/js/accessibility/speaker/selfVoicingManager.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import SoundLevelEnum from '../../../../tambo/js/SoundLevelEnum.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
@@ -30,11 +33,20 @@ import TemperatureDecreasingDescriber from './describers/TemperatureDecreasingDe
 import TemperatureIncreasingDescriber from './describers/TemperatureIncreasingDescriber.js';
 import FrictionScreenSummaryNode from './FrictionScreenSummaryNode.js';
 import MagnifierNode from './magnifier/MagnifierNode.js';
+import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
 import MoleculeMotionSoundGenerator from './MoleculeMotionSoundGenerator.js';
 
 // constants
 const chemistryString = frictionStrings.chemistry;
 const physicsString = frictionStrings.physics;
+const singleScreenPatternString = sceneryPhetStrings.a11y.selfVoicing.simSection.screenSummary.singleScreenIntroPattern;
+const overviewPatternString = frictionStrings.a11y.selfVoicing.overviewPattern;
+const overviewHintString = frictionStrings.a11y.selfVoicing.overviewHint;
+const titleString = frictionStrings.friction.title;
+const moveBookHintString = frictionStrings.a11y.selfVoicing.moveBookHint;
+const resetSimMoreObservationSentenceString = frictionStrings.a11y.resetSimMoreObservationSentence;
+const resetAllString = sceneryPhetStrings.a11y.resetAll.label;
+const resetAllAlertString = sceneryPhetStrings.a11y.resetAll.alert;
 
 const THERMOMETER_FLUID_MAIN_COLOR = 'rgb(237,28,36)';
 const THERMOMETER_FLUID_HIGHLIGHT_COLOR = 'rgb(240,150,150)';
@@ -66,6 +78,12 @@ class FrictionScreenView extends ScreenView {
       screenSummaryContent: frictionScreenSummaryNode,
       tandem: tandem
     } );
+
+    // @private {FrictionScreenSummaryNode}
+    this.frictionScreenSummaryNode = frictionScreenSummaryNode;
+
+    // @private {FrictionModel}
+    this.model = model;
 
     // add physics book
     this.addChild( new BookNode( model, physicsString, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
@@ -142,8 +160,19 @@ class FrictionScreenView extends ScreenView {
     // add reset button
     const resetAllButton = new ResetAllButton( {
       listener: () => {
+
+        phet.joist.sim.selfVoicingUtteranceQueue && phet.joist.sim.selfVoicingUtteranceQueue.setEnabled( true );
+
         model.reset();
         this.reset();
+
+        if ( phet.joist.sim.selfVoicingUtteranceQueue ) {
+          phet.joist.sim.selfVoicingUtteranceQueue.enabled = true;
+
+          // when pressed, self-voicing content should speak both the label and the alert
+          const resetAlert = selfVoicingManager.collectResponses( resetAllString, resetAllAlertString );
+          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( resetAlert );
+        }
       },
       radius: 22,
       x: model.width * 0.94,
@@ -151,6 +180,10 @@ class FrictionScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( resetAllButton );
+
+    resetAllButton.addInputListener( new SelfVoicingInputListener( {
+      highlightTarget: resetAllButton
+    } ) );
 
     // create and register the sound that will be played to indicate changes to the rate of molecule motion
     soundManager.addSoundGenerator( new MoleculeMotionSoundGenerator( model.vibrationAmplitudeProperty, {
@@ -197,7 +230,7 @@ class FrictionScreenView extends ScreenView {
       temperatureIncreasingDescriber.reset();
       breakAwayDescriber.reset();
       bookMovementDescriber.reset();
-      frictionScreenSummaryNode.updateSummaryString();
+      this.frictionScreenSummaryNode.updateSummaryString();
     };
   }
 
@@ -218,6 +251,47 @@ class FrictionScreenView extends ScreenView {
    */
   reset() {
     this.resetFrictionScreenView();
+  }
+
+  /**
+   * Implement to support the self-voicing Toolbar for the sim. When the "Overview" button is pressed, this is the
+   * content that will be spoken to describe this screen.
+   * @public
+   *
+   * @returns {string}
+   */
+  getSelfVoicingOverviewContent() {
+    const introString = StringUtils.fillIn( singleScreenPatternString, {
+      sim: titleString
+    } );
+
+    return StringUtils.fillIn( overviewPatternString, {
+      intro: introString,
+      overviewHint: overviewHintString
+    } );
+  }
+
+  /**
+   * Implement to support the self-voicing Toolbar for the sim. When the "Details" button is pressed, this is the
+   * content that will be spoken to describe this screen.
+   * @public
+   *
+   * @returns {string}
+   */
+  getSelfVoicingDetailsContent() {
+    return this.frictionScreenSummaryNode.getSelfVoicingDetailsContent();
+  }
+
+  /**
+   * Implement to support the self-voicing toolbar for the sim. When the "Hint" button is pressed this is the content
+   * that will be spoken to guide the user toward an interaction.
+   * @public
+   *
+   * @returns {string}
+   */
+  getSelfVoicingHintContent() {
+    return this.model.numberOfAtomsEvaporated > FrictionModel.HALF_OF_EVAPORABLE_ATOMS ?
+           resetSimMoreObservationSentenceString : moveBookHintString;
   }
 }
 

@@ -155,7 +155,10 @@ class TemperatureIncreasingDescriber {
    * @private
    */
   alertMaxTemp() {
-    this.alert( () => { phet.joist.sim.utteranceQueue.addToBack( this.maxTempUtterance ); } );
+    this.alert( () => {
+      phet.joist.sim.utteranceQueue.addToBack( this.maxTempUtterance );
+      phet.joist.sim.selfVoicingUtteranceQueue && phet.joist.sim.selfVoicingUtteranceQueue.addToBack( this.maxTempUtterance );
+    } );
   }
 
   /**

@@ -11,12 +11,14 @@ import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/GrabD
 import friction from '../../friction.js';
 import frictionStrings from '../../frictionStrings.js';
 import FrictionModel from '../model/FrictionModel.js';
+import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
 
 // constants
 const initialGrabbedNotTouchingString = frictionStrings.a11y.initialGrabbedNotTouching;
 const grabbedNotTouchingString = frictionStrings.a11y.grabbedNotTouching;
 const initialGrabbedTouchingString = frictionStrings.a11y.initialGrabbedTouching;
 const grabbedTouchingString = frictionStrings.a11y.grabbedTouching;
+const releasedString = sceneryPhetStrings.a11y.grabDrag.released;
 
 const touchingAlerts = { initial: initialGrabbedTouchingString, subsequent: grabbedTouchingString };
 const notTouchingAlerts = { initial: initialGrabbedNotTouchingString, subsequent: grabbedNotTouchingString };
@@ -45,13 +47,23 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
     options.onGrab = () => {
       oldGrab && oldGrab();
 
+      // Screen reader alerts
       const alerts = model.contactProperty.get() ? touchingAlerts : notTouchingAlerts;
-
-      let alert = alerts.initial;
+      let screenReaderAlert = alerts.initial;
       if ( this.successfullyInteracted ) {
-        alert = alerts.subsequent;
+        screenReaderAlert = alerts.subsequent;
       }
-      phet.joist.sim.utteranceQueue.addToBack( alert );
+      phet.joist.sim.utteranceQueue.addToBack( screenReaderAlert );
+
+      // self-voicing alerts - all self-voicing alerts exclude the "WASD" keyboard information
+      phet.joist.sim.selfVoicingUtteranceQueue && phet.joist.sim.selfVoicingUtteranceQueue.addToBack( alerts.subsequent );
+    };
+
+    options.onRelease = () => {
+
+      // there is no self-voiced "Released" string (yet), announce this manually
+      // in the future this should be added to GrabDragInteraction
+      phet.joist.sim.selfVoicingUtteranceQueue && phet.joist.sim.selfVoicingUtteranceQueue.addToBack( releasedString );
     };
 
     super( wrappedNode, keyboardDragListener, options );

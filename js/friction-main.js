@@ -44,11 +44,12 @@ simLauncher.launch( () => {
     hasKeyboardHelpContent: true,
     preferencesConfiguration: new PreferencesConfiguration( {
       visualOptions: {
-        supportsInteractiveHighlights: true
+        supportsInteractiveHighlights: false
       },
       audioOptions: {
         supportsSelfVoicing: true,
-        supportsEhnancedSound: true
+        supportsSelfVoicingToolbar: true,
+        supportsEnhancedSound: true
       }
     } )
   };

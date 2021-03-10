@@ -12,6 +12,7 @@
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Shape from '../../../../../kite/js/Shape.js';
+import SelfVoicingInputListener from '../../../../../scenery-phet/js/accessibility/speaker/SelfVoicingInputListener.js';
 import FocusHighlightPath from '../../../../../scenery/js/accessibility/FocusHighlightPath.js';
 import Circle from '../../../../../scenery/js/nodes/Circle.js';
 import HBox from '../../../../../scenery/js/nodes/HBox.js';
@@ -176,7 +177,7 @@ class MagnifierNode extends Node {
 
     // pdom - custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
     const focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
-
+    focusHighlightPath.pickable = false;
 
     // pdom - add the focus highlight on top of the row circles
     // must be added prior to adding the grab/drag interaction
@@ -322,6 +323,10 @@ class MagnifierNode extends Node {
       // Update the size of the focus highlight accordingly
       focusHighlightPath.setShape( getFocusHighlightShape( dragArea ) );
     } );
+
+    dragArea.addInputListener( new SelfVoicingInputListener( {
+      highlightTarget: dragArea
+    } ) );
 
     // @private
     this.resetMagnifierNode = () => {

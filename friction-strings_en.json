@@ -214,6 +214,17 @@
     },
     "breakAwayNoneLeft": {
       "value": "{{temp}}. Atoms jiggling very fast."
+    },
+    "selfVoicing": {
+      "overviewHint": {
+        "value": "Move the chemistry book and observe what happens."
+      },
+      "overviewPattern": {
+        "value": "{{intro}} {{overviewHint}}"
+      },
+      "moveBookHint": {
+        "value": "Move Chemistry book down to explore friction."
+      }
     }
   }
 }

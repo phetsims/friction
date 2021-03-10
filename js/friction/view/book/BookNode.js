@@ -11,6 +11,7 @@
 
 import Shape from '../../../../../kite/js/Shape.js';
 import merge from '../../../../../phet-core/js/merge.js';
+import SelfVoicingInputListener from '../../../../../scenery-phet/js/accessibility/speaker/SelfVoicingInputListener.js';
 import FocusHighlightPath from '../../../../../scenery/js/accessibility/FocusHighlightPath.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import SoundClip from '../../../../../tambo/js/sound-generators/SoundClip.js';
@@ -140,12 +141,15 @@ class BookNode extends Node {
         tandem: tandem.createTandem( 'grabDragInteraction' )
       } );
 
-
       this.addInputListener( new FrictionDragHandler( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
         bookMovementDescriber, options.tandem.createTandem( 'dragHandler' ), {
           startSound: bookPickupSoundClip,
           endSound: bookDropSoundClip
         } ) );
+
+      this.addInputListener( new SelfVoicingInputListener( {
+        highlightTarget: this
+      } ) );
 
       // add observer
       model.topBookPositionProperty.link( position => {
