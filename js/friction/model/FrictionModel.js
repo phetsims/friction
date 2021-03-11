@@ -413,7 +413,7 @@ FrictionModel.VIBRATION_AMPLITUDE_MIN = VIBRATION_AMPLITUDE_MIN;
 FrictionModel.VIBRATION_AMPLITUDE_MAX = VIBRATION_AMPLITUDE_MAX;
 
 // pdom - empirically determined value of when the atoms are "pretty much cool and settled"
-FrictionModel.AMPLITUDE_SETTLED_THRESHOLD = VIBRATION_AMPLITUDE_MIN + .4;
+FrictionModel.AMPLITUDE_SETTLED_THRESHOLD = VIBRATION_AMPLITUDE_MIN + 0.4;
 
 // The drag bounds for the magnified book view
 FrictionModel.MAGNIFIED_DRAG_BOUNDS = new Bounds2(

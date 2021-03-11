@@ -75,17 +75,17 @@ class BookNode extends Node {
       const bookCueArrow1 = new CueArrow( {
         rotation: Math.PI,
         right: -10,
-        scale: .7
+        scale: 0.7
       } );
       const bookCueArrow2 = new CueArrow( {
         left: this.width + 12,
-        scale: .7
+        scale: 0.7
       } );
       const bookCueArrow3 = new CueArrow( {
         rotation: Math.PI / 2,
         centerX: this.width / 2,
         y: this.height / 2 + 10, // a little further down on the screen, empirical
-        scale: .7
+        scale: 0.7
       } );
       const arrows = new Node( {
         children: [ bookCueArrow1, bookCueArrow2, bookCueArrow3 ]

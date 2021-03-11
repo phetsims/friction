@@ -205,7 +205,7 @@ class MagnifierNode extends Node {
     } );
     const cueArrows = new Node( {
       children: [ horizontalCueArrows, bookCueArrowVertical ],
-      scale: .6,
+      scale: 0.6,
       centerX: WIDTH / 2,
       top: ARROW_TOP
     } );
