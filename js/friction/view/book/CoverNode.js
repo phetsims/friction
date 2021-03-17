@@ -85,7 +85,7 @@ class CoverNode extends Node {
       font: FONT,
       fill: FrictionConstants.BOOK_TEXT_COLOR,
       pickable: false,
-      maxWidth: WIDTH * .97, // for a bit of margin
+      maxWidth: WIDTH * 0.97, // for a bit of margin
       tandem: tandem.createTandem( 'titleText' )
     } );
     titleText.center = bindingRectangle.center;
