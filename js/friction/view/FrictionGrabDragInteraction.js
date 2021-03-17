@@ -56,14 +56,14 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
       phet.joist.sim.utteranceQueue.addToBack( screenReaderAlert );
 
       // self-voicing alerts - all self-voicing alerts exclude the "WASD" keyboard information
-      phet.joist.sim.selfVoicingUtteranceQueue && phet.joist.sim.selfVoicingUtteranceQueue.addToBack( alerts.subsequent );
+      phet.joist.sim.voicingUtteranceQueue && phet.joist.sim.voicingUtteranceQueue.addToBack( alerts.subsequent );
     };
 
     options.onRelease = () => {
 
       // there is no self-voiced "Released" string (yet), announce this manually
       // in the future this should be added to GrabDragInteraction
-      phet.joist.sim.selfVoicingUtteranceQueue && phet.joist.sim.selfVoicingUtteranceQueue.addToBack( releasedString );
+      phet.joist.sim.voicingUtteranceQueue && phet.joist.sim.voicingUtteranceQueue.addToBack( releasedString );
     };
 
     super( wrappedNode, keyboardDragListener, options );

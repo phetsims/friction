@@ -47,7 +47,7 @@ const FrictionAlertManager = {
     phet.joist.sim.utteranceQueue.addToBack( temperatureJiggleUtterance );
 
     // self-voicing utterance, same content as screen reader alerts
-    phet.joist.sim.selfVoicingUtteranceQueue && phet.joist.sim.selfVoicingUtteranceQueue.addToBack( temperatureJiggleUtterance );
+    phet.joist.sim.voicingUtteranceQueue && phet.joist.sim.voicingUtteranceQueue.addToBack( temperatureJiggleUtterance );
   },
 
   /**
@@ -56,7 +56,7 @@ const FrictionAlertManager = {
    */
   alertSettledAndCool() {
     phet.joist.sim.utteranceQueue.addToBack( atomsJiggleTinyBitTempCoolString );
-    phet.joist.sim.selfVoicingUtteranceQueue && phet.joist.sim.selfVoicingUtteranceQueue.addToBack( atomsJiggleTinyBitTempCoolString );
+    phet.joist.sim.voicingUtteranceQueue && phet.joist.sim.voicingUtteranceQueue.addToBack( atomsJiggleTinyBitTempCoolString );
   },
 
   // Threshold that must be reached from initial temp to new temp to alert that the temperature changed, in amplitude (see model for more info)

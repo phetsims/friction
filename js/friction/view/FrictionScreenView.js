@@ -161,17 +161,17 @@ class FrictionScreenView extends ScreenView {
     const resetAllButton = new ResetAllButton( {
       listener: () => {
 
-        phet.joist.sim.selfVoicingUtteranceQueue && phet.joist.sim.selfVoicingUtteranceQueue.setEnabled( true );
+        phet.joist.sim.voicingUtteranceQueue && phet.joist.sim.voicingUtteranceQueue.setEnabled( true );
 
         model.reset();
         this.reset();
 
-        if ( phet.joist.sim.selfVoicingUtteranceQueue ) {
-          phet.joist.sim.selfVoicingUtteranceQueue.enabled = true;
+        if ( phet.joist.sim.voicingUtteranceQueue ) {
+          phet.joist.sim.voicingUtteranceQueue.enabled = true;
 
           // when pressed, self-voicing content should speak both the label and the alert
           const resetAlert = selfVoicingManager.collectResponses( resetAllString, resetAllAlertString );
-          phet.joist.sim.selfVoicingUtteranceQueue.addToBack( resetAlert );
+          phet.joist.sim.voicingUtteranceQueue.addToBack( resetAlert );
         }
       },
       radius: 22,
