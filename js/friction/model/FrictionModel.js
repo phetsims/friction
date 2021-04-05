@@ -123,7 +123,7 @@ const BOTTOM_BOOK_ATOM_STRUCTURE = [
 // pdom
 // iterate through the constant to determine the number of atoms that can evaporate from the top book structure
 let atoms = 0;
-TOP_BOOK_ATOM_STRUCTURE.map( row => {
+TOP_BOOK_ATOM_STRUCTURE.forEach( row => {
   row.forEach( schema => {
     if ( schema.canEvaporate ) {
       atoms += schema.num;
