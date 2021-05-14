@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.5.11-rc.1 Mon May 10 2021 15:08:51 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# friction 1.5.11-rc.2 Fri May 14 2021 04:36:46 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "69088d35b9e1971aee675d1aec7f413f4d0bef19",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "f5bebfcf57e56ad9192c13d4e65e423bd036415c",
+    "sha": "bb016f0658fc1b410abced3e599c8c3172e17bef",
     "branch": "1.5"
   },
   "joist": {
@@ -58,7 +58,7 @@
   },
   "scenery": {
     "sha": "19dd213c8aedd972794ba17ba98ff4a23d55ddca",
-    "branch": "friction-1.5"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "d7ec7871dd3a261a164d3e7a7f45cdbb0b8d0951",
