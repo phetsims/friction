@@ -18,10 +18,10 @@
       "phet-io"
     ],
     "features":{
+      "supportsSound": true,
       "supportsEnhancedSound": true,
       "supportsInteractiveDescription": true
     },
-    "supportsSound": true,
     "simulation": true
   },
   "eslintConfig": {
