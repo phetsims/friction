@@ -17,7 +17,7 @@
       "phet",
       "phet-io"
     ],
-    "features":{
+    "features": {
       "supportsSound": true,
       "supportsEnhancedSound": true,
       "supportsInteractiveDescription": true
