@@ -13,6 +13,7 @@
 
 import Property from '../../axon/js/Property.js';
 import Bounds2 from '../../dot/js/Bounds2.js';
+import PreferencesConfiguration from '../../joist/js/preferences/PreferencesConfiguration.js';
 import Screen from '../../joist/js/Screen.js';
 import Sim from '../../joist/js/Sim.js';
 import simLauncher from '../../joist/js/simLauncher.js';
@@ -40,6 +41,7 @@ simLauncher.launch( () => {
                         'Kathryn Woessner',
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation to HTML5.'
     },
+    preferencesConfiguration: new PreferencesConfiguration(),
     hasKeyboardHelpContent: true
   };
 

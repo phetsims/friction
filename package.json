@@ -18,9 +18,11 @@
       "phet-io"
     ],
     "features": {
+      "supportsVoicing": true,
       "supportsSound": true,
       "supportsEnhancedSound": true,
-      "supportsInteractiveDescription": true
+      "supportsInteractiveDescription": true,
+      "supportsInteractiveHighlights": true
     },
     "simulation": true
   },

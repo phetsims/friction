@@ -219,6 +219,33 @@ class FrictionScreenView extends ScreenView {
   reset() {
     this.resetFrictionScreenView();
   }
+
+  /**
+   * To support voicing.
+   * @override
+   * @public
+   */
+  getVoicingOverviewContent() {
+    return 'This has not been implemented yet';
+  }
+
+  /**
+   * To support voicing.
+   * @override
+   * @public
+   */
+  getVoicingDetailsContent() {
+    return 'This has not been implemented yet';
+  }
+
+  /**
+   * To support voicing.
+   * @override
+   * @public
+   */
+  getVoicingHintContent() {
+    return 'This has not been implemented yet';
+  }
 }
 
 friction.register( 'FrictionScreenView', FrictionScreenView );
