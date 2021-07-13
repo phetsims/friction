@@ -26,6 +26,7 @@ import BookRubSoundGenerator from './BookRubSoundGenerator.js';
 import CoolingSoundGenerator from './CoolingSoundGenerator.js';
 import BookMovementDescriber from './describers/BookMovementDescriber.js';
 import BreakAwayDescriber from './describers/BreakAwayDescriber.js';
+import GrabbedDescriber from './describers/GrabbedDescriber.js';
 import TemperatureDecreasingDescriber from './describers/TemperatureDecreasingDescriber.js';
 import TemperatureIncreasingDescriber from './describers/TemperatureIncreasingDescriber.js';
 import FrictionScreenSummaryNode from './FrictionScreenSummaryNode.js';
@@ -56,6 +57,7 @@ class FrictionScreenView extends ScreenView {
     const temperatureDecreasingDescriber = new TemperatureDecreasingDescriber( model );
     const breakAwayDescriber = new BreakAwayDescriber( model );
     const bookMovementDescriber = new BookMovementDescriber( model );
+    const grabbedDescriber = new GrabbedDescriber( model.contactProperty, model.successfullyInteractedWithProperty );
 
     // pdom
     const frictionScreenSummaryNode = new FrictionScreenSummaryNode( model, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP,
@@ -72,7 +74,7 @@ class FrictionScreenView extends ScreenView {
 
     // add physics book
     this.addChild( new BookNode( model, physicsString, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
-      bookMovementDescriber, tandem.createTandem( 'bottomBookNode' ), {
+      bookMovementDescriber, grabbedDescriber, tandem.createTandem( 'bottomBookNode' ), {
         x: 50,
         y: 225
       } ) );
@@ -80,7 +82,7 @@ class FrictionScreenView extends ScreenView {
     // add chemistry book
     const chemistryBookNode = new BookNode( model, chemistryString, temperatureIncreasingDescriber,
       temperatureDecreasingDescriber,
-      bookMovementDescriber, tandem.createTandem( 'topBookNode' ), {
+      bookMovementDescriber, grabbedDescriber, tandem.createTandem( 'topBookNode' ), {
         x: 65,
         y: 209,
         color: FrictionConstants.TOP_BOOK_COLOR_MACRO,
@@ -106,7 +108,7 @@ class FrictionScreenView extends ScreenView {
     // @private - add magnifier
     this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, temperatureIncreasingDescriber,
       temperatureDecreasingDescriber,
-      bookMovementDescriber, tandem.createTandem( 'atomicView' ), {
+      bookMovementDescriber, grabbedDescriber, tandem.createTandem( 'atomicView' ), {
         x: 40,
         y: 25,
         layerSplit: true

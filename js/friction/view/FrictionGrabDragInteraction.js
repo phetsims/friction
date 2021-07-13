@@ -8,28 +8,20 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/GrabDragInteraction.js';
+import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
+import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
 import friction from '../../friction.js';
-import frictionStrings from '../../frictionStrings.js';
-import FrictionModel from '../model/FrictionModel.js';
-
-// constants
-const initialGrabbedNotTouchingString = frictionStrings.a11y.initialGrabbedNotTouching;
-const grabbedNotTouchingString = frictionStrings.a11y.grabbedNotTouching;
-const initialGrabbedTouchingString = frictionStrings.a11y.initialGrabbedTouching;
-const grabbedTouchingString = frictionStrings.a11y.grabbedTouching;
-
-const touchingAlerts = { initial: initialGrabbedTouchingString, subsequent: grabbedTouchingString };
-const notTouchingAlerts = { initial: initialGrabbedNotTouchingString, subsequent: grabbedNotTouchingString };
 
 /**
  * @param {FrictionModel} model
  * @param {Node} wrappedNode
+ * @param {GrabbedDescriber} grabbedDescriber
  * @param {Object} [options]
  * @constructor
  */
 class FrictionGrabDragInteraction extends GrabDragInteraction {
 
-  constructor( model, keyboardDragListener, wrappedNode, options ) {
+  constructor( model, keyboardDragListener, wrappedNode, grabbedDescriber, options ) {
     options = merge( {
 
       // Function that returns whether or not the drag cue should be shown.
@@ -45,36 +37,22 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
     options.onGrab = () => {
       oldGrab && oldGrab();
 
-      const alerts = model.contactProperty.get() ? touchingAlerts : notTouchingAlerts;
+      phet.joist.sim.utteranceQueue.addToBack( grabbedDescriber.getGrabbedString() );
 
-      let alert = alerts.initial;
-      if ( this.successfullyInteracted ) {
-        alert = alerts.subsequent;
-      }
-      phet.joist.sim.utteranceQueue.addToBack( alert );
+      voicingUtteranceQueue.addToBack( grabbedDescriber.getGrabbedVoicingString() );
+    };
+
+    options.onRelease = () => {
+
+      // there is no self-voiced "Released" string (yet), announce this manually
+      // in the future this should be added to GrabDragInteraction
+      voicingUtteranceQueue.addToBack( sceneryPhetStrings.a11y.grabDrag.released );
     };
 
     super( wrappedNode, keyboardDragListener, options );
 
     // @private
-    this.successfullyInteracted = false; // Keep track when an interaction has successfully occurred.
     this.model = model;
-    this.amplitudeListener = amplitude => {
-      if ( !this.successfullyInteracted && amplitude > FrictionModel.AMPLITUDE_SETTLED_THRESHOLD ) {
-        this.successfullyInteracted = true;
-      }
-    };
-    model.vibrationAmplitudeProperty.link( this.amplitudeListener );
-  }
-
-  /**
-   * Reset the utterance singleton
-   * @public
-   * @override
-   */
-  reset() {
-    super.reset();
-    this.successfullyInteracted = false;
   }
 
   /**

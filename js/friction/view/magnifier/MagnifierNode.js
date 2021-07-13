@@ -54,10 +54,11 @@ class MagnifierNode extends Node {
    * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
    * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
    * @param {BookMovementDescriber} bookMovementDescriber
+   * @param {GrabbedDescriber} grabbedDescriber
    * @param {Tandem} tandem - passed to the dragArea to instrument the focusable item as the magnifier, see https://github.com/phetsims/friction/issues/82
    * @param {Object} [options]
    */
-  constructor( model, targetX, targetY, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, tandem, options ) {
+  constructor( model, targetX, targetY, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, grabbedDescriber, tandem, options ) {
     options.tandem = tandem;
     super( options );
 
@@ -224,7 +225,7 @@ class MagnifierNode extends Node {
     };
 
     // pdom
-    const grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, dragArea, {
+    const grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, dragArea, grabbedDescriber, {
       objectToGrabString: zoomedInChemistryBookString,
       tandem: tandem.createTandem( 'grabDragInteraction' ),
       grabCueOptions: {

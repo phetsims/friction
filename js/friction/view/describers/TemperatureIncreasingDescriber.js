@@ -15,6 +15,7 @@
 
 import stepTimer from '../../../../../axon/js/stepTimer.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
+import voicingUtteranceQueue from '../../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
 import Utterance from '../../../../../utterance-queue/js/Utterance.js';
 import friction from '../../../friction.js';
 import frictionStrings from '../../../frictionStrings.js';
@@ -151,11 +152,17 @@ class TemperatureIncreasingDescriber {
   }
 
   /**
-   * Alert the maximum temperate alert, varried based on if it is the first time alerting.
+   * Alert the maximum temperate alert, varied based on if it is the first time alerting.
    * @private
    */
   alertMaxTemp() {
-    this.alert( () => { phet.joist.sim.utteranceQueue.addToBack( this.maxTempUtterance ); } );
+    this.alert( () => {
+
+      // TODO: Use of private function to alert for voicing AND aria-live, see https://github.com/phetsims/friction/issues/204
+      const alert = this.maxTempUtterance.getTextToAlert();
+      phet.joist.sim.utteranceQueue.addToBack( alert );
+      voicingUtteranceQueue.addToBack( alert );
+    } );
   }
 
   /**

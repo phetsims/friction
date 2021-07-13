@@ -12,6 +12,7 @@
 import Shape from '../../../../../kite/js/Shape.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import FocusHighlightPath from '../../../../../scenery/js/accessibility/FocusHighlightPath.js';
+import Voicing from '../../../../../scenery/js/accessibility/voicing/Voicing.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import SoundClip from '../../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../../tambo/js/soundManager.js';
@@ -40,16 +41,20 @@ class BookNode extends Node {
    * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
    * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
    * @param {BookMovementDescriber} bookMovementDescriber
+   * @param {GrabbedDescriber} grabbedDescriber
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( model, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, tandem, options ) {
+  constructor( model, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, grabbedDescriber, tandem, options ) {
 
     options = merge( {
 
       // whether or not we can drag the book
       drag: false,
-      color: FrictionConstants.BOTTOM_BOOK_COLOR_MACRO
+      color: FrictionConstants.BOTTOM_BOOK_COLOR_MACRO,
+
+      // voicing
+      voicingNameResponse: chemistryBookString
     }, options );
 
     assert && assert( typeof options.x === 'number', 'options.x must be specified' );
@@ -62,6 +67,8 @@ class BookNode extends Node {
 
     // init drag and a11y options for the draggable book
     if ( options.drag ) {
+
+      this.initializeVoicing( options );
 
       // instrument this book, but not the other
       options.tandem = tandem;
@@ -115,7 +122,7 @@ class BookNode extends Node {
       this.focusHighlight = focusHighlightRect; // this is a constraint of the grab/drag interaction;
 
       // @private - a11y
-      this.grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, this, {
+      this.grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, this, grabbedDescriber, {
         objectToGrabString: chemistryBookString,
 
         // Empirically determined values to place the cue above the book.
@@ -144,7 +151,10 @@ class BookNode extends Node {
       this.addInputListener( new FrictionDragHandler( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
         bookMovementDescriber, options.tandem.createTandem( 'dragHandler' ), {
           startSound: bookPickupSoundClip,
-          endSound: bookDropSoundClip
+          endSound: bookDropSoundClip,
+
+          // TODO: this should have object response too, https://github.com/phetsims/friction/issues/203
+          startDrag: () => this.voicingSpeakFullResponse()
         } ) );
 
       // add observer
@@ -169,6 +179,8 @@ class BookNode extends Node {
     this.grabDragInteraction.reset();
   }
 }
+
+Voicing.compose( Node );
 
 friction.register( 'BookNode', BookNode );
 

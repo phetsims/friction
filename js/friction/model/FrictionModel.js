@@ -227,6 +227,17 @@ class FrictionModel {
       this.numberOfAtomsEvaporated += 1;
     } );
 
+    // @public (read-only)
+    // {boolean} - has the atom been "successfully" interacted with. This subjective term is defined based on the
+    // pedagogical goals of the sim (to rub the other book)
+    this.successfullyInteractedWithProperty = new BooleanProperty( false );
+
+    this.vibrationAmplitudeProperty.link( amplitude => {
+      if ( !this.successfullyInteractedWithProperty.value && amplitude > FrictionModel.AMPLITUDE_SETTLED_THRESHOLD ) {
+        this.successfullyInteractedWithProperty.value = true;
+      }
+    } );
+
     // add the atoms that are visible in the top book
     MAGNIFIED_ATOMS_INFO.top.layerDescriptions.forEach( ( layerDescription, i ) => {
       addAtomRow(

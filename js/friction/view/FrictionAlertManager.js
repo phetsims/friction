@@ -6,6 +6,7 @@
  */
 
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import friction from '../../friction.js';
 import frictionStrings from '../../frictionStrings.js';
@@ -45,6 +46,8 @@ const FrictionAlertManager = {
     } );
 
     phet.joist.sim.utteranceQueue.addToBack( temperatureJiggleUtterance );
+
+    voicingUtteranceQueue.addToBack( temperatureJiggleUtterance );
   },
 
   /**
@@ -53,6 +56,8 @@ const FrictionAlertManager = {
    */
   alertSettledAndCool() {
     phet.joist.sim.utteranceQueue.addToBack( atomsJiggleTinyBitTempCoolString );
+
+    voicingUtteranceQueue.addToBack( atomsJiggleTinyBitTempCoolString );
   },
 
   // Threshold that must be reached from initial temp to new temp to alert that the temperature changed, in amplitude (see model for more info)

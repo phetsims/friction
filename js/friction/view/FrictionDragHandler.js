@@ -26,7 +26,8 @@ class FrictionDragHandler extends SimpleDragHandler {
 
       // {SoundClip} - sounds to be played at start and end of drag
       startSound: null,
-      endSound: null
+      endSound: null,
+      startDrag: _.noop
     }, options );
 
     super( {
@@ -38,6 +39,8 @@ class FrictionDragHandler extends SimpleDragHandler {
         // pdom
         temperatureIncreasingDescriber.startDrag();
         temperatureDecreasingDescriber.startDrag();
+
+        options.startDrag();
       },
       translate: e => {
         model.move( new Vector2( e.delta.x, e.delta.y ) );

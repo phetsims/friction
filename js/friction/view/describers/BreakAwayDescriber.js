@@ -8,6 +8,7 @@
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import stepTimer from '../../../../../axon/js/stepTimer.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
+import voicingUtteranceQueue from '../../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
 import friction from '../../../friction.js';
 import frictionStrings from '../../../frictionStrings.js';
 import FrictionModel from '../../model/FrictionModel.js';
@@ -66,15 +67,21 @@ class BreakAwayDescriber {
    * @public
    */
   alertAtEvaporationThreshold() {
+    let alertContent = null;
 
     // If there aren't any more atoms to break away
     if ( this.model.numberOfAtomsEvaporated >= FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ) {
       assert && assert( this.alertedBreakAwayProperty.value, 'If this is the first alert, then we have problems' );
-      phet.joist.sim.utteranceQueue.addToFront( BREAK_AWAY_NONE_LEFT );
+      alertContent = BREAK_AWAY_NONE_LEFT;
     }
     else {
-      phet.joist.sim.utteranceQueue.addToFront( this.alertedBreakAwayProperty.value ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST );
+      alertContent = this.alertedBreakAwayProperty.value ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST;
     }
+
+    phet.joist.sim.utteranceQueue.addToFront( alertContent );
+
+    // TODO: there is a timing issue here, we never hear this, https://github.com/phetsims/friction/issues/203
+    voicingUtteranceQueue.addToFront( alertContent );
 
     this.alertedBreakAwayProperty.value = true;
     this.tooSoonForNextAlert = true;
