@@ -42,14 +42,23 @@
     "initialGrabbedNotTouching": {
       "value": "Grabbed. Lightly on Physics book. Move book with W, A, S, or D key. Space to release."
     },
-    "grabbedNotTouching": {
-      "value": "Grabbed. Lightly on Physics book. Move down to rub harder."
+    "lightlyOnPhysicsBook": {
+      "value": "Lightly on Physics book."
+    },
+    "moveDownToRubHarder": {
+      "value": "Move down to rub harder."
+    },
+    "grabbedNotTouchingPattern": {
+      "value": "{{grabbedOnBook}} {{moveDownToRubHarder}}"
     },
     "initialGrabbedTouching": {
       "value": "Grabbed. Rub fast or slow with A or D keys. Space to release."
     },
-    "grabbedTouching": {
-      "value": "Grabbed. Rub fast or slow."
+    "rubFastOrSlow": {
+      "value": "Rub fast or slow."
+    },
+    "grabbedPattern": {
+      "value": "Grabbed. {{alert}}"
     },
     "amountOfAtoms": {
       "sentence": {

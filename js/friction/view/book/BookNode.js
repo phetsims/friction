@@ -154,7 +154,10 @@ class BookNode extends Node {
           endSound: bookDropSoundClip,
 
           // TODO: this should have object response too, https://github.com/phetsims/friction/issues/203
-          startDrag: () => this.voicingSpeakFullResponse()
+          startDrag: () => this.voicingSpeakFullResponse( {
+            objectResponse: grabbedDescriber.getVoicingGrabbedObjectResponse(),
+            hintResponse: grabbedDescriber.getVoicingGrabbedHintResponse()
+          } )
         } ) );
 
       // add observer

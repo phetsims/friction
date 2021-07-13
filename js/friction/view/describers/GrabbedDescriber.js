@@ -5,14 +5,22 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
+import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import friction from '../../../friction.js';
 import frictionStrings from '../../../frictionStrings.js';
 
 // constants
 const initialGrabbedNotTouchingString = frictionStrings.a11y.initialGrabbedNotTouching;
-const grabbedNotTouchingString = frictionStrings.a11y.grabbedNotTouching;
+const grabbedNotTouchingString = StringUtils.fillIn( frictionStrings.a11y.grabbedNotTouchingPattern, {
+  grabbedOnBook: StringUtils.fillIn( frictionStrings.a11y.grabbedPattern, {
+    alert: frictionStrings.a11y.lightlyOnPhysicsBook
+  } ),
+  moveDownToRubHarder: frictionStrings.a11y.moveDownToRubHarder
+} );
 const initialGrabbedTouchingString = frictionStrings.a11y.initialGrabbedTouching;
-const grabbedTouchingString = frictionStrings.a11y.grabbedTouching;
+const grabbedTouchingString = StringUtils.fillIn( frictionStrings.a11y.grabbedPattern, {
+  alert: frictionStrings.a11y.rubFastOrSlow
+} );
 
 const touchingAlerts = { initial: initialGrabbedTouchingString, subsequent: grabbedTouchingString };
 const notTouchingAlerts = { initial: initialGrabbedNotTouchingString, subsequent: grabbedNotTouchingString };
@@ -59,6 +67,24 @@ class GrabbedDescriber {
 
     // self-voicing alerts - all self-voicing alerts exclude the "WASD" keyboard information
     return alerts.subsequent;
+  }
+
+  /**
+   * @public
+   * @returns {string}
+   */
+  getVoicingGrabbedObjectResponse() {
+
+    // TODO: what is the object response when contacted? https://github.com/phetsims/friction/issues/203
+    return this.contactProperty.get() ? 'I do not know this one ' : frictionStrings.a11y.lightlyOnPhysicsBook;
+  }
+
+  /**
+   * @public
+   * @returns {string}
+   */
+  getVoicingGrabbedHintResponse() {
+    return this.contactProperty.get() ? frictionStrings.a11y.rubFastOrSlow : frictionStrings.a11y.moveDownToRubHarder;
   }
 }
 
