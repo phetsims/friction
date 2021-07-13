@@ -67,6 +67,9 @@ class FrictionScreenView extends ScreenView {
       tandem: tandem
     } );
 
+    // @private
+    this.frictionScreenSummaryNode = frictionScreenSummaryNode;
+
     // add physics book
     this.addChild( new BookNode( model, physicsString, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
       bookMovementDescriber, tandem.createTandem( 'bottomBookNode' ), {
@@ -226,7 +229,7 @@ class FrictionScreenView extends ScreenView {
    * @public
    */
   getVoicingOverviewContent() {
-    return 'This has not been implemented yet';
+    return frictionStrings.a11y.readMeOverview;
   }
 
   /**
@@ -235,7 +238,7 @@ class FrictionScreenView extends ScreenView {
    * @public
    */
   getVoicingDetailsContent() {
-    return 'This has not been implemented yet';
+    return this.frictionScreenSummaryNode.getCurrentDetailsString();
   }
 
   /**
@@ -244,7 +247,7 @@ class FrictionScreenView extends ScreenView {
    * @public
    */
   getVoicingHintContent() {
-    return 'This has not been implemented yet';
+    return this.frictionScreenSummaryNode.getHintString();
   }
 }
 

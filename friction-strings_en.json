@@ -214,6 +214,9 @@
     },
     "breakAwayNoneLeft": {
       "value": "{{temp}}. Atoms jiggling very fast."
+    },
+    "readMeOverview": {
+      "value": "Friction is an interactive sim. It changes as you play with it. Warm up your hands and get ready for Friction! Friction is an interactive sim it changes as you play with it. There’s a stack of big textbooks ready to go! There is a zoomed-in view so you can see how creating friction affects the atoms of the textbooks."
     }
   }
 }

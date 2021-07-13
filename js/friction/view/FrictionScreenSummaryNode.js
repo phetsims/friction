@@ -242,22 +242,36 @@ class FrictionScreenSummaryNode extends Node {
    */
   updateSummaryString() {
 
+    this.booksParagraph.innerContent = this.getCurrentDetailsString();
+
+    // SUPPLEMENTARY THIRD SENTENCE
+    this.interactionHintParagraph.innerContent = this.getHintString();
+  }
+
+  /**
+   * @public
+   * @returns {string}
+   */
+  getCurrentDetailsString() {
+
     // FIRST SENTENCE
     const chemistryBookString = this.getFirstSummarySentence( this.model.numberOfAtomsEvaporated );
 
     // SECOND SENTENCE (ZOOMED-IN)
     const jiggleTempSentence = this.getSecondSummarySentence( this.model.vibrationAmplitudeProperty );
 
-    // SUPPLEMENTARY THIRD SENTENCE
-    const supplementarySentence = this.getThirdSupplementarySentence( this.model.numberOfAtomsEvaporated );
-
-    this.booksParagraph.innerContent = StringUtils.fillIn( summarySentencePatternString, {
+    return StringUtils.fillIn( summarySentencePatternString, {
       chemistryBookString: chemistryBookString,
       jiggleTemperatureScaleSentence: jiggleTempSentence
     } );
+  }
 
-    this.interactionHintParagraph.innerContent = supplementarySentence;
-
+  /**
+   * @public
+   * @returns {string}
+   */
+  getHintString() {
+    return this.getThirdSupplementarySentence( this.model.numberOfAtomsEvaporated );
   }
 }
 
