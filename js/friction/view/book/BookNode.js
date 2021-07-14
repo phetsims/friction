@@ -152,6 +152,7 @@ class BookNode extends Node {
         bookMovementDescriber, options.tandem.createTandem( 'dragHandler' ), {
           startSound: bookPickupSoundClip,
           endSound: bookDropSoundClip,
+          targetNode: this,
 
           // TODO: this should have object response too, https://github.com/phetsims/friction/issues/203
           startDrag: () => this.voicingSpeakFullResponse( {

@@ -8,10 +8,10 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
-import SimpleDragHandler from '../../../../scenery/js/input/SimpleDragHandler.js';
+import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import friction from '../../friction.js';
 
-class FrictionDragHandler extends SimpleDragHandler {
+class FrictionDragHandler extends DragListener {
   /**
    * @param {FrictionModel} model
    * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
@@ -27,10 +27,13 @@ class FrictionDragHandler extends SimpleDragHandler {
       // {SoundClip} - sounds to be played at start and end of drag
       startSound: null,
       endSound: null,
+      targetNode: null,
+
       startDrag: _.noop
     }, options );
 
     super( {
+      targetNode: options.targetNode,
       start: () => {
 
         // sound
@@ -42,8 +45,11 @@ class FrictionDragHandler extends SimpleDragHandler {
 
         options.startDrag();
       },
-      translate: e => {
-        model.move( new Vector2( e.delta.x, e.delta.y ) );
+      drag: ( event, dragListener ) => {
+        const delta = dragListener.modelDelta;
+        const vector = new Vector2( delta.x, delta.y );
+
+        model.move( vector );
       },
       end: () => {
         model.bottomOffsetProperty.set( 0 );

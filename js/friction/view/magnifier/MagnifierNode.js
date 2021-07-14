@@ -133,7 +133,8 @@ class MagnifierNode extends Node {
     background.addInputListener( new FrictionDragHandler( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
       bookMovementDescriber, tandem.createTandem( 'backgroundDragHandler' ), {
         startSound: bookPickupSoundClip,
-        endSound: bookDropSoundClip
+        endSound: bookDropSoundClip,
+        targetNode: background
       } ) );
     this.topBookBackground.addChild( background );
 
@@ -154,7 +155,8 @@ class MagnifierNode extends Node {
     dragArea.addInputListener( new FrictionDragHandler( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
       bookMovementDescriber, tandem.createTandem( 'dragAreaDragHandler' ), {
         startSound: bookPickupSoundClip,
-        endSound: bookDropSoundClip
+        endSound: bookDropSoundClip,
+        targetNode: dragArea
       } ) );
 
 
