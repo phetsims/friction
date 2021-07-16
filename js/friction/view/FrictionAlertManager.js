@@ -18,7 +18,11 @@ const atomsJiggleTinyBitTempCoolString = frictionStrings.a11y.atomsJiggleTinyBit
 
 // utterance for announcing temperature and particle changes, persistent reference to use
 // alertStableDelay feature of utterance
-const temperatureJiggleUtterance = new Utterance();
+const temperatureJiggleUtterance = new Utterance( {
+  announcerOptions: {
+    cancelOther: false
+  }
+} );
 
 const FrictionAlertManager = {
 
