@@ -28,7 +28,7 @@ import FrictionConstants from '../../FrictionConstants.js';
 import FrictionModel from '../../model/FrictionModel.js';
 import CueArrow from '../CueArrow.js';
 import FrictionAlertManager from '../FrictionAlertManager.js';
-import FrictionDragHandler from '../FrictionDragHandler.js';
+import FrictionDragListener from '../FrictionDragListener.js';
 import FrictionGrabDragInteraction from '../FrictionGrabDragInteraction.js';
 import FrictionKeyboardDragListener from '../FrictionKeyboardDragListener.js';
 import AtomCanvasNode from './AtomCanvasNode.js';
@@ -130,7 +130,7 @@ class MagnifierNode extends Node {
         cursor: 'pointer'
       }
     );
-    background.addInputListener( new FrictionDragHandler( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
+    background.addInputListener( new FrictionDragListener( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
       bookMovementDescriber, tandem.createTandem( 'backgroundDragHandler' ), {
         startSound: bookPickupSoundClip,
         endSound: bookDropSoundClip,
@@ -152,7 +152,7 @@ class MagnifierNode extends Node {
         focusHighlightLayerable: true
       } );
 
-    dragArea.addInputListener( new FrictionDragHandler( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
+    dragArea.addInputListener( new FrictionDragListener( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
       bookMovementDescriber, tandem.createTandem( 'dragAreaDragHandler' ), {
         startSound: bookPickupSoundClip,
         endSound: bookDropSoundClip,

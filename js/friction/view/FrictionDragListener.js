@@ -11,7 +11,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import friction from '../../friction.js';
 
-class FrictionDragHandler extends DragListener {
+class FrictionDragListener extends DragListener {
   /**
    * @param {FrictionModel} model
    * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
@@ -66,6 +66,6 @@ class FrictionDragHandler extends DragListener {
   }
 }
 
-friction.register( 'FrictionDragHandler', FrictionDragHandler );
+friction.register( 'FrictionDragListener', FrictionDragListener );
 
-export default FrictionDragHandler;
+export default FrictionDragListener;

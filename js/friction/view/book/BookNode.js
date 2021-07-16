@@ -23,7 +23,7 @@ import frictionStrings from '../../../frictionStrings.js';
 import FrictionConstants from '../../FrictionConstants.js';
 import CueArrow from '../CueArrow.js';
 import FrictionAlertManager from '../FrictionAlertManager.js';
-import FrictionDragHandler from '../FrictionDragHandler.js';
+import FrictionDragListener from '../FrictionDragListener.js';
 import FrictionGrabDragInteraction from '../FrictionGrabDragInteraction.js';
 import FrictionKeyboardDragListener from '../FrictionKeyboardDragListener.js';
 import CoverNode from './CoverNode.js';
@@ -148,7 +148,7 @@ class BookNode extends Node {
       } );
 
 
-      this.addInputListener( new FrictionDragHandler( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
+      this.addInputListener( new FrictionDragListener( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
         bookMovementDescriber, options.tandem.createTandem( 'dragHandler' ), {
           startSound: bookPickupSoundClip,
           endSound: bookDropSoundClip,
