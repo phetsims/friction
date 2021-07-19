@@ -17,7 +17,7 @@
       "phet",
       "phet-io"
     ],
-    "features": {
+    "simFeatures": {
       "supportsVoicing": true,
       "supportsSound": true,
       "supportsEnhancedSound": true,
