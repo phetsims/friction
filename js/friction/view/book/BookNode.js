@@ -153,8 +153,6 @@ class BookNode extends Node {
           startSound: bookPickupSoundClip,
           endSound: bookDropSoundClip,
           targetNode: this,
-
-          // TODO: this should have object response too, https://github.com/phetsims/friction/issues/203
           startDrag: () => this.voicingSpeakFullResponse( {
             objectResponse: grabbedDescriber.getVoicingGrabbedObjectResponse(),
             hintResponse: grabbedDescriber.getVoicingGrabbedHintResponse()
@@ -184,7 +182,7 @@ class BookNode extends Node {
   }
 }
 
-Voicing.compose( Node );
+Voicing.compose( BookNode );
 
 friction.register( 'BookNode', BookNode );
 
