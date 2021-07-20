@@ -11,10 +11,11 @@ import frictionStrings from '../../../frictionStrings.js';
 
 // constants
 const initialGrabbedNotTouchingString = frictionStrings.a11y.initialGrabbedNotTouching;
+const grabbedLightlyOnBook = StringUtils.fillIn( frictionStrings.a11y.grabbedPattern, {
+  alert: frictionStrings.a11y.lightlyOnPhysicsBook
+} );
 const grabbedNotTouchingString = StringUtils.fillIn( frictionStrings.a11y.grabbedNotTouchingPattern, {
-  grabbedOnBook: StringUtils.fillIn( frictionStrings.a11y.grabbedPattern, {
-    alert: frictionStrings.a11y.lightlyOnPhysicsBook
-  } ),
+  grabbedOnBook: grabbedLightlyOnBook,
   moveDownToRubHarder: frictionStrings.a11y.moveDownToRubHarder
 } );
 const initialGrabbedTouchingString = frictionStrings.a11y.initialGrabbedTouching;
@@ -76,7 +77,7 @@ class GrabbedDescriber {
   getVoicingGrabbedObjectResponse() {
 
     // TODO: what is the object response when contacted? https://github.com/phetsims/friction/issues/203
-    return this.contactProperty.get() ? 'I do not know this one ' : frictionStrings.a11y.lightlyOnPhysicsBook;
+    return this.contactProperty.get() ? 'I do not know this one ' : grabbedLightlyOnBook;
   }
 
   /**

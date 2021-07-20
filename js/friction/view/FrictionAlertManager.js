@@ -24,6 +24,12 @@ const temperatureJiggleUtterance = new Utterance( {
   }
 } );
 
+const temperatureDecreasingUtterance = new Utterance( {
+  announcerOptions: {
+    cancelOther: false
+  }
+} );
+
 const FrictionAlertManager = {
 
   /**
@@ -43,15 +49,19 @@ const FrictionAlertManager = {
       // use the fill in values for the first time
       alertObject = alertObject.firstTime;
     }
+    let utterance = temperatureJiggleUtterance;
+    if ( typeID === 'decreasing' ) {
+      utterance = temperatureDecreasingUtterance;
+    }
 
-    temperatureJiggleUtterance.alert = StringUtils.fillIn( patternString, {
+    utterance.alert = StringUtils.fillIn( patternString, {
       temperature: alertObject.temp,
       jigglingAmount: alertObject.jiggle
     } );
 
-    phet.joist.sim.utteranceQueue.addToBack( temperatureJiggleUtterance );
+    phet.joist.sim.utteranceQueue.addToBack( utterance );
 
-    voicingUtteranceQueue.addToBack( temperatureJiggleUtterance );
+    voicingUtteranceQueue.addToBack( utterance );
   },
 
   /**
