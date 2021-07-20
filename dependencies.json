@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.6.0-dev.4 Mon Jul 19 2021 17:41:44 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# friction 1.6.0-dev.5 Tue Jul 20 2021 09:52:25 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "f360fa1bd09a47b3c9e49cd90c8dddd136a13e0c",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "d8ff29efba5ad8196a9ab3bf5e561eb72df432f3",
+    "sha": "b10469dff1ddc2d4a74cd805bc6c071e26bddeba",
     "branch": "master"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "friction": {
-    "sha": "401b4bb84ed037fae93d4b7804a41fa2381ce2e3",
+    "sha": "af868e174547816cd4ff883db33c8f45ec7b3401",
     "branch": "master"
   },
   "joist": {
-    "sha": "a051907a040a24f07731607f1eac59aa814b9f10",
+    "sha": "0f7d8f04c70cb1e8f6e37232eb4e366e3a889d58",
     "branch": "master"
   },
   "kite": {
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "phet-io": {
-    "sha": "561542d3e189a5933218ff1b673e57dc64ad73ee",
+    "sha": "707b7f190243ae53d53e70a0fd1cdfa6d41210d7",
     "branch": "master"
   },
   "phet-io-client-guides": {
@@ -53,7 +53,7 @@
     "branch": "master"
   },
   "phetmarks": {
-    "sha": "3b540bd68fa23b64516a06fc31cafb623d801151",
+    "sha": "8d06d73911f716cbbe234a4e3684f271d93eb963",
     "branch": "master"
   },
   "query-string-machine": {
@@ -61,15 +61,15 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "8890492fad8d496dee006a4cf692bec5653201f8",
+    "sha": "d3aed2b666a14e5a4664cadf267cb438cdae985f",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "e8f9f44b3272f48d014138ae560284485dff11da",
+    "sha": "ac582afc51c1934c458e7c3ec8fa552c0d760465",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "28aaef3d117595af88e9cedd4663061630625568",
+    "sha": "117af50b90625863b09b7b8e7e8ae3f2def2608c",
     "branch": "master"
   },
   "studio": {
@@ -77,7 +77,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "fd62a8b82fe5d468ba30dde755667cbdd4aea57d",
+    "sha": "f871084cac8882d80b861afbd729682654a1ffa2",
     "branch": "master"
   },
   "tambo": {
