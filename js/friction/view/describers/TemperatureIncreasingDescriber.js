@@ -129,8 +129,13 @@ class TemperatureIncreasingDescriber {
 
     // If longer than threshold, treat as new "drag session"
     if ( phet.joist.elapsedTime - this.timeOfLastDrag > DRAG_SESSION_THRESHOLD ) {
-      this.alertIndex = -1; //reset
-      this.initialAmplitude = this.model.vibrationAmplitudeProperty.value;
+      this.alertIndex = -1; // reset
+
+      // Normally, capture the initial amplitude as temperature regions change. But if already at the max, then set
+      // amplitude to a very different number, so that max-temp alerts can continue to fire.
+      this.initialAmplitude = this.model.vibrationAmplitudeProperty.value > FrictionModel.THERMOMETER_MAX_TEMP ?
+                              this.model.vibrationAmplitudeProperty.initialValue :
+                              this.model.vibrationAmplitudeProperty.value;
     }
   }
 
