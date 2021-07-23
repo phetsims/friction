@@ -130,12 +130,14 @@ class MagnifierNode extends Node {
         cursor: 'pointer'
       }
     );
-    background.addInputListener( new FrictionDragListener( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
-      bookMovementDescriber, tandem.createTandem( 'backgroundDragHandler' ), {
+
+    const dragListener = new FrictionDragListener( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
+      bookMovementDescriber, tandem.createTandem( 'dragListener' ), {
         startSound: bookPickupSoundClip,
         endSound: bookDropSoundClip,
-        targetNode: background
-      } ) );
+        targetNode: this
+      } );
+    background.addInputListener( dragListener );
     this.topBookBackground.addChild( background );
 
     // init drag for drag area
@@ -152,12 +154,7 @@ class MagnifierNode extends Node {
         focusHighlightLayerable: true
       } );
 
-    dragArea.addInputListener( new FrictionDragListener( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
-      bookMovementDescriber, tandem.createTandem( 'dragAreaDragHandler' ), {
-        startSound: bookPickupSoundClip,
-        endSound: bookDropSoundClip,
-        targetNode: dragArea
-      } ) );
+    dragArea.addInputListener( dragListener );
 
 
     // add arrows before the drag area, then the grab cue hides the arrows
