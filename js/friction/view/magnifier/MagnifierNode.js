@@ -138,7 +138,7 @@ class MagnifierNode extends Node {
       bookMovementDescriber, tandem.createTandem( 'dragListener' ), {
         startSound: bookPickupSoundClip,
         endSound: bookDropSoundClip,
-        targetNode: this
+        targetNode: this.topBookBackground
       } );
     background.addInputListener( dragListener );
     this.topBookBackground.addChild( background );
