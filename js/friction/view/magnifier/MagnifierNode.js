@@ -12,6 +12,7 @@
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Shape from '../../../../../kite/js/Shape.js';
+import merge from '../../../../../phet-core/js/merge.js';
 import FocusHighlightPath from '../../../../../scenery/js/accessibility/FocusHighlightPath.js';
 import Voicing from '../../../../../scenery/js/accessibility/voicing/Voicing.js';
 import Circle from '../../../../../scenery/js/nodes/Circle.js';
@@ -21,6 +22,7 @@ import Path from '../../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import SoundClip from '../../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../../tambo/js/soundManager.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
 import harpDropSound from '../../../../sounds/harp-drop_mp3.js';
 import harpPickupSound from '../../../../sounds/harp-pickup_mp3.js';
 import friction from '../../../friction.js';
@@ -56,11 +58,14 @@ class MagnifierNode extends Node {
    * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
    * @param {BookMovementDescriber} bookMovementDescriber
    * @param {GrabbedDescriber} grabbedDescriber
-   * @param {Tandem} tandem - passed to the dragArea to instrument the focusable item as the magnifier, see https://github.com/phetsims/friction/issues/82
    * @param {Object} [options]
    */
-  constructor( model, targetX, targetY, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, grabbedDescriber, tandem, options ) {
-    options.tandem = tandem;
+  constructor( model, targetX, targetY, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, grabbedDescriber, options ) {
+
+    options = merge( {
+      tandem: Tandem.REQUIRED
+    }, options );
+
     super( options );
 
     this.initializeVoicing( options );
@@ -135,7 +140,7 @@ class MagnifierNode extends Node {
     );
 
     const dragListener = new FrictionDragListener( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
-      bookMovementDescriber, tandem.createTandem( 'dragListener' ), {
+      bookMovementDescriber, options.tandem.createTandem( 'dragListener' ), {
         startSound: bookPickupSoundClip,
         endSound: bookDropSoundClip,
         targetNode: this.topBookBackground
@@ -151,7 +156,7 @@ class MagnifierNode extends Node {
       FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY * 6, {
         fill: null,
         cursor: 'pointer',
-        tandem: tandem.createTandem( 'atomDragArea' ), // TODO: do we need this? probably do for a11y support, but it seems like an implementation detail
+        tandem: options.tandem.createTandem( 'atomDragArea' ),
 
         // pdom
         focusHighlightLayerable: true
@@ -229,7 +234,7 @@ class MagnifierNode extends Node {
     // pdom
     const grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, dragArea, grabbedDescriber, {
       objectToGrabString: zoomedInChemistryBookString,
-      tandem: tandem.createTandem( 'grabDragInteraction' ),
+      tandem: options.tandem.createTandem( 'grabDragInteraction' ),
       grabCueOptions: {
         center: dragArea.center.minusXY( 0, 73 )
       },

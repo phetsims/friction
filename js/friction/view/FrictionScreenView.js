@@ -108,10 +108,12 @@ class FrictionScreenView extends ScreenView {
     // @private - add magnifier
     this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, temperatureIncreasingDescriber,
       temperatureDecreasingDescriber,
-      bookMovementDescriber, grabbedDescriber, tandem.createTandem( 'atomicView' ), {
+      bookMovementDescriber, grabbedDescriber, {
         x: 40,
         y: 25,
-        layerSplit: true
+        layerSplit: true,
+
+        tandem: tandem.createTandem( 'atomicView' )
       } );
     this.addChild( this.magnifierNode );
 
