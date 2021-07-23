@@ -184,6 +184,7 @@ class MagnifierNode extends Node {
 
     // pdom - custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
     const focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
+    focusHighlightPath.pickable = false;
 
 
     // pdom - add the focus highlight on top of the row circles

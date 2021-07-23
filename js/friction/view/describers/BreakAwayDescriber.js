@@ -80,7 +80,6 @@ class BreakAwayDescriber {
 
     phet.joist.sim.utteranceQueue.addToFront( alertContent );
 
-    // TODO: there is a timing issue here, we never hear this, https://github.com/phetsims/friction/issues/203
     voicingUtteranceQueue.addToFront( alertContent );
 
     this.alertedBreakAwayProperty.value = true;
