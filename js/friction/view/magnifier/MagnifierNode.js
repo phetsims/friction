@@ -130,25 +130,11 @@ class MagnifierNode extends Node {
       3.25 * WIDTH,
       4 * HEIGHT / 3 - FrictionModel.MAGNIFIED_ATOMS_INFO.distance,
       ROUND,
-      ROUND,
-      {
+      ROUND, {
         fill: FrictionConstants.TOP_BOOK_COLOR,
         cursor: 'pointer'
       }
     );
-
-    const dragListener = new FrictionDragListener( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
-      bookMovementDescriber, options.tandem.createTandem( 'dragListener' ), {
-        startSound: bookPickupSoundClip,
-        endSound: bookDropSoundClip,
-        targetNode: this.topBookBackground,
-        startDrag: () => dragArea.voicingSpeakFullResponse( {
-          objectResponse: grabbedDescriber.getVoicingGrabbedObjectResponse(),
-          hintResponse: grabbedDescriber.getVoicingGrabbedHintResponse()
-        } )
-      } );
-    background.addInputListener( dragListener );
-    this.topBookBackground.addChild( background );
 
     // init drag for drag area
     const dragArea = new VoicingRectangle(
@@ -158,6 +144,7 @@ class MagnifierNode extends Node {
       FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY * 6, {
         fill: null,
         cursor: 'pointer',
+        children: [ background ],
         tandem: options.tandem.createTandem( 'atomDragArea' ),
 
         // pdom
@@ -167,13 +154,21 @@ class MagnifierNode extends Node {
         voicingNameResponse: zoomedInChemistryBookString
       } );
 
-    dragArea.addInputListener( dragListener );
+    dragArea.addInputListener( new FrictionDragListener( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
+      bookMovementDescriber, options.tandem.createTandem( 'dragListener' ), {
+        startSound: bookPickupSoundClip,
+        endSound: bookDropSoundClip,
+        targetNode: this.topBookBackground,
+        startDrag: () => dragArea.voicingSpeakFullResponse( {
+          objectResponse: grabbedDescriber.getVoicingGrabbedObjectResponse(),
+          hintResponse: grabbedDescriber.getVoicingGrabbedHintResponse()
+        } )
+      } ) );
 
+    this.topBookBackground.addChild( dragArea );
 
     // add arrows before the drag area, then the grab cue hides the arrows
     this.topBookBackground.addChild( visualArrowIcon );
-
-    this.topBookBackground.addChild( dragArea );
 
     addRowCircles(
       FrictionModel.MAGNIFIED_ATOMS_INFO.radius,
@@ -388,7 +383,9 @@ Voicing.compose( VoicingRectangle );
  * @returns {Shape}
  */
 function getFocusHighlightShape( dragArea ) {
-  return Shape.bounds( dragArea.bounds.withOffsets( 0, 40, 0, 0 ) );
+
+  // Use selfBounds because the dragArea has children that are larger than the focusHighlight we want.
+  return Shape.bounds( dragArea.selfBounds.withOffsets( 0, 40, 0, 0 ) );
 }
 
 export default MagnifierNode;
