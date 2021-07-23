@@ -13,6 +13,7 @@ import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import FocusHighlightPath from '../../../../../scenery/js/accessibility/FocusHighlightPath.js';
+import Voicing from '../../../../../scenery/js/accessibility/voicing/Voicing.js';
 import Circle from '../../../../../scenery/js/nodes/Circle.js';
 import HBox from '../../../../../scenery/js/nodes/HBox.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
@@ -61,6 +62,8 @@ class MagnifierNode extends Node {
   constructor( model, targetX, targetY, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, grabbedDescriber, tandem, options ) {
     options.tandem = tandem;
     super( options );
+
+    this.initializeVoicing( options );
 
     // add container for clipping
     this.container = new Node();
@@ -281,13 +284,14 @@ class MagnifierNode extends Node {
       .lineTo( innerHighX, innerLowY - ROUND )
       .close(), {
       fill: 'white',
-      pickable: true
+      pickable: true // absorb the input instead of grabbing the book through the background
     } ) );
 
     // add the containing border rectangle
     this.addChild( new Rectangle( 0, 0, WIDTH, HEIGHT, ROUND, ROUND, {
       stroke: 'black',
-      lineWidth: 5
+      lineWidth: 5,
+      pickable: false
     } ) );
 
     // add magnifier's target
@@ -367,5 +371,7 @@ function addRowCircles( circleRadius, xSpacing, parentNode, options ) {
 function getFocusHighlightShape( dragArea ) {
   return Shape.bounds( dragArea.bounds.withOffsets( 0, 40, 0, 0 ) );
 }
+
+Voicing.compose( MagnifierNode );
 
 export default MagnifierNode;
