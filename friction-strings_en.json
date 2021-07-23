@@ -178,8 +178,14 @@
       "jiggleTemperatureScaleSentence": {
         "value": "In zoomed-in view of where books meet, {{temperatureClause}}, {{jigglingClause}}."
       },
-      "moveChemistryBookSentence": {
+      "grabChemistryBookPlay": {
         "value": "Grab Chemistry book to play."
+      },
+      "moveChemistryBookExplore": {
+        "value": "Move Chemistry book down to explore friction."
+      },
+      "continueRubbing": {
+        "value": "Continue rubbing chemistry book to generate even more friction."
       },
       "startingChemistryBookPattern": {
         "value": "{{relativeChemistryBookSentence}}Chemistry book rests {{lightly}}on top of a Physics book, and is ready to be rubbed against it."

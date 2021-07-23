@@ -20,7 +20,7 @@ const jiggleClausePatternString = frictionStrings.a11y.screenSummary.jiggleClaus
 const jiggleTemperatureScaleSentenceString = frictionStrings.a11y.screenSummary.jiggleTemperatureScaleSentence;
 const thermometerString = frictionStrings.a11y.temperature.thermometer;
 const temperaturePatternString = frictionStrings.a11y.temperature.pattern;
-const moveChemistryBookSentenceString = frictionStrings.a11y.screenSummary.moveChemistryBookSentence;
+const grabChemistryBookPlayString = frictionStrings.a11y.screenSummary.grabChemistryBookPlay;
 const resetSimMoreObservationSentenceString = frictionStrings.a11y.resetSimMoreObservationSentence;
 const startingChemistryBookPatternString = frictionStrings.a11y.screenSummary.startingChemistryBookPattern;
 const lightlyString = frictionStrings.a11y.lightly;
@@ -232,7 +232,7 @@ class FrictionScreenSummaryNode extends Node {
 
     // Queue moving the book if there are still many atoms left, queue reset if there are many evaporated atoms
     return numberOfAtomsEvaporated > SOME_ATOMS_EVAPORATED_THRESHOLD ?
-           resetSimMoreObservationSentenceString : moveChemistryBookSentenceString;
+           resetSimMoreObservationSentenceString : grabChemistryBookPlayString;
   }
 
   /**
@@ -271,7 +271,9 @@ class FrictionScreenSummaryNode extends Node {
    * @returns {string}
    */
   getHintString() {
-    return this.getThirdSupplementarySentence( this.model.numberOfAtomsEvaporated );
+    return this.model.numberOfAtomsEvaporated > SOME_ATOMS_EVAPORATED_THRESHOLD ? resetSimMoreObservationSentenceString :
+           this.model.contactProperty.value ? frictionStrings.a11y.screenSummary.continueRubbing :
+           frictionStrings.a11y.screenSummary.grabChemistryBookPlay;
   }
 }
 
