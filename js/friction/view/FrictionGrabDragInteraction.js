@@ -8,8 +8,6 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/GrabDragInteraction.js';
-import sceneryPhetStrings from '../../../../scenery-phet/js/sceneryPhetStrings.js';
-import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
 import friction from '../../friction.js';
 
 /**
@@ -38,15 +36,6 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
       oldGrab && oldGrab();
 
       phet.joist.sim.utteranceQueue.addToBack( grabbedDescriber.getGrabbedString() );
-
-      voicingUtteranceQueue.addToBack( grabbedDescriber.getGrabbedVoicingString() );
-    };
-
-    options.onRelease = () => {
-
-      // there is no self-voiced "Released" string (yet), announce this manually
-      // in the future this should be added to GrabDragInteraction
-      voicingUtteranceQueue.addToBack( sceneryPhetStrings.a11y.grabDrag.released );
     };
 
     super( wrappedNode, keyboardDragListener, options );

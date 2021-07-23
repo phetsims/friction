@@ -68,8 +68,6 @@ class MagnifierNode extends Node {
 
     super( options );
 
-    this.initializeVoicing( options );
-
     // add container for clipping
     this.container = new Node();
     this.addChild( this.container );
@@ -143,13 +141,17 @@ class MagnifierNode extends Node {
       bookMovementDescriber, options.tandem.createTandem( 'dragListener' ), {
         startSound: bookPickupSoundClip,
         endSound: bookDropSoundClip,
-        targetNode: this.topBookBackground
+        targetNode: this.topBookBackground,
+        startDrag: () => dragArea.voicingSpeakFullResponse( {
+          objectResponse: grabbedDescriber.getVoicingGrabbedObjectResponse(),
+          hintResponse: grabbedDescriber.getVoicingGrabbedHintResponse()
+        } )
       } );
     background.addInputListener( dragListener );
     this.topBookBackground.addChild( background );
 
     // init drag for drag area
-    const dragArea = new Rectangle(
+    const dragArea = new VoicingRectangle(
       0.055 * WIDTH,
       0.175 * HEIGHT,
       0.875 * WIDTH,
@@ -159,7 +161,10 @@ class MagnifierNode extends Node {
         tandem: options.tandem.createTandem( 'atomDragArea' ),
 
         // pdom
-        focusHighlightLayerable: true
+        focusHighlightLayerable: true,
+
+        // voicing
+        voicingNameResponse: zoomedInChemistryBookString
       } );
 
     dragArea.addInputListener( dragListener );
@@ -368,6 +373,15 @@ function addRowCircles( circleRadius, xSpacing, parentNode, options ) {
   }
 }
 
+class VoicingRectangle extends Rectangle {
+  constructor( x, y, width, height, options ) {
+    super( x, y, width, height, options );
+    this.initializeVoicing( options );
+  }
+}
+
+Voicing.compose( VoicingRectangle );
+
 /**
  *
  * @param {Node} dragArea
@@ -376,7 +390,5 @@ function addRowCircles( circleRadius, xSpacing, parentNode, options ) {
 function getFocusHighlightShape( dragArea ) {
   return Shape.bounds( dragArea.bounds.withOffsets( 0, 40, 0, 0 ) );
 }
-
-Voicing.compose( MagnifierNode );
 
 export default MagnifierNode;
