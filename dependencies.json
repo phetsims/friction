@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.6.0-dev.6 Fri Jul 23 2021 12:17:41 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# friction 1.6.0-dev.7 Fri Jul 23 2021 17:14:19 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "f360fa1bd09a47b3c9e49cd90c8dddd136a13e0c",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "b10469dff1ddc2d4a74cd805bc6c071e26bddeba",
+    "sha": "f2da209ff165054c62073853ed8cd8c06dec3a9f",
     "branch": "master"
   },
   "dot": {
@@ -21,11 +21,11 @@
     "branch": "master"
   },
   "friction": {
-    "sha": "12b8211c18650c3c410eead5741de674631a8153",
+    "sha": "fcabc21ad042adc04327a368a5a92d44e8474a2c",
     "branch": "master"
   },
   "joist": {
-    "sha": "af6372b7db1255f8806e00e1475aaf3a9587dec1",
+    "sha": "32987c07ec2d004cd7fc0de5036e0183a6c0731d",
     "branch": "master"
   },
   "kite": {
@@ -41,7 +41,7 @@
     "branch": "master"
   },
   "phet-io-client-guides": {
-    "sha": "ded7d09805a0774c30aeeff6f6b91a24ce6675aa",
+    "sha": "80fc79610912d3d858772cfef19be14700b3303d",
     "branch": "master"
   },
   "phet-io-wrappers": {
@@ -53,7 +53,7 @@
     "branch": "master"
   },
   "phetmarks": {
-    "sha": "82df464d50e72899942690d3f3e24c2d9ea4e728",
+    "sha": "10c9e6302f03509501c8d9daed9ba22e53aa56df",
     "branch": "master"
   },
   "query-string-machine": {
@@ -61,7 +61,7 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "4868d476127cbabd99e3022568afa2ed054e7ba3",
+    "sha": "3994457bc71757ea078d31ea5890b0ec7d87daf3",
     "branch": "master"
   },
   "scenery-phet": {
