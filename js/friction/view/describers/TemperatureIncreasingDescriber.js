@@ -96,7 +96,14 @@ class TemperatureIncreasingDescriber {
     // @private
     this.tooSoonForNextAlert = false;
 
-    this.maxTempUtterance = new Utterance( {
+    this.maxTempVoicingUtterance = new Utterance( {
+      alert: [ MAX_TEMP_STRING, MAX_TEMP_STRING, resetSimMoreObservationSentenceString ],
+      loopAlerts: true,
+      announcerOptions: {
+        cancelSelf: false
+      }
+    } );
+    this.maxTempDescriptionUtterance = new Utterance( {
       alert: [ MAX_TEMP_STRING, MAX_TEMP_STRING, resetSimMoreObservationSentenceString ],
       loopAlerts: true
     } );
@@ -104,17 +111,17 @@ class TemperatureIncreasingDescriber {
     // @private
     this.amplitudeListener = amplitude => {
 
-      if ( !this.tooSoonForNextAlert && // don't alert a subsequent alert too quickly
+      // don't alert a subsequent alert too quickly
+      if ( this.tooSoonForNextAlert ) {
+        return;
+      }
 
-           // the difference in amplitude has to be greater than the threshold to alert
-           amplitude - this.initialAmplitude > FrictionAlertManager.TEMPERATURE_ALERT_THRESHOLD ) {
-
-        if ( amplitude < EVAPORATION_LIMIT ) {
-          this.alertIncrease();
-        }
-        else if ( amplitude > FrictionModel.THERMOMETER_MAX_TEMP ) {
-          this.alertMaxTemp();
-        }
+      // the difference in amplitude has to be greater than the threshold to alert
+      if ( amplitude < EVAPORATION_LIMIT && amplitude - this.initialAmplitude > FrictionAlertManager.TEMPERATURE_ALERT_THRESHOLD ) {
+        this.alertIncrease();
+      }
+      else if ( amplitude >= FrictionModel.THERMOMETER_MAX_TEMP ) {
+        this.alertMaxTemp();
       }
 
     };
@@ -163,10 +170,9 @@ class TemperatureIncreasingDescriber {
   alertMaxTemp() {
     this.alert( () => {
 
-      // TODO: Use of private function to alert for voicing AND aria-live, see https://github.com/phetsims/friction/issues/204
-      const alert = this.maxTempUtterance.getTextToAlert();
-      phet.joist.sim.utteranceQueue.addToBack( alert );
-      voicingUtteranceQueue.addToBack( alert );
+      // TODO: use the same Utterance for both of these queues, see https://github.com/phetsims/friction/issues/204
+      phet.joist.sim.utteranceQueue.addToBack( this.maxTempDescriptionUtterance );
+      voicingUtteranceQueue.addToBack( this.maxTempVoicingUtterance );
     } );
   }
 
