@@ -200,7 +200,8 @@ class TemperatureIncreasingDescriber {
    * @public
    */
   reset() {
-    this.maxTempUtterance.reset(); // reset the maximum alerts
+    this.maxTempVoicingUtterance.reset();
+    this.maxTempDescriptionUtterance.reset();
   }
 }
 
