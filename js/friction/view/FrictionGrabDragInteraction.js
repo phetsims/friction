@@ -35,7 +35,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
     options.onGrab = () => {
       oldGrab && oldGrab();
 
-      phet.joist.sim.utteranceQueue.addToBack( grabbedDescriber.getGrabbedString() );
+      wrappedNode.alertDescriptionUtterance( grabbedDescriber.getGrabbedString() );
     };
 
     super( wrappedNode, keyboardDragListener, options );
