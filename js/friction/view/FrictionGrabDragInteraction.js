@@ -20,6 +20,9 @@ import friction from '../../friction.js';
 class FrictionGrabDragInteraction extends GrabDragInteraction {
 
   constructor( model, keyboardDragListener, wrappedNode, grabbedDescriber, options ) {
+
+    assert && assert( wrappedNode.isVoicing, 'wrappedNode must support voicing' );
+
     options = merge( {
 
       // Function that returns whether or not the drag cue should be shown.
@@ -32,10 +35,19 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
     const oldGrab = options.onGrab;
 
     // Wrap the onGrab option in default functionality for al of the type in Friction
-    options.onGrab = () => {
+    options.onGrab = event => {
       oldGrab && oldGrab();
 
       wrappedNode.alertDescriptionUtterance( grabbedDescriber.getGrabbedString() );
+
+      if ( event.isFromPDOM() ) {
+
+        // No name response from PDOM
+        wrappedNode.voicingSpeakResponse( {
+          objectResponse: grabbedDescriber.getVoicingGrabbedObjectResponse(),
+          hintResponse: grabbedDescriber.getVoicingGrabbedHintResponse()
+        } );
+      }
     };
 
     super( wrappedNode, keyboardDragListener, options );

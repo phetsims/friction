@@ -229,6 +229,9 @@ class MagnifierNode extends Node {
         if ( model.vibrationAmplitudeProperty.value === model.vibrationAmplitudeProperty.initialValue ) {
           FrictionAlertManager.alertSettledAndCool();
         }
+
+        // TODO: Hint "Space to Grab or Release." if we would show the grabDragHint.
+        this.voicingSpeakNameResponse();
       }
     };
 

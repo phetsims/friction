@@ -114,6 +114,8 @@ class BookNode extends Node {
           if ( model.vibrationAmplitudeProperty.value === model.vibrationAmplitudeProperty.initialValue ) {
             FrictionAlertManager.alertSettledAndCool();
           }
+
+          this.voicingSpeakNameResponse();
         }
       };
 
