@@ -28,6 +28,13 @@ const AT_TOP_MOVE_DOWN_STRING = StringUtils.fillIn( positionMoveDownPatternStrin
   position: DEFAULT_AT_TOP_ALERT
 } );
 
+const moveDownToRubHarderUtterance = new Utterance( {
+  alert: moveDownToRubHarderSentenceString,
+  announcerOptions: {
+    cancelOther: false
+  }
+} );
+
 /**
  * @param {Object} [options]
  * @constructor
@@ -57,7 +64,10 @@ class BookMovementDescriber extends MovementDescriber {
 
     // @private - special verbose alert for the first 2 times, then use the default
     this.bottomUtterance = new Utterance( {
-      alert: [ downRubFastOrSlowString, downRubFastOrSlowString, DEFAULT_MOVEMENT_DESCRIPTIONS.DOWN ]
+      alert: [ downRubFastOrSlowString, downRubFastOrSlowString, DEFAULT_MOVEMENT_DESCRIPTIONS.DOWN ],
+      announcerOptions: {
+        cancelOther: false
+      }
     } );
 
     // {LeftRightAlertPair} - alert pairs to monitor if both left and right alerts have been triggered.
@@ -114,7 +124,7 @@ class BookMovementDescriber extends MovementDescriber {
           // If they have, then cue an movement and reset the alertPair
         // This means that we will get left/right alerts again after a "move down" cue
         else {
-          this.alert( moveDownToRubHarderSentenceString );
+          this.alert( moveDownToRubHarderUtterance );
           this.separatedAlertPair.reset();
         }
       }

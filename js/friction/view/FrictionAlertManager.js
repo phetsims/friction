@@ -16,6 +16,13 @@ const frictionIncreasingAtomsJigglingTemperatureFirstPatternString = frictionStr
 const frictionIncreasingAtomsJigglingTemperaturePatternString = frictionStrings.a11y.frictionIncreasingAtomsJigglingTemperaturePattern;
 const atomsJiggleTinyBitTempCoolString = frictionStrings.a11y.atomsJiggleTinyBitTempCool;
 
+const atomsJiggleTinyBitUtterance = new Utterance( {
+  alert: atomsJiggleTinyBitTempCoolString,
+  announcerOptions: {
+    cancelOther: false
+  }
+} );
+
 // utterance for announcing temperature and particle changes, persistent reference to use
 // alertStableDelay feature of utterance
 const temperatureJiggleUtterance = new Utterance( {
@@ -69,9 +76,9 @@ const FrictionAlertManager = {
    * @public
    */
   alertSettledAndCool() {
-    phet.joist.sim.utteranceQueue.addToBack( atomsJiggleTinyBitTempCoolString );
+    phet.joist.sim.utteranceQueue.addToBack( atomsJiggleTinyBitUtterance );
 
-    voicingUtteranceQueue.addToBack( atomsJiggleTinyBitTempCoolString );
+    voicingUtteranceQueue.addToBack( atomsJiggleTinyBitUtterance );
   },
 
   // Threshold that must be reached from initial temp to new temp to alert that the temperature changed, in amplitude (see model for more info)
