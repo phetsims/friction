@@ -67,14 +67,6 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
       }
     } );
 
-    wrappedNode.addInputListener( {
-      focus: () => {
-
-        // TODO: Hint "Space to Grab or Release." if we would show the grabDragHint. https://github.com/phetsims/friction/issues/211
-        wrappedNode.voicingSpeakNameResponse();
-      }
-    } );
-
     super( wrappedNode, keyboardDragListener, options );
 
     // @private
