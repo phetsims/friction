@@ -22,7 +22,6 @@ import friction from '../../../friction.js';
 import frictionStrings from '../../../frictionStrings.js';
 import FrictionConstants from '../../FrictionConstants.js';
 import CueArrow from '../CueArrow.js';
-import FrictionAlertManager from '../FrictionAlertManager.js';
 import FrictionDragListener from '../FrictionDragListener.js';
 import FrictionGrabDragInteraction from '../FrictionGrabDragInteraction.js';
 import FrictionKeyboardDragListener from '../FrictionKeyboardDragListener.js';
@@ -108,17 +107,6 @@ class BookNode extends Node {
       this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingDescriber,
         temperatureDecreasingDescriber, bookMovementDescriber );
 
-      // alert the temperature state on focus
-      const focusListener = {
-        focus() {
-          if ( model.vibrationAmplitudeProperty.value === model.vibrationAmplitudeProperty.initialValue ) {
-            FrictionAlertManager.alertSettledAndCool();
-          }
-
-          this.voicingSpeakNameResponse();
-        }
-      };
-
       // must be added prior to adding the grab/drag interaction
       this.addChild( focusHighlightRect );
       this.focusHighlight = focusHighlightRect; // this is a constraint of the grab/drag interaction;
@@ -143,8 +131,6 @@ class BookNode extends Node {
         onRelease: () => { bookDropSoundClip.play(); },
 
         dragCueNode: arrows,
-
-        listenersForDragState: [ focusListener ],
 
         tandem: tandem.createTandem( 'grabDragInteraction' )
       } );

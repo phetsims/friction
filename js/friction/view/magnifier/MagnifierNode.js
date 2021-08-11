@@ -30,7 +30,6 @@ import frictionStrings from '../../../frictionStrings.js';
 import FrictionConstants from '../../FrictionConstants.js';
 import FrictionModel from '../../model/FrictionModel.js';
 import CueArrow from '../CueArrow.js';
-import FrictionAlertManager from '../FrictionAlertManager.js';
 import FrictionDragListener from '../FrictionDragListener.js';
 import FrictionGrabDragInteraction from '../FrictionGrabDragInteraction.js';
 import FrictionKeyboardDragListener from '../FrictionKeyboardDragListener.js';
@@ -223,18 +222,6 @@ class MagnifierNode extends Node {
     this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingDescriber,
       temperatureDecreasingDescriber, bookMovementDescriber );
 
-    // alert the temperature state on focus
-    const focusListener = {
-      focus() {
-        if ( model.vibrationAmplitudeProperty.value === model.vibrationAmplitudeProperty.initialValue ) {
-          FrictionAlertManager.alertSettledAndCool();
-        }
-
-        // TODO: Hint "Space to Grab or Release." if we would show the grabDragHint.
-        this.voicingSpeakNameResponse();
-      }
-    };
-
     // pdom
     const grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, dragArea, grabbedDescriber, {
       objectToGrabString: zoomedInChemistryBookString,
@@ -261,9 +248,7 @@ class MagnifierNode extends Node {
         bookDropSoundClip.play();
       },
 
-      dragCueNode: cueArrows,
-
-      listenersForDragState: [ focusListener ]
+      dragCueNode: cueArrows
     } );
 
     this.container.addChild( this.topBookBackground );
