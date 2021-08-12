@@ -97,7 +97,7 @@ class TemperatureIncreasingDescriber {
     this.tooSoonForNextAlert = false;
 
     this.maxTempVoicingUtterance = new Utterance( {
-      alert: [ MAX_TEMP_STRING, MAX_TEMP_STRING, resetSimMoreObservationSentenceString ],
+      alert: [ MAX_TEMP_STRING, MAX_TEMP_STRING, MAX_TEMP_STRING, MAX_TEMP_STRING, resetSimMoreObservationSentenceString ],
       loopAlerts: true,
       announcerOptions: {
         cancelSelf: false
