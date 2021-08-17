@@ -68,16 +68,20 @@ const DRAG_SESSION_THRESHOLD = 1000;
 // in ms, time in between each increasing alert
 const ALERT_TIME_DELAY = 500;
 
-/**
- * Responsible for alerting when the temperature increases
- * @param {Object} [options]
- * @constructor
- */
 class TemperatureIncreasingDescriber {
-  constructor( model ) {
+
+  /**
+   * Responsible for alerting when the temperature increases
+   * {FrictionModel} model
+   * @param {FrictionAlertManager} frictionAlertManager
+   */
+  constructor( model, frictionAlertManager ) {
 
     // @private
     this.model = model;
+
+    // @private
+    this.frictionAlertManager = frictionAlertManager;
 
     // @private
     // Keep track of the time that the last drag ended. This is helpful to see if a new drag is within the same
@@ -159,7 +163,7 @@ class TemperatureIncreasingDescriber {
     const alertObject = INCREASING[ currentAlertIndex ];
 
     this.alert( () => {
-      FrictionAlertManager.alertTemperatureJiggleFromObject( alertObject, false, 'increasing' );
+      this.frictionAlertManager.alertTemperatureJiggleFromObject( alertObject, false, 'increasing' );
     } );
   }
 
@@ -171,7 +175,7 @@ class TemperatureIncreasingDescriber {
     this.alert( () => {
 
       // TODO: use the same Utterance for both of these queues, see https://github.com/phetsims/friction/issues/204
-      phet.joist.sim.utteranceQueue.addToBack( this.maxTempDescriptionUtterance );
+      this.frictionAlertManager.alertDescriptionUtterance( this.maxTempDescriptionUtterance );
       voicingUtteranceQueue.addToBack( this.maxTempVoicingUtterance );
     } );
   }

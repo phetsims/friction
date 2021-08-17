@@ -10,7 +10,6 @@
 import merge from '../../../../phet-core/js/merge.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/GrabDragInteraction.js';
 import friction from '../../friction.js';
-import FrictionAlertManager from './FrictionAlertManager.js';
 
 class FrictionGrabDragInteraction extends GrabDragInteraction {
 
@@ -21,7 +20,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
    * @param {GrabbedDescriber} grabbedDescriber
    * @param {Object} [options]
    */
-  constructor( model, keyboardDragListener, wrappedNode, grabbedDescriber, options ) {
+  constructor( model, keyboardDragListener, wrappedNode, grabbedDescriber, frictionAlertManager, options ) {
 
     assert && assert( wrappedNode.isVoicing, 'wrappedNode must support voicing' );
 
@@ -62,7 +61,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
       // alert the temperature state on focus, TODO: this is not called right now, see https://github.com/phetsims/scenery-phet/issues/693
       focus: () => {
         if ( model.vibrationAmplitudeProperty.value === model.vibrationAmplitudeProperty.initialValue ) {
-          FrictionAlertManager.alertSettledAndCool();
+          frictionAlertManager.alertSettledAndCool();
         }
       }
     } );

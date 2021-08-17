@@ -57,9 +57,10 @@ class MagnifierNode extends Node {
    * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
    * @param {BookMovementDescriber} bookMovementDescriber
    * @param {GrabbedDescriber} grabbedDescriber
+   * @param {FrictionAlertManager} frictionAlertManager
    * @param {Object} [options]
    */
-  constructor( model, targetX, targetY, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, grabbedDescriber, options ) {
+  constructor( model, targetX, targetY, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, grabbedDescriber, frictionAlertManager, options ) {
 
     options = merge( {
       tandem: Tandem.REQUIRED
@@ -223,7 +224,7 @@ class MagnifierNode extends Node {
       temperatureDecreasingDescriber, bookMovementDescriber );
 
     // pdom
-    const grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, dragArea, grabbedDescriber, {
+    const grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, dragArea, grabbedDescriber, frictionAlertManager, {
       objectToGrabString: zoomedInChemistryBookString,
       tandem: options.tandem.createTandem( 'grabDragInteraction' ),
       grabCueOptions: {

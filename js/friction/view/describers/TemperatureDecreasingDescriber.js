@@ -7,7 +7,6 @@
 import friction from '../../../friction.js';
 import frictionStrings from '../../../frictionStrings.js';
 import FrictionModel from '../../model/FrictionModel.js';
-import FrictionAlertManager from '../FrictionAlertManager.js';
 
 // constants
 const jigglingLessString = frictionStrings.a11y.jiggle.jigglingLess;
@@ -47,13 +46,14 @@ const ALERT_TIME_DELAY = 3000;
 // In same units as FrictionModel's amplitude
 const AMPLITUDE_DECREASING_THRESHOLD = 1;
 
-/**
- * Responsible for alerting when the temperature increases
- * @param {Object} [options]
- * @constructor
- */
 class TemperatureDecreasingDescriber {
-  constructor( model ) {
+
+  /**
+   * Responsible for alerting when the temperature decreases
+   * {FrictionModel} model
+   * @param {FrictionAlertManager} frictionAlertManager
+   */
+  constructor( model, frictionAlertManager ) {
 
     // decides whether or not this describer is enabled basically.
     // just manages whether or not we are checking to see if the threshold is increasing enough
@@ -62,6 +62,9 @@ class TemperatureDecreasingDescriber {
 
     // @private
     this.model = model;
+
+    // @private
+    this.frictionAlertManager = frictionAlertManager;
 
     // @private
     // This keeps track of the time since the last decreasing alert was made
@@ -112,7 +115,7 @@ class TemperatureDecreasingDescriber {
     // exists for the lifetime of the sim, no need to dispose
     model.vibrationAmplitudeProperty.lazyLink( amplitude => {
       if ( amplitude === model.vibrationAmplitudeProperty.initialValue ) {
-        FrictionAlertManager.alertSettledAndCool();
+        frictionAlertManager.alertSettledAndCool();
       }
     } );
   }
@@ -141,7 +144,7 @@ class TemperatureDecreasingDescriber {
 
     const alertObject = DECREASING[ currentAlertIndex ];
 
-    FrictionAlertManager.alertTemperatureJiggleFromObject( alertObject, this.firstAlert, 'decreasing' );
+    this.frictionAlertManager.alertTemperatureJiggleFromObject( alertObject, this.firstAlert, 'decreasing' );
 
     // it's not the first time anymore
     this.firstAlert = false;

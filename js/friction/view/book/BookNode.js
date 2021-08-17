@@ -41,10 +41,11 @@ class BookNode extends Node {
    * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
    * @param {BookMovementDescriber} bookMovementDescriber
    * @param {GrabbedDescriber} grabbedDescriber
+   * @param {FrictionAlertManager} frictionAlertManager
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( model, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, grabbedDescriber, tandem, options ) {
+  constructor( model, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, grabbedDescriber, frictionAlertManager, tandem, options ) {
 
     options = merge( {
 
@@ -112,7 +113,7 @@ class BookNode extends Node {
       this.focusHighlight = focusHighlightRect; // this is a constraint of the grab/drag interaction;
 
       // @private - a11y
-      this.grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, this, grabbedDescriber, {
+      this.grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, this, grabbedDescriber, frictionAlertManager, {
         objectToGrabString: chemistryBookString,
 
         // Empirically determined values to place the cue above the book.

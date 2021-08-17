@@ -29,22 +29,25 @@ const BREAK_AWAY_NONE_LEFT = StringUtils.fillIn( breakAwayNoneLeftString, { temp
 const ALERT_TIME_DELAY = 2000;
 const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
 
-/**
- * Responsible for alerting when the temperature increases
- * @param {Object} [options]
- * @constructor
- */
 class BreakAwayDescriber {
-  constructor( model ) {
+
+  /**
+   * Responsible for alerting when the temperature increases
+   * {FrictionModel} model
+   * @param {FrictionAlertManager} frictionAlertManager
+   */
+  constructor( model, frictionAlertManager ) {
 
     // @private
     this.model = model;
 
+    // @private
+    this.frictionAlertManager = frictionAlertManager;
 
     // @private - (a11y) true if there has already been an alert about atoms breaking away
     this.alertedBreakAwayProperty = new BooleanProperty( false );
 
-    // private
+    // @private
     this.tooSoonForNextAlert = false;
 
     // @private
@@ -78,7 +81,7 @@ class BreakAwayDescriber {
       alertContent = this.alertedBreakAwayProperty.value ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST;
     }
 
-    phet.joist.sim.utteranceQueue.addToFront( alertContent );
+    this.frictionAlertManager.forEachUtteranceQueue( utteranceQueue => utteranceQueue.addToFront( alertContent ) );
 
     voicingUtteranceQueue.addToFront( alertContent );
 

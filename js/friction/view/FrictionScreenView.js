@@ -12,6 +12,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import ThermometerNode from '../../../../scenery-phet/js/ThermometerNode.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import SoundLevelEnum from '../../../../tambo/js/SoundLevelEnum.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
@@ -29,6 +30,7 @@ import BreakAwayDescriber from './describers/BreakAwayDescriber.js';
 import GrabbedDescriber from './describers/GrabbedDescriber.js';
 import TemperatureDecreasingDescriber from './describers/TemperatureDecreasingDescriber.js';
 import TemperatureIncreasingDescriber from './describers/TemperatureIncreasingDescriber.js';
+import FrictionAlertManager from './FrictionAlertManager.js';
 import FrictionScreenSummaryNode from './FrictionScreenSummaryNode.js';
 import MagnifierNode from './magnifier/MagnifierNode.js';
 import MoleculeMotionSoundGenerator from './MoleculeMotionSoundGenerator.js';
@@ -52,29 +54,36 @@ class FrictionScreenView extends ScreenView {
    */
   constructor( model, tandem ) {
 
+    // To pass to super
+    const screenSummaryNodeContainer = new Node();
+
+    super( {
+      layoutBounds: new Bounds2( 0, 0, model.width, model.height ),
+      screenSummaryContent: screenSummaryNodeContainer,
+      tandem: tandem
+    } );
+
+    const frictionAlertManager = new FrictionAlertManager( this );
+
+
     // pdom - initialize the describers for auditory descriptions and alerts.
-    const temperatureIncreasingDescriber = new TemperatureIncreasingDescriber( model );
-    const temperatureDecreasingDescriber = new TemperatureDecreasingDescriber( model );
-    const breakAwayDescriber = new BreakAwayDescriber( model );
+    const temperatureIncreasingDescriber = new TemperatureIncreasingDescriber( model, frictionAlertManager );
+    const temperatureDecreasingDescriber = new TemperatureDecreasingDescriber( model, frictionAlertManager );
+    const breakAwayDescriber = new BreakAwayDescriber( model, frictionAlertManager );
     const bookMovementDescriber = new BookMovementDescriber( model );
     const grabbedDescriber = new GrabbedDescriber( model.contactProperty, model.successfullyInteractedWithProperty );
 
     // pdom
     const frictionScreenSummaryNode = new FrictionScreenSummaryNode( model, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP,
       temperatureDecreasingDescriber );
-
-    super( {
-      layoutBounds: new Bounds2( 0, 0, model.width, model.height ),
-      screenSummaryContent: frictionScreenSummaryNode,
-      tandem: tandem
-    } );
+    screenSummaryNodeContainer.addChild( frictionScreenSummaryNode );
 
     // @private
     this.frictionScreenSummaryNode = frictionScreenSummaryNode;
 
     // add physics book
     this.addChild( new BookNode( model, physicsString, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
-      bookMovementDescriber, grabbedDescriber, tandem.createTandem( 'bottomBookNode' ), {
+      bookMovementDescriber, grabbedDescriber, frictionAlertManager, tandem.createTandem( 'bottomBookNode' ), {
         x: 50,
         y: 225
       } ) );
@@ -82,7 +91,7 @@ class FrictionScreenView extends ScreenView {
     // add chemistry book
     const chemistryBookNode = new BookNode( model, chemistryString, temperatureIncreasingDescriber,
       temperatureDecreasingDescriber,
-      bookMovementDescriber, grabbedDescriber, tandem.createTandem( 'topBookNode' ), {
+      bookMovementDescriber, grabbedDescriber, frictionAlertManager, tandem.createTandem( 'topBookNode' ), {
         x: 65,
         y: 209,
         color: FrictionConstants.TOP_BOOK_COLOR_MACRO,
@@ -108,7 +117,7 @@ class FrictionScreenView extends ScreenView {
     // @private - add magnifier
     this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, temperatureIncreasingDescriber,
       temperatureDecreasingDescriber,
-      bookMovementDescriber, grabbedDescriber, {
+      bookMovementDescriber, grabbedDescriber, frictionAlertManager, {
         x: 40,
         y: 25,
         layerSplit: true,

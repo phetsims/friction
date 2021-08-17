@@ -6,6 +6,7 @@
  */
 
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import AlertManager from '../../../../scenery-phet/js/accessibility/describers/AlertManager.js';
 import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import friction from '../../friction.js';
@@ -37,7 +38,7 @@ const temperatureDecreasingUtterance = new Utterance( {
   }
 } );
 
-const FrictionAlertManager = {
+class FrictionAlertManager extends AlertManager {
 
   /**
    * @param {object} alertObject - data object holding strings for alert, see this.ALERT_SCHEMA
@@ -66,25 +67,24 @@ const FrictionAlertManager = {
       jigglingAmount: alertObject.jiggle
     } );
 
-    phet.joist.sim.utteranceQueue.addToBack( utterance );
+    this.alertDescriptionUtterance( utterance );
 
     voicingUtteranceQueue.addToBack( utterance );
-  },
+  }
 
   /**
    * Alert the state of the cool and settled atoms.
    * @public
    */
   alertSettledAndCool() {
-    phet.joist.sim.utteranceQueue.addToBack( atomsJiggleTinyBitUtterance );
+    this.alertDescriptionUtterance( atomsJiggleTinyBitUtterance );
 
     voicingUtteranceQueue.addToBack( atomsJiggleTinyBitUtterance );
-  },
+  }
+}
 
-  // Threshold that must be reached from initial temp to new temp to alert that the temperature changed, in amplitude (see model for more info)
-  TEMPERATURE_ALERT_THRESHOLD: 1.5
-};
-
+// @public - Threshold that must be reached from initial temp to new temp to alert that the temperature changed, in amplitude (see model for more info)
+FrictionAlertManager.TEMPERATURE_ALERT_THRESHOLD = 1.5;
 
 friction.register( 'FrictionAlertManager', FrictionAlertManager );
 
