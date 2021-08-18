@@ -9,6 +9,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/GrabDragInteraction.js';
+import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import friction from '../../friction.js';
 
 class FrictionGrabDragInteraction extends GrabDragInteraction {
@@ -18,6 +19,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
    * @param {KeyboardDragListener} keyboardDragListener
    * @param {Node} wrappedNode
    * @param {GrabbedDescriber} grabbedDescriber
+   * @param {FrictionAlertManager} frictionAlertManager
    * @param {Object} [options]
    */
   constructor( model, keyboardDragListener, wrappedNode, grabbedDescriber, frictionAlertManager, options ) {
@@ -39,11 +41,14 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
     // Keep track of the passed in grab listener, to add to it below
     const oldGrab = options.onGrab;
 
+    const grabbedUtterance = new Utterance();
+
     // Wrap the onGrab option in default functionality for al of the type in Friction
     options.onGrab = event => {
       oldGrab && oldGrab();
 
-      wrappedNode.alertDescriptionUtterance( grabbedDescriber.getGrabbedString() );
+      grabbedUtterance.alert = grabbedDescriber.getGrabbedString();
+      wrappedNode.alertDescriptionUtterance( grabbedUtterance );
 
       // When using mouse/touch FrictionDragListener will cover voicing responses.
       if ( event.isFromPDOM() ) {
