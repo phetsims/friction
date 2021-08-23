@@ -228,7 +228,7 @@ class MagnifierNode extends Node {
       objectToGrabString: zoomedInChemistryBookString,
       tandem: options.tandem.createTandem( 'grabDragInteraction' ),
       grabCueOptions: {
-        center: dragArea.center.minusXY( 0, 73 )
+        center: dragArea.center.plusXY( 0, 102 ) // empirically determined
       },
       grabbableOptions: {
         focusHighlight: focusHighlightPath
