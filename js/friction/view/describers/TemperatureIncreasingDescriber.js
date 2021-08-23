@@ -15,6 +15,7 @@
 
 import stepTimer from '../../../../../axon/js/stepTimer.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
+import responseCollector from '../../../../../scenery/js/accessibility/voicing/responseCollector.js';
 import voicingUtteranceQueue from '../../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
 import Utterance from '../../../../../utterance-queue/js/Utterance.js';
 import friction from '../../../friction.js';
@@ -100,13 +101,28 @@ class TemperatureIncreasingDescriber {
     // @private
     this.tooSoonForNextAlert = false;
 
+    const maxTempAlertList = [ MAX_TEMP_STRING, MAX_TEMP_STRING, MAX_TEMP_STRING, MAX_TEMP_STRING ];
+
     this.maxTempVoicingUtterance = new Utterance( {
-      alert: [ MAX_TEMP_STRING, MAX_TEMP_STRING, MAX_TEMP_STRING, MAX_TEMP_STRING, resetSimMoreObservationSentenceString ],
+      alert: maxTempAlertList, // mutated below
       loopAlerts: true,
+      alertStableDelay: 750,
       announcerOptions: {
         cancelSelf: false
       }
     } );
+
+    responseCollector.hintResponsesEnabledProperty.link( enabled => {
+      if ( enabled ) {
+        maxTempAlertList.push( resetSimMoreObservationSentenceString );
+      }
+      else {
+        maxTempAlertList.splice( this.maxTempVoicingUtterance.alert.indexOf( resetSimMoreObservationSentenceString ), 1 );
+      }
+
+      this.maxTempVoicingUtterance.alert = maxTempAlertList;
+    } );
+
     this.maxTempDescriptionUtterance = new Utterance( {
       alert: [ MAX_TEMP_STRING, MAX_TEMP_STRING, resetSimMoreObservationSentenceString ],
       loopAlerts: true
