@@ -6,10 +6,10 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
-import BorderAlertsDescriber from '../../../../../scenery-phet/js/accessibility/describers/BorderAlertsDescriber.js';
+ import BorderAlertsDescriber from '../../../../../scenery-phet/js/accessibility/describers/BorderAlertsDescriber.js';
 import DirectionEnum from '../../../../../scenery-phet/js/accessibility/describers/DirectionEnum.js';
 import MovementDescriber from '../../../../../scenery-phet/js/accessibility/describers/MovementDescriber.js';
+import ResponsePacket from '../../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../../utterance-queue/js/Utterance.js';
 import friction from '../../../friction.js';
 import frictionStrings from '../../../frictionStrings.js';
@@ -19,13 +19,13 @@ import LeftRightAlertPair from './LeftRightAlertPair.js';
 // constants
 const moveDownToRubHarderSentenceString = frictionStrings.a11y.moveDownToRubHarderSentence;
 const downRubFastOrSlowString = frictionStrings.a11y.downRubFastOrSlow;
-const positionMoveDownPatternString = frictionStrings.a11y.positionMoveDownPattern;
 
 const DEFAULT_AT_TOP_ALERT = BorderAlertsDescriber.getDefaultTopAlert();
 const DEFAULT_MOVEMENT_DESCRIPTIONS = MovementDescriber.getDefaultMovementDescriptions();
-const AT_TOP_MOVE_DOWN_STRING = StringUtils.fillIn( positionMoveDownPatternString, {
-  moveDownToRubHarder: moveDownToRubHarderSentenceString,
-  position: DEFAULT_AT_TOP_ALERT
+
+const atTopMoveDownResponsePacket = new ResponsePacket( {
+  objectResponse: DEFAULT_AT_TOP_ALERT,
+  hintResponse: moveDownToRubHarderSentenceString
 } );
 
 const moveDownToRubHarderUtterance = new Utterance( {
@@ -50,7 +50,7 @@ class BookMovementDescriber extends MovementDescriber {
 
         // override the default with an alert that will give two "verbose alerts" before repeating the basic default "at top"
         topAlert: new Utterance( {
-          alert: [ AT_TOP_MOVE_DOWN_STRING, AT_TOP_MOVE_DOWN_STRING, DEFAULT_AT_TOP_ALERT ]
+          alert: atTopMoveDownResponsePacket
         } ),
 
         bounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS,
