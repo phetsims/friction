@@ -41,10 +41,10 @@ class MoleculeMotionSoundGenerator extends SoundGenerator {
 
     // create several instances of the sound clip at different volume levels to allow more variation in the sound
     const motionSoundClips = [
-      new SoundClip( bounceMarimbaSound, { initialOutputLevel: 1 } ),
-      new SoundClip( bounceMarimbaSound, { initialOutputLevel: 0.75 } ),
-      new SoundClip( bounceMarimbaSound, { initialOutputLevel: 0.5 } ),
-      new SoundClip( bounceMarimbaSound, { initialOutputLevel: 0.25 } )
+      new SoundClip( bounceMarimbaSound, { initialOutputLevel: 1, rateChangesAffectPlayingSounds: false } ),
+      new SoundClip( bounceMarimbaSound, { initialOutputLevel: 0.75, rateChangesAffectPlayingSounds: false } ),
+      new SoundClip( bounceMarimbaSound, { initialOutputLevel: 0.5, rateChangesAffectPlayingSounds: false } ),
+      new SoundClip( bounceMarimbaSound, { initialOutputLevel: 0.25, rateChangesAffectPlayingSounds: false } )
     ];
 
     // connect up the sound clips
@@ -64,7 +64,7 @@ class MoleculeMotionSoundGenerator extends SoundGenerator {
       const soundClip = dotRandom.sample( motionSoundClips );
 
       // set the playback rate in a way that sounds good with other sounds that are playing
-      soundClip.playbackRate = FrictionConstants.GET_RANDOM_PENTATONIC_PLAYBACK_RATE();
+      soundClip.setPlaybackRate( FrictionConstants.GET_RANDOM_PENTATONIC_PLAYBACK_RATE(), 0 );
 
       soundClip.play();
     } );

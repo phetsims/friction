@@ -175,15 +175,18 @@ class FrictionScreenView extends ScreenView {
     } ) );
 
     // create and hook up the sound that is played when molecules break off from the top book
-    const moleculeBreakOffSoundClip = new SoundClip( moleculeBreakOffSound, { initialOutputLevel: 0.05 } );
+    const moleculeBreakOffSoundClip = new SoundClip( moleculeBreakOffSound, {
+      initialOutputLevel: 0.05,
+      rateChangesAffectPlayingSounds: false
+    } );
     soundManager.addSoundGenerator( moleculeBreakOffSoundClip );
     model.evaporationEmitter.addListener( () => {
 
       // don't play for every evaporated molecule or it's too noisy
       if ( model.numberOfAtomsEvaporated % 4 === 0 ) {
 
-        // choose a playback rate
-        moleculeBreakOffSoundClip.playbackRate = FrictionConstants.GET_RANDOM_PENTATONIC_PLAYBACK_RATE();
+        // set a random playback rate
+        moleculeBreakOffSoundClip.setPlaybackRate( FrictionConstants.GET_RANDOM_PENTATONIC_PLAYBACK_RATE(), 0 );
 
         // play the sound
         moleculeBreakOffSoundClip.play();
