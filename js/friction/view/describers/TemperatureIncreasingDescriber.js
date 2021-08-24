@@ -16,7 +16,7 @@
 import stepTimer from '../../../../../axon/js/stepTimer.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
 import voicingUtteranceQueue from '../../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
-import responseCollector from '../../../../../utterance-queue/js/responseCollector.js';
+import ResponsePacket from '../../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../../utterance-queue/js/Utterance.js';
 import friction from '../../../friction.js';
 import frictionStrings from '../../../frictionStrings.js';
@@ -41,6 +41,10 @@ const frictionIncreasingAtomsJigglingTemperaturePatternString = frictionStrings.
 const MAX_TEMP_STRING = StringUtils.fillIn( frictionIncreasingAtomsJigglingTemperaturePatternString, {
   jigglingAmount: superFastString,
   temperature: superHotString
+} );
+const maxTempResponsePacket = new ResponsePacket( {
+  contextResponse: MAX_TEMP_STRING,
+  hintResponse: resetSimMoreObservationSentenceString
 } );
 
 const INCREASING = [
@@ -73,7 +77,7 @@ class TemperatureIncreasingDescriber {
 
   /**
    * Responsible for alerting when the temperature increases
-   * {FrictionModel} model
+   * @param {FrictionModel} model
    * @param {FrictionAlertManager} frictionAlertManager
    */
   constructor( model, frictionAlertManager ) {
@@ -101,31 +105,12 @@ class TemperatureIncreasingDescriber {
     // @private
     this.tooSoonForNextAlert = false;
 
-    const maxTempAlertList = [ MAX_TEMP_STRING, MAX_TEMP_STRING, MAX_TEMP_STRING, MAX_TEMP_STRING ];
-
-    this.maxTempVoicingUtterance = new Utterance( {
-      alert: maxTempAlertList, // mutated below
-      loopAlerts: true,
-      alertStableDelay: 750,
+    // @private
+    this.maxTempUtterance = new Utterance( {
+      alert: maxTempResponsePacket,
       announcerOptions: {
         cancelSelf: false
       }
-    } );
-
-    responseCollector.hintResponsesEnabledProperty.link( enabled => {
-      if ( enabled ) {
-        maxTempAlertList.push( resetSimMoreObservationSentenceString );
-      }
-      else {
-        maxTempAlertList.splice( this.maxTempVoicingUtterance.alert.indexOf( resetSimMoreObservationSentenceString ), 1 );
-      }
-
-      this.maxTempVoicingUtterance.alert = maxTempAlertList;
-    } );
-
-    this.maxTempDescriptionUtterance = new Utterance( {
-      alert: [ MAX_TEMP_STRING, MAX_TEMP_STRING, resetSimMoreObservationSentenceString ],
-      loopAlerts: true
     } );
 
     // @private
@@ -191,8 +176,8 @@ class TemperatureIncreasingDescriber {
     this.alert( () => {
 
       // TODO: use the same Utterance for both of these queues, see https://github.com/phetsims/friction/issues/204
-      this.frictionAlertManager.alertDescriptionUtterance( this.maxTempDescriptionUtterance );
-      voicingUtteranceQueue.addToBack( this.maxTempVoicingUtterance );
+      this.frictionAlertManager.alertDescriptionUtterance( this.maxTempUtterance );
+      voicingUtteranceQueue.addToBack( this.maxTempUtterance );
     } );
   }
 
@@ -220,8 +205,7 @@ class TemperatureIncreasingDescriber {
    * @public
    */
   reset() {
-    this.maxTempVoicingUtterance.reset();
-    this.maxTempDescriptionUtterance.reset();
+    this.maxTempUtterance.reset();
   }
 }
 

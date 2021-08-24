@@ -210,10 +210,10 @@
       "value": "Atoms jiggle a tiny bit, temperature cool"
     },
     "frictionIncreasingAtomsJigglingTemperaturePattern": {
-      "value": "Jiggling {{jigglingAmount}}, {{temperature}}"
+      "value": "Jiggling {{jigglingAmount}}, {{temperature}}."
     },
     "frictionIncreasingAtomsJigglingTemperatureFirstPattern": {
-      "value": "Atoms {{jigglingAmount}}, temperature {{temperature}}"
+      "value": "Atoms {{jigglingAmount}}, temperature {{temperature}}."
     },
     "capitalizedAFew": {
       "value": "A few"
