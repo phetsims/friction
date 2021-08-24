@@ -15,8 +15,8 @@
 
 import stepTimer from '../../../../../axon/js/stepTimer.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
-import responseCollector from '../../../../../scenery/js/accessibility/voicing/responseCollector.js';
 import voicingUtteranceQueue from '../../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
+import responseCollector from '../../../../../utterance-queue/js/responseCollector.js';
 import Utterance from '../../../../../utterance-queue/js/Utterance.js';
 import friction from '../../../friction.js';
 import frictionStrings from '../../../frictionStrings.js';
