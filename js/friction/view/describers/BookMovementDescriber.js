@@ -6,7 +6,7 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
- import BorderAlertsDescriber from '../../../../../scenery-phet/js/accessibility/describers/BorderAlertsDescriber.js';
+import BorderAlertsDescriber from '../../../../../scenery-phet/js/accessibility/describers/BorderAlertsDescriber.js';
 import DirectionEnum from '../../../../../scenery-phet/js/accessibility/describers/DirectionEnum.js';
 import MovementDescriber from '../../../../../scenery-phet/js/accessibility/describers/MovementDescriber.js';
 import ResponsePacket from '../../../../../utterance-queue/js/ResponsePacket.js';
@@ -18,7 +18,7 @@ import LeftRightAlertPair from './LeftRightAlertPair.js';
 
 // constants
 const moveDownToRubHarderSentenceString = frictionStrings.a11y.moveDownToRubHarderSentence;
-const downRubFastOrSlowString = frictionStrings.a11y.downRubFastOrSlow;
+const rubFastOrSlowString = frictionStrings.a11y.rubFastOrSlow;
 
 const DEFAULT_AT_TOP_ALERT = BorderAlertsDescriber.getDefaultTopAlert();
 const DEFAULT_MOVEMENT_DESCRIPTIONS = MovementDescriber.getDefaultMovementDescriptions();
@@ -28,8 +28,15 @@ const atTopMoveDownResponsePacket = new ResponsePacket( {
   hintResponse: moveDownToRubHarderSentenceString
 } );
 
+const downRubFastOrSlowResponsePacket = new ResponsePacket( {
+  objectResponse: DEFAULT_MOVEMENT_DESCRIPTIONS.DOWN,
+  hintResponse: rubFastOrSlowString
+} );
+
 const moveDownToRubHarderUtterance = new Utterance( {
-  alert: moveDownToRubHarderSentenceString,
+  alert: new ResponsePacket( {
+    hintResponse: moveDownToRubHarderSentenceString
+  } ),
   announcerOptions: {
     cancelOther: false
   }
@@ -64,7 +71,7 @@ class BookMovementDescriber extends MovementDescriber {
 
     // @private - special verbose alert for the first 2 times, then use the default
     this.bottomUtterance = new Utterance( {
-      alert: [ downRubFastOrSlowString, downRubFastOrSlowString, DEFAULT_MOVEMENT_DESCRIPTIONS.DOWN ],
+      alert: downRubFastOrSlowResponsePacket,
       announcerOptions: {
         cancelOther: false
       }
