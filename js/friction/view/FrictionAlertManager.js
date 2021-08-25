@@ -15,14 +15,6 @@ import frictionStrings from '../../frictionStrings.js';
 // constants
 const frictionIncreasingAtomsJigglingTemperatureFirstPatternString = frictionStrings.a11y.frictionIncreasingAtomsJigglingTemperatureFirstPattern;
 const frictionIncreasingAtomsJigglingTemperaturePatternString = frictionStrings.a11y.frictionIncreasingAtomsJigglingTemperaturePattern;
-const atomsJiggleTinyBitTempCoolString = frictionStrings.a11y.atomsJiggleTinyBitTempCool;
-
-const atomsJiggleTinyBitUtterance = new Utterance( {
-  alert: atomsJiggleTinyBitTempCoolString,
-  announcerOptions: {
-    cancelOther: false
-  }
-} );
 
 // utterance for announcing temperature and particle changes, persistent reference to use
 // alertStableDelay feature of utterance
@@ -70,16 +62,6 @@ class FrictionAlertManager extends AlertManager {
     this.alertDescriptionUtterance( utterance );
 
     voicingUtteranceQueue.addToBack( utterance );
-  }
-
-  /**
-   * Alert the state of the cool and settled atoms.
-   * @public
-   */
-  alertSettledAndCool() {
-    this.alertDescriptionUtterance( atomsJiggleTinyBitUtterance );
-
-    voicingUtteranceQueue.addToBack( atomsJiggleTinyBitUtterance );
   }
 }
 

@@ -19,10 +19,10 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
    * @param {KeyboardDragListener} keyboardDragListener
    * @param {Node} wrappedNode
    * @param {GrabbedDescriber} grabbedDescriber
-   * @param {FrictionAlertManager} frictionAlertManager
+   * @param {function():} alertSettledAndCool
    * @param {Object} [options]
    */
-  constructor( model, keyboardDragListener, wrappedNode, grabbedDescriber, frictionAlertManager, options ) {
+  constructor( model, keyboardDragListener, wrappedNode, grabbedDescriber, alertSettledAndCool, options ) {
 
     assert && assert( wrappedNode.isVoicing, 'wrappedNode must support voicing' );
 
@@ -64,10 +64,10 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
 
     options.listenersForDragState.push( {
 
-      // alert the temperature state on focus, TODO: this is not called right now, see https://github.com/phetsims/scenery-phet/issues/693
+      // alert the temperature state on focus, TODO: this is called right now, but immediately interrupted by grabbed alerts.
       focus: () => {
         if ( model.vibrationAmplitudeProperty.value === model.vibrationAmplitudeProperty.initialValue ) {
-          frictionAlertManager.alertSettledAndCool();
+          alertSettledAndCool();
         }
       }
     } );

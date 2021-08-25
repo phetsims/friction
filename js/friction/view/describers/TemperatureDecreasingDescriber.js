@@ -109,15 +109,6 @@ class TemperatureDecreasingDescriber {
 
     // exists for the lifetime of the sim, no need to dispose
     this.model.vibrationAmplitudeProperty.link( this.amplitudeListener );
-
-    // handle the "settled and cool" alert once temp is completely decreased.
-    // lazyLink so that we do not hear the alert on startup
-    // exists for the lifetime of the sim, no need to dispose
-    model.vibrationAmplitudeProperty.lazyLink( amplitude => {
-      if ( amplitude === model.vibrationAmplitudeProperty.initialValue ) {
-        frictionAlertManager.alertSettledAndCool();
-      }
-    } );
   }
 
   /**

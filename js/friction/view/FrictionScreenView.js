@@ -12,10 +12,12 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import ThermometerNode from '../../../../scenery-phet/js/ThermometerNode.js';
+import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import SoundLevelEnum from '../../../../tambo/js/SoundLevelEnum.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
+import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import moleculeBreakOffSound from '../../../sounds/break-off-autosinfonie-spatialized_mp3.js';
 import bookContactSound from '../../../sounds/contact-lower_mp3.js';
 import friction from '../../friction.js';
@@ -46,6 +48,16 @@ const THERMOMETER_BACKGROUND_FILL_COLOR = 'white';
 const THERMOMETER_MIN_TEMP = FrictionModel.THERMOMETER_MIN_TEMP;
 const THERMOMETER_MAX_TEMP = FrictionModel.THERMOMETER_MAX_TEMP;
 
+const atomsJiggleTinyBitTempCoolString = frictionStrings.a11y.atomsJiggleTinyBitTempCool;
+
+const atomsJiggleTinyBitUtterance = new Utterance( {
+  alert: atomsJiggleTinyBitTempCoolString,
+  announcerOptions: {
+    cancelOther: false
+  }
+} );
+
+
 class FrictionScreenView extends ScreenView {
 
   /**
@@ -74,6 +86,20 @@ class FrictionScreenView extends ScreenView {
       descriptionAlertNode: this
     } );
     const grabbedDescriber = new GrabbedDescriber( model.contactProperty, model.successfullyInteractedWithProperty );
+    const alertSettledAndCool = () => {
+      this.alertDescriptionUtterance( atomsJiggleTinyBitUtterance );
+
+      voicingUtteranceQueue.addToBack( atomsJiggleTinyBitUtterance );
+    };
+
+    // handle the "settled and cool" alert once temp is completely decreased.
+    // lazyLink so that we do not hear the alert on startup
+    // exists for the lifetime of the sim, no need to dispose
+    model.vibrationAmplitudeProperty.lazyLink( amplitude => {
+      if ( amplitude === model.vibrationAmplitudeProperty.initialValue ) {
+        alertSettledAndCool();
+      }
+    } );
 
     // pdom
     const frictionScreenSummaryNode = new FrictionScreenSummaryNode( model, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP,
@@ -85,7 +111,7 @@ class FrictionScreenView extends ScreenView {
 
     // add physics book
     this.addChild( new BookNode( model, physicsString, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
-      bookMovementAlerter, grabbedDescriber, frictionAlertManager, tandem.createTandem( 'bottomBookNode' ), {
+      bookMovementAlerter, grabbedDescriber, alertSettledAndCool, tandem.createTandem( 'bottomBookNode' ), {
         x: 50,
         y: 225
       } ) );
@@ -93,7 +119,7 @@ class FrictionScreenView extends ScreenView {
     // add chemistry book
     const chemistryBookNode = new BookNode( model, chemistryString, temperatureIncreasingDescriber,
       temperatureDecreasingDescriber,
-      bookMovementAlerter, grabbedDescriber, frictionAlertManager, tandem.createTandem( 'topBookNode' ), {
+      bookMovementAlerter, grabbedDescriber, alertSettledAndCool, tandem.createTandem( 'topBookNode' ), {
         x: 65,
         y: 209,
         color: FrictionConstants.TOP_BOOK_COLOR_MACRO,
@@ -119,7 +145,7 @@ class FrictionScreenView extends ScreenView {
     // @private - add magnifier
     this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, temperatureIncreasingDescriber,
       temperatureDecreasingDescriber,
-      bookMovementAlerter, grabbedDescriber, frictionAlertManager, {
+      bookMovementAlerter, grabbedDescriber, alertSettledAndCool, {
         x: 40,
         y: 25,
         layerSplit: true,
