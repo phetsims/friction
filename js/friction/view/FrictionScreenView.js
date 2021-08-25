@@ -70,7 +70,9 @@ class FrictionScreenView extends ScreenView {
     const temperatureIncreasingDescriber = new TemperatureIncreasingDescriber( model, frictionAlertManager );
     const temperatureDecreasingDescriber = new TemperatureDecreasingDescriber( model, frictionAlertManager );
     const breakAwayDescriber = new BreakAwayDescriber( model, frictionAlertManager );
-    const bookMovementDescriber = new BookMovementDescriber( model );
+    const bookMovementDescriber = new BookMovementDescriber( model, {
+      descriptionAlertNode: this
+    } );
     const grabbedDescriber = new GrabbedDescriber( model.contactProperty, model.successfullyInteractedWithProperty );
 
     // pdom

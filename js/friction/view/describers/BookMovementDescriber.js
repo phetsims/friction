@@ -6,6 +6,7 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
+import merge from '../../../../../phet-core/js/merge.js';
 import BorderAlertsDescriber from '../../../../../scenery-phet/js/accessibility/describers/BorderAlertsDescriber.js';
 import DirectionEnum from '../../../../../scenery-phet/js/accessibility/describers/DirectionEnum.js';
 import MovementDescriber from '../../../../../scenery-phet/js/accessibility/describers/MovementDescriber.js';
@@ -42,14 +43,15 @@ const moveDownToRubHarderUtterance = new Utterance( {
   }
 } );
 
-/**
- * @param {Object} [options]
- * @constructor
- */
 class BookMovementDescriber extends MovementDescriber {
-  constructor( model ) {
 
-    super( model.topBookPositionProperty, {
+  /**
+   * @param {FrictionModel} model
+   * @param {Object} [options]
+   */
+  constructor( model, options ) {
+
+    options = merge( {
       borderAlertsOptions: {
 
         // don't alert the bottom border alert because the model isn't set up to have that work based on the bounds
@@ -64,7 +66,9 @@ class BookMovementDescriber extends MovementDescriber {
 
         repeatBorderAlerts: true
       }
-    } );
+    }, options );
+
+    super( model.topBookPositionProperty, options );
 
     // @private
     this.model = model;
