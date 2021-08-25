@@ -55,12 +55,12 @@ class MagnifierNode extends Node {
    * @param {string} title - the title of the book that is draggable, used for a11y
    * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
    * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
-   * @param {BookMovementDescriber} bookMovementDescriber
+   * @param {BookMovementAlerter} bookMovementAlerter
    * @param {GrabbedDescriber} grabbedDescriber
    * @param {FrictionAlertManager} frictionAlertManager
    * @param {Object} [options]
    */
-  constructor( model, targetX, targetY, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, grabbedDescriber, frictionAlertManager, options ) {
+  constructor( model, targetX, targetY, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementAlerter, grabbedDescriber, frictionAlertManager, options ) {
 
     options = merge( {
       tandem: Tandem.REQUIRED
@@ -155,7 +155,7 @@ class MagnifierNode extends Node {
       } );
 
     dragArea.addInputListener( new FrictionDragListener( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
-      bookMovementDescriber, options.tandem.createTandem( 'dragListener' ), {
+      bookMovementAlerter, options.tandem.createTandem( 'dragListener' ), {
         startSound: bookPickupSoundClip,
         endSound: bookDropSoundClip,
         targetNode: this.topBookBackground,
@@ -221,7 +221,7 @@ class MagnifierNode extends Node {
 
     // pdom - add the keyboard drag listener to the top atoms
     this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingDescriber,
-      temperatureDecreasingDescriber, bookMovementDescriber );
+      temperatureDecreasingDescriber, bookMovementAlerter );
 
     // pdom
     const grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, dragArea, grabbedDescriber, frictionAlertManager, {

@@ -25,7 +25,7 @@ import FrictionModel from '../model/FrictionModel.js';
 import BookNode from './book/BookNode.js';
 import BookRubSoundGenerator from './BookRubSoundGenerator.js';
 import CoolingSoundGenerator from './CoolingSoundGenerator.js';
-import BookMovementDescriber from './describers/BookMovementDescriber.js';
+import BookMovementAlerter from './describers/BookMovementAlerter.js';
 import BreakAwayDescriber from './describers/BreakAwayDescriber.js';
 import GrabbedDescriber from './describers/GrabbedDescriber.js';
 import TemperatureDecreasingDescriber from './describers/TemperatureDecreasingDescriber.js';
@@ -70,7 +70,7 @@ class FrictionScreenView extends ScreenView {
     const temperatureIncreasingDescriber = new TemperatureIncreasingDescriber( model, frictionAlertManager );
     const temperatureDecreasingDescriber = new TemperatureDecreasingDescriber( model, frictionAlertManager );
     const breakAwayDescriber = new BreakAwayDescriber( model, frictionAlertManager );
-    const bookMovementDescriber = new BookMovementDescriber( model, {
+    const bookMovementAlerter = new BookMovementAlerter( model, {
       descriptionAlertNode: this
     } );
     const grabbedDescriber = new GrabbedDescriber( model.contactProperty, model.successfullyInteractedWithProperty );
@@ -85,7 +85,7 @@ class FrictionScreenView extends ScreenView {
 
     // add physics book
     this.addChild( new BookNode( model, physicsString, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
-      bookMovementDescriber, grabbedDescriber, frictionAlertManager, tandem.createTandem( 'bottomBookNode' ), {
+      bookMovementAlerter, grabbedDescriber, frictionAlertManager, tandem.createTandem( 'bottomBookNode' ), {
         x: 50,
         y: 225
       } ) );
@@ -93,7 +93,7 @@ class FrictionScreenView extends ScreenView {
     // add chemistry book
     const chemistryBookNode = new BookNode( model, chemistryString, temperatureIncreasingDescriber,
       temperatureDecreasingDescriber,
-      bookMovementDescriber, grabbedDescriber, frictionAlertManager, tandem.createTandem( 'topBookNode' ), {
+      bookMovementAlerter, grabbedDescriber, frictionAlertManager, tandem.createTandem( 'topBookNode' ), {
         x: 65,
         y: 209,
         color: FrictionConstants.TOP_BOOK_COLOR_MACRO,
@@ -119,7 +119,7 @@ class FrictionScreenView extends ScreenView {
     // @private - add magnifier
     this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, temperatureIncreasingDescriber,
       temperatureDecreasingDescriber,
-      bookMovementDescriber, grabbedDescriber, frictionAlertManager, {
+      bookMovementAlerter, grabbedDescriber, frictionAlertManager, {
         x: 40,
         y: 25,
         layerSplit: true,
@@ -217,7 +217,7 @@ class FrictionScreenView extends ScreenView {
       temperatureDecreasingDescriber.reset();
       temperatureIncreasingDescriber.reset();
       breakAwayDescriber.reset();
-      bookMovementDescriber.reset();
+      bookMovementAlerter.reset();
       frictionScreenSummaryNode.updateSummaryString();
     };
   }

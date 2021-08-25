@@ -1,7 +1,7 @@
 // Copyright 2018-2021, University of Colorado Boulder
 
 /**
- * MovementDescriber subtype that knows how to alert movement for Friction's chemistry book, which is pretty specific for a
+ * MovementAlerter subtype that knows how to alert movement for Friction's chemistry book, which is pretty specific for a
  * freely draggable object.
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
@@ -9,7 +9,7 @@
 import merge from '../../../../../phet-core/js/merge.js';
 import BorderAlertsDescriber from '../../../../../scenery-phet/js/accessibility/describers/BorderAlertsDescriber.js';
 import DirectionEnum from '../../../../../scenery-phet/js/accessibility/describers/DirectionEnum.js';
-import MovementDescriber from '../../../../../scenery-phet/js/accessibility/describers/MovementDescriber.js';
+import MovementAlerter from '../../../../../scenery-phet/js/accessibility/describers/MovementAlerter.js';
 import ResponsePacket from '../../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../../utterance-queue/js/Utterance.js';
 import friction from '../../../friction.js';
@@ -22,7 +22,7 @@ const moveDownToRubHarderSentenceString = frictionStrings.a11y.moveDownToRubHard
 const rubFastOrSlowString = frictionStrings.a11y.rubFastOrSlow;
 
 const DEFAULT_AT_TOP_ALERT = BorderAlertsDescriber.getDefaultTopAlert();
-const DEFAULT_MOVEMENT_DESCRIPTIONS = MovementDescriber.getDefaultMovementDescriptions();
+const DEFAULT_MOVEMENT_DESCRIPTIONS = MovementAlerter.getDefaultMovementDescriptions();
 
 const atTopMoveDownResponsePacket = new ResponsePacket( {
   objectResponse: DEFAULT_AT_TOP_ALERT,
@@ -43,7 +43,7 @@ const moveDownToRubHarderUtterance = new Utterance( {
   }
 } );
 
-class BookMovementDescriber extends MovementDescriber {
+class BookMovementAlerter extends MovementAlerter {
 
   /**
    * @param {FrictionModel} model
@@ -186,5 +186,5 @@ class BookMovementDescriber extends MovementDescriber {
   }
 }
 
-friction.register( 'BookMovementDescriber', BookMovementDescriber );
-export default BookMovementDescriber;
+friction.register( 'BookMovementAlerter', BookMovementAlerter );
+export default BookMovementAlerter;

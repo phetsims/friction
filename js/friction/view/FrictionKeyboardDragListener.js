@@ -16,9 +16,9 @@ class FrictionKeyboardDragListener extends KeyboardDragListener {
    * @param {FrictionModel} model
    * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
    * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
-   * @param {BookMovementDescriber} bookMovementDescriber
+   * @param {BookMovementAlerter} bookMovementAlerter
    */
-  constructor( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber ) {
+  constructor( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementAlerter ) {
 
     let oldPositionValue; // determines our delta for how the positionProperty changed every drag
 
@@ -41,7 +41,7 @@ class FrictionKeyboardDragListener extends KeyboardDragListener {
         model.bottomOffsetProperty.set( 0 );
 
         temperatureIncreasingDescriber.endDrag();
-        bookMovementDescriber.endDrag( event.domEvent );
+        bookMovementAlerter.endDrag( event.domEvent );
 
       },
       dragBounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS

@@ -39,13 +39,13 @@ class BookNode extends Node {
    * @param {string} title - title that appears on the book spine
    * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
    * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
-   * @param {BookMovementDescriber} bookMovementDescriber
+   * @param {BookMovementAlerter} bookMovementAlerter
    * @param {GrabbedDescriber} grabbedDescriber
    * @param {FrictionAlertManager} frictionAlertManager
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( model, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, grabbedDescriber, frictionAlertManager, tandem, options ) {
+  constructor( model, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementAlerter, grabbedDescriber, frictionAlertManager, tandem, options ) {
 
     options = merge( {
 
@@ -106,7 +106,7 @@ class BookNode extends Node {
 
       // pdom - add a keyboard drag handler
       this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingDescriber,
-        temperatureDecreasingDescriber, bookMovementDescriber );
+        temperatureDecreasingDescriber, bookMovementAlerter );
 
       // must be added prior to adding the grab/drag interaction
       this.addChild( focusHighlightRect );
@@ -138,7 +138,7 @@ class BookNode extends Node {
 
 
       this.addInputListener( new FrictionDragListener( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
-        bookMovementDescriber, options.tandem.createTandem( 'dragHandler' ), {
+        bookMovementAlerter, options.tandem.createTandem( 'dragHandler' ), {
           startSound: bookPickupSoundClip,
           endSound: bookDropSoundClip,
           targetNode: this,

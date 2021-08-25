@@ -16,11 +16,11 @@ class FrictionDragListener extends DragListener {
    * @param {FrictionModel} model
    * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
    * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
-   * @param {BookMovementDescriber} bookMovementDescriber
+   * @param {BookMovementAlerter} bookMovementAlerter
    * @param tandem
    * @param options
    */
-  constructor( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementDescriber, tandem, options ) {
+  constructor( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementAlerter, tandem, options ) {
 
     options = merge( {
 
@@ -59,7 +59,7 @@ class FrictionDragListener extends DragListener {
 
         // pdom
         temperatureIncreasingDescriber.endDrag();
-        bookMovementDescriber.endDrag();
+        bookMovementAlerter.endDrag();
       },
       tandem: tandem
     } );
