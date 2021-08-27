@@ -116,10 +116,10 @@ class BookNode extends Node {
       this.addChild( focusHighlightRect );
       this.focusHighlight = focusHighlightRect;
       this.addChild( interactiveHighlightRect );
-      this.mouseHighlight = interactiveHighlightRect;
+      this.interactiveHighlight = interactiveHighlightRect;
 
       this.focusHighlightLayerable = true;
-      this.mouseHighlightLayerable = true;
+      this.interactiveHighlightLayerable = true;
 
       // @private - a11y
       this.grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, this, grabbedDescriber, alertSettledAndCool, {

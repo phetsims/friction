@@ -161,7 +161,7 @@ class MagnifierNode extends Node {
         focusHighlightLayerable: true,
 
         // interactive highlights
-        mouseHighlightLayerable: true,
+        interactiveHighlightLayerable: true,
 
         // voicing
         voicingNameResponse: zoomedInChemistryBookString
@@ -209,7 +209,7 @@ class MagnifierNode extends Node {
     this.topBookBackground.addChild( focusHighlightPath );
     this.topBookBackground.addChild( interactiveHighlightPath );
     dragArea.focusHighlight = focusHighlightPath;
-    dragArea.mouseHighlight = interactiveHighlightPath;
+    dragArea.interactiveHighlight = interactiveHighlightPath;
 
     // cuing arrows for the book
     const bookCueArrowLeft = new CueArrow( {
