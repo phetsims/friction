@@ -73,10 +73,14 @@ class BookNode extends Node {
       // instrument this book, but not the other
       options.tandem = tandem;
 
-      // We want the focus highlight to be completely within the bounds of the book.
+      // a11y - We want the highlights to be completely within the bounds of the book.
       const focusHighlightRect = new FocusHighlightPath( null );
-      const focusHighlightLineWidth = focusHighlightRect.getOuterLineWidth( this );
-      focusHighlightRect.setShape( Shape.bounds( this.localBounds.eroded( focusHighlightLineWidth / 2 ) ) );
+      const highlightLineWidth = focusHighlightRect.getOuterLineWidth( this );
+      const highlightShape = Shape.bounds( this.localBounds.eroded( highlightLineWidth / 2 ) );
+      focusHighlightRect.setShape( highlightShape );
+
+      const interactiveHighlightRect = new FocusHighlightPath( null );
+      interactiveHighlightRect.setShape( highlightShape );
 
       // cuing arrows for the book
       const bookCueArrow1 = new CueArrow( {
@@ -108,9 +112,14 @@ class BookNode extends Node {
       this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingDescriber,
         temperatureDecreasingDescriber, bookMovementAlerter );
 
-      // must be added prior to adding the grab/drag interaction
+      // highlights must be added prior to adding the grab/drag interaction, this is a constraint of GrabDragInteraction
       this.addChild( focusHighlightRect );
-      this.focusHighlight = focusHighlightRect; // this is a constraint of the grab/drag interaction;
+      this.focusHighlight = focusHighlightRect;
+      this.addChild( interactiveHighlightRect );
+      this.mouseHighlight = interactiveHighlightRect;
+
+      this.focusHighlightLayerable = true;
+      this.mouseHighlightLayerable = true;
 
       // @private - a11y
       this.grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, this, grabbedDescriber, alertSettledAndCool, {
@@ -154,10 +163,7 @@ class BookNode extends Node {
       } );
 
       this.mutate( {
-        cursor: 'pointer',
-
-        // pdom
-        focusHighlightLayerable: true
+        cursor: 'pointer'
       } );
     }
   }

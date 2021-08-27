@@ -160,6 +160,9 @@ class MagnifierNode extends Node {
         // pdom
         focusHighlightLayerable: true,
 
+        // interactive highlights
+        mouseHighlightLayerable: true,
+
         // voicing
         voicingNameResponse: zoomedInChemistryBookString
       } );
@@ -192,15 +195,21 @@ class MagnifierNode extends Node {
       }
     );
 
-    // pdom - custom shape for the focus highlight, shape will change with atomRowsToEvaporateProperty
+    // a11y - Custom shape highlights, shape will change with atomRowsToEvaporateProperty. Focus and Interactive
+    // highlights are identical, but we need two different Nodes because GrabDragInteraction adds children to the
+    // focus highlight that are specific to the keyboard interaction.
     const focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
+    const interactiveHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
     focusHighlightPath.pickable = false;
+    interactiveHighlightPath.pickable = false;
 
-
-    // pdom - add the focus highlight on top of the row circles
-    // must be added prior to adding the grab/drag interaction
+    // a11y - add the focus highlight on top of the row circles must be added prior to adding the grab/drag interaction
+    // this is a constraint of the grab/drag interaction, must be set before it's creation, but only for
+    // focusHighlightLayerable
     this.topBookBackground.addChild( focusHighlightPath );
-    dragArea.focusHighlight = focusHighlightPath; // this is a constraint of the grab/drag interaction, must be set before it's creation, but only for focusHighlightLayerable
+    this.topBookBackground.addChild( interactiveHighlightPath );
+    dragArea.focusHighlight = focusHighlightPath;
+    dragArea.mouseHighlight = interactiveHighlightPath;
 
     // cuing arrows for the book
     const bookCueArrowLeft = new CueArrow( {
@@ -328,8 +337,11 @@ class MagnifierNode extends Node {
       // Adjust the drag area as the number of rows of atoms evaporates.
       dragArea.setRectHeight( ( number + 2 ) * FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY );
 
-      // Update the size of the focus highlight accordingly
-      focusHighlightPath.setShape( getFocusHighlightShape( dragArea ) );
+      // Update the size of the highlights accordingly
+      const highlightShape = getFocusHighlightShape( dragArea );
+      focusHighlightPath.setShape( highlightShape );
+      interactiveHighlightPath.setShape( highlightShape );
+
     } );
 
     // @private
