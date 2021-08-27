@@ -41,11 +41,7 @@ simLauncher.launch( () => {
                         'Kathryn Woessner',
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation to HTML5.'
     },
-    preferencesConfiguration: new PreferencesConfiguration( {
-      visualOptions: {
-        supportsInteractiveHighlights: false // TODO: turn off until https://github.com/phetsims/friction/issues/201 is sorted
-      }
-    } ),
+    preferencesConfiguration: new PreferencesConfiguration(),
     hasKeyboardHelpContent: true
   };
 
