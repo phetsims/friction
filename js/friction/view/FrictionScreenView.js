@@ -75,7 +75,9 @@ class FrictionScreenView extends ScreenView {
       tandem: tandem
     } );
 
-    const frictionAlertManager = new FrictionAlertManager( this );
+    const frictionAlertManager = new FrictionAlertManager( {
+      descriptionAlertNode: this
+    } );
 
 
     // pdom - initialize the describers for auditory descriptions and alerts.
