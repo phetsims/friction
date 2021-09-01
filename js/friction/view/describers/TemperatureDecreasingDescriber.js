@@ -50,7 +50,7 @@ class TemperatureDecreasingDescriber {
 
   /**
    * Responsible for alerting when the temperature decreases
-   * {FrictionModel} model
+   * @param {FrictionModel} model
    * @param {FrictionAlertManager} frictionAlertManager
    */
   constructor( model, frictionAlertManager ) {

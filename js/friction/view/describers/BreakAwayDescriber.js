@@ -33,7 +33,7 @@ class BreakAwayDescriber {
 
   /**
    * Responsible for alerting when the temperature increases
-   * {FrictionModel} model
+   * @param {FrictionModel} model
    * @param {FrictionAlertManager} frictionAlertManager
    */
   constructor( model, frictionAlertManager ) {

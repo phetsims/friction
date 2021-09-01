@@ -6,7 +6,7 @@
  */
 
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import AlertManager from '../../../../scenery-phet/js/accessibility/describers/AlertManager.js';
+import Alerter from '../../../../scenery-phet/js/accessibility/describers/Alerter.js';
 import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import friction from '../../friction.js';
@@ -30,7 +30,7 @@ const temperatureDecreasingUtterance = new Utterance( {
   }
 } );
 
-class FrictionAlertManager extends AlertManager {
+class FrictionAlertManager extends Alerter {
 
   /**
    * @param {object} alertObject - data object holding strings for alert, see this.ALERT_SCHEMA
