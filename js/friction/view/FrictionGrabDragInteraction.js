@@ -57,7 +57,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
         wrappedNode.voicingSpeakResponse( {
           objectResponse: grabbedDescriber.getVoicingGrabbedObjectResponse(),
           hintResponse: grabbedDescriber.getVoicingGrabbedHintResponse()
-          // TODO: when there is no "Lightly on Physics book", the punctuation is wrong, will we need a different ResponsePatterns?
+          // TODO: when there is no "Lightly on Physics book", the punctuation is wrong, will we need a different ResponsePatternCollection?
         } );
       }
     };
