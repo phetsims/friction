@@ -86,10 +86,7 @@ class BookMovementAlerter extends MovementAlerter {
 
     // @private
     this.bottomVoicingUtterance = new Utterance( {
-      alert: rubFastOrSlowResponsePacket,
-      announcerOptions: {
-        cancelOther: false
-      }
+      alert: rubFastOrSlowResponsePacket
     } );
 
     // {LeftRightAlertPair} - alert pairs to monitor if both left and right alerts have been triggered.
