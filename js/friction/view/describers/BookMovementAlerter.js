@@ -10,6 +10,7 @@ import merge from '../../../../../phet-core/js/merge.js';
 import BorderAlertsDescriber from '../../../../../scenery-phet/js/accessibility/describers/BorderAlertsDescriber.js';
 import DirectionEnum from '../../../../../scenery-phet/js/accessibility/describers/DirectionEnum.js';
 import MovementAlerter from '../../../../../scenery-phet/js/accessibility/describers/MovementAlerter.js';
+import voicingUtteranceQueue from '../../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
 import ResponsePacket from '../../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../../utterance-queue/js/Utterance.js';
 import friction from '../../../friction.js';
@@ -29,10 +30,13 @@ const atTopMoveDownResponsePacket = new ResponsePacket( {
   hintResponse: moveDownToRubHarderSentenceString
 } );
 
-const downRubFastOrSlowResponsePacket = new ResponsePacket( {
-  objectResponse: DEFAULT_MOVEMENT_DESCRIPTIONS.DOWN,
+const rubFastOrSlowResponsePacket = new ResponsePacket( {
   hintResponse: rubFastOrSlowString
 } );
+
+const downRubFastOrSlowResponsePacket = rubFastOrSlowResponsePacket.copy();
+downRubFastOrSlowResponsePacket.objectResponse = DEFAULT_MOVEMENT_DESCRIPTIONS.DOWN;
+
 
 const moveDownToRubHarderUtterance = new Utterance( {
   alert: new ResponsePacket( {
@@ -65,7 +69,9 @@ class BookMovementAlerter extends MovementAlerter {
         bounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS,
 
         repeatBorderAlerts: true
-      }
+      },
+
+      alertMovementToVoicing: false
     }, options );
 
     super( model.topBookPositionProperty, options );
@@ -73,9 +79,14 @@ class BookMovementAlerter extends MovementAlerter {
     // @private
     this.model = model;
 
-    // @private - special verbose alert for the first 2 times, then use the default
-    this.bottomUtterance = new Utterance( {
-      alert: downRubFastOrSlowResponsePacket,
+    // @private
+    this.bottomDescriptionUtterance = new Utterance( {
+      alert: downRubFastOrSlowResponsePacket
+    } );
+
+    // @private
+    this.bottomVoicingUtterance = new Utterance( {
+      alert: rubFastOrSlowResponsePacket,
       announcerOptions: {
         cancelOther: false
       }
@@ -143,7 +154,10 @@ class BookMovementAlerter extends MovementAlerter {
 
     // if contacted and DOWN, we have a special alert
     else if ( this.model.contactProperty.get() && direction === DirectionEnum.DOWN ) {
-      this.alert( this.bottomUtterance );
+      this.alert( this.bottomDescriptionUtterance );
+
+      // Manually ignore MovementAlerter.alertMovementToVoicing for this call, because we want to hear this for voicing
+      voicingUtteranceQueue.addToBack( this.bottomVoicingUtterance );
     }
 
     // base case
@@ -180,7 +194,8 @@ class BookMovementAlerter extends MovementAlerter {
    */
   reset() {
     super.reset();
-    this.bottomUtterance.reset();
+    this.bottomDescriptionUtterance.reset();
+    this.bottomVoicingUtterance.reset();
     this.contactedAlertPair.reset();
     this.separatedAlertPair.reset();
   }
