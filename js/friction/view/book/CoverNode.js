@@ -20,11 +20,11 @@ import FrictionConstants from '../../FrictionConstants.js';
 
 // constants
 const FONT = new PhetFont( 22 );
-const WIDTH = 200;
-const HEIGHT = 30;
+const BINDING_LENGTH = 200; // dimension of the binding inline with the text of the book.
+const BINDING_WIDTH = 30; // thickness of the book
 const ROUND = 5;
 const PAGES = 8;
-const LENGTH = 75;
+const BOOK_COVER_WIDTH = 75; // How "wide" the book is, if you were looking at the cover of a book, the width of it.
 const ANGLE = Math.PI / 12;
 
 class CoverNode extends Node {
@@ -45,19 +45,19 @@ class CoverNode extends Node {
 
     // add white background for pages
     this.addChild( new Path( new Shape()
-      .moveTo( WIDTH, 0 )
-      .lineTo( WIDTH + Math.cos( ANGLE ) * LENGTH, -Math.sin( ANGLE ) * LENGTH )
-      .lineTo( WIDTH + Math.cos( ANGLE ) * LENGTH, HEIGHT + 2 - Math.sin( ANGLE ) * LENGTH - 2 )
-      .lineTo( WIDTH, HEIGHT - 1 ), {
+      .moveTo( BINDING_LENGTH, 0 )
+      .lineTo( BINDING_LENGTH + Math.cos( ANGLE ) * BOOK_COVER_WIDTH, -Math.sin( ANGLE ) * BOOK_COVER_WIDTH )
+      .lineTo( BINDING_LENGTH + Math.cos( ANGLE ) * BOOK_COVER_WIDTH, BINDING_WIDTH + 2 - Math.sin( ANGLE ) * BOOK_COVER_WIDTH - 2 )
+      .lineTo( BINDING_LENGTH, BINDING_WIDTH - 1 ), {
       fill: 'white'
     } ) );
 
-    const rightSideOfSpine = WIDTH - ROUND / 2 + Math.cos( ANGLE ) * LENGTH; // TODO: what are you!?!?!
+    const rightSideOfSpine = BINDING_LENGTH - ROUND / 2 + Math.cos( ANGLE ) * BOOK_COVER_WIDTH;
 
     // add last page
     this.addChild( new Path( new Shape()
-      .moveTo( WIDTH - ROUND / 2, HEIGHT )
-      .lineTo( rightSideOfSpine, HEIGHT - Math.sin( ANGLE ) * LENGTH ), {
+      .moveTo( BINDING_LENGTH - ROUND / 2, BINDING_WIDTH )
+      .lineTo( rightSideOfSpine, BINDING_WIDTH - Math.sin( ANGLE ) * BOOK_COVER_WIDTH ), {
       stroke: options.stroke,
       lineWidth: 1,
       pickable: false
@@ -66,16 +66,16 @@ class CoverNode extends Node {
     // add front cover
     this.addChild( new Path( new Shape()
       .moveTo( ROUND / 2, 0 )
-      .lineTo( ROUND / 2 + Math.cos( ANGLE ) * LENGTH, -Math.sin( ANGLE ) * LENGTH )
-      .lineTo( rightSideOfSpine, -Math.sin( ANGLE ) * LENGTH )
-      .lineTo( WIDTH - ROUND / 2, 0 ), {
+      .lineTo( ROUND / 2 + Math.cos( ANGLE ) * BOOK_COVER_WIDTH, -Math.sin( ANGLE ) * BOOK_COVER_WIDTH )
+      .lineTo( rightSideOfSpine, -Math.sin( ANGLE ) * BOOK_COVER_WIDTH )
+      .lineTo( BINDING_LENGTH - ROUND / 2, 0 ), {
       stroke: options.stroke,
       lineWidth: 1,
       fill: options.color
     } ) );
 
     // add binding, scaling the title to fit if necessary
-    const bindingRectangle = new Rectangle( 0, 0, WIDTH, HEIGHT, ROUND, ROUND, {
+    const bindingRectangle = new Rectangle( 0, 0, BINDING_LENGTH, BINDING_WIDTH, ROUND, ROUND, {
       fill: options.color,
       stroke: options.stroke
     } );
@@ -85,7 +85,7 @@ class CoverNode extends Node {
       font: FONT,
       fill: FrictionConstants.BOOK_TEXT_COLOR,
       pickable: false,
-      maxWidth: WIDTH * 0.97, // for a bit of margin
+      maxWidth: BINDING_LENGTH * 0.97, // for a bit of margin
       tandem: tandem.createTandem( 'titleText' )
     } );
     titleText.center = bindingRectangle.center;
@@ -98,12 +98,12 @@ class CoverNode extends Node {
 
 
     // add remaining pages
-    for ( let i = 0, dy = ( HEIGHT - ROUND ) / PAGES, dl = LENGTH / 5, offset = 5; i < PAGES; i++ ) {
-      const amplitude = ( LENGTH - offset + dl * ( Math.pow( 1 / 2 - i / PAGES, 2 ) - 1 / 4 ) );
-      const x2 = WIDTH + ROUND / 2 + Math.cos( ANGLE ) * amplitude;
+    for ( let i = 0, dy = ( BINDING_WIDTH - ROUND ) / PAGES, dl = BOOK_COVER_WIDTH / 5, offset = 5; i < PAGES; i++ ) {
+      const amplitude = ( BOOK_COVER_WIDTH - offset + dl * ( Math.pow( 1 / 2 - i / PAGES, 2 ) - 1 / 4 ) );
+      const x2 = BINDING_LENGTH + ROUND / 2 + Math.cos( ANGLE ) * amplitude;
       const y2 = ROUND / 2 + dy * i - Math.sin( ANGLE ) * amplitude;
       this.addChild( new Path( new Shape()
-          .moveTo( WIDTH + ROUND / 2, ROUND / 2 + dy * i )
+          .moveTo( BINDING_LENGTH + ROUND / 2, ROUND / 2 + dy * i )
           .lineTo( x2, y2 ), {
           stroke: 'gray',
           pickable: false
