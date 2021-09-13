@@ -39,7 +39,7 @@ const SOME_ATOMS_EVAPORATED_THRESHOLD = FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS
  * @constructor
  */
 class FrictionScreenSummaryNode extends Node {
-  constructor( model, thermometerMinTemp, thermometerMaxTemp, temperatureDecreasingDescriber ) {
+  constructor( model, thermometerMinTemp, thermometerMaxTemp, temperatureDecreasingAlerter ) {
 
     super();
 
@@ -61,7 +61,7 @@ class FrictionScreenSummaryNode extends Node {
     model.vibrationAmplitudeProperty.link( amplitude => {
 
         // the temperature is decreasing
-        const tempDecreasing = temperatureDecreasingDescriber.tempDecreasing;
+        const tempDecreasing = temperatureDecreasingAlerter.tempDecreasing;
 
         // Not if it is completely cool, so we don't trigger the update too much.
         const amplitudeSettledButNotMin = amplitude < FrictionModel.AMPLITUDE_SETTLED_THRESHOLD && // considered in a "settled" state

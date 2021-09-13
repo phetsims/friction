@@ -37,15 +37,15 @@ class BookNode extends Node {
   /**
    * @param {FrictionModel} model
    * @param {string} title - title that appears on the book spine
-   * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
-   * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
+   * @param {TemperatureIncreasingAlerter} temperatureIncreasingAlerter
+   * @param {TemperatureDecreasingAlerter} temperatureDecreasingAlerter
    * @param {BookMovementAlerter} bookMovementAlerter
    * @param {GrabbedDescriber} grabbedDescriber
    * @param {function():} alertSettledAndCool
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( model, title, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementAlerter, grabbedDescriber, alertSettledAndCool, tandem, options ) {
+  constructor( model, title, temperatureIncreasingAlerter, temperatureDecreasingAlerter, bookMovementAlerter, grabbedDescriber, alertSettledAndCool, tandem, options ) {
 
     options = merge( {
 
@@ -109,8 +109,8 @@ class BookNode extends Node {
       soundManager.addSoundGenerator( bookDropSoundClip );
 
       // pdom - add a keyboard drag handler
-      this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingDescriber,
-        temperatureDecreasingDescriber, bookMovementAlerter );
+      this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingAlerter,
+        temperatureDecreasingAlerter, bookMovementAlerter );
 
       // highlights must be added prior to adding the grab/drag interaction, this is a constraint of GrabDragInteraction
       this.addChild( focusHighlightRect );
@@ -146,7 +146,7 @@ class BookNode extends Node {
       } );
 
 
-      this.addInputListener( new FrictionDragListener( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
+      this.addInputListener( new FrictionDragListener( model, temperatureIncreasingAlerter, temperatureDecreasingAlerter,
         bookMovementAlerter, options.tandem.createTandem( 'dragHandler' ), {
           startSound: bookPickupSoundClip,
           endSound: bookDropSoundClip,

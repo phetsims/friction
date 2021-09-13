@@ -30,7 +30,7 @@ const BREAK_AWAY_NONE_LEFT = StringUtils.fillIn( breakAwayNoneLeftString, { temp
 const ALERT_TIME_DELAY = 2000;
 const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
 
-class BreakAwayDescriber extends Alerter {
+class BreakAwayAlerter extends Alerter {
 
   /**
    * Responsible for alerting when the temperature increases
@@ -98,5 +98,5 @@ class BreakAwayDescriber extends Alerter {
   }
 }
 
-friction.register( 'BreakAwayDescriber', BreakAwayDescriber );
-export default BreakAwayDescriber;
+friction.register( 'BreakAwayAlerter', BreakAwayAlerter );
+export default BreakAwayAlerter;

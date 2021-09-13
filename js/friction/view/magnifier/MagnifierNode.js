@@ -53,8 +53,8 @@ class MagnifierNode extends Node {
    * @param {number} targetX - x position of the MagnifierTargetNode rectangle
    * @param {number} targetY - y position of the MagnifierTargetNode rectangle
    * @param {string} title - the title of the book that is draggable, used for a11y
-   * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
-   * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
+   * @param {TemperatureIncreasingAlerter} temperatureIncreasingAlerter
+   * @param {TemperatureDecreasingAlerter} temperatureDecreasingAlerter
    * @param {BookMovementAlerter} bookMovementAlerter
    * @param {GrabbedDescriber} grabbedDescriber
    * @param {function():} alertSettledAndCool
@@ -64,8 +64,8 @@ class MagnifierNode extends Node {
                targetX,
                targetY,
                title,
-               temperatureIncreasingDescriber,
-               temperatureDecreasingDescriber,
+               temperatureIncreasingAlerter,
+               temperatureDecreasingAlerter,
                bookMovementAlerter,
                grabbedDescriber,
                alertSettledAndCool,
@@ -167,7 +167,7 @@ class MagnifierNode extends Node {
         voicingNameResponse: zoomedInChemistryBookString
       } );
 
-    dragArea.addInputListener( new FrictionDragListener( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber,
+    dragArea.addInputListener( new FrictionDragListener( model, temperatureIncreasingAlerter, temperatureDecreasingAlerter,
       bookMovementAlerter, options.tandem.createTandem( 'dragListener' ), {
         startSound: bookPickupSoundClip,
         endSound: bookDropSoundClip,
@@ -239,8 +239,8 @@ class MagnifierNode extends Node {
     } );
 
     // pdom - add the keyboard drag listener to the top atoms
-    this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingDescriber,
-      temperatureDecreasingDescriber, bookMovementAlerter );
+    this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingAlerter,
+      temperatureDecreasingAlerter, bookMovementAlerter );
 
     // pdom
     const grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, dragArea, grabbedDescriber, alertSettledAndCool, {

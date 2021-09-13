@@ -52,7 +52,7 @@ const ALERT_TIME_DELAY = 3000;
 // In same units as FrictionModel's amplitude
 const AMPLITUDE_DECREASING_THRESHOLD = 1;
 
-class TemperatureDecreasingDescriber extends Alerter {
+class TemperatureDecreasingAlerter extends Alerter {
 
   /**
    * Responsible for alerting when the temperature decreases
@@ -171,5 +171,5 @@ class TemperatureDecreasingDescriber extends Alerter {
   }
 }
 
-friction.register( 'TemperatureDecreasingDescriber', TemperatureDecreasingDescriber );
-export default TemperatureDecreasingDescriber;
+friction.register( 'TemperatureDecreasingAlerter', TemperatureDecreasingAlerter );
+export default TemperatureDecreasingAlerter;

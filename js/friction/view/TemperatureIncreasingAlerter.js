@@ -76,7 +76,7 @@ const DRAG_SESSION_THRESHOLD = 1000;
 // in ms, time in between each increasing alert
 const ALERT_TIME_DELAY = 500;
 
-class TemperatureIncreasingDescriber extends Alerter {
+class TemperatureIncreasingAlerter extends Alerter {
 
   /**
    * Responsible for alerting when the temperature increases
@@ -221,5 +221,5 @@ class TemperatureIncreasingDescriber extends Alerter {
   }
 }
 
-friction.register( 'TemperatureIncreasingDescriber', TemperatureIncreasingDescriber );
-export default TemperatureIncreasingDescriber;
+friction.register( 'TemperatureIncreasingAlerter', TemperatureIncreasingAlerter );
+export default TemperatureIncreasingAlerter;

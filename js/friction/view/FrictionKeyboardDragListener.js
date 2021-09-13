@@ -14,11 +14,11 @@ import FrictionModel from '../model/FrictionModel.js';
 class FrictionKeyboardDragListener extends KeyboardDragListener {
   /**
    * @param {FrictionModel} model
-   * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
-   * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
+   * @param {TemperatureIncreasingAlerter} temperatureIncreasingAlerter
+   * @param {TemperatureDecreasingAlerter} temperatureDecreasingAlerter
    * @param {BookMovementAlerter} bookMovementAlerter
    */
-  constructor( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementAlerter ) {
+  constructor( model, temperatureIncreasingAlerter, temperatureDecreasingAlerter, bookMovementAlerter ) {
 
     let oldPositionValue; // determines our delta for how the positionProperty changed every drag
 
@@ -27,8 +27,8 @@ class FrictionKeyboardDragListener extends KeyboardDragListener {
       start: () => {
         oldPositionValue = model.topBookPositionProperty.get().copy();
 
-        temperatureIncreasingDescriber.startDrag();
-        temperatureDecreasingDescriber.startDrag();
+        temperatureIncreasingAlerter.startDrag();
+        temperatureDecreasingAlerter.startDrag();
       },
       drag: () => {
         const newValue = model.topBookPositionProperty.get();
@@ -40,7 +40,7 @@ class FrictionKeyboardDragListener extends KeyboardDragListener {
       end: event => {
         model.bottomOffsetProperty.set( 0 );
 
-        temperatureIncreasingDescriber.endDrag();
+        temperatureIncreasingAlerter.endDrag();
         bookMovementAlerter.endDrag( event.domEvent );
 
       },

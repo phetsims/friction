@@ -14,13 +14,13 @@ import friction from '../../friction.js';
 class FrictionDragListener extends DragListener {
   /**
    * @param {FrictionModel} model
-   * @param {TemperatureIncreasingDescriber} temperatureIncreasingDescriber
-   * @param {TemperatureDecreasingDescriber} temperatureDecreasingDescriber
+   * @param {TemperatureIncreasingAlerter} temperatureIncreasingAlerter
+   * @param {TemperatureDecreasingAlerter} temperatureDecreasingAlerter
    * @param {BookMovementAlerter} bookMovementAlerter
    * @param tandem
    * @param options
    */
-  constructor( model, temperatureIncreasingDescriber, temperatureDecreasingDescriber, bookMovementAlerter, tandem, options ) {
+  constructor( model, temperatureIncreasingAlerter, temperatureDecreasingAlerter, bookMovementAlerter, tandem, options ) {
 
     options = merge( {
 
@@ -40,8 +40,8 @@ class FrictionDragListener extends DragListener {
         options.startSound && options.startSound.play();
 
         // pdom
-        temperatureIncreasingDescriber.startDrag();
-        temperatureDecreasingDescriber.startDrag();
+        temperatureIncreasingAlerter.startDrag();
+        temperatureDecreasingAlerter.startDrag();
 
         options.startDrag();
       },
@@ -58,7 +58,7 @@ class FrictionDragListener extends DragListener {
         options.endSound && options.endSound.play();
 
         // pdom
-        temperatureIncreasingDescriber.endDrag();
+        temperatureIncreasingAlerter.endDrag();
         bookMovementAlerter.endDrag();
       },
       tandem: tandem
