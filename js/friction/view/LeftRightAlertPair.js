@@ -5,8 +5,8 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import DirectionEnum from '../../../../../scenery-phet/js/accessibility/describers/DirectionEnum.js';
-import friction from '../../../friction.js';
+import DirectionEnum from '../../../../scenery-phet/js/accessibility/describers/DirectionEnum.js';
+import friction from '../../friction.js';
 
 class LeftRightAlertPair {
   constructor() {

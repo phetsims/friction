@@ -5,9 +5,9 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
-import friction from '../../../friction.js';
-import frictionStrings from '../../../frictionStrings.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import friction from '../../friction.js';
+import frictionStrings from '../../frictionStrings.js';
 
 // constants
 const initialGrabbedNotTouchingString = frictionStrings.a11y.initialGrabbedNotTouching;
