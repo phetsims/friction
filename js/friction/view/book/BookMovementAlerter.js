@@ -6,17 +6,17 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import BorderAlertsDescriber from '../../../../scenery-phet/js/accessibility/describers/BorderAlertsDescriber.js';
-import DirectionEnum from '../../../../scenery-phet/js/accessibility/describers/DirectionEnum.js';
-import MovementAlerter from '../../../../scenery-phet/js/accessibility/describers/MovementAlerter.js';
-import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
-import ResponsePacket from '../../../../utterance-queue/js/ResponsePacket.js';
-import Utterance from '../../../../utterance-queue/js/Utterance.js';
-import friction from '../../friction.js';
-import frictionStrings from '../../frictionStrings.js';
-import FrictionModel from '../model/FrictionModel.js';
-import LeftRightAlertPair from './LeftRightAlertPair.js';
+import merge from '../../../../../phet-core/js/merge.js';
+import BorderAlertsDescriber from '../../../../../scenery-phet/js/accessibility/describers/BorderAlertsDescriber.js';
+import DirectionEnum from '../../../../../scenery-phet/js/accessibility/describers/DirectionEnum.js';
+import MovementAlerter from '../../../../../scenery-phet/js/accessibility/describers/MovementAlerter.js';
+import voicingUtteranceQueue from '../../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
+import ResponsePacket from '../../../../../utterance-queue/js/ResponsePacket.js';
+import Utterance from '../../../../../utterance-queue/js/Utterance.js';
+import friction from '../../../friction.js';
+import frictionStrings from '../../../frictionStrings.js';
+import FrictionModel from '../../model/FrictionModel.js';
+import LeftRightAlertPair from '../LeftRightAlertPair.js';
 
 // constants
 const moveDownToRubHarderSentenceString = frictionStrings.a11y.moveDownToRubHarderSentence;
