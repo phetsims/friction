@@ -38,15 +38,6 @@ const downRubFastOrSlowResponsePacket = rubFastOrSlowResponsePacket.copy();
 downRubFastOrSlowResponsePacket.objectResponse = DEFAULT_MOVEMENT_DESCRIPTIONS.DOWN;
 
 
-const moveDownToRubHarderUtterance = new Utterance( {
-  alert: new ResponsePacket( {
-    hintResponse: moveDownToRubHarderSentenceString
-  } ),
-  announcerOptions: {
-    cancelOther: false
-  }
-} );
-
 class BookMovementAlerter extends MovementAlerter {
 
   /**
@@ -88,6 +79,17 @@ class BookMovementAlerter extends MovementAlerter {
     this.bottomVoicingUtterance = new Utterance( {
       alert: rubFastOrSlowResponsePacket
     } );
+
+    // @private
+    this.moveDownToRubHarderUtterance = new Utterance( {
+      alert: new ResponsePacket( {
+        hintResponse: moveDownToRubHarderSentenceString
+      } ),
+      announcerOptions: {
+        cancelOther: false
+      }
+    } );
+
 
     // {LeftRightAlertPair} - alert pairs to monitor if both left and right alerts have been triggered.
     this.contactedAlertPair = new LeftRightAlertPair();
@@ -140,10 +142,11 @@ class BookMovementAlerter extends MovementAlerter {
           this.separatedAlertPair.updateFromDirection( direction );
         }
 
-          // If they have, then cue an movement and reset the alertPair
-        // This means that we will get left/right alerts again after a "move down" cue
         else {
-          this.alert( moveDownToRubHarderUtterance );
+          // If they have, then cue a movement and reset the alertPair
+          // This means that we will get left/right alerts again after a "move down" cue
+
+          this.alert( this.moveDownToRubHarderUtterance );
           this.separatedAlertPair.reset();
         }
       }
@@ -193,6 +196,7 @@ class BookMovementAlerter extends MovementAlerter {
     super.reset();
     this.bottomDescriptionUtterance.reset();
     this.bottomVoicingUtterance.reset();
+    this.moveDownToRubHarderUtterance.reset();
     this.contactedAlertPair.reset();
     this.separatedAlertPair.reset();
   }
