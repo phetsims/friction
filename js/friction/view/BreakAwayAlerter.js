@@ -10,6 +10,8 @@ import stepTimer from '../../../../axon/js/stepTimer.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Alerter from '../../../../scenery-phet/js/accessibility/describers/Alerter.js';
 import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
+import ResponsePacket from '../../../../utterance-queue/js/ResponsePacket.js';
+import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import friction from '../../friction.js';
 import frictionStrings from '../../frictionStrings.js';
 import FrictionModel from '../model/FrictionModel.js';
@@ -51,6 +53,11 @@ class BreakAwayAlerter extends Alerter {
     this.tooSoonForNextAlert = false;
 
     // @private
+    this.utterance = new Utterance( {
+      alert: new ResponsePacket()
+    } );
+
+    // @private
     this.amplitudeListener = ( amplitude, oldAmplitude ) => {
 
       // Handle the alert when amplitude is high enough to begin evaporating
@@ -81,9 +88,11 @@ class BreakAwayAlerter extends Alerter {
       alertContent = this.alertedBreakAwayProperty.value ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST;
     }
 
-    this.forEachUtteranceQueue( utteranceQueue => utteranceQueue.addToFront( alertContent ) );
+    this.utterance.alert.contextResponse = alertContent;
 
-    voicingUtteranceQueue.addToFront( alertContent );
+    this.forEachUtteranceQueue( utteranceQueue => utteranceQueue.addToFront( this.utterance ) );
+
+    voicingUtteranceQueue.addToFront( this.utterance );
 
     this.alertedBreakAwayProperty.value = true;
     this.tooSoonForNextAlert = true;

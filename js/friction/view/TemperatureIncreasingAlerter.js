@@ -116,6 +116,7 @@ class TemperatureIncreasingAlerter extends Alerter {
 
     // @private
     this.temperatureJiggleUtterance = new Utterance( {
+      alert: new ResponsePacket(),
       announcerOptions: {
         cancelOther: false
       }
@@ -172,7 +173,7 @@ class TemperatureIncreasingAlerter extends Alerter {
     this.alertImplementationWithTimingVariables( () => {
       const alertObject = INCREASING[ currentAlertIndex ];
 
-      this.temperatureJiggleUtterance.alert = StringUtils.fillIn( frictionIncreasingAtomsJigglingTemperaturePatternString, {
+      this.temperatureJiggleUtterance.alert.contextAlert = StringUtils.fillIn( frictionIncreasingAtomsJigglingTemperaturePatternString, {
         temperature: alertObject.temp,
         jigglingAmount: alertObject.jiggle
       } );

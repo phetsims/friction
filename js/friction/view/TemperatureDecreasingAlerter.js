@@ -6,6 +6,7 @@
 
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Alerter from '../../../../scenery-phet/js/accessibility/describers/Alerter.js';
+import ResponsePacket from '../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import friction from '../../friction.js';
 import frictionStrings from '../../frictionStrings.js';
@@ -114,6 +115,7 @@ class TemperatureDecreasingAlerter extends Alerter {
 
     // @private
     this.utterance = new Utterance( {
+      alert: new ResponsePacket(),
       announcerOptions: {
         cancelOther: false
       }
@@ -157,7 +159,7 @@ class TemperatureDecreasingAlerter extends Alerter {
       alertObject = alertObject.firstTime;
     }
 
-    this.utterance.alert = StringUtils.fillIn( patternString, {
+    this.utterance.alert.contextRespones = StringUtils.fillIn( patternString, {
       temperature: alertObject.temp,
       jigglingAmount: alertObject.jiggle
     } );

@@ -17,6 +17,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import SoundLevelEnum from '../../../../tambo/js/SoundLevelEnum.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
+import ResponsePacket from '../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import moleculeBreakOffSound from '../../../sounds/break-off-autosinfonie-spatialized_mp3.js';
 import bookContactSound from '../../../sounds/contact-lower_mp3.js';
@@ -24,17 +25,17 @@ import friction from '../../friction.js';
 import frictionStrings from '../../frictionStrings.js';
 import FrictionConstants from '../FrictionConstants.js';
 import FrictionModel from '../model/FrictionModel.js';
+import BookMovementAlerter from './book/BookMovementAlerter.js';
 import BookNode from './book/BookNode.js';
 import BookRubSoundGenerator from './book/BookRubSoundGenerator.js';
-import CoolingSoundGenerator from './CoolingSoundGenerator.js';
-import BookMovementAlerter from './book/BookMovementAlerter.js';
 import BreakAwayAlerter from './BreakAwayAlerter.js';
-import GrabbedDescriber from './GrabbedDescriber.js';
-import TemperatureDecreasingAlerter from './TemperatureDecreasingAlerter.js';
-import TemperatureIncreasingAlerter from './TemperatureIncreasingAlerter.js';
+import CoolingSoundGenerator from './CoolingSoundGenerator.js';
 import FrictionScreenSummaryNode from './FrictionScreenSummaryNode.js';
+import GrabbedDescriber from './GrabbedDescriber.js';
 import MagnifierNode from './magnifier/MagnifierNode.js';
 import MoleculeMotionSoundGenerator from './MoleculeMotionSoundGenerator.js';
+import TemperatureDecreasingAlerter from './TemperatureDecreasingAlerter.js';
+import TemperatureIncreasingAlerter from './TemperatureIncreasingAlerter.js';
 
 // constants
 const chemistryString = frictionStrings.chemistry;
@@ -50,7 +51,7 @@ const THERMOMETER_MAX_TEMP = FrictionModel.THERMOMETER_MAX_TEMP;
 const atomsJiggleTinyBitTempCoolString = frictionStrings.a11y.atomsJiggleTinyBitTempCool;
 
 const atomsJiggleTinyBitUtterance = new Utterance( {
-  alert: atomsJiggleTinyBitTempCoolString,
+  alert: new ResponsePacket( { contextResponse: atomsJiggleTinyBitTempCoolString } ),
   announcerOptions: {
     cancelOther: false
   }
