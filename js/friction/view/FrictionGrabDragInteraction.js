@@ -64,7 +64,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
 
     options.listenersForDragState.push( {
 
-      // alert the temperature state on focus, TODO: this is called right now, but immediately interrupted by grabbed alerts.
+      // alert the temperature state on focus, TODO: for voicing: this is called right now, but immediately interrupted by grabbed alerts. See https://github.com/phetsims/friction/issues/227
       focus: () => {
         if ( model.vibrationAmplitudeProperty.value === model.vibrationAmplitudeProperty.initialValue ) {
           alertSettledAndCool();
