@@ -32,7 +32,6 @@ import BreakAwayDescriber from './describers/BreakAwayDescriber.js';
 import GrabbedDescriber from './describers/GrabbedDescriber.js';
 import TemperatureDecreasingDescriber from './describers/TemperatureDecreasingDescriber.js';
 import TemperatureIncreasingDescriber from './describers/TemperatureIncreasingDescriber.js';
-import FrictionAlertManager from './FrictionAlertManager.js';
 import FrictionScreenSummaryNode from './FrictionScreenSummaryNode.js';
 import MagnifierNode from './magnifier/MagnifierNode.js';
 import MoleculeMotionSoundGenerator from './MoleculeMotionSoundGenerator.js';
@@ -75,18 +74,15 @@ class FrictionScreenView extends ScreenView {
       tandem: tandem
     } );
 
-    const frictionAlertManager = new FrictionAlertManager( {
+    const descriptionAlertNodeOptions = {
       descriptionAlertNode: this
-    } );
-
+    };
 
     // pdom - initialize the describers for auditory descriptions and alerts.
-    const temperatureIncreasingDescriber = new TemperatureIncreasingDescriber( model, frictionAlertManager );
-    const temperatureDecreasingDescriber = new TemperatureDecreasingDescriber( model, frictionAlertManager );
-    const breakAwayDescriber = new BreakAwayDescriber( model, frictionAlertManager );
-    const bookMovementAlerter = new BookMovementAlerter( model, {
-      descriptionAlertNode: this
-    } );
+    const temperatureIncreasingDescriber = new TemperatureIncreasingDescriber( model, descriptionAlertNodeOptions );
+    const temperatureDecreasingDescriber = new TemperatureDecreasingDescriber( model, descriptionAlertNodeOptions );
+    const breakAwayDescriber = new BreakAwayDescriber( model, descriptionAlertNodeOptions );
+    const bookMovementAlerter = new BookMovementAlerter( model, descriptionAlertNodeOptions );
     const grabbedDescriber = new GrabbedDescriber( model.contactProperty, model.successfullyInteractedWithProperty );
     const alertSettledAndCool = () => {
       this.alertDescriptionUtterance( atomsJiggleTinyBitUtterance );

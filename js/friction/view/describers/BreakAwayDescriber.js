@@ -8,6 +8,7 @@
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import stepTimer from '../../../../../axon/js/stepTimer.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
+import Alerter from '../../../../../scenery-phet/js/accessibility/describers/Alerter.js';
 import voicingUtteranceQueue from '../../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
 import friction from '../../../friction.js';
 import frictionStrings from '../../../frictionStrings.js';
@@ -29,20 +30,19 @@ const BREAK_AWAY_NONE_LEFT = StringUtils.fillIn( breakAwayNoneLeftString, { temp
 const ALERT_TIME_DELAY = 2000;
 const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
 
-class BreakAwayDescriber {
+class BreakAwayDescriber extends Alerter {
 
   /**
    * Responsible for alerting when the temperature increases
    * @param {FrictionModel} model
-   * @param {FrictionAlertManager} frictionAlertManager
+   * @param {Object} [options]
    */
-  constructor( model, frictionAlertManager ) {
+  constructor( model, options ) {
+
+    super( options );
 
     // @private
     this.model = model;
-
-    // @private
-    this.frictionAlertManager = frictionAlertManager;
 
     // @private - (a11y) true if there has already been an alert about atoms breaking away
     this.alertedBreakAwayProperty = new BooleanProperty( false );
@@ -81,7 +81,7 @@ class BreakAwayDescriber {
       alertContent = this.alertedBreakAwayProperty.value ? BREAK_AWAY_THRESHOLD_AGAIN : BREAK_AWAY_THRESHOLD_FIRST;
     }
 
-    this.frictionAlertManager.forEachUtteranceQueue( utteranceQueue => utteranceQueue.addToFront( alertContent ) );
+    this.forEachUtteranceQueue( utteranceQueue => utteranceQueue.addToFront( alertContent ) );
 
     voicingUtteranceQueue.addToFront( alertContent );
 

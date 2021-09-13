@@ -4,6 +4,9 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
+import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
+import Alerter from '../../../../../scenery-phet/js/accessibility/describers/Alerter.js';
+import Utterance from '../../../../../utterance-queue/js/Utterance.js';
 import friction from '../../../friction.js';
 import frictionStrings from '../../../frictionStrings.js';
 import FrictionModel from '../../model/FrictionModel.js';
@@ -15,6 +18,9 @@ const nowCoolerString = frictionStrings.a11y.temperature.nowCooler;
 const lessString = frictionStrings.a11y.jiggle.less;
 const evenLessString = frictionStrings.a11y.jiggle.evenLess;
 const evenCoolerString = frictionStrings.a11y.temperature.evenCooler;
+
+const frictionIncreasingAtomsJigglingTemperatureFirstPatternString = frictionStrings.a11y.frictionIncreasingAtomsJigglingTemperatureFirstPattern;
+const frictionIncreasingAtomsJigglingTemperaturePatternString = frictionStrings.a11y.frictionIncreasingAtomsJigglingTemperaturePattern;
 
 const DECREASING = [
   {
@@ -46,14 +52,16 @@ const ALERT_TIME_DELAY = 3000;
 // In same units as FrictionModel's amplitude
 const AMPLITUDE_DECREASING_THRESHOLD = 1;
 
-class TemperatureDecreasingDescriber {
+class TemperatureDecreasingDescriber extends Alerter {
 
   /**
    * Responsible for alerting when the temperature decreases
    * @param {FrictionModel} model
-   * @param {FrictionAlertManager} frictionAlertManager
+   * @param {Object} [options]
    */
-  constructor( model, frictionAlertManager ) {
+  constructor( model, options ) {
+
+    super( options );
 
     // decides whether or not this describer is enabled basically.
     // just manages whether or not we are checking to see if the threshold is increasing enough
@@ -62,9 +70,6 @@ class TemperatureDecreasingDescriber {
 
     // @private
     this.model = model;
-
-    // @private
-    this.frictionAlertManager = frictionAlertManager;
 
     // @private
     // This keeps track of the time since the last decreasing alert was made
@@ -107,6 +112,13 @@ class TemperatureDecreasingDescriber {
       }
     };
 
+    // @private
+    this.utterance = new Utterance( {
+      announcerOptions: {
+        cancelOther: false
+      }
+    } );
+
     // exists for the lifetime of the sim, no need to dispose
     this.model.vibrationAmplitudeProperty.link( this.amplitudeListener );
   }
@@ -133,9 +145,24 @@ class TemperatureDecreasingDescriber {
     this.alertIndex++;
     const currentAlertIndex = Math.min( this.alertIndex, DECREASING.length - 1 );
 
-    const alertObject = DECREASING[ currentAlertIndex ];
+    let alertObject = DECREASING[ currentAlertIndex ];
 
-    this.frictionAlertManager.alertTemperatureJiggleFromObject( alertObject, this.firstAlert, 'decreasing' );
+    let patternString = frictionIncreasingAtomsJigglingTemperaturePatternString;
+
+    // Use the "first time" pattern string if it is the first time. Gracefully handle if there isn't a first time alert
+    if ( alertObject.firstTime && this.firstAlert ) {
+      patternString = frictionIncreasingAtomsJigglingTemperatureFirstPatternString;
+
+      // use the fill in values for the first time
+      alertObject = alertObject.firstTime;
+    }
+
+    this.utterance.alert = StringUtils.fillIn( patternString, {
+      temperature: alertObject.temp,
+      jigglingAmount: alertObject.jiggle
+    } );
+
+    this.alert( this.utterance );
 
     // it's not the first time anymore
     this.firstAlert = false;

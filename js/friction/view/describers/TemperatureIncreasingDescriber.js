@@ -15,13 +15,12 @@
 
 import stepTimer from '../../../../../axon/js/stepTimer.js';
 import StringUtils from '../../../../../phetcommon/js/util/StringUtils.js';
-import voicingUtteranceQueue from '../../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
+import Alerter from '../../../../../scenery-phet/js/accessibility/describers/Alerter.js';
 import ResponsePacket from '../../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../../utterance-queue/js/Utterance.js';
 import friction from '../../../friction.js';
 import frictionStrings from '../../../frictionStrings.js';
 import FrictionModel from '../../model/FrictionModel.js';
-import FrictionAlertManager from '../FrictionAlertManager.js';
 
 // constants
 const moreString = frictionStrings.a11y.temperature.more;
@@ -46,6 +45,10 @@ const maxTempResponsePacket = new ResponsePacket( {
   contextResponse: MAX_TEMP_STRING,
   hintResponse: resetSimMoreObservationSentenceString
 } );
+
+
+// Threshold that must be reached from initial temp to new temp to alert that the temperature changed, in amplitude (see model for more info)
+const TEMPERATURE_ALERT_THRESHOLD = 1.5;
 
 const INCREASING = [
   {
@@ -73,20 +76,18 @@ const DRAG_SESSION_THRESHOLD = 1000;
 // in ms, time in between each increasing alert
 const ALERT_TIME_DELAY = 500;
 
-class TemperatureIncreasingDescriber {
+class TemperatureIncreasingDescriber extends Alerter {
 
   /**
    * Responsible for alerting when the temperature increases
    * @param {FrictionModel} model
-   * @param {FrictionAlertManager} frictionAlertManager
+   * @param {Object} [options]
    */
-  constructor( model, frictionAlertManager ) {
+  constructor( model, options ) {
+    super( options );
 
     // @private
     this.model = model;
-
-    // @private
-    this.frictionAlertManager = frictionAlertManager;
 
     // @private
     // Keep track of the time that the last drag ended. This is helpful to see if a new drag is within the same
@@ -114,6 +115,13 @@ class TemperatureIncreasingDescriber {
     } );
 
     // @private
+    this.temperatureJiggleUtterance = new Utterance( {
+      announcerOptions: {
+        cancelOther: false
+      }
+    } );
+
+    // @private
     this.amplitudeListener = amplitude => {
 
       // don't alert a subsequent alert too quickly
@@ -122,7 +130,7 @@ class TemperatureIncreasingDescriber {
       }
 
       // the difference in amplitude has to be greater than the threshold to alert
-      if ( amplitude < EVAPORATION_LIMIT && amplitude - this.initialAmplitude > FrictionAlertManager.TEMPERATURE_ALERT_THRESHOLD ) {
+      if ( amplitude < EVAPORATION_LIMIT && amplitude - this.initialAmplitude > TEMPERATURE_ALERT_THRESHOLD ) {
         this.alertIncrease();
       }
       else if ( amplitude >= FrictionModel.THERMOMETER_MAX_TEMP ) {
@@ -161,10 +169,15 @@ class TemperatureIncreasingDescriber {
     this.alertIndex++;
     const currentAlertIndex = Math.min( this.alertIndex, INCREASING.length - 1 );
 
-    const alertObject = INCREASING[ currentAlertIndex ];
+    this.alertImplementationWithTimingVariables( () => {
+      const alertObject = INCREASING[ currentAlertIndex ];
 
-    this.alert( () => {
-      this.frictionAlertManager.alertTemperatureJiggleFromObject( alertObject, false, 'increasing' );
+      this.temperatureJiggleUtterance.alert = StringUtils.fillIn( frictionIncreasingAtomsJigglingTemperaturePatternString, {
+        temperature: alertObject.temp,
+        jigglingAmount: alertObject.jiggle
+      } );
+
+      this.alert( this.temperatureJiggleUtterance );
     } );
   }
 
@@ -173,11 +186,10 @@ class TemperatureIncreasingDescriber {
    * @private
    */
   alertMaxTemp() {
-    this.alert( () => {
+    this.alertImplementationWithTimingVariables( () => {
 
       // TODO: use the same Utterance for both of these queues, see https://github.com/phetsims/friction/issues/204
-      this.frictionAlertManager.alertDescriptionUtterance( this.maxTempUtterance );
-      voicingUtteranceQueue.addToBack( this.maxTempUtterance );
+      this.alert( this.maxTempUtterance );
     } );
   }
 
@@ -187,7 +199,7 @@ class TemperatureIncreasingDescriber {
    * @param {function} alertFunction - when called, this function should alert.
    * @private
    */
-  alert( alertFunction ) {
+  alertImplementationWithTimingVariables( alertFunction ) {
     alertFunction();
 
     // set to true to limit subsequent alerts firing rapidly
