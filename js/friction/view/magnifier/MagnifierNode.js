@@ -72,9 +72,8 @@ class MagnifierNode extends Node {
                options ) {
 
     options = merge( {
-        tandem: Tandem.REQUIRED
-      },
-      options );
+      tandem: Tandem.REQUIRED
+    }, options );
 
     super( options );
 

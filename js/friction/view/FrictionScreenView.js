@@ -157,8 +157,7 @@ class FrictionScreenView extends ScreenView {
     this.addChild( new ThermometerNode(
       THERMOMETER_MIN_TEMP,
       THERMOMETER_MAX_TEMP,
-      model.vibrationAmplitudeProperty,
-      {
+      model.vibrationAmplitudeProperty, {
         x: 690,
         y: 250,
         tubeHeight: 160,
