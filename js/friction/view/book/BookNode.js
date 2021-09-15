@@ -148,7 +148,7 @@ class BookNode extends Node {
 
       this.addInputListener( new FrictionDragListener( model, temperatureIncreasingAlerter, temperatureDecreasingAlerter,
         bookMovementAlerter, {
-        dragListener: options.tandem.createTandem( 'dragListener' ),
+          tandem: options.tandem.createTandem( 'dragListener' ),
           startSound: bookPickupSoundClip,
           endSound: bookDropSoundClip,
           targetNode: this,
