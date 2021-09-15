@@ -59,17 +59,12 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
           // TODO: when there is no "Lightly on Physics book", the punctuation is wrong, will we need a different ResponsePatternCollection?
         } );
       }
-    };
 
-    options.listenersForDragState.push( {
-
-      // alert the temperature state on focus, TODO: for voicing: this is called right now, but immediately interrupted by grabbed alerts. See https://github.com/phetsims/friction/issues/227
-      focus: () => {
-        if ( model.vibrationAmplitudeProperty.value === model.vibrationAmplitudeProperty.initialValue ) {
-          alertSettledAndCool();
-        }
+      // alert after grabbed alert
+      if ( model.vibrationAmplitudeProperty.value === model.vibrationAmplitudeProperty.initialValue ) {
+        alertSettledAndCool();
       }
-    } );
+    };
 
     super( wrappedNode, keyboardDragListener, options );
 
