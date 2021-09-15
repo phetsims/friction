@@ -16,6 +16,11 @@ import dotRandom from '../../../../dot/js/dotRandom.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
+import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import friction from '../../friction.js';
 import FrictionConstants from '../FrictionConstants.js';
 import Atom from './Atom.js';
@@ -152,7 +157,7 @@ const MAGNIFIED_ATOMS_INFO = {
   }
 };
 
-class FrictionModel {
+class FrictionModel extends PhetioObject {
 
   /**
    * @param {number} width - width in view=model coordinates
@@ -160,6 +165,11 @@ class FrictionModel {
    * @param {Tandem} tandem
    */
   constructor( width, height, tandem ) {
+
+    super( {
+      tandem: tandem,
+      phetioType: FrictionModel.FrictionModelIO
+    } );
 
     // @public (read-only) {Number} - the width for the model in model coordinates
     this.width = width;
@@ -197,13 +207,19 @@ class FrictionModel {
     } );
 
     // @public {NumberProperty} - distance between books
-    this.distanceBetweenBooksProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.distance );
+    this.distanceBetweenBooksProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.distance, {
+      tandem: tandem.createTandem( 'distanceBetweenBooksProperty' )
+    } );
 
     // @public {NumberProperty} - additional offset, results from drag
-    this.bottomOffsetProperty = new NumberProperty( 0 );
+    this.bottomOffsetProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'bottomOffsetProperty' )
+    } );
 
     // @public (read-only) {NumberProperty} - number of rows of atoms available to evaporate, goes down as book wears away
-    this.atomRowsToEvaporateProperty = new NumberProperty( TOP_BOOK_ATOM_STRUCTURE.length - 1 );
+    this.atomRowsToEvaporateProperty = new NumberProperty( TOP_BOOK_ATOM_STRUCTURE.length - 1, {
+      tandem: tandem.createTandem( 'atomRowsToEvaporateProperty' )
+    } );
 
     // @private - are books in contact?
     this.contactProperty = new BooleanProperty( false, {
@@ -211,7 +227,9 @@ class FrictionModel {
     } );
 
     // @public {BooleanProperty} - Show hint icon. Only set by model and on a11y grab interaction.
-    this.hintProperty = new BooleanProperty( true );
+    this.hintProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'hintProperty' )
+    } );
 
     // @public {Number} (read-only) - drag and drop book coordinates conversion coefficient
     this.bookDraggingScaleFactor = 0.025;
@@ -230,13 +248,17 @@ class FrictionModel {
     // @public (read-only)
     // {boolean} - has the atom been "successfully" interacted with. This subjective term is defined based on the
     // pedagogical goals of the sim (to rub the other book)
-    this.successfullyInteractedWithProperty = new BooleanProperty( false );
+    this.successfullyInteractedWithProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'successfullyInteractedWithProperty' )
+    } );
 
     this.vibrationAmplitudeProperty.link( amplitude => {
       if ( !this.successfullyInteractedWithProperty.value && amplitude > FrictionModel.AMPLITUDE_SETTLED_THRESHOLD ) {
         this.successfullyInteractedWithProperty.value = true;
       }
     } );
+
+    const atomsTandem = tandem.createTandem( 'atoms' );
 
     // add the atoms that are visible in the top book
     MAGNIFIED_ATOMS_INFO.top.layerDescriptions.forEach( ( layerDescription, i ) => {
@@ -245,7 +267,8 @@ class FrictionModel {
         layerDescription,
         DEFAULT_ROW_START_X_POSITION,
         FrictionConstants.MAGNIFIER_WINDOW_HEIGHT / 3 - INITIAL_ATOM_SPACING_Y + ATOM_SPACING_Y * i,
-        true // isTopAtom
+        true, // isTopAtom
+        atomsTandem
       );
     } );
 
@@ -256,7 +279,8 @@ class FrictionModel {
         layerDescription,
         DEFAULT_ROW_START_X_POSITION,
         2 * FrictionConstants.MAGNIFIER_WINDOW_HEIGHT / 3 + ATOM_SPACING_Y * i,
-        false // isTopAtom
+        false, // isTopAtom
+        atomsTandem
       );
     } );
 
@@ -282,6 +306,23 @@ class FrictionModel {
         this.tryToEvaporate();
       }
     } );
+  }
+
+  /**
+   * Returns a map of state keys and their associated IOTypes, see IOType.fromCoreType for details.
+   * @returns {Object.<string,IOType>}
+   * @public
+   */
+  static get STATE_SCHEMA() {
+    return {
+      width: NumberIO,
+      height: NumberIO,
+      bookDraggingScaleFactor: NumberIO,
+      scheduledEvaporationAmount: NumberIO,
+      evaporableAtomsByRow: ArrayIO( ArrayIO( ReferenceIO( Atom.AtomIO ) ) ),
+      atoms: ArrayIO( ReferenceIO( Atom.AtomIO ) ),
+      numberOfAtomsEvaporated: NumberIO
+    };
   }
 
 
@@ -433,8 +474,12 @@ FrictionModel.MAGNIFIED_DRAG_BOUNDS = new Bounds2(
   MAX_X_DISPLACEMENT, // right bound
   2000 );
 
+FrictionModel.FrictionModelIO = IOType.fromCoreType( 'FrictionModelIO', FrictionModel, {
+  documentation: 'model for the simulation'
+} );
+
 // helper function to add a layer of atoms to the model
-function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, isTopAtom ) {
+function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, isTopAtom, parentTandem ) {
 
   let canEvaporate;
   const evaporableAtomsRow = [];
@@ -446,7 +491,9 @@ function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, isT
       const atom = new Atom(
         new Vector2( rowStartXPos + ( offset + n ) * MAGNIFIED_ATOMS_INFO.distanceX, rowYPos ),
         frictionModel,
-        isTopAtom
+        isTopAtom, {
+          parentTandem: parentTandem
+        }
       );
       frictionModel.atoms.push( atom );
       if ( canEvaporate ) {
