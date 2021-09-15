@@ -152,8 +152,7 @@ class BookNode extends Node {
           endSound: bookDropSoundClip,
           targetNode: this,
           startDrag: () => this.voicingSpeakFullResponse( {
-            objectResponse: grabbedDescriber.getVoicingGrabbedObjectResponse(),
-            hintResponse: grabbedDescriber.getVoicingGrabbedHintResponse()
+            objectResponse: grabbedDescriber.getVoicingGrabbedObjectResponse()
           } )
         } ) );
 

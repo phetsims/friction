@@ -80,14 +80,6 @@ class GrabbedDescriber {
   getVoicingGrabbedObjectResponse() {
     return this.contactProperty.get() ? grabbedString : grabbedLightlyOnBook;
   }
-
-  /**
-   * @public
-   * @returns {string}
-   */
-  getVoicingGrabbedHintResponse() {
-    return this.contactProperty.get() ? frictionStrings.a11y.rubFastOrSlow : frictionStrings.a11y.moveDownToRubHarder;
-  }
 }
 
 friction.register( 'GrabbedDescriber', GrabbedDescriber );

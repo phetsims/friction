@@ -173,8 +173,7 @@ class MagnifierNode extends Node {
         endSound: bookDropSoundClip,
         targetNode: this.topBookBackground,
         startDrag: () => dragArea.voicingSpeakFullResponse( {
-          objectResponse: grabbedDescriber.getVoicingGrabbedObjectResponse(),
-          hintResponse: grabbedDescriber.getVoicingGrabbedHintResponse()
+          objectResponse: grabbedDescriber.getVoicingGrabbedObjectResponse()
         } )
       } ) );
 
