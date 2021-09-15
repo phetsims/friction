@@ -91,12 +91,20 @@ class FrictionScreenView extends ScreenView {
       voicingUtteranceQueue.addToBack( atomsJiggleTinyBitUtterance );
     };
 
+    let amplitudeIncreasedEnoughForSettledAndCoolAlert = false;
+
     // handle the "settled and cool" alert once temp is completely decreased.
     // lazyLink so that we do not hear the alert on startup
     // exists for the lifetime of the sim, no need to dispose
     model.vibrationAmplitudeProperty.lazyLink( amplitude => {
-      if ( amplitude === model.vibrationAmplitudeProperty.initialValue ) {
+      if ( amplitudeIncreasedEnoughForSettledAndCoolAlert && amplitude === model.vibrationAmplitudeProperty.initialValue ) {
         alertSettledAndCool();
+        amplitudeIncreasedEnoughForSettledAndCoolAlert = false;
+      }
+
+      // The amplitude must increase 1% of its range before the next settled and cool alert can be triggered.
+      if ( amplitude >= model.vibrationAmplitudeProperty.range.expandNormalizedValue( 0.01 ) ) {
+        amplitudeIncreasedEnoughForSettledAndCoolAlert = true;
       }
     } );
 
