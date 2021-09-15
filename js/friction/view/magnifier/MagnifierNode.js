@@ -168,7 +168,8 @@ class MagnifierNode extends Node {
       } );
 
     dragArea.addInputListener( new FrictionDragListener( model, temperatureIncreasingAlerter, temperatureDecreasingAlerter,
-      bookMovementAlerter, options.tandem.createTandem( 'dragListener' ), {
+      bookMovementAlerter, {
+        tandem: options.tandem.createTandem( 'dragListener' ),
         startSound: bookPickupSoundClip,
         endSound: bookDropSoundClip,
         targetNode: this.topBookBackground,

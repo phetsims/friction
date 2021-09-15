@@ -9,6 +9,7 @@
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import friction from '../../friction.js';
 
 class FrictionDragListener extends DragListener {
@@ -17,10 +18,9 @@ class FrictionDragListener extends DragListener {
    * @param {TemperatureIncreasingAlerter} temperatureIncreasingAlerter
    * @param {TemperatureDecreasingAlerter} temperatureDecreasingAlerter
    * @param {BookMovementAlerter} bookMovementAlerter
-   * @param tandem
    * @param options
    */
-  constructor( model, temperatureIncreasingAlerter, temperatureDecreasingAlerter, bookMovementAlerter, tandem, options ) {
+  constructor( model, temperatureIncreasingAlerter, temperatureDecreasingAlerter, bookMovementAlerter, options ) {
 
     options = merge( {
 
@@ -29,7 +29,9 @@ class FrictionDragListener extends DragListener {
       endSound: null,
       targetNode: null,
 
-      startDrag: _.noop
+      startDrag: _.noop,
+
+      tandem: Tandem.REQUIRED
     }, options );
 
     super( {
@@ -61,7 +63,7 @@ class FrictionDragListener extends DragListener {
         temperatureIncreasingAlerter.endDrag();
         bookMovementAlerter.endDrag();
       },
-      tandem: tandem
+      tandem: options.tandem
     } );
   }
 }
