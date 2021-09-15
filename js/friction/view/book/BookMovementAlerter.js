@@ -147,6 +147,8 @@ class BookMovementAlerter extends MovementAlerter {
           // This means that we will get left/right alerts again after a "move down" cue
 
           this.alert( this.moveDownToRubHarderUtterance );
+          voicingUtteranceQueue.addToBack( this.moveDownToRubHarderUtterance );
+
           this.separatedAlertPair.reset();
         }
       }
