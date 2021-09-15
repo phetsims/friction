@@ -79,9 +79,8 @@ class BreakAwayAlerter extends Alerter {
   alertAtEvaporationThreshold() {
     let alertContent = null;
 
-    // If there aren't any more atoms to break away
-    if ( this.model.numberOfAtomsEvaporated >= FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ) {
-      assert && assert( this.alertedBreakAwayProperty.value, 'If this is the first alert, then we have problems' );
+    // If there aren't any more atoms to break away, but don't let this be the first alert we hear
+    if ( this.alertedBreakAwayProperty.value && this.model.numberOfAtomsEvaporated >= FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ) {
       alertContent = BREAK_AWAY_NONE_LEFT;
     }
     else {
