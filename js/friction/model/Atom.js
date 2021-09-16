@@ -62,7 +62,8 @@ class Atom extends PhetioObject {
 
     // @public - the position of the atom
     this.positionProperty = new Vector2Property( initialPosition, {
-      tandem: config.tandem.createTandem( 'positionProperty' )
+      tandem: config.tandem.createTandem( 'positionProperty' ),
+      phetioHighFrequency: true
     } );
 
     // @private {Vector2} - the center position, around which oscillations occur
