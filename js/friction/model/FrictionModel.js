@@ -291,18 +291,22 @@ class FrictionModel extends PhetioObject {
 
     // set distance between atoms and set the amplitude if they are in contact
     this.topBookPositionProperty.link( ( newPosition, oldPosition ) => {
-      oldPosition = oldPosition || Vector2.ZERO;
-      this.distanceBetweenBooksProperty.set( this.distanceBetweenBooksProperty.get() - ( newPosition.minus( oldPosition ) ).y );
-      if ( this.contactProperty.get() ) {
-        const dx = Math.abs( newPosition.x - oldPosition.x );
-        const newValue = this.vibrationAmplitudeProperty.get() + dx * HEATING_MULTIPLIER;
-        this.vibrationAmplitudeProperty.set( Math.min( newValue, MAGNIFIED_ATOMS_INFO.vibrationAmplitude.max ) );
+
+      // don't do further calculations if setting state
+      if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+        oldPosition = oldPosition || Vector2.ZERO;
+        this.distanceBetweenBooksProperty.set( this.distanceBetweenBooksProperty.get() - ( newPosition.minus( oldPosition ) ).y );
+        if ( this.contactProperty.get() ) {
+          const dx = Math.abs( newPosition.x - oldPosition.x );
+          const newValue = this.vibrationAmplitudeProperty.get() + dx * HEATING_MULTIPLIER;
+          this.vibrationAmplitudeProperty.set( Math.min( newValue, MAGNIFIED_ATOMS_INFO.vibrationAmplitude.max ) );
+        }
       }
     } );
 
     // evaporation check
     this.vibrationAmplitudeProperty.link( amplitude => {
-      if ( amplitude > MAGNIFIED_ATOMS_INFO.evaporationLimit ) {
+      if ( amplitude > MAGNIFIED_ATOMS_INFO.evaporationLimit && !phet.joist.sim.isSettingPhetioStateProperty.value ) {
         this.tryToEvaporate();
       }
     } );
