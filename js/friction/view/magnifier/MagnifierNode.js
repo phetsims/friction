@@ -94,6 +94,13 @@ class MagnifierNode extends Node {
       top: ARROW_TOP
     } );
 
+    // Intermediate Node to support PhET-iO instrumentation that can control the visibility and bypass the sim reverting it (like via reset).
+    const hintArrowsNode = new Node( {
+      children: [ visualArrowIcon ],
+      tandem: options.tandem.createTandem( 'hintArrowsNode' ),
+      phetioDocumentation: 'the node that holds the visual hint, or "cue" arrows'
+    } );
+
     // create and register the sound generators that will be used when the top book is picked up and dropped
     const bookPickupSoundClip = new SoundClip( harpPickupSound, { initialOutputLevel: SOUND_LEVEL } );
     soundManager.addSoundGenerator( bookPickupSoundClip );
@@ -184,7 +191,7 @@ class MagnifierNode extends Node {
     this.topBookBackground.addChild( dragArea );
 
     // add arrows before the drag area, then the grab cue hides the arrows
-    this.topBookBackground.addChild( visualArrowIcon );
+    this.topBookBackground.addChild( hintArrowsNode );
 
     addRowCircles(
       FrictionModel.MAGNIFIED_ATOMS_INFO.radius,

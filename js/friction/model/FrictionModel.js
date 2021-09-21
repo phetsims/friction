@@ -228,7 +228,10 @@ class FrictionModel extends PhetioObject {
 
     // @public {BooleanProperty} - Show hint icon. Only set by model and on a11y grab interaction.
     this.hintProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'hintProperty' )
+      tandem: tandem.createTandem( 'hintProperty' ),
+      phetioReadOnly: true,
+      phetioDocumentation: 'whether or not the sim is conveying the hint arrows. This is not editable, but can be ' +
+                           'overridden by toggling the "hintArrowsNode.visibleProperty" in the view.'
     } );
 
     // @public {Number} (read-only) - drag and drop book coordinates conversion coefficient
