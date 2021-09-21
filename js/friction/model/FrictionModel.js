@@ -183,7 +183,8 @@ class FrictionModel extends PhetioObject {
     // @public (phet-io) - Instrumented so that PhET-iO clients can get a message when an atom evaporates
     this.evaporationEmitter = new Emitter( {
       tandem: tandem.createTandem( 'evaporationEmitter' ),
-      phetioDocumentation: 'Emits when atoms evaporate from the top book'
+      phetioDocumentation: 'Emits when atoms evaporate from the top book',
+      phetioReadOnly: true
     } );
 
     // @public (read-only) {Atom[][]}- array of all atoms which are able to evaporate organized by row such that the
@@ -208,7 +209,8 @@ class FrictionModel extends PhetioObject {
 
     // @public {NumberProperty} - distance between books
     this.distanceBetweenBooksProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.distance, {
-      tandem: tandem.createTandem( 'distanceBetweenBooksProperty' )
+      tandem: tandem.createTandem( 'distanceBetweenBooksProperty' ),
+      phetioHighFrequency: true
     } );
 
     // @public {NumberProperty} - additional offset, results from drag
@@ -223,7 +225,9 @@ class FrictionModel extends PhetioObject {
 
     // @private - are books in contact?
     this.contactProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'contactProperty' )
+      tandem: tandem.createTandem( 'contactProperty' ),
+      phetioReadOnly: true,
+      phetioDocumentation: 'This Property will be true when the two books are in contact, with not space between their atoms.'
     } );
 
     // @public {BooleanProperty} - Show hint icon. Only set by model and on a11y grab interaction.
@@ -252,7 +256,11 @@ class FrictionModel extends PhetioObject {
     // {boolean} - has the atom been "successfully" interacted with. This subjective term is defined based on the
     // pedagogical goals of the sim (to rub the other book)
     this.successfullyInteractedWithProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'successfullyInteractedWithProperty' )
+      tandem: tandem.createTandem( 'successfullyInteractedWithProperty' ),
+      phetioReadOnly: true,
+      phetioDocumentation: 'This somewhat subjective term is defined based on the pedagogical goals of the sim, which ' +
+                           'is to rub the book on the other to make friction. This Property will be true when any amount ' +
+                           'of friction is created.'
     } );
 
     this.vibrationAmplitudeProperty.link( amplitude => {
