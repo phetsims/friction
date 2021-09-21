@@ -16,6 +16,7 @@ import Voicing from '../../../../../scenery/js/accessibility/voicing/Voicing.js'
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import SoundClip from '../../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../../tambo/js/soundManager.js';
+import Tandem from '../../../../../tandem/js/Tandem.js';
 import simpleDropSound from '../../../../sounds/simple-drop_mp3.js';
 import simplePickupSound from '../../../../sounds/simple-pickup_mp3.js';
 import friction from '../../../friction.js';
@@ -42,10 +43,9 @@ class BookNode extends Node {
    * @param {BookMovementAlerter} bookMovementAlerter
    * @param {GrabbedDescriber} grabbedDescriber
    * @param {function():} alertSettledAndCool
-   * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( model, title, temperatureIncreasingAlerter, temperatureDecreasingAlerter, bookMovementAlerter, grabbedDescriber, alertSettledAndCool, tandem, options ) {
+  constructor( model, title, temperatureIncreasingAlerter, temperatureDecreasingAlerter, bookMovementAlerter, grabbedDescriber, alertSettledAndCool, options ) {
 
     options = merge( {
 
@@ -54,7 +54,11 @@ class BookNode extends Node {
       color: FrictionConstants.BOTTOM_BOOK_COLOR_MACRO,
 
       // voicing
-      voicingNameResponse: chemistryBookString
+      voicingNameResponse: chemistryBookString,
+
+      // phet-io
+      tandem: Tandem.REQUIRED,
+      phetioVisiblePropertyInstrumented: false
     }, options );
 
     assert && assert( typeof options.x === 'number', 'options.x must be specified' );
@@ -63,15 +67,12 @@ class BookNode extends Node {
     super( options );
 
     // add cover, pass the whole tandem to hide the "cover" implementation detail
-    this.addChild( new CoverNode( title, tandem, options ) );
+    this.addChild( new CoverNode( title, options.tandem, _.omit( options, [ 'tandem' ] ) ) );
 
     // init drag and a11y options for the draggable book
     if ( options.drag ) {
 
       this.initializeVoicing( options );
-
-      // instrument this book, but not the other
-      options.tandem = tandem;
 
       // a11y - We want the highlights to be completely within the bounds of the book.
       const focusHighlightRect = new FocusHighlightPath( null );
@@ -142,7 +143,7 @@ class BookNode extends Node {
 
         dragCueNode: arrows,
 
-        tandem: tandem.createTandem( 'grabDragInteraction' )
+        tandem: options.tandem.createTandem( 'grabDragInteraction' )
       } );
 
 

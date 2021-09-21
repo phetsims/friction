@@ -154,7 +154,11 @@ class MagnifierNode extends Node {
         fill: null,
         cursor: 'pointer',
         children: [ background ],
+
+        // phet-io
         tandem: options.tandem.createTandem( 'atomDragArea' ),
+        phetioVisiblePropertyInstrumented: false,
+        phetioInputEnabledPropertyInstrumented: true,
 
         // pdom
         focusHighlightLayerable: true,

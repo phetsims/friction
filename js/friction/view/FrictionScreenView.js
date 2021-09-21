@@ -118,19 +118,24 @@ class FrictionScreenView extends ScreenView {
 
     // add physics book
     this.addChild( new BookNode( model, physicsString, temperatureIncreasingAlerter, temperatureDecreasingAlerter,
-      bookMovementAlerter, grabbedDescriber, alertSettledAndCool, tandem.createTandem( 'bottomBookNode' ), {
+      bookMovementAlerter, grabbedDescriber, alertSettledAndCool, {
         x: 50,
-        y: 225
+        y: 225,
+        tandem: tandem.createTandem( 'bottomBookNode' )
       } ) );
 
     // add chemistry book
     const chemistryBookNode = new BookNode( model, chemistryString, temperatureIncreasingAlerter,
       temperatureDecreasingAlerter,
-      bookMovementAlerter, grabbedDescriber, alertSettledAndCool, tandem.createTandem( 'topBookNode' ), {
+      bookMovementAlerter, grabbedDescriber, alertSettledAndCool, {
         x: 65,
         y: 209,
         color: FrictionConstants.TOP_BOOK_COLOR_MACRO,
-        drag: true
+        drag: true,
+
+        // phet-io
+        tandem: tandem.createTandem( 'topBookNode' ),
+        phetioInputEnabledPropertyInstrumented: true
       } );
     this.addChild( chemistryBookNode );
 

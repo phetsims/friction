@@ -31,10 +31,10 @@ class CoverNode extends Node {
 
   /**
    * @param {string} title
-   * @param {Tandem} tandem
+   * @param {Tandem} tandemParent - not passed to Node and instrumented!
    * @param {Object} [options]
    */
-  constructor( title, tandem, options ) {
+  constructor( title, tandemParent, options ) {
 
     options = merge( {
       stroke: 'gray',
@@ -86,7 +86,7 @@ class CoverNode extends Node {
       fill: FrictionConstants.BOOK_TEXT_COLOR,
       pickable: false,
       maxWidth: BINDING_LENGTH * 0.97, // for a bit of margin
-      tandem: tandem.createTandem( 'titleText' )
+      tandem: tandemParent.createTandem( 'titleText' )
     } );
     titleText.center = bindingRectangle.center;
 
