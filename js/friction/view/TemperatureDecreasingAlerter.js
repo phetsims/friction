@@ -159,7 +159,7 @@ class TemperatureDecreasingAlerter extends Alerter {
       alertObject = alertObject.firstTime;
     }
 
-    this.utterance.alert.contextRespones = StringUtils.fillIn( patternString, {
+    this.utterance.alert.contextResponse = StringUtils.fillIn( patternString, {
       temperature: alertObject.temp,
       jigglingAmount: alertObject.jiggle
     } );
