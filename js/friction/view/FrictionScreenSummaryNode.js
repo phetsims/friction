@@ -30,9 +30,6 @@ const farFewerString = frictionStrings.a11y.amountOfAtoms.farFewer;
 const someString = frictionStrings.a11y.amountOfAtoms.some;
 const manyString = frictionStrings.a11y.amountOfAtoms.many;
 
-// Used for the screen summary sentence to compare how many atoms have evaporated
-const SOME_ATOMS_EVAPORATED_THRESHOLD = FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS / 2;
-
 /**
  *
  * @param {Object} [options]
@@ -112,7 +109,7 @@ class FrictionScreenSummaryNode extends Node {
     }
 
     // some evaporated atoms, describe the chemistry book with some atoms "broken away"
-    else if ( atomsEvaporated < SOME_ATOMS_EVAPORATED_THRESHOLD ) {
+    else if ( atomsEvaporated < FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ) {
       relativeChemistryBookSentence = StringUtils.fillIn( amountOfAtomsString, {
         comparisonAmount: fewerString,
         breakAwayAmount: someString,
@@ -233,7 +230,7 @@ class FrictionScreenSummaryNode extends Node {
   getThirdSupplementarySentence( numberOfAtomsEvaporated ) {
 
     // Queue moving the book if there are still many atoms left, queue reset if there are many evaporated atoms
-    return numberOfAtomsEvaporated > SOME_ATOMS_EVAPORATED_THRESHOLD ?
+    return numberOfAtomsEvaporated === FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ?
            resetSimMoreObservationSentenceString : grabChemistryBookPlayString;
   }
 
@@ -273,7 +270,7 @@ class FrictionScreenSummaryNode extends Node {
    * @returns {string}
    */
   getHintString() {
-    return this.model.numberOfAtomsEvaporated > SOME_ATOMS_EVAPORATED_THRESHOLD ? resetSimMoreObservationSentenceString :
+    return this.model.numberOfAtomsEvaporated === FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ? resetSimMoreObservationSentenceString :
            this.model.contactProperty.value ? frictionStrings.a11y.screenSummary.continueRubbing :
            frictionStrings.a11y.screenSummary.grabChemistryBookPlay;
   }

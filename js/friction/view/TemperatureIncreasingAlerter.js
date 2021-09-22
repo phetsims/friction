@@ -41,11 +41,6 @@ const MAX_TEMP_STRING = StringUtils.fillIn( frictionIncreasingAtomsJigglingTempe
   jigglingAmount: superFastString,
   temperature: superHotString
 } );
-const maxTempResponsePacket = new ResponsePacket( {
-  contextResponse: MAX_TEMP_STRING,
-  hintResponse: resetSimMoreObservationSentenceString
-} );
-
 
 // Threshold that must be reached from initial temp to new temp to alert that the temperature changed, in amplitude (see model for more info)
 const TEMPERATURE_ALERT_THRESHOLD = 1.5;
@@ -106,9 +101,14 @@ class TemperatureIncreasingAlerter extends Alerter {
     // @private
     this.tooSoonForNextAlert = false;
 
+    // @private - mutated based on if the "reset" hint should be added
+    this.maxTempResponsePacket = new ResponsePacket( {
+      contextResponse: MAX_TEMP_STRING
+    } );
+
     // @private
     this.maxTempUtterance = new Utterance( {
-      alert: maxTempResponsePacket,
+      alert: this.maxTempResponsePacket,
       announcerOptions: {
         cancelSelf: false
       }
@@ -188,6 +188,9 @@ class TemperatureIncreasingAlerter extends Alerter {
    */
   alertMaxTemp() {
     this.alertImplementationWithTimingVariables( () => {
+
+      this.maxTempUtterance.alert.hintResponse = this.model.numberOfAtomsEvaporated === FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ?
+                                                 resetSimMoreObservationSentenceString : null;
 
       // TODO: use the same Utterance for both of these queues, see https://github.com/phetsims/friction/issues/204
       this.alert( this.maxTempUtterance );
