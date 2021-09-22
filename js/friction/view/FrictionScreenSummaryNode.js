@@ -18,12 +18,12 @@ const droppingAsAtomsJiggleLessString = frictionStrings.a11y.screenSummary.dropp
 const atomsJigglePatternString = frictionStrings.a11y.screenSummary.atomsJigglePattern;
 const jiggleClausePatternString = frictionStrings.a11y.screenSummary.jiggleClausePattern;
 const jiggleTemperatureScaleSentenceString = frictionStrings.a11y.screenSummary.jiggleTemperatureScaleSentence;
-const thermometerString = frictionStrings.a11y.temperature.thermometer;
+const thermometerString = StringUtils.fillIn( frictionStrings.a11y.temperature.thermometer, { space: ' ' } );
 const temperaturePatternString = frictionStrings.a11y.temperature.pattern;
 const grabChemistryBookPlayString = frictionStrings.a11y.screenSummary.grabChemistryBookPlay;
 const resetSimMoreObservationSentenceString = frictionStrings.a11y.resetSimMoreObservationSentence;
 const startingChemistryBookPatternString = frictionStrings.a11y.screenSummary.startingChemistryBookPattern;
-const lightlyString = frictionStrings.a11y.lightly;
+const lightlyString = StringUtils.fillIn( frictionStrings.a11y.lightly, { space: ' ' } );
 const amountOfAtomsString = frictionStrings.a11y.amountOfAtoms.sentence;
 const fewerString = frictionStrings.a11y.amountOfAtoms.fewer;
 const farFewerString = frictionStrings.a11y.amountOfAtoms.farFewer;
@@ -115,7 +115,8 @@ class FrictionScreenSummaryNode extends Node {
     else if ( atomsEvaporated < SOME_ATOMS_EVAPORATED_THRESHOLD ) {
       relativeChemistryBookSentence = StringUtils.fillIn( amountOfAtomsString, {
         comparisonAmount: fewerString,
-        breakAwayAmount: someString
+        breakAwayAmount: someString,
+        space: ' '
       } );
     }
 
@@ -123,7 +124,8 @@ class FrictionScreenSummaryNode extends Node {
     else {
       relativeChemistryBookSentence = StringUtils.fillIn( amountOfAtomsString, {
         comparisonAmount: farFewerString,
-        breakAwayAmount: manyString
+        breakAwayAmount: manyString,
+        space: ' '
       } );
     }
 

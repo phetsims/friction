@@ -62,7 +62,7 @@
     },
     "amountOfAtoms": {
       "sentence": {
-        "value": "Chemistry book has {{comparisonAmount}} jiggling atoms as {{breakAwayAmount}} have broken away. "
+        "value": "Chemistry book has {{comparisonAmount}} jiggling atoms as {{breakAwayAmount}} have broken away.{{space}}"
       },
       "fewer": {
         "value": "fewer"
@@ -120,7 +120,7 @@
         "value": "surface temperature {{thermometer}}is {{temp}}"
       },
       "thermometer": {
-        "value": "thermometer "
+        "value": "thermometer{{space}}"
       },
       "more": {
         "value": "more"
@@ -201,7 +201,7 @@
       "value": "Reset sim to make more observations."
     },
     "lightly": {
-      "value": "lightly "
+      "value": "lightly{{space}}"
     },
     "atomsJiggleTinyBitTempCool": {
       "value": "Atoms jiggle a tiny bit, temperature cool"
