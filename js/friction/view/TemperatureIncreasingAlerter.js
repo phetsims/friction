@@ -116,10 +116,7 @@ class TemperatureIncreasingAlerter extends Alerter {
 
     // @private
     this.temperatureJiggleUtterance = new Utterance( {
-      alert: new ResponsePacket(),
-      announcerOptions: {
-        cancelOther: false
-      }
+      alert: new ResponsePacket()
     } );
 
     // @private
