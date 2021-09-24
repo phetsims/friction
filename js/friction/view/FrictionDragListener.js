@@ -12,6 +12,8 @@ import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import friction from '../../friction.js';
 
+const DRAG_CAPTURE_GRANULARITY = 3000; // in ms
+
 class FrictionDragListener extends DragListener {
   /**
    * @param {FrictionModel} model
@@ -34,9 +36,13 @@ class FrictionDragListener extends DragListener {
       tandem: Tandem.REQUIRED
     }, options );
 
+    let lastCaptureDragStartTime = 0;
+
     super( {
       targetNode: options.targetNode,
       start: () => {
+
+        lastCaptureDragStartTime = phet.joist.elapsedTime;
 
         // sound
         options.startSound && options.startSound.play();
@@ -51,6 +57,15 @@ class FrictionDragListener extends DragListener {
         const delta = dragListener.modelDelta;
         const vector = new Vector2( delta.x, delta.y );
 
+        // instead of calling only on end drag (like for the keyboard drag listeners), increase the granularity of
+        // data capture and potential alerting by triggering this evert X ms of dragging.
+        if ( phet.joist.elapsedTime - lastCaptureDragStartTime > DRAG_CAPTURE_GRANULARITY ) {
+
+          // pdom
+          temperatureIncreasingAlerter.endDrag();
+          bookMovementAlerter.endDrag();
+        }
+
         model.move( vector );
       },
       end: () => {
@@ -58,10 +73,6 @@ class FrictionDragListener extends DragListener {
 
         // sound
         options.endSound && options.endSound.play();
-
-        // pdom
-        temperatureIncreasingAlerter.endDrag();
-        bookMovementAlerter.endDrag();
       },
       tandem: options.tandem
     } );
