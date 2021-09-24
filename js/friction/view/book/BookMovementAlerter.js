@@ -94,16 +94,22 @@ class BookMovementAlerter extends MovementAlerter {
     this.separatedAlertPair = new LeftRightAlertPair();
 
     // reset these properties when the contactProperty changes to false.
-    model.contactProperty.lazyLink( ( newValue, oldValue ) => {
+    model.contactProperty.lazyLink( ( isTouching, wasTouching ) => {
 
       // if the books were touching, and now they aren't, reset the ability for left/right alerts when contacted.
-      if ( !newValue && oldValue ) {
+      if ( !isTouching && wasTouching ) {
         this.contactedAlertPair.reset(); // reset the pair monitoring the alerts when contacted.
       }
       else {
 
         // reset the pair monitoring the alerts when not contacted.
         this.separatedAlertPair.reset();
+      }
+
+      // Once touching, speak the alert
+      if ( !wasTouching && isTouching ) {
+        this.alert( this.bottomDescriptionUtterance );
+        voicingUtteranceQueue.addToBack( this.bottomVoicingUtterance );
       }
     } );
   }
@@ -154,12 +160,8 @@ class BookMovementAlerter extends MovementAlerter {
       }
     }
 
-    // if contacted and DOWN, we have a special alert
     else if ( this.model.contactProperty.get() && direction === DirectionEnum.DOWN ) {
-      this.alert( this.bottomDescriptionUtterance );
-
-      // Support voicing for this hint
-      voicingUtteranceQueue.addToBack( this.bottomVoicingUtterance );
+      // already covered by contacted alert above, don't repeat, or speak "down" again by going to the base case.
     }
 
     // base case
