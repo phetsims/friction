@@ -62,7 +62,8 @@ class BookMovementAlerter extends MovementAlerter {
         repeatBorderAlerts: true
       },
 
-      alertMovementToVoicing: false
+      // We don't need direction or border alerts here, just a couple a voicing hints added below.
+      alertToVoicing: false
     }, options );
 
     super( model.topBookPositionProperty, options );
@@ -147,6 +148,8 @@ class BookMovementAlerter extends MovementAlerter {
           // This means that we will get left/right alerts again after a "move down" cue
 
           this.alert( this.moveDownToRubHarderUtterance );
+
+          // Support voicing for this hint
           voicingUtteranceQueue.addToBack( this.moveDownToRubHarderUtterance );
 
           this.separatedAlertPair.reset();
@@ -158,7 +161,7 @@ class BookMovementAlerter extends MovementAlerter {
     else if ( this.model.contactProperty.get() && direction === DirectionEnum.DOWN ) {
       this.alert( this.bottomDescriptionUtterance );
 
-      // Manually ignore MovementAlerter.alertMovementToVoicing for this call, because we want to hear this for voicing
+      // Support voicing for this hint
       voicingUtteranceQueue.addToBack( this.bottomVoicingUtterance );
     }
 
