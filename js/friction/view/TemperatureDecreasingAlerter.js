@@ -136,6 +136,13 @@ class TemperatureDecreasingAlerter extends Alerter {
   /**
    * @public
    */
+  endDrag() {
+    this.timeOfLastAlert = 0; // immediately trigger the potential for an alert
+  }
+
+  /**
+   * @public
+   */
   reset() {
     this.firstAlert = true;
   }

@@ -62,7 +62,7 @@ class FrictionDragListener extends DragListener {
         if ( phet.joist.elapsedTime - lastCaptureDragStartTime > DRAG_CAPTURE_GRANULARITY ) {
 
           // pdom
-          temperatureIncreasingAlerter.endDrag();
+          temperatureIncreasingAlerter.onDrag();
           bookMovementAlerter.endDrag();
         }
 
@@ -76,6 +76,7 @@ class FrictionDragListener extends DragListener {
 
         // pdom - always again on end drag
         temperatureIncreasingAlerter.endDrag();
+        temperatureDecreasingAlerter.endDrag();
         bookMovementAlerter.endDrag();
       },
       tandem: options.tandem
