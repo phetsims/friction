@@ -194,9 +194,6 @@
     "moveDownToRubHarderSentence": {
       "value": "Move down to rub harder."
     },
-    "rubFastOrSlow": {
-      "value": "Rub fast or slow."
-    },
     "resetSimMoreObservationSentence": {
       "value": "Reset sim to make more observations."
     },
@@ -204,7 +201,7 @@
       "value": "lightly{{space}}"
     },
     "atomsJiggleTinyBitTempCool": {
-      "value": "Atoms jiggle a tiny bit, temperature cool"
+      "value": "Atoms jiggle a tiny bit, temperature cool."
     },
     "frictionIncreasingAtomsJigglingTemperaturePattern": {
       "value": "Jiggling {{jigglingAmount}}, {{temperature}}."

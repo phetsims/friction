@@ -48,15 +48,6 @@ const THERMOMETER_BACKGROUND_FILL_COLOR = 'white';
 const THERMOMETER_MIN_TEMP = FrictionModel.THERMOMETER_MIN_TEMP;
 const THERMOMETER_MAX_TEMP = FrictionModel.THERMOMETER_MAX_TEMP;
 
-const atomsJiggleTinyBitTempCoolString = frictionStrings.a11y.atomsJiggleTinyBitTempCool;
-
-const atomsJiggleTinyBitUtterance = new Utterance( {
-  alert: new ResponsePacket( { contextResponse: atomsJiggleTinyBitTempCoolString } ),
-  announcerOptions: {
-    cancelOther: false
-  }
-} );
-
 
 class FrictionScreenView extends ScreenView {
 
@@ -85,6 +76,16 @@ class FrictionScreenView extends ScreenView {
     const breakAwayAlerter = new BreakAwayAlerter( model, descriptionAlertNodeOptions );
     const bookMovementAlerter = new BookMovementAlerter( model, descriptionAlertNodeOptions );
     const grabbedDescriber = new GrabbedDescriber( model.contactProperty, model.successfullyInteractedWithProperty );
+
+    const atomsJiggleTinyBitUtterance = new Utterance( {
+      alert: new ResponsePacket( {
+        contextResponse: frictionStrings.a11y.atomsJiggleTinyBitTempCool
+      } ),
+      announcerOptions: {
+        cancelOther: false
+      }
+    } );
+
     const alertSettledAndCool = () => {
       this.alertDescriptionUtterance( atomsJiggleTinyBitUtterance );
 
@@ -97,6 +98,11 @@ class FrictionScreenView extends ScreenView {
     // lazyLink so that we do not hear the alert on startup
     // exists for the lifetime of the sim, no need to dispose
     model.vibrationAmplitudeProperty.lazyLink( amplitude => {
+
+      // only add "reset sim" hint when all atoms have sheared off.
+      atomsJiggleTinyBitUtterance.alert.hintResponse = model.numberOfAtomsEvaporated === FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ?
+                                                       frictionStrings.a11y.resetSimMoreObservationSentence : null;
+
       if ( amplitudeIncreasedEnoughForSettledAndCoolAlert && amplitude === model.vibrationAmplitudeProperty.initialValue ) {
         alertSettledAndCool();
         amplitudeIncreasedEnoughForSettledAndCoolAlert = false;

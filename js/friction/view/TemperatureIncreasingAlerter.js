@@ -33,13 +33,17 @@ const evenHotterString = frictionStrings.a11y.temperature.evenHotter;
 const superFastString = frictionStrings.a11y.temperature.superFast;
 const superHotString = frictionStrings.a11y.temperature.superHot;
 
-const resetSimMoreObservationSentenceString = frictionStrings.a11y.resetSimMoreObservationSentence;
 const frictionIncreasingAtomsJigglingTemperaturePatternString = frictionStrings.a11y.frictionIncreasingAtomsJigglingTemperaturePattern;
 
 // alert object for the Maximum temp alert
 const MAX_TEMP_STRING = StringUtils.fillIn( frictionIncreasingAtomsJigglingTemperaturePatternString, {
   jigglingAmount: superFastString,
   temperature: superHotString
+} );
+
+// @private - mutated based on if the "reset" hint should be added
+const MAX_TEMP_RESPONSE_PACKET = new ResponsePacket( {
+  contextResponse: MAX_TEMP_STRING
 } );
 
 // Threshold that must be reached from initial temp to new temp to alert that the temperature changed, in amplitude (see model for more info)
@@ -101,14 +105,9 @@ class TemperatureIncreasingAlerter extends Alerter {
     // @private
     this.tooSoonForNextAlert = false;
 
-    // @private - mutated based on if the "reset" hint should be added
-    this.maxTempResponsePacket = new ResponsePacket( {
-      contextResponse: MAX_TEMP_STRING
-    } );
-
     // @private
     this.maxTempUtterance = new Utterance( {
-      alert: this.maxTempResponsePacket,
+      alert: MAX_TEMP_RESPONSE_PACKET,
       announcerOptions: {
         cancelSelf: false
       }
@@ -186,9 +185,6 @@ class TemperatureIncreasingAlerter extends Alerter {
   alertMaxTemp() {
     this.alertImplementationWithTimingVariables( () => {
 
-      this.maxTempUtterance.alert.hintResponse = this.model.numberOfAtomsEvaporated === FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ?
-                                                 resetSimMoreObservationSentenceString : null;
-
       // TODO: use the same Utterance for both of these queues, see https://github.com/phetsims/friction/issues/204
       this.alert( this.maxTempUtterance );
     } );
@@ -218,6 +214,7 @@ class TemperatureIncreasingAlerter extends Alerter {
    * @public
    */
   reset() {
+    this.temperatureJiggleUtterance.reset();
     this.maxTempUtterance.reset();
   }
 }
