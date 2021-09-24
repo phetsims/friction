@@ -73,6 +73,10 @@ class FrictionDragListener extends DragListener {
 
         // sound
         options.endSound && options.endSound.play();
+
+        // pdom - always again on end drag
+        temperatureIncreasingAlerter.endDrag();
+        bookMovementAlerter.endDrag();
       },
       tandem: options.tandem
     } );
