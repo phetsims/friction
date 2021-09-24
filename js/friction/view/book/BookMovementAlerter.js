@@ -85,10 +85,7 @@ class BookMovementAlerter extends MovementAlerter {
     this.moveDownToRubHarderUtterance = new Utterance( {
       alert: new ResponsePacket( {
         hintResponse: moveDownToRubHarderSentenceString
-      } ),
-      announcerOptions: {
-        cancelOther: false
-      }
+      } )
     } );
 
 
