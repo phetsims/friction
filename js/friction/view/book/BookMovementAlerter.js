@@ -26,8 +26,7 @@ const DEFAULT_AT_TOP_ALERT = BorderAlertsDescriber.getDefaultTopAlert();
 const DEFAULT_MOVEMENT_DESCRIPTIONS = MovementAlerter.getDefaultMovementDescriptions();
 
 const atTopMoveDownResponsePacket = new ResponsePacket( {
-  objectResponse: DEFAULT_AT_TOP_ALERT,
-  hintResponse: moveDownToRubHarderSentenceString
+  objectResponse: DEFAULT_AT_TOP_ALERT
 } );
 
 const rubFastOrSlowResponsePacket = new ResponsePacket( {
