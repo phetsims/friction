@@ -106,7 +106,7 @@ class BookMovementAlerter extends MovementAlerter {
       }
 
       // Once touching, speak the alert
-      if ( !wasTouching && isTouching ) {
+      if ( !wasTouching && isTouching && model.numberOfAtomsEvaporated === 0 ) {
         this.alert( this.bottomDescriptionUtterance );
         voicingUtteranceQueue.addToBack( this.bottomVoicingUtterance );
       }
