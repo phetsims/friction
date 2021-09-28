@@ -87,6 +87,11 @@ class FrictionScreenView extends ScreenView {
     } );
 
     const alertSettledAndCool = () => {
+
+      // only add "reset sim" hint when all atoms have sheared off.
+      atomsJiggleTinyBitUtterance.alert.hintResponse = model.numberOfAtomsEvaporated === FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ?
+                                                       frictionStrings.a11y.resetSimMoreObservationSentence : null;
+
       this.alertDescriptionUtterance( atomsJiggleTinyBitUtterance );
 
       voicingUtteranceQueue.addToBack( atomsJiggleTinyBitUtterance );
@@ -98,10 +103,6 @@ class FrictionScreenView extends ScreenView {
     // lazyLink so that we do not hear the alert on startup
     // exists for the lifetime of the sim, no need to dispose
     model.vibrationAmplitudeProperty.lazyLink( amplitude => {
-
-      // only add "reset sim" hint when all atoms have sheared off.
-      atomsJiggleTinyBitUtterance.alert.hintResponse = model.numberOfAtomsEvaporated === FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ?
-                                                       frictionStrings.a11y.resetSimMoreObservationSentence : null;
 
       if ( amplitudeIncreasedEnoughForSettledAndCoolAlert && amplitude === model.vibrationAmplitudeProperty.initialValue ) {
         alertSettledAndCool();
