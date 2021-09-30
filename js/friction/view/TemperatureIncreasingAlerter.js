@@ -110,6 +110,8 @@ class TemperatureIncreasingAlerter extends Alerter {
     this.maxTempUtterance = new Utterance( {
       alert: MAX_TEMP_RESPONSE_PACKET,
       announcerOptions: {
+
+        // even though it is annoying to repeat these, it is better than hearing the beginning 10 times before hearing the actual alert.
         cancelSelf: false
       }
     } );

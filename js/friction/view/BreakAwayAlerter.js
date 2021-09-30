@@ -54,7 +54,10 @@ class BreakAwayAlerter extends Alerter {
 
     // @private
     this.utterance = new Utterance( {
-      alert: new ResponsePacket()
+      alert: new ResponsePacket(),
+      announcerOptions: {
+        priority: 5
+      }
     } );
 
     // @private
@@ -89,9 +92,10 @@ class BreakAwayAlerter extends Alerter {
 
     this.utterance.alert.contextResponse = alertContent;
 
-    this.forEachUtteranceQueue( utteranceQueue => utteranceQueue.addToFront( this.utterance ) );
+    this.forEachUtteranceQueue( utteranceQueue => utteranceQueue.clear() );
+    voicingUtteranceQueue.clear();
 
-    voicingUtteranceQueue.addToFront( this.utterance );
+    this.alert( this.utterance );
 
     this.alertedBreakAwayProperty.value = true;
     this.tooSoonForNextAlert = true;
