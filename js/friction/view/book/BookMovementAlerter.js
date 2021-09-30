@@ -145,15 +145,17 @@ class BookMovementAlerter extends MovementAlerter {
           this.separatedAlertPair.updateFromDirection( direction );
         }
 
-        else {
-          // If they have, then cue a movement and reset the alertPair
-          // This means that we will get left/right alerts again after a "move down" cue
+        else if ( this.model.numberOfAtomsEvaporated < FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS / 4 ) {
+          // 1/4 of atoms still covers the first two sparse rows that get sheared off.
+          // If they "bothAlerted" meaning that the user went left and right without contacting the bottom boot, then
+          // cue a movement and reset the alertPair. Only until enough atoms shear off that the user is "trained."
 
           this.alert( this.moveDownToRubHarderUtterance );
 
           // Support voicing for this hint
           voicingUtteranceQueue.addToBack( this.moveDownToRubHarderUtterance );
 
+          // This means that we will get left/right alerts again after a "move down" cue
           this.separatedAlertPair.reset();
         }
       }
