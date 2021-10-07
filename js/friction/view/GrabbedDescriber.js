@@ -27,7 +27,7 @@ const grabbedTouchingString = StringUtils.fillIn( frictionStrings.a11y.grabbedPa
 } );
 
 const touchingAlerts = { initial: initialGrabbedTouchingString, subsequent: grabbedTouchingString };
-const notTouchingAlerts = { initial: initialGrabbedNotTouchingString, subsequent: grabbedNotTouchingString };
+const notTouchingAlerts = { initial: initialGrabbedNotTouchingString, subsequent: grabbedLightlyOnBook };
 
 /**
  * @param {Object} [options]
@@ -47,6 +47,7 @@ class GrabbedDescriber {
   }
 
   /**
+   * for pdom
    * @public
    * @returns {string}
    */
@@ -67,10 +68,9 @@ class GrabbedDescriber {
    * @returns {string}
    */
   getGrabbedVoicingString() {
-    const alerts = this.contactProperty.get() ? touchingAlerts : notTouchingAlerts;
 
     // self-voicing alerts - all self-voicing alerts exclude the "WASD" keyboard information
-    return alerts.subsequent;
+    return this.contactProperty.get() ? touchingAlerts.subsequent : grabbedNotTouchingString;
   }
 
   /**

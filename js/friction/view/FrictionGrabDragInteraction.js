@@ -47,6 +47,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
     options.onGrab = event => {
       oldGrab && oldGrab();
 
+      // just for pdom
       grabbedUtterance.alert = grabbedDescriber.getGrabbedString();
       wrappedNode.alertDescriptionUtterance( grabbedUtterance );
 
