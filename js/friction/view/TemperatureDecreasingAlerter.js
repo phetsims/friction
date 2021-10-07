@@ -121,6 +121,7 @@ class TemperatureDecreasingAlerter extends Alerter {
 
     // @private
     this.utterance = new Utterance( {
+      predicate: () => this.tempDecreasing,
       alert: new ResponsePacket(),
       announcerOptions: {
         cancelOther: false
