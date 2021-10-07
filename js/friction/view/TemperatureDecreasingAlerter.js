@@ -112,7 +112,6 @@ class TemperatureDecreasingAlerter extends Alerter {
         this.alertDecrease();
       }
 
-      // TODO: do this for warming too
       // reset even without a new drag if we are settled.
       if ( amplitude <= FrictionModel.AMPLITUDE_SETTLED_THRESHOLD ) {
         this.alertIndex = -1; // reset

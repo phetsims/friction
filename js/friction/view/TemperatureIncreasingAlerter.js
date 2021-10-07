@@ -152,10 +152,30 @@ class TemperatureIncreasingAlerter extends Alerter {
       else if ( !this.tooSoonForNextMaxTempAlert && amplitude >= FrictionModel.THERMOMETER_MAX_TEMP ) {
         this.alertMaxTemp();
       }
+
+      // reset even without a new drag if we are settled.
+      if ( amplitude <= FrictionModel.AMPLITUDE_SETTLED_THRESHOLD ) {
+        this.onDrag();
+        this.initializeAlerts();
+      }
     };
 
     // exists for the lifetime of the sim, no need to dispose
     this.model.vibrationAmplitudeProperty.link( this.amplitudeListener );
+  }
+
+  /**
+   * Reset the data so that the warming alerts will start over
+   * @private
+   */
+  initializeAlerts() {
+    this.alertIndex = -1; // reset
+
+    // Normally, capture the initial amplitude as temperature regions change. But if already at the max, then set
+    // amplitude to a very different number, so that max-temp alerts can continue to fire.
+    this.initialAmplitude = this.model.vibrationAmplitudeProperty.value > FrictionModel.THERMOMETER_MAX_TEMP ?
+                            this.model.vibrationAmplitudeProperty.initialValue :
+                            this.model.vibrationAmplitudeProperty.value;
   }
 
   // @public
@@ -164,17 +184,12 @@ class TemperatureIncreasingAlerter extends Alerter {
 
     // If longer than threshold, treat as new "drag session"
     if ( phet.joist.elapsedTime - this.timeOfLastDrag > DRAG_SESSION_THRESHOLD ) {
-      this.alertIndex = -1; // reset
-
-      // Normally, capture the initial amplitude as temperature regions change. But if already at the max, then set
-      // amplitude to a very different number, so that max-temp alerts can continue to fire.
-      this.initialAmplitude = this.model.vibrationAmplitudeProperty.value > FrictionModel.THERMOMETER_MAX_TEMP ?
-                              this.model.vibrationAmplitudeProperty.initialValue :
-                              this.model.vibrationAmplitudeProperty.value;
+      this.initializeAlerts();
     }
   }
 
   /**
+   * Called by amplitude listener in addition to on drag for resetting drag time.
    * @public
    */
   onDrag() {
