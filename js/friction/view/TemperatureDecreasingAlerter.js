@@ -111,6 +111,13 @@ class TemperatureDecreasingAlerter extends Alerter {
            phet.joist.elapsedTime - this.timeOfLastAlert > ALERT_TIME_DELAY ) { // If we have waited long enough
         this.alertDecrease();
       }
+
+      // TODO: do this for warming too
+      // reset even without a new drag if we are settled.
+      if ( amplitude <= FrictionModel.AMPLITUDE_SETTLED_THRESHOLD ) {
+        this.alertIndex = -1; // reset
+        this.timeOfLastAlert = 0; // immediately trigger the potential for an alert
+      }
     };
 
     // @private

@@ -73,8 +73,15 @@ const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
 // in ms
 const DRAG_SESSION_THRESHOLD = 1000;
 
-// in ms, time in between each increasing alert
-const ALERT_TIME_DELAY = 500;
+// in ms, time in between each warming/increasing alert
+const WARMING_ALERT_TIME_DELAY = 500;
+const MAX_TEMP_ALERT_TIME_DELAY = 3000;
+
+// The amount of amplitude that the model must decrease from the last point where it was increasing. This value
+// is to help determine if the temperature is no longer increasing, while alowing for minor fluctuation. In same units
+// as FrictionModel's amplitude
+const AMPLITUDE_DECREASING_THRESHOLD = 0.4;
+
 
 class TemperatureIncreasingAlerter extends Alerter {
 
@@ -102,13 +109,18 @@ class TemperatureIncreasingAlerter extends Alerter {
     // @private
     this.alertIndex = -1;
 
-    // {boolean} don't alert too many alerts all at once, this is only switched after a timeout, see alertIncrease
-    // @private
-    this.tooSoonForNextAlert = false;
+    // @private {boolean} - don't alert too many alerts all at once, these flags are only switched after a timeout
+    this.tooSoonForNextWarmingAlert = false;
+    this.tooSoonForNextMaxTempAlert = false;
+
+    // @private {boolean} - keep track of if the model is increasing or now, with a special threshold specific to the
+    // needs of this warming alerter.
+    this.amplitudeIncreasing = false;
 
     // @private
     this.maxTempUtterance = new Utterance( {
       alert: MAX_TEMP_RESPONSE_PACKET,
+      predicate: () => model.vibrationAmplitudeProperty.value >= FrictionModel.THERMOMETER_MAX_TEMP,
       announcerOptions: {
 
         // even though it is annoying to repeat these, it is better than hearing the beginning 10 times before hearing the actual alert.
@@ -118,25 +130,28 @@ class TemperatureIncreasingAlerter extends Alerter {
 
     // @private
     this.temperatureJiggleUtterance = new Utterance( {
+      predicate: () => this.amplitudeIncreasing,
       alert: new ResponsePacket()
     } );
 
-    // @private
-    this.amplitudeListener = amplitude => {
+    let localMaxima = 0;
 
-      // don't alert a subsequent alert too quickly
-      if ( this.tooSoonForNextAlert ) {
-        return;
+    // @private
+    this.amplitudeListener = ( amplitude, oldAmplitude ) => {
+
+      if ( amplitude > oldAmplitude ) {
+        localMaxima = amplitude;
       }
+
+      this.amplitudeIncreasing = !( localMaxima - amplitude > AMPLITUDE_DECREASING_THRESHOLD );
 
       // the difference in amplitude has to be greater than the threshold to alert
-      if ( amplitude < EVAPORATION_LIMIT && amplitude - this.initialAmplitude > TEMPERATURE_ALERT_THRESHOLD ) {
+      if ( !this.tooSoonForNextWarmingAlert && amplitude < EVAPORATION_LIMIT && amplitude - this.initialAmplitude > TEMPERATURE_ALERT_THRESHOLD ) {
         this.alertIncrease();
       }
-      else if ( amplitude >= FrictionModel.THERMOMETER_MAX_TEMP ) {
+      else if ( !this.tooSoonForNextMaxTempAlert && amplitude >= FrictionModel.THERMOMETER_MAX_TEMP ) {
         this.alertMaxTemp();
       }
-
     };
 
     // exists for the lifetime of the sim, no need to dispose
@@ -168,8 +183,12 @@ class TemperatureIncreasingAlerter extends Alerter {
 
   // @public
   endDrag() {
-
-    voicingUtteranceQueue.hasUtterance( this.temperatureJiggleUtterance ) && voicingUtteranceQueue.removeUtterance( this.temperatureJiggleUtterance );
+    if ( this.model.vibrationAmplitudeProperty.value >= FrictionModel.THERMOMETER_MAX_TEMP ) {
+      this.clearQueues();
+    }
+    else if ( voicingUtteranceQueue.hasUtterance( this.temperatureJiggleUtterance ) ) {
+      voicingUtteranceQueue.removeUtterance( this.temperatureJiggleUtterance );
+    }
     this.timeOfLastDrag = phet.joist.elapsedTime;
   }
 
@@ -178,16 +197,21 @@ class TemperatureIncreasingAlerter extends Alerter {
     this.alertIndex++;
     const currentAlertIndex = Math.min( this.alertIndex, INCREASING.length - 1 );
 
-    this.alertImplementationWithTimingVariables( () => {
-      const alertObject = INCREASING[ currentAlertIndex ];
+    const alertObject = INCREASING[ currentAlertIndex ];
 
-      this.temperatureJiggleUtterance.alert.contextResponse = StringUtils.fillIn( frictionIncreasingAtomsJigglingTemperaturePatternString, {
-        temperature: alertObject.temp,
-        jigglingAmount: alertObject.jiggle
-      } );
-
-      this.alert( this.temperatureJiggleUtterance );
+    this.temperatureJiggleUtterance.alert.contextResponse = StringUtils.fillIn( frictionIncreasingAtomsJigglingTemperaturePatternString, {
+      temperature: alertObject.temp,
+      jigglingAmount: alertObject.jiggle
     } );
+
+    this.alert( this.temperatureJiggleUtterance );
+
+    // reset the "initialAmplitude" to the current amplitude, because then it will take another whole threshold level to alert again
+    this.initialAmplitude = this.model.vibrationAmplitudeProperty.value;
+
+    // set to true to limit subsequent alerts firing rapidly
+    this.tooSoonForNextWarmingAlert = true;
+    stepTimer.setTimeout( () => { this.tooSoonForNextWarmingAlert = false; }, WARMING_ALERT_TIME_DELAY );
   }
 
   /**
@@ -195,30 +219,23 @@ class TemperatureIncreasingAlerter extends Alerter {
    * @private
    */
   alertMaxTemp() {
-    this.alertImplementationWithTimingVariables( () => {
+    this.alert( this.maxTempUtterance );
 
-      // TODO: use the same Utterance for both of these queues, see https://github.com/phetsims/friction/issues/204
-      this.alert( this.maxTempUtterance );
-    } );
+    this.initialAmplitude = this.model.vibrationAmplitudeProperty.value;
+
+    // set to true to limit subsequent alerts firing rapidly
+    this.tooSoonForNextMaxTempAlert = true;
+    stepTimer.setTimeout( () => { this.tooSoonForNextMaxTempAlert = false; }, MAX_TEMP_ALERT_TIME_DELAY );
   }
 
   /**
-   * General alert for this type, manages the timing and threshold values to make sure that alerts
-   * happen at the right moments.
-   * @param {function} alertFunction - when called, this function should alert.
+   * Helper function to clear all the queues, this is useful to do in regards to warming because when the interaction
+   * ends, we want to hear the cooling alerts.
    * @private
    */
-  alertImplementationWithTimingVariables( alertFunction ) {
-    alertFunction();
-
-    // set to true to limit subsequent alerts firing rapidly
-    this.tooSoonForNextAlert = true;
-
-    // reset the "initialAmplitude" to the current amplitude, because then it will take another whole threshold level to alert again
-    this.initialAmplitude = this.model.vibrationAmplitudeProperty.value;
-
-    // This is a bit buggy, we may want to tweak the threshold more, or find a better solution.
-    stepTimer.setTimeout( () => { this.tooSoonForNextAlert = false; }, ALERT_TIME_DELAY );
+  clearQueues() {
+    voicingUtteranceQueue.clear();
+    this.forEachUtteranceQueue( utteranceQueue => utteranceQueue.clear() );
   }
 
   /**
