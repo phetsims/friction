@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.6.0-dev.18 Fri Oct 08 2021 11:07:12 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# friction 1.6.0-dev.19 Fri Oct 08 2021 16:59:20 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "767b2f345518ceca5144a152ecf40cd4f9206136",
     "branch": "master"
@@ -21,19 +21,19 @@
     "branch": "master"
   },
   "friction": {
-    "sha": "441d7c0242d3cc0ef07e6efd1527f3b5f0374935",
+    "sha": "c1416b2e23ca6c11e88d8c693d58413d3c380406",
     "branch": "master"
   },
   "joist": {
-    "sha": "695dd6c97928c4f7f0e407ad29385ea8765017f5",
-    "branch": "simDisplay"
+    "sha": "50867ffdee537e999705730ddce5fb9d50b31ba8",
+    "branch": "master"
   },
   "kite": {
     "sha": "21eae6269782f9b8d80f8ca041e345468d789367",
     "branch": "master"
   },
   "perennial-alias": {
-    "sha": "5daec63d7d4395d2c9a824b7f46b83490c1bb472",
+    "sha": "5af3744c5d293ac6655e04f777fb9bcacdb4b983",
     "branch": "master"
   },
   "phet-core": {
@@ -65,11 +65,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "eb5a3fe260fddf3640742e8693c2af4dd394f991",
+    "sha": "4fedd9d8eef073074c52f6ef3bdce8cfb973d59c",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "c7bb3f3ff1bf05b273f4b31c2c0a244d67df9b16",
+    "sha": "63d8e1712ea5130b86f8500e249a156d1a9ba45c",
     "branch": "master"
   },
   "sherpa": {
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "f4cc613edd6a7be883fbf5f66be21c2061cf1103",
+    "sha": "5e796455aa978b77135a69a5d9b210231210bd3b",
     "branch": "master"
   },
   "tambo": {
