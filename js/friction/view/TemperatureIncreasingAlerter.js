@@ -16,6 +16,7 @@
 import stepTimer from '../../../../axon/js/stepTimer.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Alerter from '../../../../scenery-phet/js/accessibility/describers/Alerter.js';
+import voicingManager from '../../../../scenery/js/accessibility/voicing/voicingManager.js';
 import voicingUtteranceQueue from '../../../../scenery/js/accessibility/voicing/voicingUtteranceQueue.js';
 import ResponsePacket from '../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
@@ -114,14 +115,15 @@ class TemperatureIncreasingAlerter extends Alerter {
     this.tooSoonForNextMaxTempAlert = false;
 
     // @private {boolean} - keep track of if the model is increasing or now, with a special threshold specific to the
-    // needs of this warming alerter.
+    // needs of this warming alerter. By "increasing" it also means stays the same, or lowers just a bit before increasing again.
     this.amplitudeIncreasing = false;
 
     // @private
     this.maxTempUtterance = new Utterance( {
       alert: MAX_TEMP_RESPONSE_PACKET,
-      predicate: () => model.vibrationAmplitudeProperty.value >= FrictionModel.THERMOMETER_MAX_TEMP,
+      predicate: () => this.amplitudeIncreasing && model.vibrationAmplitudeProperty.value >= FrictionModel.THERMOMETER_MAX_TEMP,
       announcerOptions: {
+        priority: voicingManager.LOW_PRIORITY,
 
         // even though it is annoying to repeat these, it is better than hearing the beginning 10 times before hearing the actual alert.
         cancelSelf: false
