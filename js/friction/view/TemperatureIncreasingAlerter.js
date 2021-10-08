@@ -203,9 +203,6 @@ class TemperatureIncreasingAlerter extends Alerter {
     if ( this.model.vibrationAmplitudeProperty.value >= FrictionModel.THERMOMETER_MAX_TEMP ) {
       this.clearQueues();
     }
-    else if ( voicingUtteranceQueue.hasUtterance( this.temperatureJiggleUtterance ) ) {
-      voicingUtteranceQueue.removeUtterance( this.temperatureJiggleUtterance );
-    }
     this.timeOfLastDrag = phet.joist.elapsedTime;
   }
 
