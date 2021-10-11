@@ -181,8 +181,8 @@ class FrictionModel extends PhetioObject {
     this.scheduledShearingAmount = 0;
 
     // @public (phet-io) - Instrumented so that PhET-iO clients can get a message when an atom shears off
-    this.shearingEmitter = new Emitter( {
-      tandem: tandem.createTandem( 'shearingEmitter' ),
+    this.shearedOffEmitter = new Emitter( {
+      tandem: tandem.createTandem( 'shearedOffEmitter' ),
       phetioDocumentation: 'Emits when atoms shear off from the top book',
       phetioReadOnly: true
     } );
@@ -220,7 +220,8 @@ class FrictionModel extends PhetioObject {
 
     // @public (read-only) {NumberProperty} - number of rows of atoms available to shear off, goes down as book wears away
     this.atomRowsToShearOffProperty = new NumberProperty( TOP_BOOK_ATOM_STRUCTURE.length - 1, {
-      tandem: tandem.createTandem( 'atomRowsToShearOffProperty' )
+      tandem: tandem.createTandem( 'atomRowsToShearOffProperty' ),
+      phetioReadOnly: true
     } );
 
     // @private - are books in contact?
@@ -248,7 +249,7 @@ class FrictionModel extends PhetioObject {
     // {number} the count of how many atoms have been sheared off
     this.numberOfAtomsShearedOff = 0;
 
-    this.shearingEmitter.addListener( () => {
+    this.shearedOffEmitter.addListener( () => {
       this.numberOfAtomsShearedOff += 1;
     } );
 
@@ -440,7 +441,7 @@ class FrictionModel extends PhetioObject {
         // randomly choose an non-sheared-off atom and shear off it
         const atomsToShearOff = dotRandom.sample( notYetShearedAtoms );
         atomsToShearOff.shearOff();
-        this.shearingEmitter.emit();
+        this.shearedOffEmitter.emit();
 
         // cause some cooling due to shearing
         this.scheduledShearingAmount = this.scheduledShearingAmount + SHEAR_OFF_AMPLITUDE_REDUCTION;

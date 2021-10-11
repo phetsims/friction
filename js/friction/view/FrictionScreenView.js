@@ -226,7 +226,7 @@ class FrictionScreenView extends ScreenView {
       rateChangesAffectPlayingSounds: false
     } );
     soundManager.addSoundGenerator( moleculeBreakOffSoundClip );
-    model.shearingEmitter.addListener( () => {
+    model.shearedOffEmitter.addListener( () => {
 
       // don't play for every sheared off atom or it's too noisy
       if ( model.numberOfAtomsShearedOff % 4 === 0 ) {
