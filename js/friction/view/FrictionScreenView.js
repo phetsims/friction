@@ -120,8 +120,14 @@ class FrictionScreenView extends ScreenView {
     } );
 
     // pdom
-    const frictionScreenSummaryNode = new FrictionScreenSummaryNode( model, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP,
-      temperatureDecreasingAlerter );
+    const frictionScreenSummaryNode = new FrictionScreenSummaryNode(
+      model.contactProperty,
+      model.numberOfAtomsShearedOffProperty,
+      model.vibrationAmplitudeProperty,
+      THERMOMETER_MIN_TEMP,
+      THERMOMETER_MAX_TEMP,
+      temperatureDecreasingAlerter
+    );
     screenSummaryNodeContainer.addChild( frictionScreenSummaryNode );
 
     // @private

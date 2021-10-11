@@ -30,32 +30,40 @@ const farFewerString = frictionStrings.a11y.amountOfAtoms.farFewer;
 const someString = frictionStrings.a11y.amountOfAtoms.some;
 const manyString = frictionStrings.a11y.amountOfAtoms.many;
 
-/**
- *
- * @param {Object} [options]
- * @constructor
- */
 class FrictionScreenSummaryNode extends Node {
-  constructor( model, thermometerMinTemp, thermometerMaxTemp, temperatureDecreasingAlerter ) {
+
+  /**
+   *
+   * @param contactProperty
+   * @param numberOfAtomsShearedOffProperty
+   * @param vibrationAmplitudeProperty
+   * @param thermometerMinTemp
+   * @param thermometerMaxTemp
+   * @param temperatureDecreasingAlerter
+   */
+  constructor( contactProperty, numberOfAtomsShearedOffProperty, vibrationAmplitudeProperty, thermometerMinTemp,
+               thermometerMaxTemp, temperatureDecreasingAlerter ) {
 
     super();
 
     // @private
-    this.model = model;
+    this.contactProperty = contactProperty;
+    this.numberOfAtomsShearedOffProperty = numberOfAtomsShearedOffProperty;
+    this.vibrationAmplitudeProperty = vibrationAmplitudeProperty;
     this.booksParagraph = new Node( { tagName: 'p' } );
     this.interactionHintParagraph = new Node( { tagName: 'p' } );
     this.thermometerMinTemp = thermometerMinTemp;
     this.thermometerMaxTemp = thermometerMaxTemp;
 
     // requires an init
-    this.updateSummaryString( model );
+    this.updateSummaryString( );
 
     // pdom - update the screen summary when the model changes
-    let previousTempString = this.amplitudeToTempString( model.vibrationAmplitudeProperty.value );
-    let previousJiggleString = this.amplitudeToJiggleString( model.vibrationAmplitudeProperty.value );
+    let previousTempString = this.amplitudeToTempString( this.vibrationAmplitudeProperty.value );
+    let previousJiggleString = this.amplitudeToJiggleString( this.vibrationAmplitudeProperty.value );
 
     // make a11y updates as the amplitude changes in the model, no need to unlink, exists for sim lifetime.
-    model.vibrationAmplitudeProperty.link( amplitude => {
+    this.vibrationAmplitudeProperty.link( amplitude => {
 
         // the temperature is decreasing
         const tempDecreasing = temperatureDecreasingAlerter.tempDecreasing;
@@ -71,7 +79,7 @@ class FrictionScreenSummaryNode extends Node {
              this.amplitudeToJiggleString( amplitude ) !== previousJiggleString ) {
 
           // if jiggle or temperature changed, update the string
-          this.updateSummaryString( model );
+          this.updateSummaryString( );
           previousTempString = this.amplitudeToTempString( amplitude ); // compute this again for a more efficient if statement
           previousJiggleString = this.amplitudeToJiggleString( amplitude ); // compute this again for a more efficient if statement
 
@@ -80,7 +88,7 @@ class FrictionScreenSummaryNode extends Node {
     );
 
     // exists for the lifetime of the sim, no need to unlink
-    model.contactProperty.link( () => { this.updateSummaryString( model );} );
+    this.contactProperty.link( () => { this.updateSummaryString( );} );
 
     this.mutate( {
       children: [ this.booksParagraph, this.interactionHintParagraph ],
@@ -127,7 +135,7 @@ class FrictionScreenSummaryNode extends Node {
     }
 
     return StringUtils.fillIn( startingChemistryBookPatternString, {
-      lightly: this.model.contactProperty.value ? '' : lightlyString,
+      lightly: this.contactProperty.value ? '' : lightlyString,
       relativeChemistryBookSentence: relativeChemistryBookSentence
     } );
   }
@@ -254,10 +262,10 @@ class FrictionScreenSummaryNode extends Node {
   getCurrentDetailsString() {
 
     // FIRST SENTENCE
-    const chemistryBookString = this.getFirstSummarySentence( this.model.numberOfAtomsShearedOffProperty.value );
+    const chemistryBookString = this.getFirstSummarySentence( this.numberOfAtomsShearedOffProperty.value );
 
     // SECOND SENTENCE (ZOOMED-IN)
-    const jiggleTempSentence = this.getSecondSummarySentence( this.model.vibrationAmplitudeProperty );
+    const jiggleTempSentence = this.getSecondSummarySentence( this.vibrationAmplitudeProperty );
 
     return StringUtils.fillIn( summarySentencePatternString, {
       chemistryBookString: chemistryBookString,
@@ -270,8 +278,8 @@ class FrictionScreenSummaryNode extends Node {
    * @returns {string}
    */
   getHintString() {
-    return this.model.numberOfAtomsShearedOffProperty.value === FrictionModel.NUMBER_OF_SHEARABLE_ATOMS ? resetSimMoreObservationSentenceString :
-           this.model.contactProperty.value ? frictionStrings.a11y.screenSummary.continueRubbing :
+    return this.numberOfAtomsShearedOffProperty.value === FrictionModel.NUMBER_OF_SHEARABLE_ATOMS ? resetSimMoreObservationSentenceString :
+           this.contactProperty.value ? frictionStrings.a11y.screenSummary.continueRubbing :
            frictionStrings.a11y.screenSummary.grabChemistryBookPlay;
   }
 }
