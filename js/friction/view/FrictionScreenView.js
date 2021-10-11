@@ -73,7 +73,11 @@ class FrictionScreenView extends ScreenView {
     // pdom - initialize the describers for auditory descriptions and alerts.
     const temperatureIncreasingAlerter = new TemperatureIncreasingAlerter( model, descriptionAlertNodeOptions );
     const temperatureDecreasingAlerter = new TemperatureDecreasingAlerter( model, descriptionAlertNodeOptions );
-    const breakAwayAlerter = new BreakAwayAlerter( model, descriptionAlertNodeOptions );
+    const breakAwayAlerter = new BreakAwayAlerter(
+      model.vibrationAmplitudeProperty,
+      model.numberOfAtomsShearedOffProperty,
+      descriptionAlertNodeOptions
+    );
     const bookMovementAlerter = new BookMovementAlerter( model, descriptionAlertNodeOptions );
     const grabbedDescriber = new GrabbedDescriber( model.contactProperty, model.successfullyInteractedWithProperty );
 
@@ -89,7 +93,7 @@ class FrictionScreenView extends ScreenView {
     const alertSettledAndCool = () => {
 
       // only add "reset sim" hint when all atoms have sheared off.
-      atomsJiggleTinyBitUtterance.alert.hintResponse = model.numberOfAtomsShearedOff === FrictionModel.NUMBER_OF_SHEARABLE_ATOMS ?
+      atomsJiggleTinyBitUtterance.alert.hintResponse = model.numberOfAtomsShearedOffProperty.value === FrictionModel.NUMBER_OF_SHEARABLE_ATOMS ?
                                                        frictionStrings.a11y.resetSimMoreObservationSentence : null;
 
       this.alertDescriptionUtterance( atomsJiggleTinyBitUtterance );
@@ -229,7 +233,7 @@ class FrictionScreenView extends ScreenView {
     model.shearedOffEmitter.addListener( () => {
 
       // don't play for every sheared off atom or it's too noisy
-      if ( model.numberOfAtomsShearedOff % 4 === 0 ) {
+      if ( model.numberOfAtomsShearedOffProperty.value % 4 === 0 ) {
 
         // set a random playback rate
         moleculeBreakOffSoundClip.setPlaybackRate( FrictionConstants.GET_RANDOM_PENTATONIC_PLAYBACK_RATE(), 0 );

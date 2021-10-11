@@ -254,7 +254,7 @@ class FrictionScreenSummaryNode extends Node {
   getCurrentDetailsString() {
 
     // FIRST SENTENCE
-    const chemistryBookString = this.getFirstSummarySentence( this.model.numberOfAtomsShearedOff );
+    const chemistryBookString = this.getFirstSummarySentence( this.model.numberOfAtomsShearedOffProperty.value );
 
     // SECOND SENTENCE (ZOOMED-IN)
     const jiggleTempSentence = this.getSecondSummarySentence( this.model.vibrationAmplitudeProperty );
@@ -270,7 +270,7 @@ class FrictionScreenSummaryNode extends Node {
    * @returns {string}
    */
   getHintString() {
-    return this.model.numberOfAtomsShearedOff === FrictionModel.NUMBER_OF_SHEARABLE_ATOMS ? resetSimMoreObservationSentenceString :
+    return this.model.numberOfAtomsShearedOffProperty.value === FrictionModel.NUMBER_OF_SHEARABLE_ATOMS ? resetSimMoreObservationSentenceString :
            this.model.contactProperty.value ? frictionStrings.a11y.screenSummary.continueRubbing :
            frictionStrings.a11y.screenSummary.grabChemistryBookPlay;
   }

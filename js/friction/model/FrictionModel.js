@@ -247,10 +247,14 @@ class FrictionModel extends PhetioObject {
 
     // @public (read-only)
     // {number} the count of how many atoms have been sheared off
-    this.numberOfAtomsShearedOff = 0;
+    this.numberOfAtomsShearedOffProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'numberOfAtomsShearedOffProperty' ),
+      phetioReadOnly: true,
+      phetioDocumentation: 'The total number of atoms that have been sheared off of the top book.'
+    } );
 
     this.shearedOffEmitter.addListener( () => {
-      this.numberOfAtomsShearedOff += 1;
+      this.numberOfAtomsShearedOffProperty.value += 1;
     } );
 
     // @public (read-only)
@@ -336,8 +340,7 @@ class FrictionModel extends PhetioObject {
       bookDraggingScaleFactor: NumberIO,
       scheduledShearingAmount: NumberIO,
       shearableAtomsByRow: ArrayIO( ArrayIO( ReferenceIO( Atom.AtomIO ) ) ),
-      atoms: ArrayIO( ReferenceIO( Atom.AtomIO ) ),
-      numberOfAtomsShearedOff: NumberIO
+      atoms: ArrayIO( ReferenceIO( Atom.AtomIO ) )
     };
   }
 
@@ -374,10 +377,10 @@ class FrictionModel extends PhetioObject {
     this.atomRowsToShearOffProperty.reset();
     this.contactProperty.reset();
     this.hintProperty.reset();
+    this.numberOfAtomsShearedOffProperty.reset();
     this.atoms.forEach( atom => {
       atom.reset();
     } );
-    this.numberOfAtomsShearedOff = 0;
   }
 
   /**

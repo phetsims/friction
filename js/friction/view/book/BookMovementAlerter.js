@@ -106,7 +106,7 @@ class BookMovementAlerter extends MovementAlerter {
       }
 
       // Once touching, speak the alert
-      if ( !wasTouching && isTouching && model.numberOfAtomsShearedOff === 0 ) {
+      if ( !wasTouching && isTouching && model.numberOfAtomsShearedOffProperty.value === 0 ) {
         this.alert( this.bottomDescriptionUtterance );
         voicingUtteranceQueue.addToBack( this.bottomVoicingUtterance );
       }
@@ -145,7 +145,7 @@ class BookMovementAlerter extends MovementAlerter {
           this.separatedAlertPair.updateFromDirection( direction );
         }
 
-        else if ( this.model.numberOfAtomsShearedOff < FrictionModel.NUMBER_OF_SHEARABLE_ATOMS / 4 ) {
+        else if ( this.model.numberOfAtomsShearedOffProperty.value < FrictionModel.NUMBER_OF_SHEARABLE_ATOMS / 4 ) {
           // 1/4 of atoms still covers the first two sparse rows that get sheared off.
           // If they "bothAlerted" meaning that the user went left and right without contacting the bottom boot, then
           // cue a movement and reset the alertPair. Only until enough atoms shear off that the user is "trained."

@@ -37,15 +37,17 @@ class BreakAwayAlerter extends Alerter {
 
   /**
    * Responsible for alerting when the temperature increases
-   * @param {FrictionModel} model
+   * @param {NumberProperty} vibrationAmplitudeProperty
+   * @param {NumberProperty} numberOfAtomsShearedOffProperty
    * @param {Object} [options]
    */
-  constructor( model, options ) {
+  constructor( vibrationAmplitudeProperty, numberOfAtomsShearedOffProperty, options ) {
 
     super( options );
 
     // @private
-    this.model = model;
+    this.vibrationAmplitudeProperty = vibrationAmplitudeProperty;
+    this.numberOfAtomsShearedOffProperty = numberOfAtomsShearedOffProperty;
 
     // @private - (a11y) true if there has already been an alert about atoms breaking away
     this.alertedBreakAwayProperty = new BooleanProperty( false );
@@ -72,7 +74,7 @@ class BreakAwayAlerter extends Alerter {
     };
 
     // exists for the lifetime of the sim, no need to dispose
-    this.model.vibrationAmplitudeProperty.link( this.amplitudeListener );
+    this.vibrationAmplitudeProperty.link( this.amplitudeListener );
   }
 
 
@@ -84,7 +86,7 @@ class BreakAwayAlerter extends Alerter {
     let alertContent = null;
 
     // If there aren't any more atoms to break away, but don't let this be the first alert we hear
-    if ( this.alertedBreakAwayProperty.value && this.model.numberOfAtomsShearedOff >= FrictionModel.NUMBER_OF_SHEARABLE_ATOMS ) {
+    if ( this.alertedBreakAwayProperty.value && this.numberOfAtomsShearedOffProperty.value >= FrictionModel.NUMBER_OF_SHEARABLE_ATOMS ) {
       alertContent = BREAK_AWAY_NONE_LEFT;
     }
     else {
