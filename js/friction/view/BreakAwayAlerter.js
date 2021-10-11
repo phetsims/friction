@@ -1,7 +1,7 @@
 // Copyright 2018-2021, University of Colorado Boulder
 
 /**
- * Describer responsible for handling the appropriate alert when atoms evaporate, or "break away" from the top book.
+ * Describer responsible for handling the appropriate alert when atoms shear off, or "break away" from the top book.
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
@@ -31,7 +31,7 @@ const BREAK_AWAY_NONE_LEFT = StringUtils.fillIn( breakAwayNoneLeftString, { temp
 // time in between "break away sessions". This is the minimum amount of time to wait before hearing a subsequent break
 // away alert
 const ALERT_TIME_DELAY = 2000;
-const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
+const SHEARING_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.shearingLimit;
 
 class BreakAwayAlerter extends Alerter {
 
@@ -64,10 +64,10 @@ class BreakAwayAlerter extends Alerter {
     // @private
     this.amplitudeListener = ( amplitude, oldAmplitude ) => {
 
-      // Handle the alert when amplitude is high enough to begin evaporating
+      // Handle the alert when amplitude is high enough to begin shearing
       if ( !this.tooSoonForNextAlert && // alert only separate "break away events"
-           amplitude > EVAPORATION_LIMIT && oldAmplitude < EVAPORATION_LIMIT ) { // just hit evaporation limit
-        this.alertAtEvaporationThreshold();
+           amplitude > SHEARING_LIMIT && oldAmplitude < SHEARING_LIMIT ) { // just hit shearing limit
+        this.alertAtShearingThreshold();
       }
     };
 
@@ -80,11 +80,11 @@ class BreakAwayAlerter extends Alerter {
    * Alert when the temperature has just reached the point where atoms begin to break away
    * @public
    */
-  alertAtEvaporationThreshold() {
+  alertAtShearingThreshold() {
     let alertContent = null;
 
     // If there aren't any more atoms to break away, but don't let this be the first alert we hear
-    if ( this.alertedBreakAwayProperty.value && this.model.numberOfAtomsEvaporated >= FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ) {
+    if ( this.alertedBreakAwayProperty.value && this.model.numberOfAtomsShearedOff >= FrictionModel.NUMBER_OF_SHEARABLE_ATOMS ) {
       alertContent = BREAK_AWAY_NONE_LEFT;
     }
     else {

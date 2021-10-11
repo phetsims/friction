@@ -89,7 +89,7 @@ class FrictionScreenView extends ScreenView {
     const alertSettledAndCool = () => {
 
       // only add "reset sim" hint when all atoms have sheared off.
-      atomsJiggleTinyBitUtterance.alert.hintResponse = model.numberOfAtomsEvaporated === FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ?
+      atomsJiggleTinyBitUtterance.alert.hintResponse = model.numberOfAtomsShearedOff === FrictionModel.NUMBER_OF_SHEARABLE_ATOMS ?
                                                        frictionStrings.a11y.resetSimMoreObservationSentence : null;
 
       this.alertDescriptionUtterance( atomsJiggleTinyBitUtterance );
@@ -226,10 +226,10 @@ class FrictionScreenView extends ScreenView {
       rateChangesAffectPlayingSounds: false
     } );
     soundManager.addSoundGenerator( moleculeBreakOffSoundClip );
-    model.evaporationEmitter.addListener( () => {
+    model.shearingEmitter.addListener( () => {
 
-      // don't play for every evaporated molecule or it's too noisy
-      if ( model.numberOfAtomsEvaporated % 4 === 0 ) {
+      // don't play for every sheared off atom or it's too noisy
+      if ( model.numberOfAtomsShearedOff % 4 === 0 ) {
 
         // set a random playback rate
         moleculeBreakOffSoundClip.setPlaybackRate( FrictionConstants.GET_RANDOM_PENTATONIC_PLAYBACK_RATE(), 0 );

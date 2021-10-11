@@ -66,8 +66,8 @@ const INCREASING = [
   }
 ];
 
-// From model, the amplitude value when the atoms evaporate
-const EVAPORATION_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.evaporationLimit;
+// From model, the amplitude value when the atoms shear off
+const SHEARING_LIMIT = FrictionModel.MAGNIFIED_ATOMS_INFO.shearingLimit;
 
 // how long to wait until we consider this newest drag of a different "drag session", such
 // that the warming alert progression will start over back at "warmer" alerts.
@@ -148,7 +148,7 @@ class TemperatureIncreasingAlerter extends Alerter {
       this.amplitudeIncreasing = !( localMaxima - amplitude > AMPLITUDE_DECREASING_THRESHOLD );
 
       // the difference in amplitude has to be greater than the threshold to alert
-      if ( !this.tooSoonForNextWarmingAlert && amplitude < EVAPORATION_LIMIT && amplitude - this.initialAmplitude > TEMPERATURE_ALERT_THRESHOLD ) {
+      if ( !this.tooSoonForNextWarmingAlert && amplitude < SHEARING_LIMIT && amplitude - this.initialAmplitude > TEMPERATURE_ALERT_THRESHOLD ) {
         this.alertIncrease();
       }
       else if ( !this.tooSoonForNextMaxTempAlert && amplitude >= FrictionModel.THERMOMETER_MAX_TEMP ) {

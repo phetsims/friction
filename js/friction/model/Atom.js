@@ -20,7 +20,7 @@ import IOType from '../../../../tandem/js/types/IOType.js';
 import friction from '../../friction.js';
 
 // constants
-const EVAPORATED_SPEED = 400; // speed that particles travel during evaporation, in model units per second
+const SHEAR_OFF_SPEED = 400; // speed that particles travel during shearing, in model units per second
 
 let uniqueID = 0;
 
@@ -57,8 +57,8 @@ class Atom extends PhetioObject {
     // @public (read-only) {boolean} - flag that indicates whether this atom is part of the top book
     this.isTopAtom = isTopAtom;
 
-    // @private - marked as true when the atom is evaporated
-    this.isEvaporated = false;
+    // @private - marked as true when the atom is sheared off
+    this.isShearedOff = false;
 
     // @public - the position of the atom
     this.positionProperty = new Vector2Property( initialPosition, {
@@ -70,14 +70,14 @@ class Atom extends PhetioObject {
     // @private {Vector2} - the center position, around which oscillations occur
     this.centerPosition = new Vector2( initialPosition.x, initialPosition.y );
 
-    // @private {Vector2} - velocity vector for evaporation
-    this.evaporationVelocity = new Vector2( 0, 0 );
+    // @private {Vector2} - velocity vector for shearing
+    this.shearingVelocity = new Vector2( 0, 0 );
 
     if ( this.isTopAtom ) {
 
       // move the atom's center position as the top book moves
       model.topBookPositionProperty.lazyLink( ( newPosition, oldPosition ) => {
-        if ( !this.isEvaporated && !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+        if ( !this.isShearedOff && !phet.joist.sim.isSettingPhetioStateProperty.value ) {
           const deltaX = newPosition.x - oldPosition.x;
           const deltaY = newPosition.y - oldPosition.y;
           this.centerPosition.setXY( this.centerPosition.x + deltaX, this.centerPosition.y + deltaY );
@@ -95,29 +95,29 @@ class Atom extends PhetioObject {
     return {
       initialPosition: Vector2.Vector2IO,
       isTopAtom: BooleanIO,
-      isEvaporated: BooleanIO,
+      isShearedOff: BooleanIO,
       centerPosition: Vector2.Vector2IO,
-      evaporationVelocity: Vector2.Vector2IO
+      shearingVelocity: Vector2.Vector2IO
     };
   }
 
   /**
    * when the oscillation has exceeded the threshold, the atom breaks off, animates to one side of the screen, and
-   * disappears
+   * disappears.
    * @public
    */
-  evaporate() {
-    assert && assert( !this.isEvaporated, 'Atom was already evaporated' );
+  shearOff() {
+    assert && assert( !this.isShearedOff, 'Atom already sheared off' );
 
-    this.isEvaporated = true;
-    const evaporationDestinationX = this.model.width * ( dotRandom.nextBoolean() ? 1 : -1 );
-    const evaporationDestinationY = this.positionProperty.get().y -
+    this.isShearedOff = true;
+    const shearingDestinationX = this.model.width * ( dotRandom.nextBoolean() ? 1 : -1 );
+    const shearingDestinationY = this.positionProperty.get().y -
                                     this.model.distanceBetweenBooksProperty.get() * dotRandom.nextDouble();
 
-    this.evaporationVelocity.setXY(
-      evaporationDestinationX - this.positionProperty.get().x,
-      evaporationDestinationY - this.positionProperty.get().y
-    ).setMagnitude( EVAPORATED_SPEED );
+    this.shearingVelocity.setXY(
+      shearingDestinationX - this.positionProperty.get().x,
+      shearingDestinationY - this.positionProperty.get().y
+    ).setMagnitude( SHEAR_OFF_SPEED );
   }
 
   /**
@@ -126,7 +126,7 @@ class Atom extends PhetioObject {
    */
   reset() {
     this.centerPosition.set( this.initialPosition );
-    this.isEvaporated = false;
+    this.isShearedOff = false;
   }
 
   /**
@@ -143,11 +143,11 @@ class Atom extends PhetioObject {
     );
     this.positionProperty.set( newPosition );
 
-    // if evaporated, move away (but don't bother continuing once the atom is out of view)
-    if ( this.isEvaporated && Math.abs( this.centerPosition.x ) < 4 * this.model.width ) {
+    // if sheared off, move away (but don't bother continuing once the atom is out of view)
+    if ( this.isShearedOff && Math.abs( this.centerPosition.x ) < 4 * this.model.width ) {
       this.centerPosition.setXY(
-        this.centerPosition.x + this.evaporationVelocity.x * dt,
-        this.centerPosition.y + this.evaporationVelocity.y * dt
+        this.centerPosition.x + this.shearingVelocity.x * dt,
+        this.centerPosition.y + this.shearingVelocity.y * dt
       );
     }
   }

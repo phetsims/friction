@@ -205,7 +205,7 @@ class MagnifierNode extends Node {
       }
     );
 
-    // a11y - Custom shape highlights, shape will change with atomRowsToEvaporateProperty. Focus and Interactive
+    // a11y - Custom shape highlights, shape will change with atomRowsToShearOffProperty. Focus and Interactive
     // highlights are identical, but we need two different Nodes because GrabDragInteraction adds children to the
     // focus highlight that are specific to the keyboard interaction.
     const focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
@@ -342,9 +342,9 @@ class MagnifierNode extends Node {
     model.topBookPositionProperty.linkAttribute( this.topBookBackground, 'translation' );
     model.topBookPositionProperty.linkAttribute( this.topAtomsLayer, 'translation' );
 
-    model.atomRowsToEvaporateProperty.link( number => {
+    model.atomRowsToShearOffProperty.link( number => {
 
-      // Adjust the drag area as the number of rows of atoms evaporates.
+      // Adjust the drag area as the number of rows of atoms shears off.
       dragArea.setRectHeight( ( number + 2 ) * FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY );
 
       // Update the size of the highlights accordingly

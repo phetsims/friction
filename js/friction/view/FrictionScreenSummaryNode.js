@@ -92,24 +92,24 @@ class FrictionScreenSummaryNode extends Node {
 
 
   /**
-   * Given the number of atoms that have evaporated from the model so far, get the first screen summary sentence,
+   * Given the number of atoms that have sheared off from the model so far, get the first screen summary sentence,
    * describing the chemistry book.
-   * @param {number} atomsEvaporated
+   * @param {number} numberAtomsShearedOff
    * @returns {string} the first sentence of the screen summary
    * @private
    */
-  getFirstSummarySentence( atomsEvaporated ) {
+  getFirstSummarySentence( numberAtomsShearedOff ) {
 
-    // There are three ranges based on how many atoms have evaporated
+    // There are three ranges based on how many atoms have sheared off
 
     let relativeChemistryBookSentence = null;
-    // "no evaporated atoms"
-    if ( atomsEvaporated === 0 ) {
+    // "no shearable atoms"
+    if ( numberAtomsShearedOff === 0 ) {
       relativeChemistryBookSentence = ''; // blank initial sentence of "First Sentence"
     }
 
-    // some evaporated atoms, describe the chemistry book with some atoms "broken away"
-    else if ( atomsEvaporated < FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ) {
+    // some atoms have sheared off, describe the chemistry book with some atoms "broken away"
+    else if ( numberAtomsShearedOff < FrictionModel.NUMBER_OF_SHEARABLE_ATOMS ) {
       relativeChemistryBookSentence = StringUtils.fillIn( amountOfAtomsString, {
         comparisonAmount: fewerString,
         breakAwayAmount: someString,
@@ -117,7 +117,7 @@ class FrictionScreenSummaryNode extends Node {
       } );
     }
 
-    // lots of evaporated atoms, describe many missing atoms
+    // lots of atoms sheared off, describe many missing atoms
     else {
       relativeChemistryBookSentence = StringUtils.fillIn( amountOfAtomsString, {
         comparisonAmount: farFewerString,
@@ -224,13 +224,13 @@ class FrictionScreenSummaryNode extends Node {
 
   /**
    * @private
-   * @param {number} numberOfAtomsEvaporated
+   * @param {number} numberOfAtomsShearedOff
    * @returns {string}
    */
-  getThirdSupplementarySentence( numberOfAtomsEvaporated ) {
+  getThirdSupplementarySentence( numberOfAtomsShearedOff ) {
 
-    // Queue moving the book if there are still many atoms left, queue reset if there are many evaporated atoms
-    return numberOfAtomsEvaporated === FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ?
+    // Queue moving the book if there are still many atoms left, queue reset if there are many atoms sheared off
+    return numberOfAtomsShearedOff === FrictionModel.NUMBER_OF_SHEARABLE_ATOMS ?
            resetSimMoreObservationSentenceString : grabChemistryBookPlayString;
   }
 
@@ -254,7 +254,7 @@ class FrictionScreenSummaryNode extends Node {
   getCurrentDetailsString() {
 
     // FIRST SENTENCE
-    const chemistryBookString = this.getFirstSummarySentence( this.model.numberOfAtomsEvaporated );
+    const chemistryBookString = this.getFirstSummarySentence( this.model.numberOfAtomsShearedOff );
 
     // SECOND SENTENCE (ZOOMED-IN)
     const jiggleTempSentence = this.getSecondSummarySentence( this.model.vibrationAmplitudeProperty );
@@ -270,7 +270,7 @@ class FrictionScreenSummaryNode extends Node {
    * @returns {string}
    */
   getHintString() {
-    return this.model.numberOfAtomsEvaporated === FrictionModel.NUMBER_OF_EVAPORABLE_ATOMS ? resetSimMoreObservationSentenceString :
+    return this.model.numberOfAtomsShearedOff === FrictionModel.NUMBER_OF_SHEARABLE_ATOMS ? resetSimMoreObservationSentenceString :
            this.model.contactProperty.value ? frictionStrings.a11y.screenSummary.continueRubbing :
            frictionStrings.a11y.screenSummary.grabChemistryBookPlay;
   }
