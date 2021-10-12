@@ -6,11 +6,13 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import friction from '../../friction.js';
+import FrictionModel from '../model/FrictionModel.js';
 
 const DRAG_CAPTURE_GRANULARITY = 3000; // in ms
 
@@ -39,6 +41,7 @@ class FrictionDragListener extends DragListener {
     let lastCaptureDragStartTime = 0;
 
     super( {
+      dragBoundsProperty: new Property( FrictionModel.MAGNIFIED_DRAG_BOUNDS ),
       targetNode: options.targetNode,
       start: () => {
 

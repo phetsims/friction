@@ -404,15 +404,6 @@ class FrictionModel extends PhetioObject {
       this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + delta.y - this.distanceBetweenBooksProperty.get() );
       delta.y = this.distanceBetweenBooksProperty.get();
     }
-    else if ( this.topBookPositionProperty.get().y + delta.y < MIN_Y_POSITION ) {
-      delta.y = MIN_Y_POSITION - this.topBookPositionProperty.get().y; // Limit book from going out of magnifier window.
-    }
-    if ( this.topBookPositionProperty.get().x + delta.x > MAX_X_DISPLACEMENT ) {
-      delta.x = MAX_X_DISPLACEMENT - this.topBookPositionProperty.get().x;
-    }
-    else if ( this.topBookPositionProperty.get().x + delta.x < -MAX_X_DISPLACEMENT ) {
-      delta.x = -MAX_X_DISPLACEMENT - this.topBookPositionProperty.get().x;
-    }
 
     // set the new position
     this.topBookPositionProperty.set( this.topBookPositionProperty.get().plus( delta ) );
@@ -471,10 +462,6 @@ class FrictionModel extends PhetioObject {
 FrictionModel.MAGNIFIED_ATOMS_INFO = MAGNIFIED_ATOMS_INFO;
 FrictionModel.THERMOMETER_MIN_TEMP = MAGNIFIED_ATOMS_INFO.vibrationAmplitude.min - 1.05; // about 0
 FrictionModel.THERMOMETER_MAX_TEMP = MAGNIFIED_ATOMS_INFO.shearingLimit * 1.1; // ~7.7
-
-// pdom - needed to get bounds for the keyboard drag handler, see https://github.com/phetsims/friction/issues/46
-FrictionModel.MAX_X_DISPLACEMENT = MAX_X_DISPLACEMENT;
-FrictionModel.MIN_Y_POSITION = MIN_Y_POSITION;
 
 // pdom
 FrictionModel.NUMBER_OF_SHEARABLE_ATOMS = NUMBER_OF_SHEARABLE_ATOMS;
