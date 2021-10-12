@@ -146,20 +146,11 @@
       "warmer": {
         "value": "warmer"
       },
-      "nowWarm": {
-        "value": "now warm"
-      },
       "evenHotter": {
         "value": "even hotter"
       },
-      "nowHot": {
-        "value": "now hot"
-      },
       "nowHotter": {
         "value": "now hotter"
-      },
-      "dropping": {
-        "value": "dropping"
       }
     },
     "screenSummary": {
@@ -180,9 +171,6 @@
       },
       "grabChemistryBookPlay": {
         "value": "Grab Chemistry book to play."
-      },
-      "moveChemistryBookExplore": {
-        "value": "Move Chemistry book down to explore friction."
       },
       "continueRubbing": {
         "value": "Continue rubbing chemistry book to generate even more friction."
@@ -208,12 +196,6 @@
     },
     "frictionIncreasingAtomsJigglingTemperatureFirstPattern": {
       "value": "Atoms {{jigglingAmount}}, temperature {{temperature}}."
-    },
-    "capitalizedAFew": {
-      "value": "A few"
-    },
-    "capitalizedMore": {
-      "value": "More"
     },
     "breakAwaySentenceFirst": {
       "value": "{{temp}}. Atoms break away from chemistry book."
