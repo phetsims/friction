@@ -9,6 +9,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -18,6 +19,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
@@ -203,6 +205,7 @@ class FrictionModel extends PhetioObject {
 
     // @public (read-only) - position of top book, can by dragged the user
     this.topBookPositionProperty = new Vector2Property( new Vector2( 0, 0 ), {
+      phetioDocumentation: 'The position of the top book. Model and view coordinates are the same in this simulation.',
       tandem: tandem.createTandem( 'topBookPositionProperty' ),
       phetioHighFrequency: true
     } );
@@ -215,7 +218,13 @@ class FrictionModel extends PhetioObject {
 
     // @public {NumberProperty} - additional offset, results from drag
     this.bottomOffsetProperty = new NumberProperty( 0, {
-      tandem: tandem.createTandem( 'bottomOffsetProperty' )
+      phetioDocumentation: 'This is to keep track of the offset when the books are contacted. The offset is the value ' +
+                           'that the drag has gone "beyond" (in the downward direction) the bottom book, even though the ' +
+                           'top book has not moved any further down. This Property is an implementation detail to support' +
+                           'the top book not "snapping" down to contact to the bottom book upon a full row shearing off. ' +
+                           'In view coordinates (same as model). Will be zero when no drag is occurring',
+      tandem: tandem.createTandem( 'bottomOffsetProperty' ),
+      phetioReadOnly: true
     } );
 
     // @public (read-only) {NumberProperty} - number of rows of atoms available to shear off, goes down as book wears away
@@ -225,11 +234,13 @@ class FrictionModel extends PhetioObject {
     } );
 
     // @private - are books in contact?
-    this.contactProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'contactProperty' ),
-      phetioReadOnly: true,
-      phetioDocumentation: 'This Property will be true when the two books are in contact, with not space between their atoms.'
-    } );
+    this.contactProperty = new DerivedProperty(
+      [ this.distanceBetweenBooksProperty ],
+      distance => Math.floor( distance ) <= 0, {
+        tandem: tandem.createTandem( 'contactProperty' ),
+        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO ),
+        phetioDocumentation: 'This Property will be true when the two books are in contact, with not space between their atoms.'
+      } );
 
     // @public {BooleanProperty} - Show hint icon. Only set by model and on a11y grab interaction.
     this.hintProperty = new BooleanProperty( true, {
@@ -298,11 +309,6 @@ class FrictionModel extends PhetioObject {
         false, // isTopAtom
         atomsTandem
       );
-    } );
-
-    // check atom's contact
-    this.distanceBetweenBooksProperty.link( distance => {
-      this.contactProperty.set( Math.floor( distance ) <= 0 );
     } );
 
     // set distance between atoms and set the amplitude if they are in contact
@@ -375,7 +381,6 @@ class FrictionModel extends PhetioObject {
     this.distanceBetweenBooksProperty.reset();
     this.bottomOffsetProperty.reset();
     this.atomRowsToShearOffProperty.reset();
-    this.contactProperty.reset();
     this.hintProperty.reset();
     this.numberOfAtomsShearedOffProperty.reset();
     this.atoms.forEach( atom => {
