@@ -8,7 +8,7 @@
  */
 
 import dotRandom from '../../../dot/js/dotRandom.js';
-import Color from '../../../scenery/js/util/Color.js';
+import { Color } from '../../../scenery/js/imports.js';
 import friction from '../friction.js';
 import frictionStrings from '../frictionStrings.js';
 

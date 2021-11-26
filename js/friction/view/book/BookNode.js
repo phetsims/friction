@@ -11,9 +11,9 @@
 
 import Shape from '../../../../../kite/js/Shape.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import FocusHighlightPath from '../../../../../scenery/js/accessibility/FocusHighlightPath.js';
-import Voicing from '../../../../../scenery/js/accessibility/voicing/Voicing.js';
-import Node from '../../../../../scenery/js/nodes/Node.js';
+import { FocusHighlightPath } from '../../../../../scenery/js/imports.js';
+import { Voicing } from '../../../../../scenery/js/imports.js';
+import { Node } from '../../../../../scenery/js/imports.js';
 import SoundClip from '../../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';

@@ -6,7 +6,7 @@
  */
 
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import friction from '../../friction.js';
 import frictionStrings from '../../frictionStrings.js';
 import FrictionConstants from '../FrictionConstants.js';

@@ -6,7 +6,7 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
+import { KeyboardDragListener } from '../../../../scenery/js/imports.js';
 import friction from '../../friction.js';
 import FrictionModel from '../model/FrictionModel.js';
 
