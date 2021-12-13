@@ -11,9 +11,7 @@
 
 import Shape from '../../../../../kite/js/Shape.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import { FocusHighlightPath } from '../../../../../scenery/js/imports.js';
-import { Voicing } from '../../../../../scenery/js/imports.js';
-import { Node } from '../../../../../scenery/js/imports.js';
+import { FocusHighlightPath, Node, Voicing } from '../../../../../scenery/js/imports.js';
 import SoundClip from '../../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -64,15 +62,15 @@ class BookNode extends Node {
     assert && assert( typeof options.x === 'number', 'options.x must be specified' );
     assert && assert( typeof options.y === 'number', 'options.y must be specified' );
 
-    super( options );
+    super();
+    this.initializeVoicing();
+    this.mutate( options );
 
     // add cover, pass the whole tandem to hide the "cover" implementation detail
     this.addChild( new CoverNode( title, options.tandem, _.omit( options, [ 'tandem' ] ) ) );
 
     // init drag and a11y options for the draggable book
     if ( options.drag ) {
-
-      this.initializeVoicing( options );
 
       // a11y - We want the highlights to be completely within the bounds of the book.
       const focusHighlightRect = new FocusHighlightPath( null );

@@ -13,13 +13,7 @@ import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import Shape from '../../../../../kite/js/Shape.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import { FocusHighlightPath } from '../../../../../scenery/js/imports.js';
-import { Voicing } from '../../../../../scenery/js/imports.js';
-import { Circle } from '../../../../../scenery/js/imports.js';
-import { HBox } from '../../../../../scenery/js/imports.js';
-import { Node } from '../../../../../scenery/js/imports.js';
-import { Path } from '../../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../../scenery/js/imports.js';
+import { Circle, FocusHighlightPath, HBox, Node, Path, Rectangle, Voicing } from '../../../../../scenery/js/imports.js';
 import SoundClip from '../../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -392,8 +386,9 @@ function addRowCircles( circleRadius, xSpacing, parentNode, options ) {
 
 class VoicingRectangle extends Rectangle {
   constructor( x, y, width, height, options ) {
-    super( x, y, width, height, options );
-    this.initializeVoicing( options );
+    super( x, y, width, height );
+    this.initializeVoicing();
+    this.mutate( options );
   }
 }
 
