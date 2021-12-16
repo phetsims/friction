@@ -19,7 +19,7 @@ import dotRandom from '../../../../dot/js/dotRandom.js';
 import merge from '../../../../phet-core/js/merge.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import SoundGenerator from '../../../../tambo/js/sound-generators/SoundGenerator.js';
-import bounceMarimbaSound from '../../../sounds/bounce-marimba_mp3.js';
+import bounceMarimba_mp3 from '../../../sounds/bounceMarimba_mp3.js';
 import friction from '../../friction.js';
 import FrictionConstants from '../FrictionConstants.js';
 import FrictionModel from '../model/FrictionModel.js';
@@ -41,10 +41,10 @@ class MoleculeMotionSoundGenerator extends SoundGenerator {
 
     // create several instances of the sound clip at different volume levels to allow more variation in the sound
     const motionSoundClips = [
-      new SoundClip( bounceMarimbaSound, { initialOutputLevel: 1, rateChangesAffectPlayingSounds: false } ),
-      new SoundClip( bounceMarimbaSound, { initialOutputLevel: 0.75, rateChangesAffectPlayingSounds: false } ),
-      new SoundClip( bounceMarimbaSound, { initialOutputLevel: 0.5, rateChangesAffectPlayingSounds: false } ),
-      new SoundClip( bounceMarimbaSound, { initialOutputLevel: 0.25, rateChangesAffectPlayingSounds: false } )
+      new SoundClip( bounceMarimba_mp3, { initialOutputLevel: 1, rateChangesAffectPlayingSounds: false } ),
+      new SoundClip( bounceMarimba_mp3, { initialOutputLevel: 0.75, rateChangesAffectPlayingSounds: false } ),
+      new SoundClip( bounceMarimba_mp3, { initialOutputLevel: 0.5, rateChangesAffectPlayingSounds: false } ),
+      new SoundClip( bounceMarimba_mp3, { initialOutputLevel: 0.25, rateChangesAffectPlayingSounds: false } )
     ];
 
     // connect up the sound clips

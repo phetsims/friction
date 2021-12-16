@@ -15,8 +15,8 @@ import { FocusHighlightPath, Node, Voicing } from '../../../../../scenery/js/imp
 import SoundClip from '../../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import simpleDropSound from '../../../../sounds/simple-drop_mp3.js';
-import simplePickupSound from '../../../../sounds/simple-pickup_mp3.js';
+import simpleDrop_mp3 from '../../../../sounds/simpleDrop_mp3.js';
+import simplePickup_mp3 from '../../../../sounds/simplePickup_mp3.js';
 import friction from '../../../friction.js';
 import frictionStrings from '../../../frictionStrings.js';
 import FrictionConstants from '../../FrictionConstants.js';
@@ -102,9 +102,9 @@ class BookNode extends Node {
       } );
 
       // sounds used when the book is picked up or dropped
-      const bookPickupSoundClip = new SoundClip( simplePickupSound, { initialOutputLevel: SOUND_LEVEL } );
+      const bookPickupSoundClip = new SoundClip( simplePickup_mp3, { initialOutputLevel: SOUND_LEVEL } );
       soundManager.addSoundGenerator( bookPickupSoundClip );
-      const bookDropSoundClip = new SoundClip( simpleDropSound, { initialOutputLevel: SOUND_LEVEL } );
+      const bookDropSoundClip = new SoundClip( simpleDrop_mp3, { initialOutputLevel: SOUND_LEVEL } );
       soundManager.addSoundGenerator( bookDropSoundClip );
 
       // pdom - add a keyboard drag handler

@@ -19,8 +19,8 @@ import SoundLevelEnum from '../../../../tambo/js/SoundLevelEnum.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
 import ResponsePacket from '../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
-import moleculeBreakOffSound from '../../../sounds/break-off-autosinfonie-spatialized_mp3.js';
-import bookContactSound from '../../../sounds/contact-lower_mp3.js';
+import breakOffAutosinfonieSpatialized_mp3 from '../../../sounds/breakOffAutosinfonieSpatialized_mp3.js';
+import contactLower_mp3 from '../../../sounds/contactLower_mp3.js';
 import friction from '../../friction.js';
 import frictionStrings from '../../frictionStrings.js';
 import FrictionConstants from '../FrictionConstants.js';
@@ -157,11 +157,11 @@ class FrictionScreenView extends ScreenView {
     this.addChild( chemistryBookNode );
 
     // create and hook up the sound that will be produced when the books come into contact with one another
-    const bookContactSoundClip = new SoundClip( bookContactSound, { initialOutputLevel: 0.06 } );
-    soundManager.addSoundGenerator( bookContactSoundClip );
+    const contactLower_mp3SoundClip = new SoundClip( contactLower_mp3, { initialOutputLevel: 0.06 } );
+    soundManager.addSoundGenerator( contactLower_mp3SoundClip );
     model.contactProperty.link( contact => {
       if ( contact ) {
-        bookContactSoundClip.play();
+        contactLower_mp3SoundClip.play();
       }
     } );
 
@@ -231,21 +231,21 @@ class FrictionScreenView extends ScreenView {
     } ) );
 
     // create and hook up the sound that is played when molecules break off from the top book
-    const moleculeBreakOffSoundClip = new SoundClip( moleculeBreakOffSound, {
+    const breakOffAutosinfonieSpatialized_mp3SoundClip = new SoundClip( breakOffAutosinfonieSpatialized_mp3, {
       initialOutputLevel: 0.05,
       rateChangesAffectPlayingSounds: false
     } );
-    soundManager.addSoundGenerator( moleculeBreakOffSoundClip );
+    soundManager.addSoundGenerator( breakOffAutosinfonieSpatialized_mp3SoundClip );
     model.shearedOffEmitter.addListener( () => {
 
       // don't play for every sheared off atom or it's too noisy
       if ( model.numberOfAtomsShearedOffProperty.value % 4 === 0 ) {
 
         // set a random playback rate
-        moleculeBreakOffSoundClip.setPlaybackRate( FrictionConstants.GET_RANDOM_PENTATONIC_PLAYBACK_RATE(), 0 );
+        breakOffAutosinfonieSpatialized_mp3SoundClip.setPlaybackRate( FrictionConstants.GET_RANDOM_PENTATONIC_PLAYBACK_RATE(), 0 );
 
         // play the sound
-        moleculeBreakOffSoundClip.play();
+        breakOffAutosinfonieSpatialized_mp3SoundClip.play();
       }
     } );
 

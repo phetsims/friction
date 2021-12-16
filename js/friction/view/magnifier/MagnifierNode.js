@@ -17,8 +17,8 @@ import { Circle, FocusHighlightPath, HBox, Node, Path, Rectangle, Voicing } from
 import SoundClip from '../../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
-import harpDropSound from '../../../../sounds/harp-drop_mp3.js';
-import harpPickupSound from '../../../../sounds/harp-pickup_mp3.js';
+import harpDrop_mp3 from '../../../../sounds/harpDrop_mp3.js';
+import harpPickup_mp3 from '../../../../sounds/harpPickup_mp3.js';
 import friction from '../../../friction.js';
 import frictionStrings from '../../../frictionStrings.js';
 import FrictionConstants from '../../FrictionConstants.js';
@@ -96,9 +96,9 @@ class MagnifierNode extends Node {
     } );
 
     // create and register the sound generators that will be used when the top book is picked up and dropped
-    const bookPickupSoundClip = new SoundClip( harpPickupSound, { initialOutputLevel: SOUND_LEVEL } );
+    const bookPickupSoundClip = new SoundClip( harpPickup_mp3, { initialOutputLevel: SOUND_LEVEL } );
     soundManager.addSoundGenerator( bookPickupSoundClip );
-    const bookDropSoundClip = new SoundClip( harpDropSound, { initialOutputLevel: SOUND_LEVEL } );
+    const bookDropSoundClip = new SoundClip( harpDrop_mp3, { initialOutputLevel: SOUND_LEVEL } );
     soundManager.addSoundGenerator( bookDropSoundClip );
 
     // @private - add bottom book
