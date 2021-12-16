@@ -6,6 +6,7 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import { KeyboardDragListener } from '../../../../scenery/js/imports.js';
 import friction from '../../friction.js';
 import FrictionModel from '../model/FrictionModel.js';
@@ -32,7 +33,7 @@ class FrictionKeyboardDragListener extends KeyboardDragListener {
         bookMovementAlerter.endDrag( event.domEvent );
 
       },
-      dragBounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS
+      dragBoundsProperty: new Property( FrictionModel.MAGNIFIED_DRAG_BOUNDS )
     } );
   }
 }
