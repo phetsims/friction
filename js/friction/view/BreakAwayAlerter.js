@@ -9,7 +9,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import stepTimer from '../../../../axon/js/stepTimer.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Alerter from '../../../../scenery-phet/js/accessibility/describers/Alerter.js';
-import { voicingManager } from '../../../../scenery/js/imports.js';
 import { voicingUtteranceQueue } from '../../../../scenery/js/imports.js';
 import ResponsePacket from '../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
@@ -58,9 +57,7 @@ class BreakAwayAlerter extends Alerter {
     // @private
     this.utterance = new Utterance( {
       alert: new ResponsePacket(),
-      announcerOptions: {
-        priority: voicingManager.HIGH_PRIORITY
-      }
+      priority: Utterance.HIGH_PRIORITY
     } );
 
     // @private
