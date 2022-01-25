@@ -56,7 +56,7 @@ class BookMovementAlerter extends MovementAlerter {
           alert: atTopMoveDownResponsePacket
         } ),
 
-        bounds: FrictionModel.MAGNIFIED_DRAG_BOUNDS,
+        boundsProperty: model.topBookDragBoundsProperty,
 
         repeatBorderAlerts: true
       },

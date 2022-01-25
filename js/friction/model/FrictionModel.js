@@ -10,6 +10,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -203,7 +204,7 @@ class FrictionModel extends PhetioObject {
       phetioReadOnly: true
     } );
 
-    // @public (read-only) - position of top book, can by dragged the user
+    // @public - position of top book, can by dragged the user
     this.topBookPositionProperty = new Vector2Property( new Vector2( 0, 0 ), {
       phetioDocumentation: 'The position of the top book. Model and view coordinates are the same in this simulation.',
       tandem: tandem.createTandem( 'topBookPositionProperty' ),
@@ -213,18 +214,21 @@ class FrictionModel extends PhetioObject {
     // @public {NumberProperty} - distance between books
     this.distanceBetweenBooksProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.distance, {
       tandem: tandem.createTandem( 'distanceBetweenBooksProperty' ),
+      phetioReadOnly: true,
       phetioHighFrequency: true
     } );
 
-    // @public {NumberProperty} - additional offset, results from drag
-    this.bottomOffsetProperty = new NumberProperty( 0, {
-      phetioDocumentation: 'This is to keep track of the offset when the books are contacted. The offset is the value ' +
-                           'that the drag has gone "beyond" (in the downward direction) the bottom book, even though the ' +
-                           'top book has not moved any further down. This Property is an implementation detail to support' +
-                           'the top book not "snapping" down to contact to the bottom book upon a full row shearing off. ' +
-                           'In view coordinates (same as model). Will be zero when no drag is occurring',
-      tandem: tandem.createTandem( 'bottomOffsetProperty' ),
-      phetioReadOnly: true
+    // @public (read-only) - The draggable bounds of the top book. This Bounds2 instance is never changed, but only mutated.
+    // Each mutation triggers listener notification (without an "oldValue" param).
+    this.topBookDragBoundsProperty = new Property( new Bounds2(
+      -MAX_X_DISPLACEMENT, // left bound
+      MIN_Y_POSITION, // top bound
+      MAX_X_DISPLACEMENT, // right bound
+      this.distanceBetweenBooksProperty.value ), {
+      phetioType: Property.PropertyIO( Bounds2.Bounds2IO ),
+      tandem: tandem.createTandem( 'topBookDragBoundsProperty' ),
+      phetioReadOnly: true,
+      phetioDocumentation: 'The draggale bounds of the top book. This changes as rows of atoms shear off.'
     } );
 
     // @public (read-only) {NumberProperty} - number of rows of atoms available to shear off, goes down as book wears away
@@ -245,7 +249,7 @@ class FrictionModel extends PhetioObject {
     // @public {BooleanProperty} - Show hint icon. Only set by model and on a11y grab interaction.
     this.hintProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'hintProperty' ),
-      phetioReadOnly: true,
+      phetioReadOnly: true, // TODO: why is this so? Why go to the view for this?
       phetioDocumentation: 'whether or not the sim is conveying the hint arrows. This is not editable, but can be ' +
                            'overridden by toggling the "hintArrowsNode.visibleProperty" in the view.'
     } );
@@ -316,6 +320,8 @@ class FrictionModel extends PhetioObject {
 
       // don't do further calculations if setting state
       if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+        this.hintProperty.set( false );
+
         oldPosition = oldPosition || Vector2.ZERO;
         this.distanceBetweenBooksProperty.set( this.distanceBetweenBooksProperty.get() - ( newPosition.minus( oldPosition ) ).y );
         if ( this.contactProperty.get() ) {
@@ -379,39 +385,14 @@ class FrictionModel extends PhetioObject {
     this.vibrationAmplitudeProperty.reset();
     this.topBookPositionProperty.reset();
     this.distanceBetweenBooksProperty.reset();
-    this.bottomOffsetProperty.reset();
+    this.topBookDragBoundsProperty.value.setMaxY( this.distanceBetweenBooksProperty.value );
+    this.topBookDragBoundsProperty.notifyListenersStatic(); // Just to be safe
     this.atomRowsToShearOffProperty.reset();
     this.hintProperty.reset();
     this.numberOfAtomsShearedOffProperty.reset();
     this.atoms.forEach( atom => {
       atom.reset();
     } );
-  }
-
-  /**
-   * Move the book, checking to make sure the new position is valid. If the book is going to move out of bounds,
-   * prevent movement.
-   * @param {Vector2} delta
-   * @public
-   */
-  move( delta ) {
-    assert && assert( delta instanceof Vector2, 'delta should be a Vector2' );
-    this.hintProperty.set( false );
-
-    // check bottom offset
-    if ( this.bottomOffsetProperty.get() > 0 && delta.y < 0 ) {
-      this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + delta.y );
-      delta.y = 0;
-    }
-
-    // Check if the motion vector would put the book in an invalid position and limit it if so.
-    if ( delta.y > this.distanceBetweenBooksProperty.get() ) {
-      this.bottomOffsetProperty.set( this.bottomOffsetProperty.get() + delta.y - this.distanceBetweenBooksProperty.get() );
-      delta.y = this.distanceBetweenBooksProperty.get();
-    }
-
-    // set the new position
-    this.topBookPositionProperty.set( this.topBookPositionProperty.get().plus( delta ) );
   }
 
   /**
@@ -457,6 +438,8 @@ class FrictionModel extends PhetioObject {
         // the current row is totally sheared off, so the distance between the books just increased "one row" worth.
         this.distanceBetweenBooksProperty.set( this.distanceBetweenBooksProperty.get() + MAGNIFIED_ATOMS_INFO.distanceY );
 
+        this.topBookDragBoundsProperty.value.setMaxY( this.topBookDragBoundsProperty.value.bottom + MAGNIFIED_ATOMS_INFO.distanceY );
+        this.topBookDragBoundsProperty.notifyListenersStatic(); // Just to be safe
       }
     }
   }
@@ -477,13 +460,6 @@ FrictionModel.VIBRATION_AMPLITUDE_MAX = VIBRATION_AMPLITUDE_MAX;
 
 // pdom - empirically determined value of when the atoms are "pretty much cool and settled"
 FrictionModel.AMPLITUDE_SETTLED_THRESHOLD = VIBRATION_AMPLITUDE_MIN + 0.4;
-
-// The drag bounds for the magnified book view
-FrictionModel.MAGNIFIED_DRAG_BOUNDS = new Bounds2(
-  -MAX_X_DISPLACEMENT, // left bound
-  MIN_Y_POSITION, // top bound
-  MAX_X_DISPLACEMENT, // right bound
-  2000 );
 
 FrictionModel.FrictionModelIO = IOType.fromCoreType( 'FrictionModelIO', FrictionModel, {
   documentation: 'model for the simulation'

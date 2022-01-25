@@ -6,10 +6,8 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import Property from '../../../../axon/js/Property.js';
 import { KeyboardDragListener } from '../../../../scenery/js/imports.js';
 import friction from '../../friction.js';
-import FrictionModel from '../model/FrictionModel.js';
 
 class FrictionKeyboardDragListener extends KeyboardDragListener {
   /**
@@ -21,19 +19,18 @@ class FrictionKeyboardDragListener extends KeyboardDragListener {
   constructor( model, temperatureIncreasingAlerter, temperatureDecreasingAlerter, bookMovementAlerter ) {
 
     super( {
+      positionProperty: model.topBookPositionProperty,
       start: () => {
         temperatureIncreasingAlerter.startDrag();
         temperatureDecreasingAlerter.startDrag();
       },
-      drag: vectorDelta => model.move( vectorDelta ),
       end: event => {
-        model.bottomOffsetProperty.set( 0 );
 
         temperatureIncreasingAlerter.endDrag();
         bookMovementAlerter.endDrag( event.domEvent );
 
       },
-      dragBoundsProperty: new Property( FrictionModel.MAGNIFIED_DRAG_BOUNDS )
+      dragBoundsProperty: model.topBookDragBoundsProperty
     } );
   }
 }
