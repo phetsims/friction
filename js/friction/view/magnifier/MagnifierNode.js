@@ -182,6 +182,10 @@ class MagnifierNode extends Node {
         } )
       } ) );
 
+    dragArea.inputEnabledProperty.link( inputEnabled => {
+      model.hintProperty.value = inputEnabled;
+    } );
+
     this.topBookBackground.addChild( dragArea );
 
     // add arrows before the drag area, then the grab cue hides the arrows
