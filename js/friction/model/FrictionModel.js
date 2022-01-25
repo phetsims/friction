@@ -251,7 +251,7 @@ class FrictionModel extends PhetioObject {
     // @public {BooleanProperty} - Show hint icon. Only set by model and on a11y grab interaction.
     this.hintProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'hintProperty' ),
-      phetioReadOnly: true, // TODO: why is this so? Why go to the view for this?
+      phetioReadOnly: true,
       phetioDocumentation: 'whether or not the sim is conveying the hint arrows. This is not editable, but can be ' +
                            'overridden by toggling the "hintArrowsNode.visibleProperty" in the view.'
     } );

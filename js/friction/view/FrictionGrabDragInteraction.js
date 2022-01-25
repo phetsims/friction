@@ -57,7 +57,6 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
         // No name response from PDOM, that comes from focus
         wrappedNode.voicingSpeakResponse( {
           objectResponse: grabbedDescriber.getVoicingGrabbedObjectResponse()
-          // TODO: when there is no "Lightly on Physics book", the punctuation is wrong, will we need a different ResponsePatternCollection?
         } );
       }
 
