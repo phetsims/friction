@@ -206,7 +206,7 @@ class FrictionModel extends PhetioObject {
 
     // @public - position of top book, can by dragged the user
     this.topBookPositionProperty = new Vector2Property( new Vector2( 0, 0 ), {
-      phetioDocumentation: 'The position of the top book. Model and view coordinates are the same in this simulation.',
+      phetioDocumentation: 'The position of the top book. In view coordinates (model and view coordinates are the same in this simulation).',
       tandem: tandem.createTandem( 'topBookPositionProperty' ),
       phetioHighFrequency: true
     } );
@@ -215,7 +215,8 @@ class FrictionModel extends PhetioObject {
     this.distanceBetweenBooksProperty = new NumberProperty( MAGNIFIED_ATOMS_INFO.distance, {
       tandem: tandem.createTandem( 'distanceBetweenBooksProperty' ),
       phetioReadOnly: true,
-      phetioHighFrequency: true
+      phetioHighFrequency: true,
+      phetioDocumentation: 'The distance between the edges of the two books. In view coordinates.'
     } );
 
     // @public (read-only) - The draggable bounds of the top book. This Bounds2 instance is never changed, but only mutated.
@@ -228,13 +229,14 @@ class FrictionModel extends PhetioObject {
       phetioType: Property.PropertyIO( Bounds2.Bounds2IO ),
       tandem: tandem.createTandem( 'topBookDragBoundsProperty' ),
       phetioReadOnly: true,
-      phetioDocumentation: 'The draggale bounds of the top book. This changes as rows of atoms shear off.'
+      phetioDocumentation: 'The draggable bounds of the top book. This changes as rows of atoms shear off.'
     } );
 
-    // @public (read-only) {NumberProperty} - number of rows of atoms available to shear off, goes down as book wears away
+    // @public (read-only) {NumberProperty} -
     this.atomRowsToShearOffProperty = new NumberProperty( TOP_BOOK_ATOM_STRUCTURE.length - 1, {
       tandem: tandem.createTandem( 'atomRowsToShearOffProperty' ),
-      phetioReadOnly: true
+      phetioReadOnly: true,
+      phetioDocumentation: 'The number of rows of atoms available to shear off, goes down as atom rows shear off'
     } );
 
     // @private - are books in contact?
