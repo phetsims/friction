@@ -63,7 +63,6 @@ class BookNode extends Voicing( Node ) {
     assert && assert( typeof options.x === 'number', 'options.x must be specified' );
     assert && assert( typeof options.y === 'number', 'options.y must be specified' );
 
-    // TODO: this will pass options to be mutated up to super before Voicing has set its own defaults, https://github.com/phetsims/scenery/issues/1340
     super();
 
     // add cover, pass the whole tandem to hide the "cover" implementation detail
