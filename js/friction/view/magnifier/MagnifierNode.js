@@ -40,7 +40,7 @@ const ARROW_TOP = 22;
 
 const zoomedInChemistryBookString = frictionStrings.a11y.zoomedInChemistryBook;
 
-class MagnifierNode extends Node {
+class MagnifierNode extends Voicing( Node ) {
 
   /**
    * @param {FrictionModel} model
@@ -69,7 +69,7 @@ class MagnifierNode extends Node {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super( options );
+    super();
 
     // add container for clipping
     this.container = new Node();
@@ -356,6 +356,8 @@ class MagnifierNode extends Node {
     this.resetMagnifierNode = () => {
       grabDragInteraction.reset();
     };
+
+    this.mutate( options );
   }
 
   /**
@@ -388,15 +390,14 @@ function addRowCircles( circleRadius, xSpacing, parentNode, options ) {
   }
 }
 
-class VoicingRectangle extends Rectangle {
+class VoicingRectangle extends Voicing( Rectangle ) {
   constructor( x, y, width, height, options ) {
     super( x, y, width, height );
-    this.initializeVoicing();
+
+    // Must be mutated after call
     this.mutate( options );
   }
 }
-
-Voicing.compose( VoicingRectangle );
 
 /**
  *

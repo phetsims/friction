@@ -32,7 +32,7 @@ const grabButtonHelpTextString = frictionStrings.a11y.grabButtonHelpText;
 
 const SOUND_LEVEL = 0.1;
 
-class BookNode extends Node {
+class BookNode extends Voicing( Node ) {
   /**
    * @param {FrictionModel} model
    * @param {string} title - title that appears on the book spine
@@ -50,6 +50,7 @@ class BookNode extends Node {
       // whether or not we can drag the book
       drag: false,
       color: FrictionConstants.BOTTOM_BOOK_COLOR_MACRO,
+      cursor: 'pointer',
 
       // voicing
       voicingNameResponse: chemistryBookString,
@@ -62,9 +63,8 @@ class BookNode extends Node {
     assert && assert( typeof options.x === 'number', 'options.x must be specified' );
     assert && assert( typeof options.y === 'number', 'options.y must be specified' );
 
+    // TODO: this will pass options to be mutated up to super before Voicing has set its own defaults, https://github.com/phetsims/scenery/issues/1340
     super();
-    this.initializeVoicing();
-    this.mutate( options );
 
     // add cover, pass the whole tandem to hide the "cover" implementation detail
     this.addChild( new CoverNode( title, options.tandem, _.omit( options, [ 'tandem' ] ) ) );
@@ -161,9 +161,7 @@ class BookNode extends Node {
         this.setTranslation( options.x + position.x * model.bookDraggingScaleFactor, options.y + position.y * model.bookDraggingScaleFactor );
       } );
 
-      this.mutate( {
-        cursor: 'pointer'
-      } );
+      this.mutate( options );
     }
   }
 
@@ -175,8 +173,6 @@ class BookNode extends Node {
     this.grabDragInteraction.reset();
   }
 }
-
-Voicing.compose( BookNode );
 
 friction.register( 'BookNode', BookNode );
 
