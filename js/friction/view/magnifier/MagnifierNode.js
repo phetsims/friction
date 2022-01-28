@@ -40,7 +40,7 @@ const ARROW_TOP = 22;
 
 const zoomedInChemistryBookString = frictionStrings.a11y.zoomedInChemistryBook;
 
-class MagnifierNode extends Voicing( Node ) {
+class MagnifierNode extends Voicing( Node, 0 ) {
 
   /**
    * @param {FrictionModel} model
@@ -390,12 +390,10 @@ function addRowCircles( circleRadius, xSpacing, parentNode, options ) {
   }
 }
 
-class VoicingRectangle extends Voicing( Rectangle ) {
+// TODO: Rectangle is tolerance of polymorphic constructor signatures, but Voicing is not, https://github.com/phetsims/scenery/issues/1340
+class VoicingRectangle extends Voicing( Rectangle, 4 ) {
   constructor( x, y, width, height, options ) {
-    super( x, y, width, height );
-
-    // Must be mutated after call
-    this.mutate( options );
+    super( x, y, width, height, options );
   }
 }
 
