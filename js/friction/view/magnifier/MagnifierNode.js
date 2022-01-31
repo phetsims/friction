@@ -390,7 +390,6 @@ function addRowCircles( circleRadius, xSpacing, parentNode, options ) {
   }
 }
 
-// TODO: Rectangle is tolerance of polymorphic constructor signatures, but Voicing is not, https://github.com/phetsims/scenery/issues/1340
 class VoicingRectangle extends Voicing( Rectangle, 4 ) {
   constructor( x, y, width, height, options ) {
     super( x, y, width, height, options );
