@@ -69,7 +69,7 @@ class MagnifierNode extends Voicing( Node, 0 ) {
       tandem: Tandem.REQUIRED
     }, options );
 
-    super();
+    super( options );
 
     // add container for clipping
     this.container = new Node();
@@ -356,8 +356,6 @@ class MagnifierNode extends Voicing( Node, 0 ) {
     this.resetMagnifierNode = () => {
       grabDragInteraction.reset();
     };
-
-    this.mutate( options );
   }
 
   /**
