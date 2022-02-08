@@ -63,7 +63,7 @@ class BookNode extends Voicing( Node, 0 ) {
     assert && assert( typeof options.x === 'number', 'options.x must be specified' );
     assert && assert( typeof options.y === 'number', 'options.y must be specified' );
 
-    super();
+    super( options );
 
     // add cover, pass the whole tandem to hide the "cover" implementation detail
     this.addChild( new CoverNode( title, options.tandem, _.omit( options, [ 'tandem' ] ) ) );
@@ -159,8 +159,6 @@ class BookNode extends Voicing( Node, 0 ) {
       model.topBookPositionProperty.link( position => {
         this.setTranslation( options.x + position.x * model.bookDraggingScaleFactor, options.y + position.y * model.bookDraggingScaleFactor );
       } );
-
-      this.mutate( options );
     }
   }
 
