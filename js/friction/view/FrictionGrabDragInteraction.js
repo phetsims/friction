@@ -34,7 +34,10 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
       },
 
       // appended to in this type
-      listenersForDragState: []
+      listenersForDragState: [],
+
+      // TODO: it isn't clear that we want to keep this, it is just for testing in https://github.com/phetsims/scenery-phet/issues/720
+      phetioEnabledPropertyInstrumented: true
     }, options );
 
 
