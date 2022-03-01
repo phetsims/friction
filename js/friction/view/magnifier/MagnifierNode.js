@@ -247,11 +247,13 @@ class MagnifierNode extends Voicing( Node, 0 ) {
     } );
 
     // pdom - add the keyboard drag listener to the top atoms
-    this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingAlerter,
-      temperatureDecreasingAlerter, bookMovementAlerter );
+    this.keyboardDragListener = new FrictionKeyboardDragListener( model, temperatureIncreasingAlerter,
+      temperatureDecreasingAlerter, bookMovementAlerter, {
+        tandem: options.tandem.createTandem( 'keyboardDragListener' )
+      } );
 
     // pdom
-    const grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, dragArea, grabbedDescriber, alertSettledAndCool, {
+    const grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragListener, dragArea, grabbedDescriber, alertSettledAndCool, {
       objectToGrabString: zoomedInChemistryBookString,
       tandem: options.tandem.createTandem( 'grabDragInteraction' ),
       grabCueOptions: {

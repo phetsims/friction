@@ -8,17 +8,22 @@
 
 import { KeyboardDragListener } from '../../../../scenery/js/imports.js';
 import friction from '../../friction.js';
+import merge from '../../../../phet-core/js/merge.js';
 
 class FrictionKeyboardDragListener extends KeyboardDragListener {
+
   /**
    * @param {FrictionModel} model
    * @param {TemperatureIncreasingAlerter} temperatureIncreasingAlerter
    * @param {TemperatureDecreasingAlerter} temperatureDecreasingAlerter
    * @param {BookMovementAlerter} bookMovementAlerter
+   * @param {Object} [options]
    */
-  constructor( model, temperatureIncreasingAlerter, temperatureDecreasingAlerter, bookMovementAlerter ) {
+  constructor( model, temperatureIncreasingAlerter,
+               temperatureDecreasingAlerter, bookMovementAlerter,
+               options ) {
 
-    super( {
+    options = merge( {
       positionProperty: model.topBookPositionProperty,
       start: () => {
         temperatureIncreasingAlerter.startDrag();
@@ -31,7 +36,9 @@ class FrictionKeyboardDragListener extends KeyboardDragListener {
 
       },
       dragBoundsProperty: model.topBookDragBoundsProperty
-    } );
+    }, options );
+
+    super( options );
   }
 }
 

@@ -107,8 +107,10 @@ class BookNode extends Voicing( Node, 0 ) {
       soundManager.addSoundGenerator( bookDropSoundClip );
 
       // pdom - add a keyboard drag handler
-      this.keyboardDragHandler = new FrictionKeyboardDragListener( model, temperatureIncreasingAlerter,
-        temperatureDecreasingAlerter, bookMovementAlerter );
+      this.keyboardDragListener = new FrictionKeyboardDragListener( model, temperatureIncreasingAlerter,
+        temperatureDecreasingAlerter, bookMovementAlerter, {
+          tandem: options.tandem.createTandem( 'keyboardDragListener' )
+        } );
 
       // highlights must be added prior to adding the grab/drag interaction, this is a constraint of GrabDragInteraction
       this.addChild( focusHighlightRect );
@@ -120,7 +122,7 @@ class BookNode extends Voicing( Node, 0 ) {
       this.interactiveHighlightLayerable = true;
 
       // @private - a11y
-      this.grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragHandler, this, grabbedDescriber, alertSettledAndCool, {
+      this.grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragListener, this, grabbedDescriber, alertSettledAndCool, {
         objectToGrabString: chemistryBookString,
 
         // Empirically determined values to place the cue above the book.
