@@ -18,12 +18,12 @@ const droppingAsAtomsJiggleLessString = frictionStrings.a11y.screenSummary.dropp
 const atomsJigglePatternString = frictionStrings.a11y.screenSummary.atomsJigglePattern;
 const jiggleClausePatternString = frictionStrings.a11y.screenSummary.jiggleClausePattern;
 const jiggleTemperatureScaleSentenceString = frictionStrings.a11y.screenSummary.jiggleTemperatureScaleSentence;
-const thermometerString = StringUtils.fillIn( frictionStrings.a11y.temperature.thermometer, { space: ' ' } );
 const temperaturePatternString = frictionStrings.a11y.temperature.pattern;
+const temperatureThermometerPatternString = frictionStrings.a11y.temperature.thermometerPattern;
 const grabChemistryBookPlayString = frictionStrings.a11y.screenSummary.grabChemistryBookPlay;
 const resetSimMoreObservationSentenceString = frictionStrings.a11y.resetSimMoreObservationSentence;
 const startingChemistryBookPatternString = frictionStrings.a11y.screenSummary.startingChemistryBookPattern;
-const lightlyString = StringUtils.fillIn( frictionStrings.a11y.lightly, { space: ' ' } );
+const startingChemistryBookLightlyPatternString = frictionStrings.a11y.screenSummary.startingChemistryBookLightlyPattern;
 const amountOfAtomsString = frictionStrings.a11y.amountOfAtoms.sentence;
 const fewerString = frictionStrings.a11y.amountOfAtoms.fewer;
 const farFewerString = frictionStrings.a11y.amountOfAtoms.farFewer;
@@ -56,7 +56,7 @@ class FrictionScreenSummaryNode extends Node {
     this.thermometerMaxTemp = thermometerMaxTemp;
 
     // requires an init
-    this.updateSummaryString( );
+    this.updateSummaryString();
 
     // pdom - update the screen summary when the model changes
     let previousTempString = this.amplitudeToTempString( this.vibrationAmplitudeProperty.value );
@@ -79,7 +79,7 @@ class FrictionScreenSummaryNode extends Node {
              this.amplitudeToJiggleString( amplitude ) !== previousJiggleString ) {
 
           // if jiggle or temperature changed, update the string
-          this.updateSummaryString( );
+          this.updateSummaryString();
           previousTempString = this.amplitudeToTempString( amplitude ); // compute this again for a more efficient if statement
           previousJiggleString = this.amplitudeToJiggleString( amplitude ); // compute this again for a more efficient if statement
 
@@ -88,7 +88,7 @@ class FrictionScreenSummaryNode extends Node {
     );
 
     // exists for the lifetime of the sim, no need to unlink
-    this.contactProperty.link( () => { this.updateSummaryString( );} );
+    this.contactProperty.link( () => { this.updateSummaryString();} );
 
     this.mutate( {
       children: [ this.booksParagraph, this.interactionHintParagraph ],
@@ -134,8 +134,7 @@ class FrictionScreenSummaryNode extends Node {
       } );
     }
 
-    return StringUtils.fillIn( startingChemistryBookPatternString, {
-      lightly: this.contactProperty.value ? '' : lightlyString,
+    return StringUtils.fillIn( this.contactProperty.value ? startingChemistryBookPatternString : startingChemistryBookLightlyPatternString, {
       relativeChemistryBookSentence: relativeChemistryBookSentence
     } );
   }
@@ -218,9 +217,8 @@ class FrictionScreenSummaryNode extends Node {
     }
 
     // Fill in the current temperature string
-    const tempString = StringUtils.fillIn( temperaturePatternString, {
-      temp: this.amplitudeToTempString( vibrationAmplitudeProperty.value ),
-      thermometer: inTransition ? '' : thermometerString
+    const tempString = StringUtils.fillIn( inTransition ? temperaturePatternString : temperatureThermometerPatternString, {
+      temp: this.amplitudeToTempString( vibrationAmplitudeProperty.value )
     } );
 
     // Construct the final sentence from its parts

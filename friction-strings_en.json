@@ -116,11 +116,11 @@
       "atCool": {
         "value": "cool"
       },
-      "pattern": {
-        "value": "surface temperature {{thermometer}}is {{temp}}"
+      "thermometerPattern": {
+        "value": "surface temperature is {{temp}}"
       },
-      "thermometer": {
-        "value": "thermometer{{space}}"
+      "pattern": {
+        "value": "surface temperature thermometer is {{temp}}"
       },
       "more": {
         "value": "more"
@@ -176,7 +176,10 @@
         "value": "Continue rubbing chemistry book to generate even more friction."
       },
       "startingChemistryBookPattern": {
-        "value": "{{relativeChemistryBookSentence}}Chemistry book rests {{lightly}}on top of a Physics book, and is ready to be rubbed against it."
+        "value": "{{relativeChemistryBookSentence}}Chemistry book rests on top of a Physics book, and is ready to be rubbed against it."
+      },
+      "startingChemistryBookLightlyPattern": {
+        "value": "{{relativeChemistryBookSentence}}Chemistry book rests lightly on top of a Physics book, and is ready to be rubbed against it."
       }
     },
     "moveDownToRubHarderSentence": {
@@ -184,9 +187,6 @@
     },
     "resetSimMoreObservationSentence": {
       "value": "Reset sim to make more observations."
-    },
-    "lightly": {
-      "value": "lightly{{space}}"
     },
     "atomsJiggleTinyBitTempCool": {
       "value": "Atoms jiggle a tiny bit, temperature cool."

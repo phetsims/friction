@@ -53,8 +53,8 @@ type StringsType = {
       'hot': string,
       'atWarm': string,
       'atCool': string,
+      'thermometerPattern': string,
       'pattern': string,
-      'thermometer': string,
       'more': string,
       'faster': string,
       'evenFaster': string,
@@ -74,11 +74,11 @@ type StringsType = {
       'jiggleTemperatureScaleSentence': string,
       'grabChemistryBookPlay': string,
       'continueRubbing': string,
-      'startingChemistryBookPattern': string
+      'startingChemistryBookPattern': string,
+      'startingChemistryBookLightlyPattern': string
     },
     'moveDownToRubHarderSentence': string,
     'resetSimMoreObservationSentence': string,
-    'lightly': string,
     'atomsJiggleTinyBitTempCool': string,
     'frictionIncreasingAtomsJigglingTemperaturePattern': string,
     'frictionIncreasingAtomsJigglingTemperatureFirstPattern': string,
