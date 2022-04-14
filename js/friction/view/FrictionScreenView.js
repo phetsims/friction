@@ -12,8 +12,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import ThermometerNode from '../../../../scenery-phet/js/ThermometerNode.js';
-import { voicingUtteranceQueue } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { Node, Voicing } from '../../../../scenery/js/imports.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import SoundLevelEnum from '../../../../tambo/js/SoundLevelEnum.js';
 import soundManager from '../../../../tambo/js/soundManager.js';
@@ -98,7 +97,7 @@ class FrictionScreenView extends ScreenView {
 
       this.alertDescriptionUtterance( atomsJiggleTinyBitUtterance );
 
-      voicingUtteranceQueue.addToBack( atomsJiggleTinyBitUtterance );
+      Voicing.alertUtterance( atomsJiggleTinyBitUtterance );
     };
 
     let amplitudeIncreasedEnoughForSettledAndCoolAlert = false;
@@ -259,6 +258,17 @@ class FrictionScreenView extends ScreenView {
 
     // add a node that creates a "play area" accessible section in the PDOM
     this.pdomControlAreaNode.pdomOrder = [ resetAllButton ];
+
+    // voicing - Make is so that the Utterances of each Alerter cannot be announced unless the chemistryBookNode
+    // is globally visible and voicingVisible in the display
+    Voicing.registerUtteranceToVoicingNode( temperatureIncreasingAlerter.maxTempUtterance, chemistryBookNode );
+    Voicing.registerUtteranceToVoicingNode( temperatureIncreasingAlerter.temperatureJiggleUtterance, chemistryBookNode );
+    Voicing.registerUtteranceToVoicingNode( temperatureDecreasingAlerter.utterance, chemistryBookNode );
+    Voicing.registerUtteranceToVoicingNode( breakAwayAlerter.utterance, chemistryBookNode );
+    Voicing.registerUtteranceToVoicingNode( bookMovementAlerter.bottomDescriptionUtterance, chemistryBookNode );
+    Voicing.registerUtteranceToVoicingNode( bookMovementAlerter.bottomVoicingUtterance, chemistryBookNode );
+    Voicing.registerUtteranceToVoicingNode( bookMovementAlerter.moveDownToRubHarderUtterance, chemistryBookNode );
+    Voicing.registerUtteranceToVoicingNode( atomsJiggleTinyBitUtterance, chemistryBookNode );
 
     // @private
     this.resetFrictionScreenView = () => {

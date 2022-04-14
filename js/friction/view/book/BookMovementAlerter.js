@@ -10,7 +10,7 @@ import merge from '../../../../../phet-core/js/merge.js';
 import BorderAlertsDescriber from '../../../../../scenery-phet/js/accessibility/describers/BorderAlertsDescriber.js';
 import DirectionEnum from '../../../../../scenery-phet/js/accessibility/describers/DirectionEnum.js';
 import MovementAlerter from '../../../../../scenery-phet/js/accessibility/describers/MovementAlerter.js';
-import { voicingUtteranceQueue } from '../../../../../scenery/js/imports.js';
+import { Voicing } from '../../../../../scenery/js/imports.js';
 import ResponsePacket from '../../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../../utterance-queue/js/Utterance.js';
 import friction from '../../../friction.js';
@@ -108,7 +108,7 @@ class BookMovementAlerter extends MovementAlerter {
       // Once touching, speak the alert
       if ( !wasTouching && isTouching && model.numberOfAtomsShearedOffProperty.value === 0 ) {
         this.alert( this.bottomDescriptionUtterance );
-        voicingUtteranceQueue.addToBack( this.bottomVoicingUtterance );
+        Voicing.alertUtterance( this.bottomVoicingUtterance );
       }
     } );
   }
@@ -153,7 +153,7 @@ class BookMovementAlerter extends MovementAlerter {
           this.alert( this.moveDownToRubHarderUtterance );
 
           // Support voicing for this hint
-          voicingUtteranceQueue.addToBack( this.moveDownToRubHarderUtterance );
+          Voicing.alertUtterance( this.moveDownToRubHarderUtterance );
 
           // This means that we will get left/right alerts again after a "move down" cue
           this.separatedAlertPair.reset();
