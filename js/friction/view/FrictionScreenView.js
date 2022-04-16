@@ -261,14 +261,14 @@ class FrictionScreenView extends ScreenView {
 
     // voicing - Make is so that the Utterances of each Alerter cannot be announced unless the chemistryBookNode
     // is globally visible and voicingVisible in the display
-    Voicing.registerUtteranceToVoicingNode( temperatureIncreasingAlerter.maxTempUtterance, chemistryBookNode );
-    Voicing.registerUtteranceToVoicingNode( temperatureIncreasingAlerter.temperatureJiggleUtterance, chemistryBookNode );
-    Voicing.registerUtteranceToVoicingNode( temperatureDecreasingAlerter.utterance, chemistryBookNode );
-    Voicing.registerUtteranceToVoicingNode( breakAwayAlerter.utterance, chemistryBookNode );
-    Voicing.registerUtteranceToVoicingNode( bookMovementAlerter.bottomDescriptionUtterance, chemistryBookNode );
-    Voicing.registerUtteranceToVoicingNode( bookMovementAlerter.bottomVoicingUtterance, chemistryBookNode );
-    Voicing.registerUtteranceToVoicingNode( bookMovementAlerter.moveDownToRubHarderUtterance, chemistryBookNode );
-    Voicing.registerUtteranceToVoicingNode( atomsJiggleTinyBitUtterance, chemistryBookNode );
+    Voicing.registerUtteranceToNode( temperatureIncreasingAlerter.maxTempUtterance, this );
+    Voicing.registerUtteranceToNode( temperatureIncreasingAlerter.temperatureJiggleUtterance, this );
+    Voicing.registerUtteranceToNode( temperatureDecreasingAlerter.utterance, this );
+    Voicing.registerUtteranceToNode( breakAwayAlerter.utterance, this );
+    Voicing.registerUtteranceToNode( bookMovementAlerter.bottomDescriptionUtterance, this );
+    Voicing.registerUtteranceToNode( bookMovementAlerter.bottomVoicingUtterance, this );
+    Voicing.registerUtteranceToNode( bookMovementAlerter.moveDownToRubHarderUtterance, this );
+    Voicing.registerUtteranceToNode( atomsJiggleTinyBitUtterance, this );
 
     // @private
     this.resetFrictionScreenView = () => {
