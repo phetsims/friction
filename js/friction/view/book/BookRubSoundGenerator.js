@@ -8,7 +8,7 @@
 
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
 import NumberProperty from '../../../../../axon/js/NumberProperty.js';
-import Property from '../../../../../axon/js/Property.js';
+import Multilink from '../../../../../axon/js/Multilink.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import NoiseGenerator from '../../../../../tambo/js/sound-generators/NoiseGenerator.js';
 import friction from '../../../friction.js';
@@ -75,7 +75,7 @@ class BookRubSoundGenerator extends NoiseGenerator {
     } );
 
     // set the output level based on the state of several properties
-    Property.multilink(
+    Multilink.multilink(
       [ this.topBookXVelocityProperty, contactProperty, this.rubSoundLockedOutProperty ],
       ( topBookXVelocity, contact, rubSoundLockedOut ) => {
         if ( contact && Math.abs( topBookXVelocity ) > 0 && !rubSoundLockedOut ) {
