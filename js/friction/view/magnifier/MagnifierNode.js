@@ -66,7 +66,8 @@ class MagnifierNode extends Voicing( Node, 0 ) {
                options ) {
 
     options = merge( {
-      tandem: Tandem.REQUIRED
+      tandem: Tandem.REQUIRED,
+      interactiveHighlight: 'invisible'
     }, options );
 
     super( options );

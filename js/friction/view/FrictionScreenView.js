@@ -137,6 +137,7 @@ class FrictionScreenView extends ScreenView {
       bookMovementAlerter, grabbedDescriber, alertSettledAndCool, {
         x: 50,
         y: 225,
+        interactiveHighlight: 'invisible',
         tandem: tandem.createTandem( 'bottomBookNode' )
       } ) );
 
