@@ -173,7 +173,7 @@
         "value": "Grab Chemistry book to play."
       },
       "continueRubbing": {
-        "value": "Continue rubbing chemistry book to generate even more friction."
+        "value": "Grab Chemistry book to rub fast or slow."
       },
       "startingChemistryBookPattern": {
         "value": "{{relativeChemistryBookSentence}}Chemistry book rests on top of a Physics book, and is ready to be rubbed against it."
