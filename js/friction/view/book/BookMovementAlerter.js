@@ -146,8 +146,7 @@ class BookMovementAlerter extends MovementAlerter {
           this.separatedAlertPair.updateFromDirection( direction );
         }
 
-        else if ( this.model.numberOfAtomsShearedOffProperty.value < FrictionModel.NUMBER_OF_SHEARABLE_ATOMS / 4 ) {
-          // 1/4 of atoms still covers the first two sparse rows that get sheared off.
+        else if ( this.model.numberOfAtomsShearedOffProperty.value < FrictionModel.NUMBER_OF_SHEARABLE_ATOMS / 2 ) {
           // If they "bothAlerted" meaning that the user went left and right without contacting the bottom boot, then
           // cue a movement and reset the alertPair. Only until enough atoms shear off that the user is "trained."
 
