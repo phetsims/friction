@@ -184,29 +184,25 @@ class FrictionScreenView extends ScreenView {
     this.addChild( this.magnifierNode );
 
     // add thermometer
-    this.addChild( new ThermometerNode(
-      THERMOMETER_MIN_TEMP,
-      THERMOMETER_MAX_TEMP,
-      model.vibrationAmplitudeProperty, {
-        x: 690,
-        y: 250,
-        tubeHeight: 160,
-        tickSpacing: 9,
-        lineWidth: 1,
-        tubeWidth: 12,
-        bulbDiameter: 24,
-        glassThickness: 3,
-        majorTickLength: 4,
-        minorTickLength: 4,
-        fluidMainColor: THERMOMETER_FLUID_MAIN_COLOR,
-        fluidHighlightColor: THERMOMETER_FLUID_HIGHLIGHT_COLOR,
-        fluidRightSideColor: THERMOMETER_FLUID_RIGHT_SIDE_COLOR,
-        backgroundFill: THERMOMETER_BACKGROUND_FILL_COLOR,
+    this.addChild( new ThermometerNode( model.vibrationAmplitudeProperty, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP, {
+      x: 690,
+      y: 250,
+      tubeHeight: 160,
+      tickSpacing: 9,
+      lineWidth: 1,
+      tubeWidth: 12,
+      bulbDiameter: 24,
+      glassThickness: 3,
+      majorTickLength: 4,
+      minorTickLength: 4,
+      fluidMainColor: THERMOMETER_FLUID_MAIN_COLOR,
+      fluidHighlightColor: THERMOMETER_FLUID_HIGHLIGHT_COLOR,
+      fluidRightSideColor: THERMOMETER_FLUID_RIGHT_SIDE_COLOR,
+      backgroundFill: THERMOMETER_BACKGROUND_FILL_COLOR,
 
-        // phet-io
-        tandem: tandem.createTandem( 'thermometerNode' )
-      }
-    ) );
+      // phet-io
+      tandem: tandem.createTandem( 'thermometerNode' )
+    } ) );
 
     // pdom
     this.pdomPlayAreaNode.pdomOrder = [ chemistryBookNode, this.magnifierNode ];
