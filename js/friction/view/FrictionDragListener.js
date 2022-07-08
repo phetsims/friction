@@ -41,6 +41,10 @@ class FrictionDragListener extends DragListener {
       positionProperty: model.topBookPositionProperty,
       dragBoundsProperty: model.topBookDragBoundsProperty,
       targetNode: options.targetNode,
+
+      // This allows the bounds and transform to be in the correct coordinate frame even though we provide a targetNode
+      useParentOffset: true,
+
       start: () => {
 
         lastCaptureDragStartTime = phet.joist.elapsedTime;

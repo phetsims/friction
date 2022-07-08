@@ -8,9 +8,10 @@
  * @author Sam Reid (PhET Interactive Simulations)
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
-
+import Vector2 from '../../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../../kite/js/imports.js';
 import merge from '../../../../../phet-core/js/merge.js';
+import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { FocusHighlightPath, Node, Voicing } from '../../../../../scenery/js/imports.js';
 import SoundClip from '../../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../../tambo/js/soundManager.js';
@@ -145,7 +146,6 @@ class BookNode extends Voicing( Node, 0 ) {
         tandem: options.tandem.createTandem( 'grabDragInteraction' )
       } );
 
-
       this.addInputListener( new FrictionDragListener( model, temperatureIncreasingAlerter, temperatureDecreasingAlerter,
         bookMovementAlerter, {
           tandem: options.tandem.createTandem( 'dragListener' ),
@@ -157,9 +157,14 @@ class BookNode extends Voicing( Node, 0 ) {
           } )
         } ) );
 
+      // This transform uses the assumption that model coords and the magnified view are in the same coordinate frame,
+      // and that it's origin is zero, and that the BookNode is positioned with x/y options.
+      const transform = ModelViewTransform2.createSinglePointScaleMapping( Vector2.ZERO, new Vector2( options.x, options.y ),
+        model.bookDraggingScaleFactor );
+
       // add observer
       model.topBookPositionProperty.link( position => {
-        this.setTranslation( options.x + position.x * model.bookDraggingScaleFactor, options.y + position.y * model.bookDraggingScaleFactor );
+        this.setTranslation( transform.transformPosition2( position ) );
       } );
     }
   }
