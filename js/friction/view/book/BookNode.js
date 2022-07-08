@@ -166,6 +166,10 @@ class BookNode extends Voicing( Node, 0 ) {
       model.topBookPositionProperty.link( position => {
         this.setTranslation( transform.transformPosition2( position ) );
       } );
+
+      this.inputEnabledProperty.link( inputEnabled => {
+        this.grabDragInteraction.enabled = inputEnabled;
+      } );
     }
   }
 

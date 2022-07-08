@@ -183,10 +183,6 @@ class MagnifierNode extends Voicing( Node, 0 ) {
         } )
       } ) );
 
-    dragArea.inputEnabledProperty.link( inputEnabled => {
-      model.hintProperty.value = inputEnabled;
-    } );
-
     this.topBookBackground.addChild( dragArea );
 
     // add arrows before the drag area, then the grab cue hides the arrows
@@ -283,6 +279,11 @@ class MagnifierNode extends Voicing( Node, 0 ) {
     } );
 
     this.container.addChild( this.topBookBackground );
+
+    dragArea.inputEnabledProperty.link( inputEnabled => {
+      model.hintProperty.value = inputEnabled;
+      grabDragInteraction.enabled = inputEnabled;
+    } );
 
     // Add the red border around the magnified area, and add a white shape below it to block out the clipped area.
     const topPadding = 500;
