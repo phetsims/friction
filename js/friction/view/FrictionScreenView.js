@@ -250,7 +250,7 @@ class FrictionScreenView extends ScreenView {
       maxOutputLevel: 0.75
     } );
     soundManager.addSoundGenerator( this.coolingSoundGenerator, {
-      sonificationLevel: SoundLevelEnum.ENHANCED
+      sonificationLevel: SoundLevelEnum.EXTRA
     } );
 
     // add a node that creates a "play area" accessible section in the PDOM
