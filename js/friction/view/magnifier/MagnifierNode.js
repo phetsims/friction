@@ -386,7 +386,8 @@ function addRowCircles( circleRadius, xSpacing, parentNode, options ) {
     parentNode.addChild( new Circle( circleRadius, {
       fill: options.color,
       y: options.y,
-      x: options.x + xSpacing * i
+      x: options.x + xSpacing * i,
+      pickable: false // input should pass through to a background Node which may support input depending on the atom circle.
     } ) );
   }
 }
