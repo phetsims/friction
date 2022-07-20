@@ -6,9 +6,9 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
+import merge from '../../../../phet-core/js/merge.js';
 import { KeyboardDragListener } from '../../../../scenery/js/imports.js';
 import friction from '../../friction.js';
-import merge from '../../../../phet-core/js/merge.js';
 
 class FrictionKeyboardDragListener extends KeyboardDragListener {
 

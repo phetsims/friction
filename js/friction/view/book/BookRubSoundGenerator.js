@@ -7,8 +7,8 @@
  */
 
 import BooleanProperty from '../../../../../axon/js/BooleanProperty.js';
-import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import Multilink from '../../../../../axon/js/Multilink.js';
+import NumberProperty from '../../../../../axon/js/NumberProperty.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import NoiseGenerator from '../../../../../tambo/js/sound-generators/NoiseGenerator.js';
 import friction from '../../../friction.js';
