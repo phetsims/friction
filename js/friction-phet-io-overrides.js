@@ -25,9 +25,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "friction.frictionScreen.model.vibrationAmplitudeProperty": {
       "phetioFeatured": true
     },
-    "friction.frictionScreen.view.atomicView.grabDragInteraction.enabledProperty": {
-      "phetioFeatured": false
-    },
     "friction.frictionScreen.view.atomicView.hintArrowsNode.visibleProperty": {
       "phetioFeatured": true
     },
@@ -45,9 +42,6 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     },
     "friction.frictionScreen.view.thermometerNode.visibleProperty": {
       "phetioFeatured": true
-    },
-    "friction.frictionScreen.view.topBookNode.grabDragInteraction.enabledProperty": {
-      "phetioFeatured": false
     },
     "friction.frictionScreen.view.topBookNode.titleText.textProperty": {
       "phetioFeatured": true

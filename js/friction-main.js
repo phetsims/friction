@@ -42,7 +42,8 @@ simLauncher.launch( () => {
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation to HTML5.'
     },
     preferencesConfiguration: new PreferencesConfiguration(),
-    hasKeyboardHelpContent: true
+    hasKeyboardHelpContent: true,
+    phetioDesigned: true
   };
 
   // Create and start the sim
