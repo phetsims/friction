@@ -29,10 +29,10 @@ class FrictionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
     // make all the KeyboardHelpSection consistent in layout
     const maxWidth = 175;
     const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection( bookTitleString, bookLabelString, {
-      labelMaxWidth: maxWidth
+      textMaxWidth: maxWidth
     } );
     const moveBookHelpSection = new MoveBookHelpSection( {
-      labelMaxWidth: maxWidth
+      textMaxWidth: maxWidth
     } );
     const basicActionsHelpSection = new BasicActionsKeyboardHelpSection();
 
