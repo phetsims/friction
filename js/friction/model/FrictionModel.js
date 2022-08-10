@@ -226,7 +226,7 @@ class FrictionModel extends PhetioObject {
       MIN_Y_POSITION, // top bound
       MAX_X_DISPLACEMENT, // right bound
       this.distanceBetweenBooksProperty.value ), {
-      phetioType: Property.PropertyIO( Bounds2.Bounds2IO ),
+      phetioValueType: Bounds2.Bounds2IO,
       tandem: tandem.createTandem( 'topBookDragBoundsProperty' ),
       phetioReadOnly: true,
       phetioDocumentation: 'The draggable bounds of the top book. This changes as rows of atoms shear off.'
@@ -244,7 +244,7 @@ class FrictionModel extends PhetioObject {
       [ this.distanceBetweenBooksProperty ],
       distance => Math.floor( distance ) <= 0, {
         tandem: tandem.createTandem( 'contactProperty' ),
-        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO ),
+        phetioValueType: BooleanIO,
         phetioDocumentation: 'This Property will be true when the two books are in contact, with not space between their atoms.'
       } );
 
