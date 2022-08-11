@@ -33,7 +33,7 @@ const grabButtonHelpTextString = frictionStrings.a11y.grabButtonHelpText;
 
 const SOUND_LEVEL = 0.1;
 
-class BookNode extends Voicing( Node, 0 ) {
+class BookNode extends Voicing( Node ) {
   /**
    * @param {FrictionModel} model
    * @param {string} title - title that appears on the book spine

@@ -40,7 +40,7 @@ const ARROW_TOP = 22;
 
 const zoomedInChemistryBookString = frictionStrings.a11y.zoomedInChemistryBook;
 
-class MagnifierNode extends Voicing( Node, 0 ) {
+class MagnifierNode extends Voicing( Node ) {
 
   /**
    * @param {FrictionModel} model
@@ -393,7 +393,7 @@ function addRowCircles( circleRadius, xSpacing, parentNode, options ) {
   }
 }
 
-class VoicingRectangle extends Voicing( Rectangle, 4 ) {
+class VoicingRectangle extends Voicing( Rectangle ) {
   constructor( x, y, width, height, options ) {
     super( x, y, width, height, options );
   }
