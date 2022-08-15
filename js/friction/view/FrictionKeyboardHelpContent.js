@@ -9,6 +9,7 @@
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
+import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import friction from '../../friction.js';
 import frictionStrings from '../../frictionStrings.js';
@@ -61,14 +62,14 @@ class MoveBookHelpSection extends KeyboardHelpSection {
 
     // BookNode row
     const moveBookIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
-    const moveBookRow = KeyboardHelpSection.labelWithIcon( moveBookString, moveBookIcon, {
+    const moveBookRow = KeyboardHelpSectionRow.labelWithIcon( moveBookString, moveBookIcon, {
       labelInnerContent: moveBookWithString
     } );
 
     // BookNode in smaller steps row
     const shiftPlusArrowKeys = KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() );
     const shiftPlusWASDKeys = KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() );
-    const row = KeyboardHelpSection.labelWithIconList( moveInSmallerStepsString, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], {
+    const row = KeyboardHelpSectionRow.labelWithIconList( moveInSmallerStepsString, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], {
       labelInnerContent: moveInSmallerStepsWithString
     } );
 
