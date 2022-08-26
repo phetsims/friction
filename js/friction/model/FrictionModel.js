@@ -390,6 +390,7 @@ class FrictionModel extends PhetioObject {
     this.topBookDragBoundsProperty.value.setMaxY( this.distanceBetweenBooksProperty.value );
     this.topBookDragBoundsProperty.notifyListenersStatic(); // Just to be safe
     this.atomRowsToShearOffProperty.reset();
+    this.successfullyInteractedWithProperty.reset();
     this.hintProperty.reset();
     this.numberOfAtomsShearedOffProperty.reset();
     this.atoms.forEach( atom => {

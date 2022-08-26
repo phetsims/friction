@@ -10,24 +10,19 @@ import friction from '../../friction.js';
 import frictionStrings from '../../frictionStrings.js';
 
 // constants
-const initialGrabbedNotTouchingString = frictionStrings.a11y.initialGrabbedNotTouching;
+const grabbedString = StringUtils.fillIn( frictionStrings.a11y.grabbedPattern, {
+  alert: ''
+} );
 const grabbedLightlyOnBook = StringUtils.fillIn( frictionStrings.a11y.grabbedPattern, {
   alert: frictionStrings.a11y.lightlyOnPhysicsBook
 } );
-const grabbedString = StringUtils.fillIn( frictionStrings.a11y.grabbedPattern, {
-  alert: ''
+const grabbedTouchingString = StringUtils.fillIn( frictionStrings.a11y.grabbedPattern, {
+  alert: frictionStrings.a11y.rubFastOrSlow
 } );
 const grabbedNotTouchingString = StringUtils.fillIn( frictionStrings.a11y.grabbedNotTouchingPattern, {
   grabbedOnBook: grabbedLightlyOnBook,
   moveDownToRubHarder: frictionStrings.a11y.moveDownToRubHarder
 } );
-const initialGrabbedTouchingString = frictionStrings.a11y.initialGrabbedTouching;
-const grabbedTouchingString = StringUtils.fillIn( frictionStrings.a11y.grabbedPattern, {
-  alert: frictionStrings.a11y.rubFastOrSlow
-} );
-
-const touchingAlerts = { initial: initialGrabbedTouchingString, subsequent: grabbedTouchingString };
-const notTouchingAlerts = { initial: initialGrabbedNotTouchingString, subsequent: grabbedLightlyOnBook };
 
 /**
  * @param {Object} [options]
@@ -41,6 +36,18 @@ class GrabbedDescriber {
    */
   constructor( contactProperty, successfullyInteractedWithProperty ) {
 
+    // we do not have access to phet.joist.sim until the sim starts, so these can't be constants
+    const initialGrabbedNotTouchingString = phet.joist.sim.supportsGestureDescription ?
+                                            frictionStrings.a11y.initialTouchGrabbedNotTouching :
+                                            frictionStrings.a11y.initialKeyboardGrabbedNotTouching;
+
+    const initialGrabbedTouchingString = phet.joist.sim.supportsGestureDescription ?
+                                         frictionStrings.a11y.initialTouchGrabbedTouching :
+                                         frictionStrings.a11y.initialKeyboardGrabbedTouching;
+
+    this.touchingAlerts = { initial: initialGrabbedTouchingString, subsequent: grabbedTouchingString };
+    this.notTouchingAlerts = { initial: initialGrabbedNotTouchingString, subsequent: grabbedLightlyOnBook };
+
     // @private
     this.contactProperty = contactProperty;
     this.successfullyInteractedWithProperty = successfullyInteractedWithProperty;
@@ -53,7 +60,7 @@ class GrabbedDescriber {
    */
   getGrabbedString() {
 
-    const alerts = this.contactProperty.get() ? touchingAlerts : notTouchingAlerts;
+    const alerts = this.contactProperty.get() ? this.touchingAlerts : this.notTouchingAlerts;
 
     let alert = alerts.initial;
     if ( this.successfullyInteractedWithProperty.value ) {
@@ -70,7 +77,7 @@ class GrabbedDescriber {
   getGrabbedVoicingString() {
 
     // self-voicing alerts - all self-voicing alerts exclude the "WASD" keyboard information
-    return this.contactProperty.get() ? touchingAlerts.subsequent : grabbedNotTouchingString;
+    return this.contactProperty.get() ? this.touchingAlerts.subsequent : grabbedNotTouchingString;
   }
 
   /**

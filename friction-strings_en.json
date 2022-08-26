@@ -39,8 +39,17 @@
     "moveInSmallerStepsWith": {
       "value": "Move slower with Shift plus Arrow keys, or Shift plus letter keys W, A, S, or D."
     },
-    "initialGrabbedNotTouching": {
+    "initialKeyboardGrabbedNotTouching": {
       "value": "Grabbed. Lightly on Physics book. Move book with W, A, S, or D key. Space to release."
+    },
+    "initialTouchGrabbedNotTouching": {
+      "value": "Grabbed. Lightly on Physics book. Drag finger to move book. Lift finger to release."
+    },
+    "initialKeyboardGrabbedTouching": {
+      "value": "Grabbed. Rub fast or slow with A or D keys. Space to release."
+    },
+    "initialTouchGrabbedTouching": {
+      "value": "Grabbed. Rub fast or slow dragging left or right. Lift to release."
     },
     "lightlyOnPhysicsBook": {
       "value": "Lightly on Physics book."
@@ -50,9 +59,6 @@
     },
     "grabbedNotTouchingPattern": {
       "value": "{{grabbedOnBook}} {{moveDownToRubHarder}}"
-    },
-    "initialGrabbedTouching": {
-      "value": "Grabbed. Rub fast or slow with A or D keys. Space to release."
     },
     "rubFastOrSlow": {
       "value": "Rub fast or slow."
