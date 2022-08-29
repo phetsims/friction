@@ -37,8 +37,8 @@ import TemperatureDecreasingAlerter from './TemperatureDecreasingAlerter.js';
 import TemperatureIncreasingAlerter from './TemperatureIncreasingAlerter.js';
 
 // constants
-const chemistryString = frictionStrings.chemistryProperty;
-const physicsString = frictionStrings.physicsProperty;
+const chemistryString = frictionStrings.chemistryStringProperty;
+const physicsString = frictionStrings.physicsStringProperty;
 
 const THERMOMETER_FLUID_MAIN_COLOR = 'rgb(237,28,36)';
 const THERMOMETER_FLUID_HIGHLIGHT_COLOR = 'rgb(240,150,150)';

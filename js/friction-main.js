@@ -44,7 +44,7 @@ simLauncher.launch( () => {
 
   // Create and start the sim
   const screenTandem = Tandem.ROOT.createTandem( 'frictionScreen' );
-  new Sim( frictionStrings.friction.titleProperty, [
+  new Sim( frictionStrings.friction.titleStringProperty, [
     new Screen( () => new FrictionModel( LAYOUT_BOUNDS.width, LAYOUT_BOUNDS.height, screenTandem.createTandem( 'model' ) ),
       model => new FrictionScreenView( model, screenTandem.createTandem( 'view' ) ), {
         backgroundColorProperty: new Property( '#fff' ),
