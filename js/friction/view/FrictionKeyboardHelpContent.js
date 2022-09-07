@@ -12,17 +12,17 @@ import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/Keybo
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
 import friction from '../../friction.js';
-import frictionStrings from '../../frictionStrings.js';
+import FrictionStrings from '../../FrictionStrings.js';
 
 // constants
-const bookLabelString = frictionStrings.bookLabel;
-const bookTitleString = frictionStrings.bookTitle;
-const moveBookHeaderString = frictionStrings.moveBookHeader;
-const moveBookString = frictionStrings.moveBook;
-const moveInSmallerStepsString = frictionStrings.moveInSmallerSteps;
+const bookLabelString = FrictionStrings.bookLabel;
+const bookTitleString = FrictionStrings.bookTitle;
+const moveBookHeaderString = FrictionStrings.moveBookHeader;
+const moveBookString = FrictionStrings.moveBook;
+const moveInSmallerStepsString = FrictionStrings.moveInSmallerSteps;
 
-const moveBookWithString = frictionStrings.a11y.moveBookWith;
-const moveInSmallerStepsWithString = frictionStrings.a11y.moveInSmallerStepsWith;
+const moveBookWithString = FrictionStrings.a11y.moveBookWith;
+const moveInSmallerStepsWithString = FrictionStrings.a11y.moveInSmallerStepsWith;
 
 class FrictionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
   constructor() {

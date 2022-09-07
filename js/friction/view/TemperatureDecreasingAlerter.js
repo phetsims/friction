@@ -9,19 +9,19 @@ import Alerter from '../../../../scenery-phet/js/accessibility/describers/Alerte
 import ResponsePacket from '../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import friction from '../../friction.js';
-import frictionStrings from '../../frictionStrings.js';
+import FrictionStrings from '../../FrictionStrings.js';
 import FrictionModel from '../model/FrictionModel.js';
 
 // constants
-const jigglingLessString = frictionStrings.a11y.jiggle.jigglingLess;
-const coolerString = frictionStrings.a11y.temperature.cooler;
-const nowCoolerString = frictionStrings.a11y.temperature.nowCooler;
-const lessString = frictionStrings.a11y.jiggle.less;
-const evenLessString = frictionStrings.a11y.jiggle.evenLess;
-const evenCoolerString = frictionStrings.a11y.temperature.evenCooler;
+const jigglingLessString = FrictionStrings.a11y.jiggle.jigglingLess;
+const coolerString = FrictionStrings.a11y.temperature.cooler;
+const nowCoolerString = FrictionStrings.a11y.temperature.nowCooler;
+const lessString = FrictionStrings.a11y.jiggle.less;
+const evenLessString = FrictionStrings.a11y.jiggle.evenLess;
+const evenCoolerString = FrictionStrings.a11y.temperature.evenCooler;
 
-const frictionIncreasingAtomsJigglingTemperatureFirstPatternString = frictionStrings.a11y.frictionIncreasingAtomsJigglingTemperatureFirstPattern;
-const frictionIncreasingAtomsJigglingTemperaturePatternString = frictionStrings.a11y.frictionIncreasingAtomsJigglingTemperaturePattern;
+const frictionIncreasingAtomsJigglingTemperatureFirstPatternString = FrictionStrings.a11y.frictionIncreasingAtomsJigglingTemperatureFirstPattern;
+const frictionIncreasingAtomsJigglingTemperaturePatternString = FrictionStrings.a11y.frictionIncreasingAtomsJigglingTemperaturePattern;
 
 const DECREASING = [
   {

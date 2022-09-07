@@ -161,8 +161,8 @@ type StringsType = {
   }
 };
 
-const frictionStrings = getStringModule( 'FRICTION' ) as StringsType;
+const FrictionStrings = getStringModule( 'FRICTION' ) as StringsType;
 
-friction.register( 'frictionStrings', frictionStrings );
+friction.register( 'FrictionStrings', FrictionStrings );
 
-export default frictionStrings;
+export default FrictionStrings;

@@ -21,7 +21,7 @@ import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import breakOffAutosinfonieSpatialized_mp3 from '../../../sounds/breakOffAutosinfonieSpatialized_mp3.js';
 import contactLower_mp3 from '../../../sounds/contactLower_mp3.js';
 import friction from '../../friction.js';
-import frictionStrings from '../../frictionStrings.js';
+import FrictionStrings from '../../FrictionStrings.js';
 import FrictionConstants from '../FrictionConstants.js';
 import FrictionModel from '../model/FrictionModel.js';
 import BookMovementAlerter from './book/BookMovementAlerter.js';
@@ -37,8 +37,8 @@ import TemperatureDecreasingAlerter from './TemperatureDecreasingAlerter.js';
 import TemperatureIncreasingAlerter from './TemperatureIncreasingAlerter.js';
 
 // constants
-const chemistryString = frictionStrings.chemistryStringProperty;
-const physicsString = frictionStrings.physicsStringProperty;
+const chemistryString = FrictionStrings.chemistryStringProperty;
+const physicsString = FrictionStrings.physicsStringProperty;
 
 const THERMOMETER_FLUID_MAIN_COLOR = 'rgb(237,28,36)';
 const THERMOMETER_FLUID_HIGHLIGHT_COLOR = 'rgb(240,150,150)';
@@ -82,7 +82,7 @@ class FrictionScreenView extends ScreenView {
 
     const atomsJiggleTinyBitUtterance = new Utterance( {
       alert: new ResponsePacket( {
-        contextResponse: frictionStrings.a11y.atomsJiggleTinyBitTempCool
+        contextResponse: FrictionStrings.a11y.atomsJiggleTinyBitTempCool
       } ),
       announcerOptions: {
         cancelOther: false
@@ -93,7 +93,7 @@ class FrictionScreenView extends ScreenView {
 
       // only add "reset sim" hint when all atoms have sheared off.
       atomsJiggleTinyBitUtterance.alert.hintResponse = model.numberOfAtomsShearedOffProperty.value === FrictionModel.NUMBER_OF_SHEARABLE_ATOMS ?
-                                                       frictionStrings.a11y.resetSimMoreObservationSentence : null;
+                                                       FrictionStrings.a11y.resetSimMoreObservationSentence : null;
 
       this.alertDescriptionUtterance( atomsJiggleTinyBitUtterance );
 
@@ -308,7 +308,7 @@ class FrictionScreenView extends ScreenView {
    * @public
    */
   getVoicingOverviewContent() {
-    return frictionStrings.a11y.readMeOverview;
+    return FrictionStrings.a11y.readMeOverview;
   }
 
   /**

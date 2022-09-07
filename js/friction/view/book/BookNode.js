@@ -19,7 +19,7 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import simpleDrop_mp3 from '../../../../sounds/simpleDrop_mp3.js';
 import simplePickup_mp3 from '../../../../sounds/simplePickup_mp3.js';
 import friction from '../../../friction.js';
-import frictionStrings from '../../../frictionStrings.js';
+import FrictionStrings from '../../../FrictionStrings.js';
 import FrictionConstants from '../../FrictionConstants.js';
 import CueArrow from '../CueArrow.js';
 import FrictionDragListener from '../FrictionDragListener.js';
@@ -28,8 +28,8 @@ import FrictionKeyboardDragListener from '../FrictionKeyboardDragListener.js';
 import CoverNode from './CoverNode.js';
 
 // constants
-const chemistryBookString = frictionStrings.a11y.chemistryBook;
-const grabButtonHelpTextString = frictionStrings.a11y.grabButtonHelpText;
+const chemistryBookString = FrictionStrings.a11y.chemistryBook;
+const grabButtonHelpTextString = FrictionStrings.a11y.grabButtonHelpText;
 
 const SOUND_LEVEL = 0.1;
 

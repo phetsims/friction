@@ -13,14 +13,14 @@ import { voicingUtteranceQueue } from '../../../../scenery/js/imports.js';
 import ResponsePacket from '../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import friction from '../../friction.js';
-import frictionStrings from '../../frictionStrings.js';
+import FrictionStrings from '../../FrictionStrings.js';
 import FrictionModel from '../model/FrictionModel.js';
 
 // constants
-const capitalizedVeryHotString = frictionStrings.a11y.temperature.capitalizedVeryHot;
-const breakAwaySentenceFirstString = frictionStrings.a11y.breakAwaySentenceFirst;
-const breakAwaySentenceAgainString = frictionStrings.a11y.breakAwaySentenceAgain;
-const breakAwayNoneLeftString = frictionStrings.a11y.breakAwayNoneLeft;
+const capitalizedVeryHotString = FrictionStrings.a11y.temperature.capitalizedVeryHot;
+const breakAwaySentenceFirstString = FrictionStrings.a11y.breakAwaySentenceFirst;
+const breakAwaySentenceAgainString = FrictionStrings.a11y.breakAwaySentenceAgain;
+const breakAwayNoneLeftString = FrictionStrings.a11y.breakAwayNoneLeft;
 
 // break away sentences
 const BREAK_AWAY_THRESHOLD_FIRST = StringUtils.fillIn( breakAwaySentenceFirstString, { temp: capitalizedVeryHotString } );

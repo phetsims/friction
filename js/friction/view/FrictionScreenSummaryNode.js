@@ -8,27 +8,27 @@
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import friction from '../../friction.js';
-import frictionStrings from '../../frictionStrings.js';
+import FrictionStrings from '../../FrictionStrings.js';
 import FrictionConstants from '../FrictionConstants.js';
 import FrictionModel from '../model/FrictionModel.js';
 
 // constants
-const summarySentencePatternString = frictionStrings.a11y.screenSummary.summarySentencePattern;
-const droppingAsAtomsJiggleLessString = frictionStrings.a11y.screenSummary.droppingAsAtomsJiggleLess;
-const atomsJigglePatternString = frictionStrings.a11y.screenSummary.atomsJigglePattern;
-const jiggleClausePatternString = frictionStrings.a11y.screenSummary.jiggleClausePattern;
-const jiggleTemperatureScaleSentenceString = frictionStrings.a11y.screenSummary.jiggleTemperatureScaleSentence;
-const temperaturePatternString = frictionStrings.a11y.temperature.pattern;
-const temperatureThermometerPatternString = frictionStrings.a11y.temperature.thermometerPattern;
-const grabChemistryBookPlayString = frictionStrings.a11y.screenSummary.grabChemistryBookPlay;
-const resetSimMoreObservationSentenceString = frictionStrings.a11y.resetSimMoreObservationSentence;
-const startingChemistryBookPatternString = frictionStrings.a11y.screenSummary.startingChemistryBookPattern;
-const startingChemistryBookLightlyPatternString = frictionStrings.a11y.screenSummary.startingChemistryBookLightlyPattern;
-const amountOfAtomsString = frictionStrings.a11y.amountOfAtoms.sentence;
-const fewerString = frictionStrings.a11y.amountOfAtoms.fewer;
-const farFewerString = frictionStrings.a11y.amountOfAtoms.farFewer;
-const someString = frictionStrings.a11y.amountOfAtoms.some;
-const manyString = frictionStrings.a11y.amountOfAtoms.many;
+const summarySentencePatternString = FrictionStrings.a11y.screenSummary.summarySentencePattern;
+const droppingAsAtomsJiggleLessString = FrictionStrings.a11y.screenSummary.droppingAsAtomsJiggleLess;
+const atomsJigglePatternString = FrictionStrings.a11y.screenSummary.atomsJigglePattern;
+const jiggleClausePatternString = FrictionStrings.a11y.screenSummary.jiggleClausePattern;
+const jiggleTemperatureScaleSentenceString = FrictionStrings.a11y.screenSummary.jiggleTemperatureScaleSentence;
+const temperaturePatternString = FrictionStrings.a11y.temperature.pattern;
+const temperatureThermometerPatternString = FrictionStrings.a11y.temperature.thermometerPattern;
+const grabChemistryBookPlayString = FrictionStrings.a11y.screenSummary.grabChemistryBookPlay;
+const resetSimMoreObservationSentenceString = FrictionStrings.a11y.resetSimMoreObservationSentence;
+const startingChemistryBookPatternString = FrictionStrings.a11y.screenSummary.startingChemistryBookPattern;
+const startingChemistryBookLightlyPatternString = FrictionStrings.a11y.screenSummary.startingChemistryBookLightlyPattern;
+const amountOfAtomsString = FrictionStrings.a11y.amountOfAtoms.sentence;
+const fewerString = FrictionStrings.a11y.amountOfAtoms.fewer;
+const farFewerString = FrictionStrings.a11y.amountOfAtoms.farFewer;
+const someString = FrictionStrings.a11y.amountOfAtoms.some;
+const manyString = FrictionStrings.a11y.amountOfAtoms.many;
 
 class FrictionScreenSummaryNode extends Node {
 
@@ -277,8 +277,8 @@ class FrictionScreenSummaryNode extends Node {
    */
   getHintString() {
     return this.numberOfAtomsShearedOffProperty.value === FrictionModel.NUMBER_OF_SHEARABLE_ATOMS ? resetSimMoreObservationSentenceString :
-           this.contactProperty.value ? frictionStrings.a11y.screenSummary.continueRubbing :
-           frictionStrings.a11y.screenSummary.grabChemistryBookPlay;
+           this.contactProperty.value ? FrictionStrings.a11y.screenSummary.continueRubbing :
+           FrictionStrings.a11y.screenSummary.grabChemistryBookPlay;
   }
 }
 

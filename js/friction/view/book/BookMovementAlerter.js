@@ -14,20 +14,20 @@ import { Voicing } from '../../../../../scenery/js/imports.js';
 import ResponsePacket from '../../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../../utterance-queue/js/Utterance.js';
 import friction from '../../../friction.js';
-import frictionStrings from '../../../frictionStrings.js';
+import FrictionStrings from '../../../FrictionStrings.js';
 import FrictionModel from '../../model/FrictionModel.js';
 import LeftRightAlertPair from '../LeftRightAlertPair.js';
 
 // constants
-const moveDownToRubHarderSentenceString = frictionStrings.a11y.moveDownToRubHarderSentence;
-const rubFastOrSlowString = frictionStrings.a11y.rubFastOrSlow;
+const moveDownToRubHarderSentenceString = FrictionStrings.a11y.moveDownToRubHarderSentence;
+const rubFastOrSlowString = FrictionStrings.a11y.rubFastOrSlow;
 
 const DEFAULT_AT_TOP_ALERT = BorderAlertsDescriber.getDefaultTopAlert();
 const DEFAULT_MOVEMENT_DESCRIPTIONS = MovementAlerter.getDefaultMovementDescriptions();
 
 const atTopMoveDownResponsePacket = new ResponsePacket( {
   objectResponse: DEFAULT_AT_TOP_ALERT,
-  hintResponse: frictionStrings.a11y.moveDownToRubHarder
+  hintResponse: FrictionStrings.a11y.moveDownToRubHarder
 } );
 
 const rubFastOrSlowResponsePacket = new ResponsePacket( {

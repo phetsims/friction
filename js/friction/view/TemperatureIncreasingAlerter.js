@@ -20,21 +20,21 @@ import { voicingUtteranceQueue } from '../../../../scenery/js/imports.js';
 import ResponsePacket from '../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import friction from '../../friction.js';
-import frictionStrings from '../../frictionStrings.js';
+import FrictionStrings from '../../FrictionStrings.js';
 import FrictionModel from '../model/FrictionModel.js';
 
 // constants
-const moreString = frictionStrings.a11y.temperature.more;
-const fasterString = frictionStrings.a11y.temperature.faster;
-const nowHotterString = frictionStrings.a11y.temperature.nowHotter;
-const evenFasterString = frictionStrings.a11y.temperature.evenFaster;
-const warmerString = frictionStrings.a11y.temperature.warmer;
-const evenHotterString = frictionStrings.a11y.temperature.evenHotter;
+const moreString = FrictionStrings.a11y.temperature.more;
+const fasterString = FrictionStrings.a11y.temperature.faster;
+const nowHotterString = FrictionStrings.a11y.temperature.nowHotter;
+const evenFasterString = FrictionStrings.a11y.temperature.evenFaster;
+const warmerString = FrictionStrings.a11y.temperature.warmer;
+const evenHotterString = FrictionStrings.a11y.temperature.evenHotter;
 
-const superFastString = frictionStrings.a11y.temperature.superFast;
-const superHotString = frictionStrings.a11y.temperature.superHot;
+const superFastString = FrictionStrings.a11y.temperature.superFast;
+const superHotString = FrictionStrings.a11y.temperature.superHot;
 
-const frictionIncreasingAtomsJigglingTemperaturePatternString = frictionStrings.a11y.frictionIncreasingAtomsJigglingTemperaturePattern;
+const frictionIncreasingAtomsJigglingTemperaturePatternString = FrictionStrings.a11y.frictionIncreasingAtomsJigglingTemperaturePattern;
 
 // alert object for the Maximum temp alert
 const MAX_TEMP_STRING = StringUtils.fillIn( frictionIncreasingAtomsJigglingTemperaturePatternString, {

@@ -7,21 +7,21 @@
 
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import friction from '../../friction.js';
-import frictionStrings from '../../frictionStrings.js';
+import FrictionStrings from '../../FrictionStrings.js';
 
 // constants
-const grabbedString = StringUtils.fillIn( frictionStrings.a11y.grabbedPattern, {
+const grabbedString = StringUtils.fillIn( FrictionStrings.a11y.grabbedPattern, {
   alert: ''
 } );
-const grabbedLightlyOnBook = StringUtils.fillIn( frictionStrings.a11y.grabbedPattern, {
-  alert: frictionStrings.a11y.lightlyOnPhysicsBook
+const grabbedLightlyOnBook = StringUtils.fillIn( FrictionStrings.a11y.grabbedPattern, {
+  alert: FrictionStrings.a11y.lightlyOnPhysicsBook
 } );
-const grabbedTouchingString = StringUtils.fillIn( frictionStrings.a11y.grabbedPattern, {
-  alert: frictionStrings.a11y.rubFastOrSlow
+const grabbedTouchingString = StringUtils.fillIn( FrictionStrings.a11y.grabbedPattern, {
+  alert: FrictionStrings.a11y.rubFastOrSlow
 } );
-const grabbedNotTouchingString = StringUtils.fillIn( frictionStrings.a11y.grabbedNotTouchingPattern, {
+const grabbedNotTouchingString = StringUtils.fillIn( FrictionStrings.a11y.grabbedNotTouchingPattern, {
   grabbedOnBook: grabbedLightlyOnBook,
-  moveDownToRubHarder: frictionStrings.a11y.moveDownToRubHarder
+  moveDownToRubHarder: FrictionStrings.a11y.moveDownToRubHarder
 } );
 
 /**
@@ -38,12 +38,12 @@ class GrabbedDescriber {
 
     // we do not have access to phet.joist.sim until the sim starts, so these can't be constants
     const initialGrabbedNotTouchingString = phet.joist.sim.supportsGestureDescription ?
-                                            frictionStrings.a11y.initialTouchGrabbedNotTouching :
-                                            frictionStrings.a11y.initialKeyboardGrabbedNotTouching;
+                                            FrictionStrings.a11y.initialTouchGrabbedNotTouching :
+                                            FrictionStrings.a11y.initialKeyboardGrabbedNotTouching;
 
     const initialGrabbedTouchingString = phet.joist.sim.supportsGestureDescription ?
-                                         frictionStrings.a11y.initialTouchGrabbedTouching :
-                                         frictionStrings.a11y.initialKeyboardGrabbedTouching;
+                                         FrictionStrings.a11y.initialTouchGrabbedTouching :
+                                         FrictionStrings.a11y.initialKeyboardGrabbedTouching;
 
     this.touchingAlerts = { initial: initialGrabbedTouchingString, subsequent: grabbedTouchingString };
     this.notTouchingAlerts = { initial: initialGrabbedNotTouchingString, subsequent: grabbedLightlyOnBook };

@@ -20,7 +20,7 @@ import Tandem from '../../../../../tandem/js/Tandem.js';
 import harpDrop_mp3 from '../../../../sounds/harpDrop_mp3.js';
 import harpPickup_mp3 from '../../../../sounds/harpPickup_mp3.js';
 import friction from '../../../friction.js';
-import frictionStrings from '../../../frictionStrings.js';
+import FrictionStrings from '../../../FrictionStrings.js';
 import FrictionConstants from '../../FrictionConstants.js';
 import FrictionModel from '../../model/FrictionModel.js';
 import CueArrow from '../CueArrow.js';
@@ -38,7 +38,7 @@ const SCALE = 0.05;
 const SOUND_LEVEL = 0.1;
 const ARROW_TOP = 22;
 
-const zoomedInChemistryBookString = frictionStrings.a11y.zoomedInChemistryBook;
+const zoomedInChemistryBookString = FrictionStrings.a11y.zoomedInChemistryBook;
 
 class MagnifierNode extends Voicing( Node ) {
 

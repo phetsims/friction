@@ -10,20 +10,20 @@
 import dotRandom from '../../../dot/js/dotRandom.js';
 import { Color } from '../../../scenery/js/imports.js';
 import friction from '../friction.js';
-import frictionStrings from '../frictionStrings.js';
+import FrictionStrings from '../FrictionStrings.js';
 
 // constants
 const MAJOR_PENTATONIC_PLAYBACK_RATES = [
   1, Math.pow( 2, 2 / 12 ), Math.pow( 2, 4 / 12 ), Math.pow( 2, 7 / 12 ), Math.pow( 2, 9 / 12 )
 ];
 
-const jiggleALotString = frictionStrings.a11y.jiggle.jiggleALot;
-const jiggleALittleString = frictionStrings.a11y.jiggle.jiggleALittle;
-const jiggleABitString = frictionStrings.a11y.jiggle.jiggleABit;
-const veryHotString = frictionStrings.a11y.temperature.veryHot;
-const hotString = frictionStrings.a11y.temperature.hot;
-const atWarmString = frictionStrings.a11y.temperature.atWarm;
-const atCoolString = frictionStrings.a11y.temperature.atCool;
+const jiggleALotString = FrictionStrings.a11y.jiggle.jiggleALot;
+const jiggleALittleString = FrictionStrings.a11y.jiggle.jiggleALittle;
+const jiggleABitString = FrictionStrings.a11y.jiggle.jiggleABit;
+const veryHotString = FrictionStrings.a11y.temperature.veryHot;
+const hotString = FrictionStrings.a11y.temperature.hot;
+const atWarmString = FrictionStrings.a11y.temperature.atWarm;
+const atCoolString = FrictionStrings.a11y.temperature.atCool;
 
 const FrictionConstants = {
   TOP_BOOK_COLOR_MACRO: new Color( 'rgb(125,226,249)' ), // color of the macroscopic view of the book
