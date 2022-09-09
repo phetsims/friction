@@ -31,16 +31,10 @@ window.phet.preloads.phetio.phetioElementsOverrides =
     "friction.frictionScreen.view.atomicView.visibleProperty": {
       "phetioFeatured": true
     },
-    "friction.frictionScreen.view.bottomBookNode.titleText.visibleProperty": {
-      "phetioFeatured": true
-    },
     "friction.frictionScreen.view.thermometerNode.percentProperty": {
       "phetioFeatured": true
     },
     "friction.frictionScreen.view.thermometerNode.visibleProperty": {
-      "phetioFeatured": true
-    },
-    "friction.frictionScreen.view.topBookNode.titleText.visibleProperty": {
       "phetioFeatured": true
     }
   };
