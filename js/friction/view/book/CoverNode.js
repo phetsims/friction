@@ -88,7 +88,7 @@ class CoverNode extends Node {
     titleText.center = bindingRectangle.center;
 
     // If updated via PhET-iO, recenter it
-    titleText.textProperty.lazyLink( () => {
+    titleText.stringProperty.lazyLink( () => {
       titleText.center = bindingRectangle.center;
     } );
     this.addChild( titleText );
