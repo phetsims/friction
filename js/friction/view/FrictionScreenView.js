@@ -37,8 +37,8 @@ import TemperatureDecreasingAlerter from './TemperatureDecreasingAlerter.js';
 import TemperatureIncreasingAlerter from './TemperatureIncreasingAlerter.js';
 
 // constants
-const chemistryString = FrictionStrings.chemistryStringProperty;
-const physicsString = FrictionStrings.physicsStringProperty;
+const chemistryStringProperty = FrictionStrings.chemistryStringProperty;
+const physicsStringProperty = FrictionStrings.physicsStringProperty;
 
 const THERMOMETER_FLUID_MAIN_COLOR = 'rgb(237,28,36)';
 const THERMOMETER_FLUID_HIGHLIGHT_COLOR = 'rgb(240,150,150)';
@@ -133,7 +133,7 @@ class FrictionScreenView extends ScreenView {
     this.frictionScreenSummaryNode = frictionScreenSummaryNode;
 
     // add physics book
-    this.addChild( new BookNode( model, physicsString, temperatureIncreasingAlerter, temperatureDecreasingAlerter,
+    this.addChild( new BookNode( model, physicsStringProperty, temperatureIncreasingAlerter, temperatureDecreasingAlerter,
       bookMovementAlerter, grabbedDescriber, alertSettledAndCool, {
         x: 50,
         y: 225,
@@ -142,7 +142,7 @@ class FrictionScreenView extends ScreenView {
       } ) );
 
     // add chemistry book
-    const chemistryBookNode = new BookNode( model, chemistryString, temperatureIncreasingAlerter,
+    const chemistryBookNode = new BookNode( model, chemistryStringProperty, temperatureIncreasingAlerter,
       temperatureDecreasingAlerter,
       bookMovementAlerter, grabbedDescriber, alertSettledAndCool, {
         x: 65,
@@ -172,7 +172,7 @@ class FrictionScreenView extends ScreenView {
     soundManager.addSoundGenerator( this.bookRubSoundGenerator );
 
     // @private - add magnifier
-    this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryString, temperatureIncreasingAlerter,
+    this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryStringProperty, temperatureIncreasingAlerter,
       temperatureDecreasingAlerter,
       bookMovementAlerter, grabbedDescriber, alertSettledAndCool, {
         x: 40,
