@@ -87,21 +87,6 @@ class Atom extends PhetioObject {
   }
 
   /**
-   * Returns a map of state keys and their associated IOTypes, see IOType.fromCoreType for details.
-   * @returns {Object.<string,IOType>}
-   * @public
-   */
-  static get STATE_SCHEMA() {
-    return {
-      initialPosition: Vector2.Vector2IO,
-      isTopAtom: BooleanIO,
-      isShearedOff: BooleanIO,
-      centerPosition: Vector2.Vector2IO,
-      shearingVelocity: Vector2.Vector2IO
-    };
-  }
-
-  /**
    * when the oscillation has exceeded the threshold, the atom breaks off, animates to one side of the screen, and
    * disappears.
    * @public
@@ -112,7 +97,7 @@ class Atom extends PhetioObject {
     this.isShearedOff = true;
     const shearingDestinationX = this.model.width * ( dotRandom.nextBoolean() ? 1 : -1 );
     const shearingDestinationY = this.positionProperty.get().y -
-                                    this.model.distanceBetweenBooksProperty.get() * dotRandom.nextDouble();
+                                 this.model.distanceBetweenBooksProperty.get() * dotRandom.nextDouble();
 
     this.shearingVelocity.setXY(
       shearingDestinationX - this.positionProperty.get().x,
@@ -154,8 +139,16 @@ class Atom extends PhetioObject {
 }
 
 
-Atom.AtomIO = IOType.fromCoreType( 'AtomIO', Atom, {
-  documentation: 'An atom on the book'
+Atom.AtomIO = new IOType( 'AtomIO', {
+  valueType: Atom,
+  documentation: 'An atom on the book',
+  stateSchema: {
+    initialPosition: Vector2.Vector2IO,
+    isTopAtom: BooleanIO,
+    isShearedOff: BooleanIO,
+    centerPosition: Vector2.Vector2IO,
+    shearingVelocity: Vector2.Vector2IO
+  }
 } );
 
 friction.register( 'Atom', Atom );

@@ -343,23 +343,6 @@ class FrictionModel extends PhetioObject {
   }
 
   /**
-   * Returns a map of state keys and their associated IOTypes, see IOType.fromCoreType for details.
-   * @returns {Object.<string,IOType>}
-   * @public
-   */
-  static get STATE_SCHEMA() {
-    return {
-      width: NumberIO,
-      height: NumberIO,
-      bookDraggingScaleFactor: NumberIO,
-      scheduledShearingAmount: NumberIO,
-      shearableAtomsByRow: ArrayIO( ArrayIO( ReferenceIO( Atom.AtomIO ) ) ),
-      atoms: ArrayIO( ReferenceIO( Atom.AtomIO ) )
-    };
-  }
-
-
-  /**
    * Move forward in time
    * @param {number} dt - in seconds
    * @public
@@ -464,8 +447,17 @@ FrictionModel.VIBRATION_AMPLITUDE_MAX = VIBRATION_AMPLITUDE_MAX;
 // pdom - empirically determined value of when the atoms are "pretty much cool and settled"
 FrictionModel.AMPLITUDE_SETTLED_THRESHOLD = VIBRATION_AMPLITUDE_MIN + 0.4;
 
-FrictionModel.FrictionModelIO = IOType.fromCoreType( 'FrictionModelIO', FrictionModel, {
-  documentation: 'model for the simulation'
+FrictionModel.FrictionModelIO = new IOType( 'FrictionModelIO', {
+  valueType: FrictionModel,
+  documentation: 'model for the simulation',
+  stateSchema: {
+    width: NumberIO,
+    height: NumberIO,
+    bookDraggingScaleFactor: NumberIO,
+    scheduledShearingAmount: NumberIO,
+    shearableAtomsByRow: ArrayIO( ArrayIO( ReferenceIO( Atom.AtomIO ) ) ),
+    atoms: ArrayIO( ReferenceIO( Atom.AtomIO ) )
+  }
 } );
 
 // helper function to add a layer of atoms to the model
