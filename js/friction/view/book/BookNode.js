@@ -51,7 +51,6 @@ class BookNode extends Voicing( Node ) {
       // whether or not we can drag the book
       drag: false,
       color: FrictionConstants.BOTTOM_BOOK_COLOR_MACRO,
-      cursor: 'pointer',
 
       // voicing
       voicingNameResponse: chemistryBookString,
@@ -170,6 +169,8 @@ class BookNode extends Voicing( Node ) {
       this.inputEnabledProperty.link( inputEnabled => {
         this.grabDragInteraction.enabled = inputEnabled;
       } );
+
+      this.cursor = 'pointer';
     }
   }
 
