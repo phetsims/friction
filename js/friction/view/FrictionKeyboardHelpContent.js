@@ -14,24 +14,16 @@ import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/h
 import friction from '../../friction.js';
 import FrictionStrings from '../../FrictionStrings.js';
 
-// constants
-const bookLabelString = FrictionStrings.bookLabel;
-const bookTitleString = FrictionStrings.bookTitle;
-const moveBookHeaderString = FrictionStrings.moveBookHeader;
-const moveBookString = FrictionStrings.moveBook;
-const moveInSmallerStepsString = FrictionStrings.moveInSmallerSteps;
-
-const moveBookWithString = FrictionStrings.a11y.moveBookWith;
-const moveInSmallerStepsWithString = FrictionStrings.a11y.moveInSmallerStepsWith;
-
 class FrictionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
   constructor() {
 
     // make all the KeyboardHelpSection consistent in layout
     const maxWidth = 175;
-    const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection( bookTitleString, bookLabelString, {
-      textMaxWidth: maxWidth
-    } );
+    const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection(
+      FrictionStrings.bookTitleStringProperty,
+      FrictionStrings.bookLabelStringProperty, {
+        textMaxWidth: maxWidth
+      } );
     const moveBookHelpSection = new MoveBookHelpSection( {
       textMaxWidth: maxWidth
     } );
@@ -62,18 +54,20 @@ class MoveBookHelpSection extends KeyboardHelpSection {
 
     // BookNode row
     const moveBookIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
-    const moveBookRow = KeyboardHelpSectionRow.labelWithIcon( moveBookString, moveBookIcon, {
-      labelInnerContent: moveBookWithString
+    const moveBookRow = KeyboardHelpSectionRow.labelWithIcon( FrictionStrings.moveBookStringProperty, moveBookIcon, {
+      labelInnerContent: FrictionStrings.a11y.moveBookWithStringProperty
     } );
 
     // BookNode in smaller steps row
     const shiftPlusArrowKeys = KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() );
     const shiftPlusWASDKeys = KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() );
-    const row = KeyboardHelpSectionRow.labelWithIconList( moveInSmallerStepsString, [ shiftPlusArrowKeys, shiftPlusWASDKeys ], {
-      labelInnerContent: moveInSmallerStepsWithString
+    const row = KeyboardHelpSectionRow.labelWithIconList( FrictionStrings.moveInSmallerStepsStringProperty, [
+      shiftPlusArrowKeys, shiftPlusWASDKeys
+    ], {
+      labelInnerContent: FrictionStrings.a11y.moveInSmallerStepsWithStringProperty
     } );
 
-    super( moveBookHeaderString, [ moveBookRow, row ], options );
+    super( FrictionStrings.moveBookHeaderStringProperty, [ moveBookRow, row ], options );
   }
 }
 
