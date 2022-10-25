@@ -49,7 +49,7 @@ simLauncher.launch( () => {
       model => new FrictionScreenView( model, screenTandem.createTandem( 'view' ) ), {
         backgroundColorProperty: new Property( '#fff' ),
         tandem: screenTandem,
-        keyboardHelpNode: new FrictionKeyboardHelpContent()
+        createKeyboardHelpNode: () => new FrictionKeyboardHelpContent()
       }
     )
   ], simOptions ).start();
