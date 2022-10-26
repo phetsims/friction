@@ -38,7 +38,6 @@ simLauncher.launch( () => {
                         'Kathryn Woessner',
       thanks: 'Thanks to Mobile Learner Labs for working with the PhET development team to convert this simulation to HTML5.'
     },
-    hasKeyboardHelpContent: true,
     phetioDesigned: true
   };
 
