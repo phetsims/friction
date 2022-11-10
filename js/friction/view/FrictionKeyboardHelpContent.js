@@ -7,6 +7,7 @@
  */
 
 import BasicActionsKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/BasicActionsKeyboardHelpSection.js';
+import GrabReleaseKeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/GrabReleaseKeyboardHelpSection.js';
 import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpIconFactory.js';
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
@@ -19,7 +20,7 @@ class FrictionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
 
     // make all the KeyboardHelpSection consistent in layout
     const maxWidth = 175;
-    const grabReleaseHelpSection = KeyboardHelpSection.getGrabReleaseHelpSection(
+    const grabReleaseHelpSection = new GrabReleaseKeyboardHelpSection(
       FrictionStrings.bookTitleStringProperty,
       FrictionStrings.bookLabelStringProperty, {
         textMaxWidth: maxWidth
