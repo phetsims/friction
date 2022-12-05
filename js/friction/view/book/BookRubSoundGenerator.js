@@ -50,9 +50,11 @@ class BookRubSoundGenerator extends NoiseGenerator {
     // monitor the position of the top book and update local state variables as needed for the sound generator
     topBookPositionProperty.lazyLink( ( topBookPosition, previousTopBookPosition ) => {
       const now = Date.now() / 1000;
-      this.topBookXVelocityProperty.set( ( topBookPosition.x - previousTopBookPosition.x ) /
-                                         ( now - this.timeOfLastXVelocityUpdate ) );
-      this.timeOfLastXVelocityUpdate = now;
+      if ( now - this.timeOfLastXVelocityUpdate !== 0 ) {
+        this.topBookXVelocityProperty.set( ( topBookPosition.x - previousTopBookPosition.x ) /
+                                           ( now - this.timeOfLastXVelocityUpdate ) );
+        this.timeOfLastXVelocityUpdate = now;
+      }
     } );
 
     // monitor the velocity for a direction change
