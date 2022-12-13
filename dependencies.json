@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.5.14 Mon Dec 12 2022 20:48:40 GMT-0700 (Mountain Standard Time)",
+  "comment": "# friction 1.5.15-rc.1 Tue Dec 13 2022 15:26:56 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "69088d35b9e1971aee675d1aec7f413f4d0bef19",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "ed8f13d7848624c2580f5c1dbd09da5e1d4b0d2f",
+    "sha": "66467456d1bde676db5487385f57d637bbb90992",
     "branch": "1.5"
   },
   "joist": {
