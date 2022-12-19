@@ -1,7 +1,7 @@
 // Copyright 2017-2022, University of Colorado Boulder
 
 /**
- * Keyboard drag handler used for a11y keyboard navigation for both the BookNode and the MagnifierNode atoms.
+ * Keyboard drag handler used for a11y keyboard navigation for both the BookNode and the MagnifyingGlassNode atoms.
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */

@@ -3,7 +3,7 @@
 /**
  * Extends the base GrabDragInteraction to supply consistent description and alternative input to all the possible ways
  * of interacting with the top book. This type serves as a central place to factor out duplicate description and voicing
- * implementations used by BookNode and MagnifierNode, both of which have almost identical interactions.
+ * implementations used by BookNode and MagnifyingGlassNode, both of which have almost identical interactions.
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
