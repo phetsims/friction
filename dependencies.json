@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "3d2f3d607a510ddc888b12b355773e94a0fc5868",
+    "sha": "9381e9cf9b86d7426d8fa2631c68c99a57cb39ae",
     "branch": "1.5"
   },
   "joist": {
@@ -57,7 +57,7 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "59d36de724c35c44e9769839c4eed56d6d994550",
+    "sha": "1c880155756dcbbeba732418f9d112cadc7ceac7",
     "branch": "HEAD"
   },
   "scenery-phet": {
