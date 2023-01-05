@@ -107,7 +107,7 @@ class TemperatureDecreasingAlerter extends Alerter {
       // If we meet criteria, then alert that temp/amplitude is decreasing
       if ( this.tempDecreasing && // only if the temperature is decreasing
            amplitude > FrictionModel.AMPLITUDE_SETTLED_THRESHOLD && // when amplitude is close enough to its settled state, don't alert anymore\
-           amplitude < SHEARING_LIMIT && // don't alert cooling unless cooler than shearing limit
+           amplitude < 0.8 * SHEARING_LIMIT && // don't alert cooling unless cooler than shearing limit, plus 20% grace
            phet.joist.elapsedTime - this.timeOfLastAlert > ALERT_TIME_DELAY ) { // If we have waited long enough
         this.alertDecrease();
       }
