@@ -208,6 +208,11 @@ class MagnifierNode extends Voicing( Node ) {
     focusHighlightPath.pickable = false;
     interactiveHighlightPath.pickable = false;
 
+    // pdom - the GrabDragInteraction is positioned based on the whole drag area, but the center of that is behind
+    // the background white, so set a source Node to support mobile a11y that has a center that will respond to a pointer
+    // down
+    dragArea.setPDOMTransformSourceNode( interactiveHighlightPath );
+
     // a11y - add the focus highlight on top of the row circles must be added prior to adding the grab/drag interaction
     // this is a constraint of the grab/drag interaction, must be set before it's creation, but only for
     // focusHighlightLayerable
