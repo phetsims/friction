@@ -15,6 +15,7 @@ import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import friction from '../../friction.js';
 import FrictionStrings from '../../FrictionStrings.js';
 import FrictionModel from '../model/FrictionModel.js';
+import AriaLiveAnnouncer from '../../../../utterance-queue/js/AriaLiveAnnouncer.js';
 
 // constants
 const capitalizedVeryHotString = FrictionStrings.a11y.temperature.capitalizedVeryHot;
@@ -57,7 +58,10 @@ class BreakAwayAlerter extends Alerter {
     // @private
     this.utterance = new Utterance( {
       alert: new ResponsePacket(),
-      priority: Utterance.HIGH_PRIORITY
+      priority: Utterance.HIGH_PRIORITY,
+      announcerOptions: {
+        ariaLivePriority: AriaLiveAnnouncer.AriaLive.ASSERTIVE
+      }
     } );
 
     // @private
