@@ -1,4 +1,4 @@
-// Copyright 2017-2022, University of Colorado Boulder
+// Copyright 2017-2023, University of Colorado Boulder
 
 /**
  * Keyboard drag handler used for a11y keyboard navigation for both the BookNode and the MagnifyingGlassNode atoms.

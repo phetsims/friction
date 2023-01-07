@@ -1,4 +1,4 @@
-// Copyright 2018-2022, University of Colorado Boulder
+// Copyright 2018-2023, University of Colorado Boulder
 
 /**
  * Describer responsible for handling the appropriate alert when atoms shear off, or "break away" from the top book.
