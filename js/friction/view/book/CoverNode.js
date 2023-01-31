@@ -83,12 +83,13 @@ class CoverNode extends Node {
       fill: FrictionConstants.BOOK_TEXT_COLOR,
       pickable: false,
       maxWidth: BINDING_LENGTH * 0.97, // for a bit of margin
-      tandem: tandemParent.createTandem( 'titleText' )
+      tandem: tandemParent.createTandem( 'titleText' ),
+      boundsMethod: 'accurate'
     } );
     titleText.center = bindingRectangle.center;
 
     // If updated via PhET-iO, recenter it
-    titleText.stringProperty.lazyLink( () => {
+    titleText.boundsProperty.lazyLink( () => {
       titleText.center = bindingRectangle.center;
     } );
     this.addChild( titleText );
