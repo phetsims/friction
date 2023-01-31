@@ -9,13 +9,12 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import stepTimer from '../../../../axon/js/stepTimer.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Alerter from '../../../../scenery-phet/js/accessibility/describers/Alerter.js';
-import { voicingUtteranceQueue } from '../../../../scenery/js/imports.js';
+import AriaLiveAnnouncer from '../../../../utterance-queue/js/AriaLiveAnnouncer.js';
 import ResponsePacket from '../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import friction from '../../friction.js';
 import FrictionStrings from '../../FrictionStrings.js';
 import FrictionModel from '../model/FrictionModel.js';
-import AriaLiveAnnouncer from '../../../../utterance-queue/js/AriaLiveAnnouncer.js';
 
 // constants
 const capitalizedVeryHotString = FrictionStrings.a11y.temperature.capitalizedVeryHot;
@@ -95,9 +94,6 @@ class BreakAwayAlerter extends Alerter {
     }
 
     this.utterance.alert.contextResponse = alertContent;
-
-    this.forEachUtteranceQueue( utteranceQueue => utteranceQueue.clear() );
-    voicingUtteranceQueue.clear();
 
     this.alert( this.utterance );
 
