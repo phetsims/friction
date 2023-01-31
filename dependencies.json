@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "c76634a2aeecc85e40106d64d6738f9d30bf015e",
+    "sha": "ceca4eb8cd784c5eea9a74416e7fb615a20bc890",
     "branch": "1.5"
   },
   "joist": {
@@ -45,7 +45,7 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "efac59fb140d06a2a3f59b4d47156f7d42a5d6f5",
+    "sha": "bba5306ac52b167afeb366792f023d9edfc8cde3",
     "branch": "HEAD"
   },
   "phetmarks": {
