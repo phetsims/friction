@@ -200,7 +200,11 @@ class TemperatureIncreasingAlerter extends Alerter {
   // @public
   endDrag() {
     if ( this.model.vibrationAmplitudeProperty.value >= FrictionModel.THERMOMETER_MAX_TEMP ) {
-      this.clearQueues();
+      this.forEachUtteranceQueue( utteranceQueue => {
+        utteranceQueue.hasUtterance( this.temperatureJiggleUtterance ) && utteranceQueue.removeUtterance( this.temperatureJiggleUtterance );
+      } );
+
+      voicingUtteranceQueue.hasUtterance( this.temperatureJiggleUtterance ) && voicingUtteranceQueue.removeUtterance( this.temperatureJiggleUtterance );
     }
     this.timeOfLastDrag = phet.joist.elapsedTime;
   }
@@ -239,16 +243,6 @@ class TemperatureIncreasingAlerter extends Alerter {
     // set to true to limit subsequent alerts firing rapidly
     this.tooSoonForNextMaxTempAlert = true;
     stepTimer.setTimeout( () => { this.tooSoonForNextMaxTempAlert = false; }, MAX_TEMP_ALERT_TIME_DELAY );
-  }
-
-  /**
-   * Helper function to clear all the queues, this is useful to do in regards to warming because when the interaction
-   * ends, we want to hear the cooling alerts.
-   * @private
-   */
-  clearQueues() {
-    voicingUtteranceQueue.clear();
-    this.forEachUtteranceQueue( utteranceQueue => utteranceQueue.clear() );
   }
 
   /**
