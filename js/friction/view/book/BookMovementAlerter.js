@@ -68,6 +68,8 @@ class BookMovementAlerter extends MovementAlerter {
 
     super( model.topBookPositionProperty, options );
 
+    this.directionChangeUtterance.priorityProperty.value = Utterance.LOW_PRIORITY;
+
     // @private
     this.model = model;
 
