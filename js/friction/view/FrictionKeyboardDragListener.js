@@ -24,8 +24,8 @@ class FrictionKeyboardDragListener extends KeyboardDragListener {
                options ) {
 
     options = merge( {
-      dragDelta: 30,
-      shiftDragDelta: 15,
+      dragVelocity: 1000,
+      shiftDragVelocity: 500,
       positionProperty: model.topBookPositionProperty,
       start: () => {
         temperatureIncreasingAlerter.startDrag();
