@@ -10,6 +10,7 @@
  */
 
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
+import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../../kite/js/imports.js';
 import merge from '../../../../../phet-core/js/merge.js';
@@ -79,6 +80,44 @@ class MagnifierNode extends Voicing( Node ) {
     // @private - container where the individual atoms will be placed
     this.topAtomsLayer = new Node();
 
+    // init drag for background
+    const background = new Rectangle(
+      -1.125 * WIDTH,
+      -HEIGHT,
+      3.25 * WIDTH,
+      4 * HEIGHT / 3 - FrictionModel.MAGNIFIED_ATOMS_INFO.distance,
+      ROUND,
+      ROUND, {
+        fill: FrictionConstants.TOP_BOOK_COLOR,
+        cursor: 'pointer'
+      }
+    );
+
+    // init drag for drag area
+    const atomDragArea = new VoicingRectangle(
+      0.055 * WIDTH,
+      0.175 * HEIGHT,
+      0.875 * WIDTH,
+      FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY * 6, {
+        fill: null,
+        cursor: 'pointer',
+        children: [ background ],
+
+        // phet-io
+        tandem: options.tandem.createTandem( 'atomDragArea' ),
+        phetioVisiblePropertyInstrumented: false,
+        phetioInputEnabledPropertyInstrumented: true,
+
+        // pdom
+        focusHighlightLayerable: true,
+
+        // interactive highlights
+        interactiveHighlightLayerable: true,
+
+        // voicing
+        voicingNameResponse: zoomedInChemistryBookString
+      } );
+
     // arrow icon
     const leftArrow = new CueArrow( { rotation: Math.PI, fill: 'white' } );
     const rightArrow = new CueArrow( { fill: 'white' } );
@@ -86,7 +125,10 @@ class MagnifierNode extends Voicing( Node ) {
       children: [ leftArrow, rightArrow ],
       spacing: 20,
       centerX: WIDTH / 2,
-      top: ARROW_TOP
+      top: ARROW_TOP,
+
+      // Cue arrows are visible if hintProperty is true, and if the inputEnabledProperty is true (can be disabled in studio)
+      visibleProperty: DerivedProperty.and( [ model.hintProperty, atomDragArea.inputEnabledProperty ] )
     } );
 
     // Intermediate Node to support PhET-iO instrumentation that can control the visibility and bypass the sim reverting it (like via reset).
@@ -134,56 +176,18 @@ class MagnifierNode extends Voicing( Node ) {
     // @private - add top book
     this.topBookBackground = new Node();
 
-    // init drag for background
-    const background = new Rectangle(
-      -1.125 * WIDTH,
-      -HEIGHT,
-      3.25 * WIDTH,
-      4 * HEIGHT / 3 - FrictionModel.MAGNIFIED_ATOMS_INFO.distance,
-      ROUND,
-      ROUND, {
-        fill: FrictionConstants.TOP_BOOK_COLOR,
-        cursor: 'pointer'
-      }
-    );
-
-    // init drag for drag area
-    const dragArea = new VoicingRectangle(
-      0.055 * WIDTH,
-      0.175 * HEIGHT,
-      0.875 * WIDTH,
-      FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY * 6, {
-        fill: null,
-        cursor: 'pointer',
-        children: [ background ],
-
-        // phet-io
-        tandem: options.tandem.createTandem( 'atomDragArea' ),
-        phetioVisiblePropertyInstrumented: false,
-        phetioInputEnabledPropertyInstrumented: true,
-
-        // pdom
-        focusHighlightLayerable: true,
-
-        // interactive highlights
-        interactiveHighlightLayerable: true,
-
-        // voicing
-        voicingNameResponse: zoomedInChemistryBookString
-      } );
-
-    dragArea.addInputListener( new FrictionDragListener( model, temperatureIncreasingAlerter, temperatureDecreasingAlerter,
+    atomDragArea.addInputListener( new FrictionDragListener( model, temperatureIncreasingAlerter, temperatureDecreasingAlerter,
       bookMovementAlerter, {
         tandem: options.tandem.createTandem( 'dragListener' ),
         startSound: bookPickupSoundClip,
         endSound: bookDropSoundClip,
         targetNode: this.topBookBackground,
-        startDrag: () => dragArea.voicingSpeakFullResponse( {
+        startDrag: () => atomDragArea.voicingSpeakFullResponse( {
           objectResponse: grabbedDescriber.getVoicingGrabbedObjectResponse()
         } )
       } ) );
 
-    this.topBookBackground.addChild( dragArea );
+    this.topBookBackground.addChild( atomDragArea );
 
     // add arrows before the drag area, then the grab cue hides the arrows
     this.topBookBackground.addChild( hintArrowsNode );
@@ -203,23 +207,23 @@ class MagnifierNode extends Voicing( Node ) {
     // a11y - Custom shape highlights, shape will change with atomRowsToShearOffProperty. Focus and Interactive
     // highlights are identical, but we need two different Nodes because GrabDragInteraction adds children to the
     // focus highlight that are specific to the keyboard interaction.
-    const focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
-    const interactiveHighlightPath = new FocusHighlightPath( getFocusHighlightShape( dragArea ) );
+    const focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( atomDragArea ) );
+    const interactiveHighlightPath = new FocusHighlightPath( getFocusHighlightShape( atomDragArea ) );
     focusHighlightPath.pickable = false;
     interactiveHighlightPath.pickable = false;
 
     // pdom - the GrabDragInteraction is positioned based on the whole drag area, but the center of that is behind
     // the background white, so set a source Node to support mobile a11y that has a center that will respond to a pointer
     // down
-    dragArea.setPDOMTransformSourceNode( interactiveHighlightPath );
+    atomDragArea.setPDOMTransformSourceNode( interactiveHighlightPath );
 
     // a11y - add the focus highlight on top of the row circles must be added prior to adding the grab/drag interaction
     // this is a constraint of the grab/drag interaction, must be set before it's creation, but only for
     // focusHighlightLayerable
     this.topBookBackground.addChild( focusHighlightPath );
     this.topBookBackground.addChild( interactiveHighlightPath );
-    dragArea.focusHighlight = focusHighlightPath;
-    dragArea.interactiveHighlight = interactiveHighlightPath;
+    atomDragArea.focusHighlight = focusHighlightPath;
+    atomDragArea.interactiveHighlight = interactiveHighlightPath;
 
     // cuing arrows for the book
     const bookCueArrowLeft = new CueArrow( {
@@ -255,11 +259,11 @@ class MagnifierNode extends Voicing( Node ) {
       } );
 
     // pdom
-    const grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragListener, dragArea, grabbedDescriber, alertSettledAndCool, {
+    const grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragListener, atomDragArea, grabbedDescriber, alertSettledAndCool, {
       objectToGrabString: zoomedInChemistryBookString,
       tandem: options.tandem.createTandem( 'grabDragInteraction' ),
       grabCueOptions: {
-        center: dragArea.center.plusXY( 0, 102 ) // empirically determined
+        center: atomDragArea.center.plusXY( 0, 102 ) // empirically determined
       },
       grabbableOptions: {
         focusHighlight: focusHighlightPath
@@ -285,7 +289,7 @@ class MagnifierNode extends Voicing( Node ) {
 
     this.container.addChild( this.topBookBackground );
 
-    dragArea.inputEnabledProperty.link( inputEnabled => {
+    atomDragArea.inputEnabledProperty.link( inputEnabled => {
       model.hintProperty.value = inputEnabled;
       grabDragInteraction.enabled = inputEnabled;
     } );
@@ -344,18 +348,16 @@ class MagnifierNode extends Voicing( Node ) {
     } );
     this.container.addChild( this.atomCanvasNode );
 
-    // add observers
-    model.hintProperty.linkAttribute( visualArrowIcon, 'visible' );
     model.topBookPositionProperty.linkAttribute( this.topBookBackground, 'translation' );
     model.topBookPositionProperty.linkAttribute( this.topAtomsLayer, 'translation' );
 
     model.atomRowsToShearOffProperty.link( number => {
 
       // Adjust the drag area as the number of rows of atoms shears off.
-      dragArea.setRectHeight( ( number + 2 ) * FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY );
+      atomDragArea.setRectHeight( ( number + 2 ) * FrictionModel.MAGNIFIED_ATOMS_INFO.distanceY );
 
       // Update the size of the highlights accordingly
-      const highlightShape = getFocusHighlightShape( dragArea );
+      const highlightShape = getFocusHighlightShape( atomDragArea );
       focusHighlightPath.setShape( highlightShape );
       interactiveHighlightPath.setShape( highlightShape );
 
