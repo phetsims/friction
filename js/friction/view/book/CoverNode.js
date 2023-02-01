@@ -92,7 +92,6 @@ class CoverNode extends Node {
     titleText.boundsProperty.lazyLink( () => {
       titleText.center = bindingRectangle.center;
     } );
-    this.addChild( titleText );
 
 
     // add remaining pages
@@ -108,6 +107,9 @@ class CoverNode extends Node {
         }
       ) );
     }
+
+    // Keep title on top, as a workaround for kn and km locales in https://github.com/phetsims/scenery/issues/1458
+    this.addChild( titleText );
   }
 }
 
