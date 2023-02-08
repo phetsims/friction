@@ -1,12 +1,12 @@
 {
-  "comment": "# friction 1.6.0-rc.1 Wed Feb 08 2023 10:53:22 GMT-0500 (Eastern Standard Time)",
+  "comment": "# friction 1.6.0-rc.2 Wed Feb 08 2023 13:03:25 GMT-0500 (Eastern Standard Time)",
   "assert": {
     "sha": "c13a8c7741d95fbd8e37619c66ebcca8686dffe7",
     "branch": "HEAD"
   },
   "axon": {
     "sha": "6b85da4fc561043bc3ea0ef9104a14ac26c0e1c4",
-    "branch": "friction-1.6"
+    "branch": "HEAD"
   },
   "brand": {
     "sha": "c73b827b08b394ced9442e88e5ef33755f50ad73",
@@ -21,12 +21,12 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "4692513066ec6d3d0b128f7619ae533c5f1ee429",
+    "sha": "78d09dab1ac1822113ec828b67102e1221994dfd",
     "branch": "1.6"
   },
   "joist": {
     "sha": "d243888ae05e6dacedf8c27861bb335048152477",
-    "branch": "friction-1.6"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "e38653fe65c019e954a9393b2c13a8f202cc1c09",
@@ -42,11 +42,11 @@
   },
   "phet-io": {
     "sha": "1dd3da93645db494f2b309282aed26041ffe1189",
-    "branch": "friction-1.6"
+    "branch": "HEAD"
   },
   "phet-io-sim-specific": {
     "sha": "71be1eaa63ba70716a72d56fd164367a6dacf107",
-    "branch": "friction-1.6"
+    "branch": "HEAD"
   },
   "phet-io-wrappers": {
     "sha": "9430cf4d11fbabd74e334557970f3b0a46e593b0",
@@ -70,7 +70,7 @@
   },
   "scenery-phet": {
     "sha": "6139d9375fa24066fc3510e8771216481a32854e",
-    "branch": "friction-1.6"
+    "branch": "HEAD"
   },
   "sherpa": {
     "sha": "0e53f4800bb3de2efa46afb55557a7f0eec9965b",
@@ -90,7 +90,7 @@
   },
   "tandem": {
     "sha": "f1bde9fb694f640f0b1eaa8922ee50a3b3fb7937",
-    "branch": "friction-1.6"
+    "branch": "HEAD"
   },
   "twixt": {
     "sha": "1f35284c06a7bba3ab04eae44429d3f81df8144f",
@@ -98,6 +98,6 @@
   },
   "utterance-queue": {
     "sha": "b67f85367e5ac1ba2bd6d143c0e745a33b050761",
-    "branch": "friction-1.6"
+    "branch": "HEAD"
   }
 }
