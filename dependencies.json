@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.6.0-rc.2 Wed Feb 08 2023 20:30:33 GMT-0500 (Eastern Standard Time)",
+  "comment": "# friction 1.6.0-rc.3 Wed Feb 08 2023 20:41:27 GMT-0500 (Eastern Standard Time)",
   "assert": {
     "sha": "c13a8c7741d95fbd8e37619c66ebcca8686dffe7",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "1aa9c0a630289e5330bac0992b1b16aa74e27a9a",
+    "sha": "4ad21a4e58ca5c74f5ef48c9042bc0f6cea4e597",
     "branch": "1.6"
   },
   "joist": {
@@ -38,7 +38,7 @@
   },
   "phet-core": {
     "sha": "a6b966d25630c9048414ffa29ec86b26ab986f26",
-    "branch": "friction-1.6"
+    "branch": "HEAD"
   },
   "phet-io": {
     "sha": "1dd3da93645db494f2b309282aed26041ffe1189",
