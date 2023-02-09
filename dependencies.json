@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.6.0-rc.2 Wed Feb 08 2023 13:03:25 GMT-0500 (Eastern Standard Time)",
+  "comment": "# friction 1.6.0-rc.2 Wed Feb 08 2023 19:25:18 GMT-0500 (Eastern Standard Time)",
   "assert": {
     "sha": "c13a8c7741d95fbd8e37619c66ebcca8686dffe7",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "78d09dab1ac1822113ec828b67102e1221994dfd",
+    "sha": "a9c94b863303be17ea03f32766f0bf2d8a9ba56a",
     "branch": "1.6"
   },
   "joist": {
@@ -45,12 +45,12 @@
     "branch": "HEAD"
   },
   "phet-io-sim-specific": {
-    "sha": "71be1eaa63ba70716a72d56fd164367a6dacf107",
-    "branch": "HEAD"
+    "sha": "f9339fab589d77f5b2390f69e0507fb4092ea3d2",
+    "branch": "friction-1.6"
   },
   "phet-io-wrappers": {
-    "sha": "9430cf4d11fbabd74e334557970f3b0a46e593b0",
-    "branch": "HEAD"
+    "sha": "fdbf8b9ccbbf02f7a40ba6d1c5bc0868d1bb9252",
+    "branch": "friction-1.6"
   },
   "phetcommon": {
     "sha": "66a288425c386f5ca17b94dadc8d3187e594ed68",
