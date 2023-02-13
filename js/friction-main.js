@@ -31,7 +31,7 @@ simLauncher.launch( () => {
     credits: {
       leadDesign: 'Michael Dubson, Noah Podolefsky',
       softwareDevelopment: 'Michael Dubson, John Blanco, Jonathan Olson, Michael Kauzmann',
-      team: 'Wendy Adams, Mindy Gratny, Emily B. Moore, Ariel Paul, Katherine Perkins, Taliesin Smith, Brianna Tomlinson, Carl Wieman',
+      team: 'Wendy Adams, Mindy Gratny, Emily B. Moore, Matthew Moore, Ariel Paul, Katherine Perkins, Taliesin Smith, Brianna Tomlinson, Carl Wieman',
       soundDesign: 'Ashton Morris, Mike Winters',
       qualityAssurance: 'Steele Dalton, Kerrie Dochen, Jaron Droder, Bryce Griebenow, Ethan Johnson, Emily Miller, Elise Morgan, ' +
                         'Liam Mulhall, Nancy Salpepi, Oliver Orejola, Ben Roberts, Bryan Yoelin, Jacob Romero, Laura Rea, Megan Lai, ' +
