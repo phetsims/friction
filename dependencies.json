@@ -1,5 +1,5 @@
 {
-  "comment": "# friction 1.6.1 Wed Mar 01 2023 17:36:56 GMT-0500 (Eastern Standard Time)",
+  "comment": "# friction 1.6.2-rc.3 Wed Mar 01 2023 17:57:42 GMT-0500 (Eastern Standard Time)",
   "assert": {
     "sha": "c13a8c7741d95fbd8e37619c66ebcca8686dffe7",
     "branch": "HEAD"
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "ad085ffab7369f1e08ea6ea2e3383bcdfc9483ee",
+    "sha": "8ca1374960a64123324534dbd6c5167e00ccb0ae",
     "branch": "1.6"
   },
   "joist": {
@@ -46,7 +46,7 @@
   },
   "phet-io-sim-specific": {
     "sha": "d805888881169ffcb2607cfab083997688e2ded7",
-    "branch": "friction-1.6"
+    "branch": "HEAD"
   },
   "phet-io-wrappers": {
     "sha": "fdbf8b9ccbbf02f7a40ba6d1c5bc0868d1bb9252",
@@ -78,7 +78,7 @@
   },
   "studio": {
     "sha": "c006a9156bf2a9b8c2610d3d26bc9969a6045520",
-    "branch": "friction-1.6"
+    "branch": "HEAD"
   },
   "sun": {
     "sha": "667c1e8b0c22b3289db82bc771a0266232783661",
