@@ -34,7 +34,7 @@ class FrictionKeyboardDragListener extends KeyboardDragListener {
       end: event => {
 
         temperatureIncreasingAlerter.endDrag();
-        bookMovementAlerter.endDrag( event.domEvent );
+        bookMovementAlerter.endDrag( event && event.domEvent );
 
       },
       dragBoundsProperty: model.topBookDragBoundsProperty
