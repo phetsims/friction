@@ -72,16 +72,18 @@ class MoveBookHelpSection extends KeyboardHelpSection {
     // BookNode in smaller steps row
     const shiftPlusArrowKeys = KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.arrowKeysRowIcon() );
     const shiftPlusWASDKeys = KeyboardHelpIconFactory.shiftPlusIcon( KeyboardHelpIconFactory.wasdRowIcon() );
-    const row = KeyboardHelpSectionRow.labelWithIconList( FrictionStrings.moveInSmallerStepsStringProperty, [
+    const moveInSmallerStepsRow = KeyboardHelpSectionRow.labelWithIconList( FrictionStrings.moveInSmallerStepsStringProperty, [
       shiftPlusArrowKeys, shiftPlusWASDKeys
     ], {
       labelInnerContent: FrictionStrings.a11y.moveInSmallerStepsWithStringProperty
     } );
 
-    super( FrictionStrings.moveBookHeaderStringProperty, [ moveBookRow, row ], options );
+    super( FrictionStrings.moveBookHeaderStringProperty, [ moveBookRow, moveInSmallerStepsRow ], options );
 
     // @private
     this.disposeMoveBookHelpSection = () => {
+      moveBookRow.dispose();
+      moveInSmallerStepsRow.dispose();
       moveBookIcon.dispose();
       shiftPlusArrowKeys.dispose();
       shiftPlusWASDKeys.dispose();
