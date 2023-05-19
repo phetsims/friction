@@ -22,7 +22,8 @@ import FrictionKeyboardHelpContent from './friction/view/FrictionKeyboardHelpCon
 import FrictionScreenView from './friction/view/FrictionScreenView.js';
 import FrictionStrings from './FrictionStrings.js';
 
-// constants
+// While these layoutBounds differ from the default, PhET-iO customizations may rely on these bounds.
+// So do not change. See https://github.com/phetsims/phet-io/issues/1939
 const LAYOUT_BOUNDS = new Bounds2( 0, 0, 768, 504 );
 
 simLauncher.launch( () => {
