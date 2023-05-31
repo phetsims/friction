@@ -18,6 +18,7 @@ import dotRandom from '../../../../dot/js/dotRandom.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import ArrayIO from '../../../../tandem/js/types/ArrayIO.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
@@ -321,7 +322,7 @@ class FrictionModel extends PhetioObject {
     this.topBookPositionProperty.link( ( newPosition, oldPosition ) => {
 
       // don't do further calculations if setting state
-      if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+      if ( !isSettingPhetioStateProperty.value ) {
         this.hintProperty.set( false );
 
         oldPosition = oldPosition || Vector2.ZERO;
@@ -336,7 +337,7 @@ class FrictionModel extends PhetioObject {
 
     // shearing check
     this.vibrationAmplitudeProperty.link( amplitude => {
-      if ( amplitude > MAGNIFIED_ATOMS_INFO.shearingLimit && !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+      if ( amplitude > MAGNIFIED_ATOMS_INFO.shearingLimit && !isSettingPhetioStateProperty.value ) {
         this.tryToShearOff();
       }
     } );

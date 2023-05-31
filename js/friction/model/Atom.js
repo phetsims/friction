@@ -13,6 +13,7 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import merge from '../../../../phet-core/js/merge.js';
 import required from '../../../../phet-core/js/required.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
@@ -77,7 +78,7 @@ class Atom extends PhetioObject {
 
       // move the atom's center position as the top book moves
       model.topBookPositionProperty.lazyLink( ( newPosition, oldPosition ) => {
-        if ( !this.isShearedOff && !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+        if ( !this.isShearedOff && !isSettingPhetioStateProperty.value ) {
           const deltaX = newPosition.x - oldPosition.x;
           const deltaY = newPosition.y - oldPosition.y;
           this.centerPosition.setXY( this.centerPosition.x + deltaX, this.centerPosition.y + deltaY );
