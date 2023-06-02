@@ -35,18 +35,6 @@ class FrictionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
     const leftContent = [ grabReleaseHelpSection, moveBookHelpSection ];
     const rightContent = [ basicActionsHelpSection ];
     super( leftContent, rightContent, { sectionSpacing: 10 } );
-
-    this.disposeFrictionKeyboardHelpContent = () => {
-      grabReleaseHelpSection.dispose();
-      moveBookHelpSection.dispose();
-      basicActionsHelpSection.dispose();
-    };
-  }
-
-  // @public
-  dispose() {
-    this.disposeFrictionKeyboardHelpContent();
-    super.dispose();
   }
 }
 
@@ -79,21 +67,6 @@ class MoveBookHelpSection extends KeyboardHelpSection {
     } );
 
     super( FrictionStrings.moveBookHeaderStringProperty, [ moveBookRow, moveInSmallerStepsRow ], options );
-
-    // @private
-    this.disposeMoveBookHelpSection = () => {
-      moveBookRow.dispose();
-      moveInSmallerStepsRow.dispose();
-      moveBookIcon.dispose();
-      shiftPlusArrowKeys.dispose();
-      shiftPlusWASDKeys.dispose();
-    };
-  }
-
-  // @public
-  dispose() {
-    this.disposeMoveBookHelpSection();
-    super.dispose();
   }
 }
 
