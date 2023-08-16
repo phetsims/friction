@@ -12,7 +12,7 @@ import Vector2 from '../../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../../kite/js/imports.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { FocusHighlightPath, Node, Voicing } from '../../../../../scenery/js/imports.js';
+import { HighlightPath, Node, Voicing } from '../../../../../scenery/js/imports.js';
 import SoundClip from '../../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -72,12 +72,12 @@ class BookNode extends Voicing( Node ) {
     if ( options.drag ) {
 
       // a11y - We want the highlights to be completely within the bounds of the book.
-      const focusHighlightRect = new FocusHighlightPath( null );
+      const focusHighlightRect = new HighlightPath( null );
       const highlightLineWidth = focusHighlightRect.getOuterLineWidth( this );
       const highlightShape = Shape.bounds( this.localBounds.eroded( highlightLineWidth / 2 ) );
       focusHighlightRect.setShape( highlightShape );
 
-      const interactiveHighlightRect = new FocusHighlightPath( null );
+      const interactiveHighlightRect = new HighlightPath( null );
       interactiveHighlightRect.setShape( highlightShape );
 
       // cuing arrows for the book

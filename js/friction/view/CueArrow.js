@@ -7,7 +7,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import { FocusHighlightPath } from '../../../../scenery/js/imports.js';
+import { HighlightPath } from '../../../../scenery/js/imports.js';
 import friction from '../../friction.js';
 
 /**
@@ -24,7 +24,7 @@ class CueArrow extends ArrowNode {
       headWidth: 30,
       tailWidth: 15,
       stroke: 'black',
-      fill: FocusHighlightPath.INNER_FOCUS_COLOR,
+      fill: HighlightPath.INNER_FOCUS_COLOR,
       lineWidth: 2,
       arrowLength: 70
     }, options );

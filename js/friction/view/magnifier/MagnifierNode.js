@@ -14,7 +14,7 @@ import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../../kite/js/imports.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import { Circle, FocusHighlightPath, HBox, Node, Path, Rectangle, Voicing } from '../../../../../scenery/js/imports.js';
+import { Circle, HighlightPath, HBox, Node, Path, Rectangle, Voicing } from '../../../../../scenery/js/imports.js';
 import SoundClip from '../../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -207,8 +207,8 @@ class MagnifierNode extends Voicing( Node ) {
     // a11y - Custom shape highlights, shape will change with atomRowsToShearOffProperty. Focus and Interactive
     // highlights are identical, but we need two different Nodes because GrabDragInteraction adds children to the
     // focus highlight that are specific to the keyboard interaction.
-    const focusHighlightPath = new FocusHighlightPath( getFocusHighlightShape( atomDragArea ) );
-    const interactiveHighlightPath = new FocusHighlightPath( getFocusHighlightShape( atomDragArea ) );
+    const focusHighlightPath = new HighlightPath( getFocusHighlightShape( atomDragArea ) );
+    const interactiveHighlightPath = new HighlightPath( getFocusHighlightShape( atomDragArea ) );
     focusHighlightPath.pickable = false;
     interactiveHighlightPath.pickable = false;
 
