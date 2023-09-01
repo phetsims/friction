@@ -172,7 +172,7 @@ class FrictionScreenView extends ScreenView {
     soundManager.addSoundGenerator( this.bookRubSoundGenerator );
 
     // @private - add magnifier
-    this.magnifierNode = new MagnifierNode( model, 195, 425, chemistryStringProperty, temperatureIncreasingAlerter,
+    this.atomicView = new MagnifierNode( model, 195, 425, chemistryStringProperty, temperatureIncreasingAlerter,
       temperatureDecreasingAlerter,
       bookMovementAlerter, grabbedDescriber, alertSettledAndCool, {
         x: 40,
@@ -181,7 +181,7 @@ class FrictionScreenView extends ScreenView {
 
         tandem: tandem.createTandem( 'atomicView' )
       } );
-    this.addChild( this.magnifierNode );
+    this.addChild( this.atomicView );
 
     // add thermometer
     this.addChild( new ThermometerNode( model.vibrationAmplitudeProperty, THERMOMETER_MIN_TEMP, THERMOMETER_MAX_TEMP, {
@@ -205,7 +205,7 @@ class FrictionScreenView extends ScreenView {
     } ) );
 
     // pdom
-    this.pdomPlayAreaNode.pdomOrder = [ topBookNode, this.magnifierNode ];
+    this.pdomPlayAreaNode.pdomOrder = [ topBookNode, this.atomicView ];
 
     // add reset button
     const resetAllButton = new ResetAllButton( {
@@ -271,7 +271,7 @@ class FrictionScreenView extends ScreenView {
     this.resetFrictionScreenView = () => {
 
       // pdom - among other things, this will reset the grab button cuing.
-      this.magnifierNode.reset();
+      this.atomicView.reset();
       topBookNode.reset();
 
       // pdom, reset PDOM and reset alerting types
@@ -289,7 +289,7 @@ class FrictionScreenView extends ScreenView {
    * @public
    */
   step( dt ) {
-    this.magnifierNode.step( dt );
+    this.atomicView.step( dt );
     this.bookRubSoundGenerator.step( dt );
     this.coolingSoundGenerator.step( dt );
   }
