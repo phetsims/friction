@@ -142,7 +142,7 @@ class FrictionScreenView extends ScreenView {
       } ) );
 
     // add chemistry book
-    const chemistryBookNode = new BookNode( model, chemistryStringProperty, temperatureIncreasingAlerter,
+    const topBookNode = new BookNode( model, chemistryStringProperty, temperatureIncreasingAlerter,
       temperatureDecreasingAlerter,
       bookMovementAlerter, grabbedDescriber, alertSettledAndCool, {
         x: 65,
@@ -154,7 +154,7 @@ class FrictionScreenView extends ScreenView {
         tandem: tandem.createTandem( 'topBookNode' ),
         phetioInputEnabledPropertyInstrumented: true
       } );
-    this.addChild( chemistryBookNode );
+    this.addChild( topBookNode );
 
     // create and hook up the sound that will be produced when the books come into contact with one another
     const contactLower_mp3SoundClip = new SoundClip( contactLower_mp3, { initialOutputLevel: 0.06 } );
@@ -205,7 +205,7 @@ class FrictionScreenView extends ScreenView {
     } ) );
 
     // pdom
-    this.pdomPlayAreaNode.pdomOrder = [ chemistryBookNode, this.magnifierNode ];
+    this.pdomPlayAreaNode.pdomOrder = [ topBookNode, this.magnifierNode ];
 
     // add reset button
     const resetAllButton = new ResetAllButton( {
@@ -272,7 +272,7 @@ class FrictionScreenView extends ScreenView {
 
       // pdom - among other things, this will reset the grab button cuing.
       this.magnifierNode.reset();
-      chemistryBookNode.reset();
+      topBookNode.reset();
 
       // pdom, reset PDOM and reset alerting types
       temperatureDecreasingAlerter.reset();
