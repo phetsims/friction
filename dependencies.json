@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "fdb57cdde3202731d4063c397b7b132b68e27f35",
+    "sha": "aacec2d4a520e02bc03bab0f1394e7cbf18fc814",
     "branch": "1.6"
   },
   "joist": {
@@ -49,7 +49,7 @@
     "branch": "HEAD"
   },
   "phet-io-wrappers": {
-    "sha": "96c71c3862b8e8b9e2bd3a72310a943b126e14db",
+    "sha": "6494757ec4e0a88020065f0c4228a98ba482b905",
     "branch": "HEAD"
   },
   "phetcommon": {
@@ -57,7 +57,7 @@
     "branch": "HEAD"
   },
   "phetmarks": {
-    "sha": "5b3084a2ea029dec575e5dd00752b4013056c13b",
+    "sha": "16c3c17f5bb40d481ac9314fb68f1ef60677a7d9",
     "branch": "HEAD"
   },
   "query-string-machine": {
@@ -89,7 +89,7 @@
     "branch": "HEAD"
   },
   "tandem": {
-    "sha": "b468cb507c27cbae400daf67f763e971290779c5",
+    "sha": "5bad942c378104f8f84ac51449c3807f173e2c38",
     "branch": "HEAD"
   },
   "twixt": {
