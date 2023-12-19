@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "8dfa9a4cc16a8a8c4463aa8fc84080161eea33ee",
+    "sha": "b91676f7be4aea1cb14443cc8722c2ea1539925f",
     "branch": "HEAD"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "aac58443d252c929a35809997ba931b137b6a943",
+    "sha": "600f8ac2b692de314342119e350994cfb233d1b6",
     "branch": "1.6"
   },
   "joist": {
@@ -45,11 +45,11 @@
     "branch": "HEAD"
   },
   "phet-io-sim-specific": {
-    "sha": "68ed6dd1ca0690b2b2acef5764f1b4b74e861458",
+    "sha": "c2a5289f744e4c5dfff0d92f28b442f9c2218cac",
     "branch": "HEAD"
   },
   "phet-io-wrappers": {
-    "sha": "a5dcf1fb05dd2c359aa385fc5c5f2d247ce1432c",
+    "sha": "e187db6dd30e097038604f16467e3081c432a4ca",
     "branch": "HEAD"
   },
   "phetcommon": {
