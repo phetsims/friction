@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "359f7633a9c4feb3161103599d27e586e928f9b9",
+    "sha": "93ad12fa3e4850d3a0931d8e666a2ca6ecd61e5b",
     "branch": "1.6"
   },
   "joist": {
@@ -41,15 +41,15 @@
     "branch": "HEAD"
   },
   "phet-io": {
-    "sha": "4785dc0343af531ad59947c29107f40d3c8228f4",
+    "sha": "2d66349b4edd0b572832aa1bea07453adbadee4d",
     "branch": "HEAD"
   },
   "phet-io-sim-specific": {
-    "sha": "c2a5289f744e4c5dfff0d92f28b442f9c2218cac",
+    "sha": "e0690eee6c0ad853b2205b652054eb3735265cf4",
     "branch": "HEAD"
   },
   "phet-io-wrappers": {
-    "sha": "ac37770db06044d282540a189c9dac3a887ea415",
+    "sha": "0de1f3afc897c7456cff5cc99adabf1ea506ea8e",
     "branch": "HEAD"
   },
   "phetcommon": {
