@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "f7d4faced523d14772d891693eca7de1c336ec55",
+    "sha": "e97bd5df8e6d292dae69e71663985ec383f94ff8",
     "branch": "1.6"
   },
   "joist": {
@@ -77,7 +77,7 @@
     "branch": "HEAD"
   },
   "studio": {
-    "sha": "18a45c5dbc8469e9ae707b6af0fe0cdb326cafc6",
+    "sha": "6730d13b7842dc572ae75be34075208ca0c73694",
     "branch": "HEAD"
   },
   "sun": {
