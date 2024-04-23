@@ -73,8 +73,7 @@ class BookNode extends Voicing( Node ) {
 
       // a11y - We want the highlights to be completely within the bounds of the book.
       const focusHighlightRect = new HighlightPath( null );
-      const highlightLineWidth = focusHighlightRect.getOuterLineWidth( this );
-      const highlightShape = Shape.bounds( this.localBounds.eroded( highlightLineWidth / 2 ) );
+      const highlightShape = Shape.bounds( this.localBounds.eroded( HighlightPath.getDefaultHighlightLineWidth() / 2 ) );
       focusHighlightRect.setShape( highlightShape );
 
       const interactiveHighlightRect = new HighlightPath( null );
