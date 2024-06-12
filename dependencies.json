@@ -5,7 +5,7 @@
     "branch": "HEAD"
   },
   "axon": {
-    "sha": "68054428c213a8b6f87960240a1cfbca49e6795a",
+    "sha": "1c854fc2c7ed2209173516fa78371d683d61e503",
     "branch": "HEAD"
   },
   "brand": {
@@ -21,11 +21,11 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "8af1dbea73ddcd28b5512ee4f7f0dff800696b4e",
+    "sha": "2f813b71bed72941519d9705f3fd19c6f75661e3",
     "branch": "1.6"
   },
   "joist": {
-    "sha": "0e784893301414dcc8e867fc27966868a95ca13a",
+    "sha": "3a7fcbd361083b3a78ebc291a3d5a3c99848ec86",
     "branch": "HEAD"
   },
   "kite": {
