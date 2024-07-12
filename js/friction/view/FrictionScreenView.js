@@ -250,11 +250,10 @@ class FrictionScreenView extends ScreenView {
 
     // @private {CoolingSoundGenerator} - sound generator that produces the "cooling off" sound
     this.coolingSoundGenerator = new CoolingSoundGenerator( model.vibrationAmplitudeProperty, {
-      maxOutputLevel: 0.75
-    } );
-    soundManager.addSoundGenerator( this.coolingSoundGenerator, {
+      maxOutputLevel: 0.75,
       sonificationLevel: SoundLevelEnum.EXTRA
     } );
+    soundManager.addSoundGenerator( this.coolingSoundGenerator );
 
     // add a node that creates a "play area" accessible section in the PDOM
     this.pdomControlAreaNode.pdomOrder = [ resetAllButton ];
