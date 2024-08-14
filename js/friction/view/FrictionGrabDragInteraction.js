@@ -77,7 +77,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
    * @override
    */
   dispose() {
-    this.model.vibrationAmplitudeProperty.unlink( this.amplitudeListener );
+    assert && assert( false, 'should not be disposed' );
   }
 }
 
