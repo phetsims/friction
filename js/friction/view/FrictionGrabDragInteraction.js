@@ -35,7 +35,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
 
       // appended to in this type. // TODO: What is appended to in this type? See https://github.com/phetsims/scenery-phet/issues/869
       // TODO: https://github.com/phetsims/scenery-phet/issues/869 redundant default
-      listenersForDragState: []
+      listenersWhileDraggable: []
     }, options );
 
 
