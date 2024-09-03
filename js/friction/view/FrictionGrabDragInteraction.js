@@ -31,11 +31,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
       // Function that returns whether or not the drag cue should be shown.
       showDragCueNode: () => {
         return model.topBookPositionProperty.value.equals( model.topBookPositionProperty.initialValue );
-      },
-
-      // appended to in this type. // TODO: What is appended to in this type? See https://github.com/phetsims/scenery-phet/issues/869
-      // TODO: https://github.com/phetsims/scenery-phet/issues/869 redundant default
-      listenersWhileDraggable: []
+      }
     }, options );
 
 
