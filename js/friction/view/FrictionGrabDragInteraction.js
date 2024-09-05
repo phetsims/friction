@@ -26,12 +26,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
 
     assert && assert( wrappedNode.isVoicing, 'wrappedNode must support voicing' );
 
-    options = merge( {
-
-      // Function that returns whether or not the drag cue should be shown.
-      shouldShowDragCueNode: () => model.topBookPositionProperty.value.equals( model.topBookPositionProperty.initialValue )
-    }, options );
-
+    options = merge( {}, options );
 
     // Keep track of the passed in grab listener, to add to it below
     const oldGrab = options.onGrab;
@@ -65,6 +60,10 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
 
     // @private
     this.model = model;
+
+    model.topBookPositionProperty.lazyLink( () => {
+      this.grabDragModel.grabDragUsageTracker.shouldShowDragCue = false;
+    } );
   }
 
   /**
