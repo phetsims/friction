@@ -207,8 +207,9 @@ class MagnifierNode extends Voicing( Node ) {
     // a11y - Custom shape highlights, shape will change with atomRowsToShearOffProperty. Focus and Interactive
     // highlights are identical, but we need two different Nodes because GrabDragInteraction adds children to the
     // focus highlight that are specific to the keyboard interaction.
-    const focusHighlightPath = new HighlightPath( getFocusHighlightShape( atomDragArea ) );
-    const interactiveHighlightPath = new HighlightPath( getFocusHighlightShape( atomDragArea ) );
+    const highlightShape = getFocusHighlightShape( atomDragArea );
+    const focusHighlightPath = new HighlightPath( highlightShape );
+    const interactiveHighlightPath = new HighlightPath( highlightShape );
     focusHighlightPath.pickable = false;
     interactiveHighlightPath.pickable = false;
 
@@ -264,9 +265,6 @@ class MagnifierNode extends Voicing( Node ) {
       tandem: options.tandem.createTandem( 'grabDragInteraction' ),
       grabCueOptions: {
         center: atomDragArea.center.plusXY( 0, 102 ) // empirically determined
-      },
-      grabbableOptions: {
-        focusHighlight: focusHighlightPath
       },
 
       // The help text is provided by the BookNode's interaction

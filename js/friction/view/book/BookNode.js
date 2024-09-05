@@ -71,14 +71,6 @@ class BookNode extends Voicing( Node ) {
     // init drag and a11y options for the draggable book
     if ( options.drag ) {
 
-      // a11y - We want the highlights to be completely within the bounds of the book.
-      const focusHighlightRect = new HighlightPath( null );
-      const highlightShape = Shape.bounds( this.localBounds.eroded( HighlightPath.getDefaultHighlightLineWidth() / 2 ) );
-      focusHighlightRect.setShape( highlightShape );
-
-      const interactiveHighlightRect = new HighlightPath( null );
-      interactiveHighlightRect.setShape( highlightShape );
-
       // cuing arrows for the book
       const bookCueArrow1 = new CueArrow( {
         rotation: Math.PI,
@@ -111,6 +103,12 @@ class BookNode extends Voicing( Node ) {
           tandem: options.tandem.createTandem( 'keyboardDragListener' )
         } );
 
+
+      // a11y - We want the highlights to be completely within the bounds of the book.
+      const highlightShape = Shape.bounds( this.localBounds.eroded( HighlightPath.getDefaultHighlightLineWidth() / 2 ) );
+      const focusHighlightRect = new HighlightPath( highlightShape );
+      const interactiveHighlightRect = new HighlightPath( highlightShape );
+
       // highlights must be added prior to adding the grab/drag interaction, this is a constraint of GrabDragInteraction
       this.addChild( focusHighlightRect );
       this.focusHighlight = focusHighlightRect;
@@ -128,9 +126,6 @@ class BookNode extends Voicing( Node ) {
         grabCueOptions: {
           x: 45,
           y: -60
-        },
-        grabbableOptions: {
-          focusHighlight: focusHighlightRect
         },
 
         keyboardHelpText: grabButtonHelpTextString,
