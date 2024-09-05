@@ -41,7 +41,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
     const grabbedUtterance = new Utterance();
 
     // Wrap the onGrab option in default functionality for al of the type in Friction
-    options.onGrab = event => {
+    options.onGrab = () => {
       oldGrab && oldGrab();
 
       // just for pdom
