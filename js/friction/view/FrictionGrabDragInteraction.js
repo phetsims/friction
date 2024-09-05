@@ -49,7 +49,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
       wrappedNode.alertDescriptionUtterance( grabbedUtterance );
 
       // When using mouse/touch FrictionDragListener will cover voicing responses.
-      if ( event.isFromPDOM() ) {
+      if ( !this.isInputFromMouseOrTouch() ) {
 
         // No name response from PDOM, that comes from focus
         wrappedNode.voicingSpeakResponse( {
