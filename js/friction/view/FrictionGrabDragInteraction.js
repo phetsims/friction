@@ -29,9 +29,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
     options = merge( {
 
       // Function that returns whether or not the drag cue should be shown.
-      showDragCueNode: () => {
-        return model.topBookPositionProperty.value.equals( model.topBookPositionProperty.initialValue );
-      }
+      shouldShowDragCueNode: () => model.topBookPositionProperty.value.equals( model.topBookPositionProperty.initialValue )
     }, options );
 
 
