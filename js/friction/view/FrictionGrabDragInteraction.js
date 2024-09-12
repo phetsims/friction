@@ -9,6 +9,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/grab-drag/GrabDragInteraction.js';
+import { isVoicing } from '../../../../scenery/js/imports.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import friction from '../../friction.js';
 
@@ -24,7 +25,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
    */
   constructor( model, keyboardDragListener, wrappedNode, grabbedDescriber, alertSettledAndCool, options ) {
 
-    assert && assert( wrappedNode.isVoicing, 'wrappedNode must support voicing' );
+    assert && assert( isVoicing( wrappedNode ), 'wrappedNode must support voicing' );
 
     options = merge( {}, options );
 
