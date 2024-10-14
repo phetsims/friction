@@ -135,9 +135,13 @@ class FrictionScreenView extends ScreenView {
     // @private
     this.frictionScreenSummaryNode = frictionScreenSummaryNode;
 
+    // A layer in the view for interaction cues that appear to show the user how to interact with
+    // the books.
+    const interactionCueLayer = new Node();
+
     // add physics book
     this.addChild( new BookNode( model, physicsStringProperty, temperatureIncreasingAlerter, temperatureDecreasingAlerter,
-      bookMovementAlerter, grabbedDescriber, alertSettledAndCool, {
+      bookMovementAlerter, grabbedDescriber, alertSettledAndCool, interactionCueLayer, {
         x: 50,
         y: 225,
         interactiveHighlight: 'invisible',
@@ -147,7 +151,7 @@ class FrictionScreenView extends ScreenView {
     // add chemistry book
     const topBookNode = new BookNode( model, chemistryStringProperty, temperatureIncreasingAlerter,
       temperatureDecreasingAlerter,
-      bookMovementAlerter, grabbedDescriber, alertSettledAndCool, {
+      bookMovementAlerter, grabbedDescriber, alertSettledAndCool, interactionCueLayer, {
         x: 65,
         y: 209,
         color: FrictionConstants.TOP_BOOK_COLOR_MACRO,
@@ -222,6 +226,8 @@ class FrictionScreenView extends ScreenView {
       tandem: tandem.createTandem( 'resetAllButton' )
     } );
     this.addChild( resetAllButton );
+
+    this.addChild( interactionCueLayer );
 
     // create and register the sound that will be played to indicate changes to the rate of molecule motion
     soundManager.addSoundGenerator( new MoleculeMotionSoundGenerator( model.vibrationAmplitudeProperty, {

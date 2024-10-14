@@ -21,9 +21,10 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
    * @param {Node} wrappedNode
    * @param {GrabbedDescriber} grabbedDescriber
    * @param {function():} alertSettledAndCool
+   * @param {Node} interactionCueLayer
    * @param {Object} [options]
    */
-  constructor( model, keyboardDragListener, wrappedNode, grabbedDescriber, alertSettledAndCool, options ) {
+  constructor( model, keyboardDragListener, wrappedNode, grabbedDescriber, alertSettledAndCool, interactionCueLayer, options ) {
 
     assert && assert( isVoicing( wrappedNode ), 'wrappedNode must support voicing' );
 
@@ -57,7 +58,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
       }
     };
 
-    super( wrappedNode, keyboardDragListener, options );
+    super( wrappedNode, keyboardDragListener, interactionCueLayer, options );
 
     // @private
     this.model = model;

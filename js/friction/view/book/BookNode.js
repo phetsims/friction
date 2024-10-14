@@ -42,9 +42,10 @@ class BookNode extends Voicing( Node ) {
    * @param {BookMovementAlerter} bookMovementAlerter
    * @param {GrabbedDescriber} grabbedDescriber
    * @param {function():} alertSettledAndCool
+   * @param {Node} interactionCueLayer
    * @param {Object} [options]
    */
-  constructor( model, title, temperatureIncreasingAlerter, temperatureDecreasingAlerter, bookMovementAlerter, grabbedDescriber, alertSettledAndCool, options ) {
+  constructor( model, title, temperatureIncreasingAlerter, temperatureDecreasingAlerter, bookMovementAlerter, grabbedDescriber, alertSettledAndCool, interactionCueLayer, options ) {
 
     options = merge( {
 
@@ -119,14 +120,15 @@ class BookNode extends Voicing( Node ) {
       this.interactiveHighlightLayerable = true;
 
       // @private - a11y
-      this.grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragListener, this, grabbedDescriber, alertSettledAndCool, {
+      this.grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragListener, this, grabbedDescriber, alertSettledAndCool, interactionCueLayer, {
         objectToGrabString: chemistryBookString,
 
         // Empirically determined values to place the cue above the book.
-        grabCueOptions: {
-          x: 45,
-          y: -60
-        },
+        grabCuePosition: 'top',
+        grabCueOffset: new Vector2( 0, -5 ),
+
+        // Empirically determined so that the arrows look centered around the book.
+        dragCueOffset: new Vector2( 0, 35 ),
 
         keyboardHelpText: grabButtonHelpTextString,
 

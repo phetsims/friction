@@ -9,12 +9,12 @@
  * @author Sam Reid (PhET Interactive Simulations)
  */
 
-import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
+import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../../kite/js/imports.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import { Circle, HighlightPath, HBox, Node, Path, Rectangle, Voicing } from '../../../../../scenery/js/imports.js';
+import { Circle, HBox, HighlightPath, Node, Path, Rectangle, Voicing } from '../../../../../scenery/js/imports.js';
 import SoundClip from '../../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
@@ -260,30 +260,37 @@ class MagnifierNode extends Voicing( Node ) {
       } );
 
     // pdom
-    const grabDragInteraction = new FrictionGrabDragInteraction( model, this.keyboardDragListener, atomDragArea, grabbedDescriber, alertSettledAndCool, {
-      objectToGrabString: zoomedInChemistryBookString,
-      tandem: options.tandem.createTandem( 'grabDragInteraction' ),
-      grabCueOptions: {
-        center: atomDragArea.center.plusXY( 0, 102 ) // empirically determined
-      },
+    const grabDragInteraction = new FrictionGrabDragInteraction(
+      model, this.keyboardDragListener, atomDragArea, grabbedDescriber, alertSettledAndCool,
+      this, // Use this Node as the interaction cue layer so that the cues go beneath the clip area.
+      {
+        objectToGrabString: zoomedInChemistryBookString,
+        tandem: options.tandem.createTandem( 'grabDragInteraction' ),
 
-      // The help text is provided by the BookNode's interaction
-      keyboardHelpText: null,
-      gestureHelpText: null,
+        // Empirically determined so that the cue covers white interaction arrows
+        grabCueOffset: new Vector2( 0, -152 ),
 
-      // handler for when the user grabs the book
-      onGrab: () => {
-        model.hintProperty.set( false ); // hide the visual cue arrows
-        bookPickupSoundClip.play();
-      },
+        // Empirically determined so that the drag cue appears near the drag cue
+        dragCuePosition: 'bottom',
+        dragCueOffset: new Vector2( 0, -152 ),
 
-      // handler for when the user releases the book
-      onRelease: () => {
-        bookDropSoundClip.play();
-      },
+        // The help text is provided by the BookNode's interaction
+        keyboardHelpText: null,
+        gestureHelpText: null,
 
-      dragCueNode: cueArrows
-    } );
+        // handler for when the user grabs the book
+        onGrab: () => {
+          model.hintProperty.set( false ); // hide the visual cue arrows
+          bookPickupSoundClip.play();
+        },
+
+        // handler for when the user releases the book
+        onRelease: () => {
+          bookDropSoundClip.play();
+        },
+
+        dragCueNode: cueArrows
+      } );
 
     this.container.addChild( this.topBookBackground );
 
