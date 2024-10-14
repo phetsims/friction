@@ -62,10 +62,6 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
 
     // @private
     this.model = model;
-
-    model.topBookPositionProperty.lazyLink( () => {
-      this.grabDragModel.grabDragUsageTracker.shouldShowDragCue = false;
-    } );
   }
 
   /**
