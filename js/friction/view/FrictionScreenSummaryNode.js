@@ -45,7 +45,7 @@ class FrictionScreenSummaryNode extends ScreenSummaryContent {
   constructor( contactProperty, numberOfAtomsShearedOffProperty, vibrationAmplitudeProperty, thermometerMinTemp,
                thermometerMaxTemp, temperatureDecreasingAlerter ) {
 
-    super();
+    super( null );
 
     // @private
     this.contactProperty = contactProperty;
