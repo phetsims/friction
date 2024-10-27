@@ -5,6 +5,7 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
+import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import friction from '../../friction.js';
@@ -30,7 +31,7 @@ const farFewerString = FrictionStrings.a11y.amountOfAtoms.farFewer;
 const someString = FrictionStrings.a11y.amountOfAtoms.some;
 const manyString = FrictionStrings.a11y.amountOfAtoms.many;
 
-class FrictionScreenSummaryNode extends Node {
+class FrictionScreenSummaryNode extends ScreenSummaryContent {
 
   /**
    *
@@ -90,12 +91,8 @@ class FrictionScreenSummaryNode extends Node {
     // exists for the lifetime of the sim, no need to unlink
     this.contactProperty.link( () => { this.updateSummaryString();} );
 
-    this.mutate( {
-      children: [ this.booksParagraph, this.interactionHintParagraph ],
-
-      // pdom
-      tagName: 'div'
-    } );
+    this.addChild( this.booksParagraph );
+    this.addChild( this.interactionHintParagraph );
   }
 
 
