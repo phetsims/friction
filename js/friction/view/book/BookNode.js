@@ -9,10 +9,12 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import { Shape } from '../../../../../kite/js/imports.js';
+import Shape from '../../../../../kite/js/Shape.js';
 import merge from '../../../../../phet-core/js/merge.js';
 import ModelViewTransform2 from '../../../../../phetcommon/js/view/ModelViewTransform2.js';
-import { HighlightPath, Node, Voicing } from '../../../../../scenery/js/imports.js';
+import HighlightPath from '../../../../../scenery/js/accessibility/HighlightPath.js';
+import Voicing from '../../../../../scenery/js/accessibility/voicing/Voicing.js';
+import Node from '../../../../../scenery/js/nodes/Node.js';
 import SoundClip from '../../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';

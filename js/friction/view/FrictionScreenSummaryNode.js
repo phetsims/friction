@@ -7,7 +7,7 @@
 
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import friction from '../../friction.js';
 import FrictionStrings from '../../FrictionStrings.js';
 import FrictionConstants from '../FrictionConstants.js';

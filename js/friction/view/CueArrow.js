@@ -7,7 +7,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import { HighlightPath } from '../../../../scenery/js/imports.js';
+import HighlightPath from '../../../../scenery/js/accessibility/HighlightPath.js';
 import friction from '../../friction.js';
 
 /**

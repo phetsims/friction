@@ -12,9 +12,15 @@
 import DerivedProperty from '../../../../../axon/js/DerivedProperty.js';
 import Bounds2 from '../../../../../dot/js/Bounds2.js';
 import Vector2 from '../../../../../dot/js/Vector2.js';
-import { Shape } from '../../../../../kite/js/imports.js';
+import Shape from '../../../../../kite/js/Shape.js';
 import merge from '../../../../../phet-core/js/merge.js';
-import { Circle, HBox, HighlightPath, Node, Path, Rectangle, Voicing } from '../../../../../scenery/js/imports.js';
+import HighlightPath from '../../../../../scenery/js/accessibility/HighlightPath.js';
+import Voicing from '../../../../../scenery/js/accessibility/voicing/Voicing.js';
+import HBox from '../../../../../scenery/js/layout/nodes/HBox.js';
+import Circle from '../../../../../scenery/js/nodes/Circle.js';
+import Node from '../../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../../scenery/js/nodes/Path.js';
+import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import SoundClip from '../../../../../tambo/js/sound-generators/SoundClip.js';
 import soundManager from '../../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';

@@ -10,7 +10,7 @@ import merge from '../../../../../phet-core/js/merge.js';
 import BorderAlertsDescriber from '../../../../../scenery-phet/js/accessibility/describers/BorderAlertsDescriber.js';
 import DirectionEnum from '../../../../../scenery-phet/js/accessibility/describers/DirectionEnum.js';
 import MovementAlerter from '../../../../../scenery-phet/js/accessibility/describers/MovementAlerter.js';
-import { Voicing } from '../../../../../scenery/js/imports.js';
+import Voicing from '../../../../../scenery/js/accessibility/voicing/Voicing.js';
 import ResponsePacket from '../../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../../utterance-queue/js/Utterance.js';
 import friction from '../../../friction.js';

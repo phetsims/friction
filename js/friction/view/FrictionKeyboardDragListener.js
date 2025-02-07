@@ -7,7 +7,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import { KeyboardDragListener } from '../../../../scenery/js/imports.js';
+import KeyboardDragListener from '../../../../scenery/js/listeners/KeyboardDragListener.js';
 import friction from '../../friction.js';
 
 class FrictionKeyboardDragListener extends KeyboardDragListener {
