@@ -1,4 +1,4 @@
-// Copyright 2018-2023, University of Colorado Boulder
+// Copyright 2018-2025, University of Colorado Boulder
 
 /**
  * MovementAlerter subtype that knows how to alert movement for Friction's chemistry book, which is pretty specific for a

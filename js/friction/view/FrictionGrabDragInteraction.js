@@ -1,4 +1,4 @@
-// Copyright 2018-2024, University of Colorado Boulder
+// Copyright 2018-2025, University of Colorado Boulder
 
 /**
  * Extends the base GrabDragInteraction to supply consistent description and alternative input to all the possible ways
