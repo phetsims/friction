@@ -21,11 +21,11 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "f362576f890582a733e13990e575e399ea87819e",
+    "sha": "92e404b70ba2ccde35681547ab74fae1f28a1e33",
     "branch": "1.6"
   },
   "joist": {
-    "sha": "331766ae31841afeedd9b89724a660686abfa590",
+    "sha": "e70a931760ce0392460b713a431b84f12367ad04",
     "branch": "HEAD"
   },
   "kite": {
