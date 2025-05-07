@@ -58,6 +58,10 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
       }
     };
 
+    // Do not use the default grabbed response, this sim implements its own responses and times a custom
+    // alert for settled and cooled.
+    options.createGrabbedResponse = () => null;
+
     super( wrappedNode, keyboardDragListener, interactionCueLayer, options );
 
     // @private
