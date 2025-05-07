@@ -281,7 +281,7 @@ class MagnifierNode extends Voicing( Node ) {
         dragCueOffset: new Vector2( 0, -152 ),
 
         // The help text is provided by the BookNode's interaction
-        keyboardHelpText: null,
+        accessibleHelpText: null,
         gestureHelpText: null,
 
         // handler for when the user grabs the book

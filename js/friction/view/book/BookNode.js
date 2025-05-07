@@ -132,7 +132,7 @@ class BookNode extends Voicing( Node ) {
         // Empirically determined so that the arrows look centered around the book.
         dragCueOffset: new Vector2( 0, 35 ),
 
-        keyboardHelpText: grabButtonHelpTextString,
+        accessibleHelpText: grabButtonHelpTextString,
 
         onGrab: () => { bookPickupSoundClip.play(); },
 
