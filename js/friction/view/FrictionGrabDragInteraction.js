@@ -36,7 +36,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
     const grabbedUtterance = new Utterance();
 
     // Wrap the onGrab option in default functionality for al of the type in Friction
-    options.onGrab = () => {
+    options.onGrab = inputType => {
       oldGrab && oldGrab();
 
       // just for pdom
@@ -44,7 +44,7 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
       wrappedNode.addAccessibleResponse( grabbedUtterance );
 
       // When using mouse/touch FrictionDragListener will cover voicing responses.
-      if ( this.currentInputType === 'alternative' ) {
+      if ( inputType === 'alternative' ) {
 
         // No name response from PDOM, that comes from focus
         wrappedNode.voicingSpeakResponse( {
