@@ -95,7 +95,7 @@ class FrictionScreenView extends ScreenView {
       atomsJiggleTinyBitUtterance.alert.hintResponse = model.numberOfAtomsShearedOffProperty.value === FrictionModel.NUMBER_OF_SHEARABLE_ATOMS ?
                                                        FrictionStrings.a11y.resetSimMoreObservationSentence : null;
 
-      this.addAccessibleResponse( atomsJiggleTinyBitUtterance );
+      this.addAccessibleContextResponse( atomsJiggleTinyBitUtterance );
 
       Voicing.alertUtterance( atomsJiggleTinyBitUtterance );
     };
