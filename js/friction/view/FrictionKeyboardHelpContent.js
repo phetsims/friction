@@ -63,7 +63,7 @@ class MoveBookHelpSection extends KeyboardHelpSection {
     const moveInSmallerStepsRow = KeyboardHelpSectionRow.labelWithIconList( FrictionStrings.moveInSmallerStepsStringProperty, [
       shiftPlusArrowKeys, shiftPlusWASDKeys
     ], {
-      labelInnerContent: FrictionStrings.a11y.moveInSmallerStepsWithStringProperty
+      accessibleRowDescriptionProperty: FrictionStrings.a11y.moveInSmallerStepsWithStringProperty
     } );
 
     super( FrictionStrings.moveBookHeaderStringProperty, [ moveBookRow, moveInSmallerStepsRow ], options );
