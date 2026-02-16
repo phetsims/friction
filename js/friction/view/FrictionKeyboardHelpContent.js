@@ -54,7 +54,7 @@ class MoveBookHelpSection extends KeyboardHelpSection {
     // BookNode row
     const moveBookIcon = KeyboardHelpIconFactory.arrowOrWasdKeysRowIcon();
     const moveBookRow = KeyboardHelpSectionRow.labelWithIcon( FrictionStrings.moveBookStringProperty, moveBookIcon, {
-      labelInnerContent: FrictionStrings.a11y.moveBookWithStringProperty
+      accessibleRowDescriptionProperty: FrictionStrings.a11y.moveBookWithStringProperty
     } );
 
     // BookNode in smaller steps row
