@@ -6,7 +6,6 @@
  */
 
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import friction from '../../friction.js';
 import FrictionStrings from '../../FrictionStrings.js';
 
 // constants
@@ -89,5 +88,4 @@ class GrabbedDescriber {
   }
 }
 
-friction.register( 'GrabbedDescriber', GrabbedDescriber );
 export default GrabbedDescriber;

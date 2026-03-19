@@ -9,7 +9,6 @@
 
 import dotRandom from '../../../dot/js/dotRandom.js';
 import Color from '../../../scenery/js/util/Color.js';
-import friction from '../friction.js';
 import FrictionStrings from '../FrictionStrings.js';
 
 // constants
@@ -51,7 +50,5 @@ const FrictionConstants = {
   JIGGLE_STRINGS: [ jiggleABitString, jiggleABitString, jiggleALittleString, jiggleALittleString, jiggleALittleString,
     jiggleALotString, jiggleALotString, jiggleALotString, jiggleALotString ]
 };
-
-friction.register( 'FrictionConstants', FrictionConstants );
 
 export default FrictionConstants;

@@ -12,7 +12,6 @@ import KeyboardHelpIconFactory from '../../../../scenery-phet/js/keyboard/help/K
 import KeyboardHelpSection from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSection.js';
 import KeyboardHelpSectionRow from '../../../../scenery-phet/js/keyboard/help/KeyboardHelpSectionRow.js';
 import TwoColumnKeyboardHelpContent from '../../../../scenery-phet/js/keyboard/help/TwoColumnKeyboardHelpContent.js';
-import friction from '../../friction.js';
 import FrictionStrings from '../../FrictionStrings.js';
 
 class FrictionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
@@ -37,8 +36,6 @@ class FrictionKeyboardHelpContent extends TwoColumnKeyboardHelpContent {
     super( leftContent, rightContent, { sectionSpacing: 10 } );
   }
 }
-
-friction.register( 'FrictionKeyboardHelpContent', FrictionKeyboardHelpContent );
 
 /**
  * @param {Object} [options]

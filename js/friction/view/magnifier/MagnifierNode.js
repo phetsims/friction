@@ -26,7 +26,6 @@ import soundManager from '../../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import harpDrop_mp3 from '../../../../sounds/harpDrop_mp3.js';
 import harpPickup_mp3 from '../../../../sounds/harpPickup_mp3.js';
-import friction from '../../../friction.js';
 import FrictionStrings from '../../../FrictionStrings.js';
 import FrictionConstants from '../../FrictionConstants.js';
 import FrictionModel from '../../model/FrictionModel.js';
@@ -390,8 +389,6 @@ class MagnifierNode extends Voicing( Node ) {
     this.resetMagnifierNode();
   }
 }
-
-friction.register( 'MagnifierNode', MagnifierNode );
 
 // helper function that adds a row of circles at the specified position, used to add bumps to the magnified books
 function addRowCircles( circleRadius, xSpacing, parentNode, options ) {

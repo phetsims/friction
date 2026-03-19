@@ -21,7 +21,6 @@ import ResponsePacket from '../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
 import breakOffAutosinfonieSpatialized_mp3 from '../../../sounds/breakOffAutosinfonieSpatialized_mp3.js';
 import contactLower_mp3 from '../../../sounds/contactLower_mp3.js';
-import friction from '../../friction.js';
 import FrictionStrings from '../../FrictionStrings.js';
 import FrictionConstants from '../FrictionConstants.js';
 import FrictionModel from '../model/FrictionModel.js';
@@ -335,5 +334,4 @@ class FrictionScreenView extends ScreenView {
   }
 }
 
-friction.register( 'FrictionScreenView', FrictionScreenView );
 export default FrictionScreenView;

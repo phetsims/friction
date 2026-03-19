@@ -25,7 +25,6 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
-import friction from '../../friction.js';
 import FrictionConstants from '../FrictionConstants.js';
 import Atom from './Atom.js';
 
@@ -488,7 +487,5 @@ function addAtomRow( frictionModel, layerDescription, rowStartXPos, rowYPos, isT
     frictionModel.shearableAtomsByRow.push( shearableAtomsRow );
   }
 }
-
-friction.register( 'FrictionModel', FrictionModel );
 
 export default FrictionModel;

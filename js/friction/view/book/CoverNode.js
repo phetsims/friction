@@ -15,7 +15,6 @@ import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../../scenery/js/nodes/Text.js';
-import friction from '../../../friction.js';
 import FrictionConstants from '../../FrictionConstants.js';
 
 // constants
@@ -115,7 +114,5 @@ class CoverNode extends Node {
     this.addChild( titleText );
   }
 }
-
-friction.register( 'CoverNode', CoverNode );
 
 export default CoverNode;

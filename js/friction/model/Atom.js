@@ -18,7 +18,6 @@ import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
-import friction from '../../friction.js';
 
 // constants
 const SHEAR_OFF_SPEED = 400; // speed that particles travel during shearing, in model units per second
@@ -151,7 +150,5 @@ Atom.AtomIO = new IOType( 'AtomIO', {
     shearingVelocity: Vector2.Vector2IO
   }
 } );
-
-friction.register( 'Atom', Atom );
 
 export default Atom;

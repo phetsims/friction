@@ -8,7 +8,6 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import NoiseGenerator from '../../../../tambo/js/sound-generators/NoiseGenerator.js';
-import friction from '../../friction.js';
 
 // constants
 const AMPLITUDE_AVERAGING_ARRAY_LENGTH = 10;
@@ -119,7 +118,5 @@ class CoolingSoundGenerator extends NoiseGenerator {
   }
 
 }
-
-friction.register( 'CoolingSoundGenerator', CoolingSoundGenerator );
 
 export default CoolingSoundGenerator;

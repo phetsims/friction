@@ -13,7 +13,6 @@ import MovementAlerter from '../../../../../scenery-phet/js/accessibility/descri
 import Voicing from '../../../../../scenery/js/accessibility/voicing/Voicing.js';
 import ResponsePacket from '../../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../../utterance-queue/js/Utterance.js';
-import friction from '../../../friction.js';
 import FrictionStrings from '../../../FrictionStrings.js';
 import FrictionModel from '../../model/FrictionModel.js';
 import LeftRightAlertPair from '../LeftRightAlertPair.js';
@@ -209,5 +208,4 @@ class BookMovementAlerter extends MovementAlerter {
   }
 }
 
-friction.register( 'BookMovementAlerter', BookMovementAlerter );
 export default BookMovementAlerter;

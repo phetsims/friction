@@ -14,7 +14,6 @@ import merge from '../../../../../phet-core/js/merge.js';
 import Node from '../../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../../scenery/js/nodes/Rectangle.js';
-import friction from '../../../friction.js';
 
 class MagnifierTargetNode extends Node {
 
@@ -59,7 +58,5 @@ class MagnifierTargetNode extends Node {
     rectangle.setTranslation( x - width / 2, y - height / 2 );
   }
 }
-
-friction.register( 'MagnifierTargetNode', MagnifierTargetNode );
 
 export default MagnifierTargetNode;

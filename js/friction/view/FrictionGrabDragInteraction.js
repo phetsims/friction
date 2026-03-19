@@ -11,7 +11,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import GrabDragInteraction from '../../../../scenery-phet/js/accessibility/grab-drag/GrabDragInteraction.js';
 import { isVoicing } from '../../../../scenery/js/accessibility/voicing/Voicing.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
-import friction from '../../friction.js';
 
 class FrictionGrabDragInteraction extends GrabDragInteraction {
 
@@ -77,5 +76,4 @@ class FrictionGrabDragInteraction extends GrabDragInteraction {
   }
 }
 
-friction.register( 'FrictionGrabDragInteraction', FrictionGrabDragInteraction );
 export default FrictionGrabDragInteraction;

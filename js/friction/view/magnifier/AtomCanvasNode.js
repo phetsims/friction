@@ -8,7 +8,6 @@
 
 import ShadedSphereNode from '../../../../../scenery-phet/js/ShadedSphereNode.js';
 import CanvasNode from '../../../../../scenery/js/nodes/CanvasNode.js';
-import friction from '../../../friction.js';
 import FrictionConstants from '../../FrictionConstants.js';
 
 // constants
@@ -84,7 +83,5 @@ class AtomCanvasNode extends CanvasNode {
     }
   }
 }
-
-friction.register( 'AtomCanvasNode', AtomCanvasNode );
 
 export default AtomCanvasNode;

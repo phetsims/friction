@@ -12,7 +12,6 @@ import Alerter from '../../../../scenery-phet/js/accessibility/describers/Alerte
 import AriaLiveAnnouncer from '../../../../utterance-queue/js/AriaLiveAnnouncer.js';
 import ResponsePacket from '../../../../utterance-queue/js/ResponsePacket.js';
 import Utterance from '../../../../utterance-queue/js/Utterance.js';
-import friction from '../../friction.js';
 import FrictionStrings from '../../FrictionStrings.js';
 import FrictionModel from '../model/FrictionModel.js';
 
@@ -110,5 +109,4 @@ class BreakAwayAlerter extends Alerter {
   }
 }
 
-friction.register( 'BreakAwayAlerter', BreakAwayAlerter );
 export default BreakAwayAlerter;

@@ -20,7 +20,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import SoundClip from '../../../../tambo/js/sound-generators/SoundClip.js';
 import SoundGenerator from '../../../../tambo/js/sound-generators/SoundGenerator.js';
 import bounceMarimba_mp3 from '../../../sounds/bounceMarimba_mp3.js';
-import friction from '../../friction.js';
 import FrictionConstants from '../FrictionConstants.js';
 import FrictionModel from '../model/FrictionModel.js';
 
@@ -71,7 +70,5 @@ class MoleculeMotionSoundGenerator extends SoundGenerator {
   }
 
 }
-
-friction.register( 'MoleculeMotionSoundGenerator', MoleculeMotionSoundGenerator );
 
 export default MoleculeMotionSoundGenerator;

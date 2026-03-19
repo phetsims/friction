@@ -8,7 +8,6 @@
 import ScreenSummaryContent from '../../../../joist/js/ScreenSummaryContent.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import friction from '../../friction.js';
 import FrictionStrings from '../../FrictionStrings.js';
 import FrictionConstants from '../FrictionConstants.js';
 import FrictionModel from '../model/FrictionModel.js';
@@ -279,5 +278,4 @@ class FrictionScreenSummaryNode extends ScreenSummaryContent {
   }
 }
 
-friction.register( 'FrictionScreenSummaryNode', FrictionScreenSummaryNode );
 export default FrictionScreenSummaryNode;

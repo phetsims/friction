@@ -20,7 +20,6 @@ import soundManager from '../../../../../tambo/js/soundManager.js';
 import Tandem from '../../../../../tandem/js/Tandem.js';
 import simpleDrop_mp3 from '../../../../sounds/simpleDrop_mp3.js';
 import simplePickup_mp3 from '../../../../sounds/simplePickup_mp3.js';
-import friction from '../../../friction.js';
 import FrictionStrings from '../../../FrictionStrings.js';
 import FrictionConstants from '../../FrictionConstants.js';
 import CueArrow from '../CueArrow.js';
@@ -180,7 +179,5 @@ class BookNode extends Voicing( Node ) {
     this.grabDragInteraction.reset();
   }
 }
-
-friction.register( 'BookNode', BookNode );
 
 export default BookNode;

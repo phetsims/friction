@@ -6,7 +6,6 @@
  */
 
 import DirectionEnum from '../../../../scenery-phet/js/accessibility/describers/DirectionEnum.js';
-import friction from '../../friction.js';
 
 class LeftRightAlertPair {
   constructor() {
@@ -47,5 +46,4 @@ class LeftRightAlertPair {
   }
 }
 
-friction.register( 'LeftRightAlertPair', LeftRightAlertPair );
 export default LeftRightAlertPair;
