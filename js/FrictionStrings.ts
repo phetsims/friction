@@ -97,4 +97,6 @@ type StringsType = {
 
 const FrictionStrings = getStringModule( 'FRICTION' ) as StringsType;
 
+friction.register( 'FrictionStrings', FrictionStrings );
+
 export default FrictionStrings;
