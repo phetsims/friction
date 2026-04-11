@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "09f798f17c84352bc724257e5fa7c0f536c9f90f",
+    "sha": "f9acc61704933493284ec37e4e795dd25ce63660",
     "branch": "HEAD"
   },
   "dot": {
@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "friction": {
-    "sha": "2c00444b8cb1d67cee6bab7f8cca2f4f9cddb97c",
+    "sha": "4c9bf258795d4f524351880ee9c48bc88f993af1",
     "branch": "1.6"
   },
   "joist": {
